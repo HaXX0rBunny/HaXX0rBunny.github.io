@@ -781,10 +781,20 @@ function createProjectCard(id, project) {
   `;
 
     // 버튼 클릭 시 카드 클릭 전파 방지
+    //card.querySelectorAll('.project-action').forEach(el => {
+    //    el.addEventListener('click', e => e.stopPropagation());
+    //});
     card.querySelectorAll('.project-action').forEach(el => {
-        el.addEventListener('click', e => e.stopPropagation());
-    });
+        el.addEventListener('click', e => {
+            e.stopPropagation();
 
+            // View Details 버튼인 경우 모달 열기
+            if (el.classList.contains('project-detail-btn')) {
+                e.preventDefault();
+                openProjectModal(id);
+            }
+        });
+    });
     return card;
 }
 
