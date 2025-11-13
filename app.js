@@ -1,6 +1,5 @@
 // Enhanced Game Developer Portfolio JavaScript - Merged Version
 
-// Project data from JSON (1번 파일에서 가져온 내용)
 const projectsData = {
     "1": {
         "title": "Edge Drive",
