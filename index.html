@@ -5,6 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game Developer Portfolio</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+
+        .contact-content {
+            display: flex !important;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-links {
+            flex-direction: row !important;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+    </style>
 </head>
 <body>
     <!-- Loading Spinner -->
@@ -57,10 +74,10 @@
                         <span class="contact-icon">💼</span>
                         <span>LinkedIn</span>
                     </a>
-                    <a href="mailto:sprtms9062@gmail.com" class="contact-link">
+                    <!--<a href="mailto:sprtms9062@gmail.com" class="contact-link">
                         <span class="contact-icon">✉️</span>
                         <span>Email</span>
-                    </a>
+                    </a>-->
                     <a href="https://github.com/HaXX0rBunny" target="_blank" class="contact-link">
                         <span class="contact-icon">👾</span>
                         <span>GitHub</span>
@@ -137,7 +154,7 @@
             </div>
         </section>
 
-        <!-- Contact Section -->
+        <!-- Contact Section (Form Removed) -->
         <section class="contact-section" id="contact">
             <div class="container">
                 <h2 class="section-title">Get In Touch</h2>
@@ -145,34 +162,23 @@
                     <div class="contact-info">
                         <h3>Let's Connect</h3>
                         <p>I'm always interested in discussing new opportunities, innovative projects, and collaborating with fellow game developers.</p>
+
                         <div class="contact-links">
-                            <a href="mailto:sprtms9062@gmail.com" class="contact-link">
+                            <!--<a href="mailto:sprtms9062@gmail.com" class="contact-link">
                                 <span class="contact-icon">✉️</span>
                                 <span>sprtms9062@gmail.com</span>
-                            </a>
+                            </a>-->
                             <a href="https://www.linkedin.com/in/haxxorbunny/" target="_blank" class="contact-link">
                                 <span class="contact-icon">💼</span>
                                 <span>LinkedIn Profile</span>
                             </a>
+                            <a href="https://github.com/HaXX0rBunny" target="_blank" class="contact-link">
+                                <span class="contact-icon">👾</span>
+                                <span>GitHub Profile</span>
+                            </a>
                         </div>
                     </div>
-                    <div class="contact-form">
-                        <form id="contactForm">
-                            <div class="form-group">
-                                <label for="name" class="form-label">Name</label>
-                                <input type="text" id="name" name="name" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" id="email" name="email" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="message" class="form-label">Message</label>
-                                <textarea id="message" name="message" rows="5" class="form-control" required></textarea>
-                            </div>
-                            <button type="submit" class="btn btn--primary btn--full-width">Send Message</button>
-                        </form>
-                    </div>
+                    <!-- Form Removed Here -->
                 </div>
             </div>
         </section>
@@ -206,7 +212,12 @@
                                 <!-- Video will be inserted here -->
                             </div>
                             <div class="project-detail-section">
-                                <h3>Project Overview</h3>
+                                <!-- Header with Links Container -->
+                                <div class="header-with-links" style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
+                                    <h3>Project Overview</h3>
+                                    <div id="modalLinks" class="project-links"></div>
+                                </div>
+
                                 <p id="modalDescription"></p>
                                 <div class="project-meta">
                                     <div class="project-type-badge" id="projectTypeBadge"></div>
