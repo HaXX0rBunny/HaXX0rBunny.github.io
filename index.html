@@ -3,16 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Developer Portfolio</title>
+    <title>CSH Portfolio | Game Developer</title>
     <link rel="stylesheet" href="style.css">
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme') |
+
+| 'dark';
+            document.documentElement.setAttribute('data-color-scheme', savedTheme);
+        })();
+    </script>
 </head>
 <body>
-    <!-- Loading Spinner -->
     <div class="loading-spinner" id="loadingSpinner">
         <div class="spinner"></div>
     </div>
 
-    <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <div class="nav-logo">
@@ -25,7 +31,7 @@
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
             <div class="nav-controls">
-                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">☀️</button>
                 <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
                     <span></span>
                     <span></span>
@@ -35,9 +41,7 @@
         </div>
     </nav>
 
-    <!-- Main Content -->
     <main class="main-content">
-        <!-- Hero Section -->
         <section class="hero-section" id="hero">
             <div class="hero-video-container">
                 <div id="hero-youtube-player" class="hero-video" data-video-id="264Wfi25UOU"></div>
@@ -69,17 +73,14 @@
             </div>
         </section>
 
-        <!-- Projects Section -->
         <section class="projects-section" id="projects">
             <div class="container">
                 <h2 class="section-title">Featured Projects</h2>
                 <div class="projects-grid" id="projectsGrid">
-                    <!-- Projects will be dynamically inserted here -->
-                </div>
+                    </div>
             </div>
         </section>
 
-        <!-- Skills Section -->
         <section class="skills-section" id="skills">
             <div class="container">
                 <h2 class="section-title">Skills & Expertise</h2>
@@ -128,8 +129,10 @@
                     <div class="education-card">
                         <h4>Bachelor of Computer Science and Engineering</h4>
                         <p>Gyeongsang National University (2016-2023)</p>
+                        <br>
                         <h4>Intensive C++-Oriented Game Development Program</h4>
                         <p>DigiPen Game Academy (2024-2025)</p>
+                        <br>
                         <h4>Leveraging Unreal Engine for Digital Twin Development</h4>
                         <p>Next Stage (2025)</p>
                     </div>
@@ -137,7 +140,6 @@
             </div>
         </section>
 
-        <!-- Contact Section -->
         <section class="contact-section" id="contact">
             <div class="container">
                 <h2 class="section-title">Get In Touch</h2>
@@ -178,7 +180,6 @@
         </section>
     </main>
 
-    <!-- Project Modal -->
     <div class="modal" id="projectModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -200,11 +201,9 @@
                     </div>
 
                     <div class="tab-content">
-                        <!-- Overview Tab -->
                         <div class="tab-pane active" id="overviewTab">
                             <div class="project-detail-video" id="modalVideo">
-                                <!-- Video will be inserted here -->
-                            </div>
+                                </div>
                             <div class="project-detail-section">
                                 <h3>Project Overview</h3>
                                 <p id="modalDescription"></p>
@@ -217,14 +216,11 @@
                             </div>
                         </div>
 
-                        <!-- Team & Collaboration Tab -->
                         <div class="tab-pane" id="collaborationTab-content">
                             <div class="collaboration-content">
-                                <!-- Content will be dynamically inserted -->
-                            </div>
+                                </div>
                         </div>
 
-                        <!-- Technical Details Tab -->
                         <div class="tab-pane" id="technicalTab">
                             <div class="technical-content">
                                 <div class="project-detail-section">
@@ -234,18 +230,14 @@
                             </div>
                         </div>
 
-                        <!-- Challenges & Solutions Tab -->
                         <div class="tab-pane" id="challengesTab">
                             <div class="challenges-content">
-                                <!-- Troubleshooting content will be inserted here -->
-                            </div>
+                                </div>
                         </div>
 
-                        <!-- Timeline Tab -->
                         <div class="tab-pane" id="timelineTab">
                             <div class="timeline-content">
-                                <!-- Timeline content will be inserted here -->
-                            </div>
+                                </div>
                         </div>
                     </div>
                 </div>
@@ -253,10 +245,8 @@
         </div>
     </div>
 
-    <!-- Back to Top Button -->
     <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
 
-    <!-- YouTube API Script -->
     <script src="https://www.youtube.com/iframe_api"></script>
     <script src="app.js"></script>
 </body>
