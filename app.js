@@ -1,4 +1,10 @@
-// Enhanced Game Developer Portfolio JavaScript - Merged Version
+
+const icons = {
+    github: '<svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>',
+    steam: '<svg viewBox="0 0 24 24"><path d="M21.644 14.508c-.149-.785-1.03-2.924-4.225-4.888-2.585-1.59-4.269-1.555-4.269-1.555-.164.004-.325.021-.482.046l-4.102-5.959c.287-.583.435-1.218.435-1.852 0-2.376-1.925-4.3-4.301-4.3s-4.301 1.924-4.301 4.3c0 2.298 1.802 4.167 4.07 4.288l2.906 4.218c-.896 1.353-1.272 2.927-1.023 4.439.467 2.835 3.149 4.8 5.986 4.39 1.166-.169 2.213-.717 3.027-1.517l1.011 1.47 1.859-1.278-1.428-2.074c1.171-1.615 1.432-3.235 1.487-3.951.082-1.066.368-1.597 1.271-2.581 1.096-1.192 1.93-1.691 2.08-1.78l-4.288-6.191c.08.069.96 1.096 1.637 2.126.791 1.205 2.162 2.766 2.647 3.141zM4.7 6.1c-1.325 0-2.4-1.075-2.4-2.4s1.075-2.4 2.4-2.4 2.4 1.075 2.4 2.4-1.075 2.4-2.4 2.4zm10.742 13.918c-1.678.242-3.264-.92-3.506-2.597-.104-.716.096-1.411.493-1.983l-2.046-2.973c-.156.037-.315.057-.474.057-1.151 0-2.083-.933-2.083-2.083 0-1.151.932-2.083 2.083-2.083 1.15 0 2.083.932 2.083 2.083 0 .16-.02.318-.057.474l2.973 2.046c.573-.397 1.267-.597 1.983-.493 1.676.242 2.839 1.828 2.597 3.506-.242 1.678-1.83 2.839-3.507 2.597z"/></svg>',
+    youtube: '<svg viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>',
+    default: '<svg viewBox="0 0 24 24"><path d="M14 0l-6 13h-4v2h2.571l5.429 9 6-13h4v-2h-2.571l-5.429-9zM6 13h-4v2h4v-2zm12 0h-4v2h4v-2z"/></svg>'
+};
 
 const projectsData = {
     "1": {
@@ -11,6 +17,10 @@ const projectsData = {
         "technologies": ["Unreal Engine 5.4", "C++", "Blueprint"],
         "description": "A hybrid 3D action game inspired by Bayonetta, Dark Souls, and Paper Mario. As a DigiPen Busan Academy graduation project, this project enhanced my skills in implementing Unreal Engine 5's latest features and complex gameplay systems.",
         "videoUrl": "https://www.youtube.com/embed/264Wfi25UOU",
+        "links": {
+            "github": "https://github.com/Team-Illegal-Design-Club/EdgeDrive", 
+            "youtube": "https://youtube.com/watch?v=264Wfi25UOU"
+        },
         "collaboration_details": {
             "team_size": 4,
             "my_role": "Game Director & Gameplay Programmer",
@@ -63,6 +73,9 @@ const projectsData = {
         "technologies": ["C", "CProcessing"],
         "description": "A roguelike game developed in C featuring advanced physics systems, AI patterns, and level design tools. The project showcases low-level programming skills and game architecture design.",
         "videoUrl": "https://www.youtube.com/embed/dd0ZqgdRN5Y",
+        "links": {
+            "github": "https://github.com/HaXX0rBunny/APETI"
+        },
         "collaboration_details": {
             "team_size": 2,
             "my_role": "System Engineer",
@@ -113,6 +126,9 @@ const projectsData = {
         "technologies": ["C++", "AlphaEngine"],
         "description": "A game jam project developed under tight time constraints, showcasing rapid prototyping skills and efficient implementation of core game systems.",
         "videoUrl": "https://www.youtube.com/embed/I_cFyhu3i0E",
+        "links": {
+            "github": "https://github.com/ido-013/Huntress/tree/main"
+        },
         "collaboration_details": {
             "team_size": 3,
             "my_role": "UI/UX Developer",
@@ -162,6 +178,9 @@ const projectsData = {
         "my_role": "Engine Developer",
         "technologies": ["C++", "OpenGL 4.6", "ImGui", "GLFW"],
         "description": "Custom game engine development project focused on engine architecture design and implementation. Features component-based architecture and advanced debugging tools.",
+        "links": {
+            "github": ""
+        },
         "collaboration_details": {
             "project_type": "Solo Development - Engine Architecture",
             "scope": "Full engine development from ground up",
@@ -206,6 +225,9 @@ const projectsData = {
         "technologies": ["Unreal Engine 4", "C++", "Blueprint"],
         "description": "A comprehensive puzzle game developed in Unreal Engine 4 showcasing advanced C++ programming and Blueprint integration. Features custom QTE system and interactive object rendering.",
         "videoUrl": "https://www.youtube.com/embed/qxAU1XQOO1o",
+        "links": {
+            "github": "https://github.com/HaXX0rBunny"
+        },
         "collaboration_details": {
             "team_size": 3,
             "my_role": "C++ Frontend/Backend Developer & Unreal Engine Specialist",
@@ -248,7 +270,7 @@ const projectsData = {
     }
 };
 
-// YouTube Player Class (1번 파일에서 가져온 기능)
+// YouTube Player Class
 class YouTubeBackgroundPlayer {
     constructor(containerId, videoId, options = {}) {
         this.containerId = containerId;
@@ -541,13 +563,13 @@ document.addEventListener('DOMContentLoaded', function () {
     initializeProjects();
     initializeModal();
     initializeScrollEffects();
-    initializeContactForm();
+    // Removed: initializeContactForm(); -> No form needed
     initializeTypingEffect();
 
     // Initialize hero video after a delay
     setTimeout(() => {
         initializeHeroVideo();
-        loadingSpinner.classList.remove('active');
+        if (loadingSpinner) loadingSpinner.classList.remove('active');
     }, 1000);
 });
 
@@ -725,7 +747,7 @@ function createProjectCard(id, project) {
         return `<span class="${badgeClass}">${tech}</span>`;
     }).join('');
 
-    
+
     const videoSection = project.videoUrl
         ? `<div class="project-video">
            <iframe src="${project.videoUrl}?modestbranding=1&rel=0"
@@ -743,7 +765,7 @@ function createProjectCard(id, project) {
            </div>
        </div>`;
 
-  
+
     const downloadBtn = project.downloadLink
         ? `<a href="${project.downloadLink}" target="_blank" class="btn btn--secondary download-btn project-action">
            📁 Demo Download
@@ -871,6 +893,16 @@ function closeProjectModal() {
     }
     document.body.style.overflow = '';
     currentProjectId = null;
+
+    // Stop video
+    const modalVideo = document.getElementById('modalVideo');
+    if (modalVideo) {
+        const iframe = modalVideo.querySelector('iframe');
+        if (iframe) {
+            const src = iframe.src;
+            iframe.src = src; // Reload iframe to stop video
+        }
+    }
 }
 
 function switchTab(tabId) {
@@ -898,6 +930,7 @@ function populateOverviewTab(project) {
     const roleInfo = document.getElementById('roleInfo');
     const modalTechStack = document.getElementById('modalTechStack');
     const downloadSection = document.getElementById('downloadSection');
+    const modalLinks = document.getElementById('modalLinks');
 
     // Video
     if (modalVideo) {
@@ -919,6 +952,31 @@ function populateOverviewTab(project) {
                 </div>
             `;
             modalVideo.classList.add('modal-video--no-content');
+        }
+    }
+
+    // Links
+    if (modalLinks) {
+        modalLinks.innerHTML = '';
+        if (project.links) {
+            Object.entries(project.links).forEach(([platform, url]) => {
+                if (!url) return;
+
+                const linkBtn = document.createElement('a');
+                linkBtn.href = url;
+                linkBtn.target = '_blank';
+                linkBtn.className = 'project-link-btn';
+
+                // Get Icon
+                const iconKey = platform.toLowerCase();
+                const iconSvg = icons[iconKey] || icons.default;
+
+                // Capitalize Label
+                const label = platform.charAt(0).toUpperCase() + platform.slice(1);
+
+                linkBtn.innerHTML = `${iconSvg} ${label}`;
+                modalLinks.appendChild(linkBtn);
+            });
         }
     }
 
@@ -1114,34 +1172,7 @@ function initializeScrollEffects() {
     });
 }
 
-function initializeContactForm() {
-    const contactForm = document.getElementById('contactForm');
-    if (!contactForm) return;
-
-    contactForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-
-        // Get form data
-        const formData = new FormData(contactForm);
-        const name = formData.get('name');
-        const email = formData.get('email');
-        const message = formData.get('message');
-
-        // Create mailto link
-        const subject = encodeURIComponent(`Portfolio Contact from ${name}`);
-        const body = encodeURIComponent(`From: ${name} (${email})\n\nMessage:\n${message}`);
-        const mailtoLink = `mailto:sprtms9062@gmail.com?subject=${subject}&body=${body}`;
-
-        // Open email client
-        window.open(mailtoLink);
-
-        // Reset form
-        contactForm.reset();
-
-        // Show success message
-        alert('Email client opened! Thank you for reaching out.');
-    });
-}
+// Removed: initializeContactForm function
 
 // Intersection Observer for animations
 const observerOptions = {
