@@ -2,7 +2,6 @@
    1. Theme Variables (Dark Mode Default)
    ========================================= */
 :root {
-    /* [수정] 기본값을 다크 모드 변수로 설정 */
     
     /* RGB versions for opacity control */
     --color-gray-400-rgb: 119, 124, 124;
@@ -394,11 +393,11 @@ a:hover { color: var(--color-primary-hover); }
     backdrop-filter: blur(20px); border: 1px solid rgba(var(--color-border-rgb), 0.2);
     transition: all 0.3s ease;
     
-    /* [수정] 긴 텍스트/이메일 대응 */
+
     max-width: 100%;
 }
 .contact-link span:last-child {
-    word-break: break-all; /* 이메일 주소 줄바꿈 처리 */
+    word-break: break-all; 
 }
 .contact-link:hover {
     background: rgba(var(--color-primary-rgb), 0.2);
