@@ -169,104 +169,6 @@ const projectsData = {
             ]
         },
         "downloadLink": "assets/downloads/Huntress_setup.exe"
-    },
-    "4": {
-        "title": "Redash Engine",
-        "subtitle": "Custom Game Engine",
-        "project_type": "solo",
-        "is_team_project": false,
-        "my_role": "Engine Developer",
-        "technologies": ["C++", "OpenGL 4.6", "ImGui", "GLFW"],
-        "description": "Custom game engine development project focused on engine architecture design and implementation. Features component-based architecture and advanced debugging tools.",
-        "links": {
-            "github": ""
-        },
-        "collaboration_details": {
-            "project_type": "Solo Development - Engine Architecture",
-            "scope": "Full engine development from ground up",
-            "self_managed_aspects": ["Architecture design", "Rendering pipeline", "Component system", "Editor tools"]
-        },
-        "technical_challenges": [
-            "Implementing efficient component system",
-            "Creating real-time debugging tools",
-            "Optimizing OpenGL rendering pipeline",
-            "Memory management and resource loading"
-        ],
-        "troubleshooting": {
-            "component_performance": {
-                "problem": "Component system causing performance overhead",
-                "root_cause": "Inefficient component lookup and iteration",
-                "solution": "Developed custom ECS with data-oriented design",
-                "result": "Module replacement testing completed within 5 minutes"
-            },
-            "rendering_optimization": {
-                "problem": "Frame drops with complex scenes",
-                "root_cause": "Inefficient draw calls and state management",
-                "solution": "Implemented batching system and state sorting",
-                "result": "35% frame drop elimination with custom profiler"
-            }
-        },
-        "development_timeline": {
-            "duration": "6 months",
-            "phases": [
-                { "phase": "Core Architecture", "duration": "1 months", "focus": "Component system and basic rendering" },
-                { "phase": "Advanced Features", "duration": "1 months", "focus": "Editor tools and debugging" },
-                { "phase": "Optimization", "duration": "1 month", "focus": "Performance tuning and documentation" }
-            ]
-        }
-    },
-    "5": {
-        "title": "Rescue Simulator",
-        "subtitle": "Comprehensive Puzzle Game",
-        "project_type": "team",
-        "is_team_project": true,
-        "team_size": 3,
-        "my_role": "C++ Frontend/Backend Developer & UE Specialist",
-        "technologies": ["Unreal Engine 4", "C++", "Blueprint"],
-        "description": "A comprehensive puzzle game developed in Unreal Engine 4 showcasing advanced C++ programming and Blueprint integration. Features custom QTE system and interactive object rendering.",
-        "videoUrl": "https://www.youtube.com/embed/qxAU1XQOO1o",
-        "links": {
-            "github": "https://github.com/HaXX0rBunny"
-        },
-        "collaboration_details": {
-            "team_size": 3,
-            "my_role": "C++ Frontend/Backend Developer & Unreal Engine Specialist",
-            "team_roles": [
-                "C++ Frontend/Backend Developer & UE Specialist (Me)",
-                "Game Designer & Level Designer",
-                "QA Tester & Documentation Lead"
-            ],
-            "collaboration_tools": ["Git", "Gdrive", "Discord"],
-            "team_dynamics": "Responsible for technical architecture and engine integration while working closely with designers on gameplay mechanics."
-        },
-        "technical_challenges": [
-            "Implementing efficient QTE system with precise timing",
-            "Optimizing rendering pipeline for outline effects",
-            "Debugging complex memory leaks in C++ code",
-            "Blueprint-C++ integration challenges"
-        ],
-        "troubleshooting": {
-            "qte_precision": {
-                "problem": "QTE system timing inconsistencies across different framerates",
-                "root_cause": "Frame-dependent timing calculations",
-                "solution": "Developed custom timer system with millisecond precision",
-                "result": "Consistent QTE timing regardless of framerate"
-            },
-            "memory_leaks": {
-                "problem": "Memory leaks in C++ components causing crashes",
-                "root_cause": "Improper UPROPERTY cleanup and circular references",
-                "solution": "Implemented comprehensive memory management system",
-                "result": "Eliminated crashes and improved stability"
-            }
-        },
-        "development_timeline": {
-            "duration": "4 months",
-            "phases": [
-                { "phase": "Planning & Design", "duration": "1 month", "focus": "Game design and technical architecture" },
-                { "phase": "Core Development", "duration": "2 months", "focus": "QTE system and puzzle mechanics" },
-                { "phase": "Testing & Polish", "duration": "1 month", "focus": "Bug fixes and optimization" }
-            ]
-        }
     }
 };
 
@@ -487,7 +389,7 @@ class YouTubeBackgroundPlayer {
         <div style="position: fixed; top: 80px; left: 50%; transform: translateX(-50%); 
                     background: rgba(33, 128, 141, 0.9); color: white; padding: 10px 20px; 
                     border-radius: 8px; z-index: 1001; font-size: 14px;">
-            🎬 클릭하여 배경 영상 재생
+            Play background video
         </div>
     `;
         document.body.appendChild(notification);
@@ -599,7 +501,8 @@ function setTheme(theme) {
     currentTheme = theme;
     document.documentElement.setAttribute('data-color-scheme', theme);
     if (themeToggle) {
-        themeToggle.textContent = theme === 'dark' ? '☀️' : '🌙';
+        themeToggle.textContent = theme === 'dark' ? 'Light' : 'Dark';
+        themeToggle.setAttribute('aria-label', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
     }
     try {
         localStorage.setItem('theme', theme);
@@ -736,8 +639,7 @@ function createProjectCard(id, project) {
         }
     });
 
-    const typeIcon = project.is_team_project ? '👥' : '👤';
-    const typeText = project.is_team_project ? `Team of ${project.team_size}` : 'Solo Project';
+    const typeText = project.is_team_project ? `Team · ${project.team_size}` : 'Solo';
     const typeBadgeClass = project.is_team_project ? 'team' : 'solo';
 
     const techBadges = project.technologies.map(tech => {
@@ -757,7 +659,7 @@ function createProjectCard(id, project) {
        </div>`
         : `<div class="project-video project-video--placeholder">
            <div class="video-placeholder">
-               <div class="placeholder-icon">🎬</div>
+               <div class="placeholder-icon">VIDEO</div>
                <div class="placeholder-text">
                    <h4>${project.title}</h4>
                    <p>Prepare demo video</p>
@@ -768,7 +670,7 @@ function createProjectCard(id, project) {
 
     const downloadBtn = project.downloadLink
         ? `<a href="${project.downloadLink}" target="_blank" class="btn btn--secondary download-btn project-action">
-           📁 Demo Download
+           Download Demo
        </a>`
         : '';
 
@@ -782,7 +684,7 @@ function createProjectCard(id, project) {
               
               <div class="project-type-indicator">
                   <div class="project-type-badge ${typeBadgeClass}">
-                      <span>${typeIcon}</span><span>${typeText}</span>
+                      <span>${typeText}</span>
                   </div>
                   <div class="role-badge">${project.my_role}</div>
               </div>
@@ -944,7 +846,7 @@ function populateOverviewTab(project) {
         } else {
             modalVideo.innerHTML = `
                 <div class="modal-video-placeholder">
-                    <div class="placeholder-icon">🎬</div>
+                    <div class="placeholder-icon">VIDEO</div>
                     <div class="placeholder-content">
                         <h4>preparing a demo video</h4>
                         <p>${project.title} preparing a demo project video</p>
@@ -987,13 +889,11 @@ function populateOverviewTab(project) {
 
     // Project type badge
     if (projectTypeBadge) {
-        const typeIcon = project.is_team_project ? '👥' : '👤';
-        const typeText = project.is_team_project ? `Team of ${project.team_size}` : 'Solo Project';
+        const typeText = project.is_team_project ? `Team · ${project.team_size}` : 'Solo';
         const typeBadgeClass = project.is_team_project ? 'team' : 'solo';
 
         projectTypeBadge.innerHTML = `
             <div class="project-type-badge ${typeBadgeClass}">
-                <span>${typeIcon}</span>
                 <span>${typeText}</span>
             </div>
         `;
@@ -1020,7 +920,6 @@ function populateOverviewTab(project) {
         if (project.downloadLink) {
             downloadSection.innerHTML = `
                 <a href="${project.downloadLink}" target="_blank" class="download-btn">
-                    <span>📁</span>
                     <span>Download Project</span>
                 </a>
             `;
@@ -1089,24 +988,24 @@ function populateChallengesTab(project) {
 
     const troubleshootingCards = Object.entries(project.troubleshooting).map(([key, issue]) => `
         <div class="troubleshooting-card">
-            <h4>🔧 ${key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</h4>
+            <h4>${key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</h4>
             <div class="problem-solution-grid">
                 <div class="problem-section">
-                    <h5>❌ Problem</h5>
+                    <h5>Problem</h5>
                     <p>${issue.problem}</p>
                 </div>
                 <div class="solution-section">
-                    <h5>✅ Solution</h5>
+                    <h5>Solution</h5>
                     <p>${issue.solution}</p>
                 </div>
             </div>
             <div class="problem-solution-grid">
                 <div class="problem-section">
-                    <h5>🔍 Root Cause</h5>
+                    <h5>Root Cause</h5>
                     <p>${issue.root_cause}</p>
                 </div>
                 <div class="result-highlight">
-                    <h5>📈 Result</h5>
+                    <h5>Result</h5>
                     <p>${issue.result}</p>
                 </div>
             </div>
