@@ -223,7 +223,7 @@ const projectsData = {
                 { "phase": "1st Game Jam", "duration": "Week 01", "focus": "Jungle Brick Break, game loop, input, and collision foundations" },
                 { "phase": "Break Into 3D", "duration": "Week 02", "focus": "3D primitives, scene components, camera transforms, and sky sphere" },
                 { "phase": "Atlas · Billboard · Batch Line · Bounding Box", "duration": "Week 03", "focus": "Reusable rendering utilities and engine debugging features" },
-                { "phase": "OBJ Import", "duration": "Week 04", "focus": "OBJ viewing, object management, binary baking, and UV behavior" },
+                { "phase": "OBJ Import", "duration": "Week 04", "focus": "OBJ/MTL import, UStaticMesh assets, registry lookup, and versioned .dasset cooking" },
                 { "phase": "2nd Game Jam · It's Pie Time", "duration": "Week 05", "focus": "Octahedral impostor baking and large-scene rendering optimization" },
                 { "phase": "Decal · Clearing the Fog", "duration": "Week 06", "focus": "Surface decals, volumetric fog, and atmospheric rendering" },
                 { "phase": "Let There Be Light", "duration": "Week 07", "focus": "Real-time lighting and material integration" },

@@ -336,34 +336,176 @@ const float NdcY =
     {
         week: '04',
         theme: 'OBJ Import',
-        title: 'Asset Import Pipeline',
-        summary: 'Developed the path from external OBJ data to reusable engine mesh assets, viewing, binary baking, and UV behavior.',
-        role: 'Asset Pipeline Integration (snapshot-verified)',
-        objective: 'Stop treating OBJ files as one-time demo inputs and turn them into assets the engine can load, inspect, and reuse.',
+        title: 'OBJ Asset Pipeline & Binary Cooking',
+        summary: 'Built the engine path from OBJ/MTL parsing to UStaticMesh assets, registry-backed lookup, editor use, and versioned .dasset binary reload.',
+        role: 'Asset Pipeline & Engine Programmer',
+        objective: 'Turn external OBJ files into reusable engine assets and avoid reparsing unchanged text geometry on every load.',
         contributions: [
-            'The authored snapshot contains FObjManager and UStaticMesh responsibilities for imported geometry.',
-            'The same snapshot contains TObjectIterator-style object traversal and the engine object model integration.',
-            'OBJ viewing, archive/bake paths, and UV scrolling are present, but the pre-snapshot line history is not preserved.'
+            'Separated OBJ/MTL parsing into FObjImporter and represented imported geometry through FObjInfo, FStaticMeshRenderData, and UStaticMesh.',
+            'Implemented TObjectIterator, FObjManager, FAssetManager/FAssetRegistry integration, material sections, and texture-path resolution.',
+            'Implemented versioned .dasset cook/load with source timestamp and FNV-1a hash validation, then connected component, material, texture, and UV-state serialization.',
+            'ObjViewerPanel and the multi-viewport SWindow foundation are team-authored areas and are not presented as personal implementation.'
         ],
         implementation: [
-            'OBJ parsing and static-mesh construction',
-            'FArchive, FWindowsBinWriter, and FWindowsBinReader binary path',
-            'OBJ Viewer, object iteration, and UV scroll controls'
+            'OBJ/MTL token parsing, material sections, indexed vertex construction, and static-mesh bounds',
+            'UStaticMesh object ownership, TObjectIterator traversal, asset registry lookup, and runtime mesh/texture caches',
+            'FAssetCooker binary header, versioning, source validation, .dasset save/load, and stale-cache recooking',
+            'Static-mesh picking plus scene serialization for mesh, material, texture, and per-slot UV-scroll state'
         ],
-        flow: 'OBJ text → parsed mesh → engine object → binary bake → fast reload',
-        technologies: ['C++', 'OBJ', 'FArchive', 'Binary I/O', 'UV'],
+        flow: 'OBJ + MTL → FObjInfo → indexed mesh build → UStaticMesh / asset registry → .dasset cook → validated binary reload',
+        technologies: ['C++', 'DirectX 11', 'OBJ/MTL', 'Binary I/O', 'Asset Registry', 'ImGui'],
         results: [
-            'The preserved project state contains an engine-managed OBJ/static-mesh asset workflow.',
-            'Personal custody and integration are commit-backed; original implementation ownership remains partially unverified.'
+            'Converted external geometry from a one-off text input into an engine-managed static-mesh asset workflow.',
+            'Added a deterministic binary reload path that reuses valid cooked data and recooks when source content or the format version changes.',
+            'Preserved the original Week04 commit graph and all 16 upstream branches without rewriting commit hashes; no unverified speedup number is claimed.'
         ],
-        evidenceStatus: 'Snapshot commit verified; original authorship incomplete',
-        evidenceNote: 'Commit f023410, authored by HaXX0rBunny, adds ObjManager, UStaticMesh, TObjectIterator, ObjViewerPanel, and Archive sources to the later game-jam repository. Because that commit imports the project as one snapshot, it proves custody/integration of the code but not the original line-by-line Week04 authorship.',
-        sourceUrl: 'https://github.com/HaXX0rBunny/Week5_Team4_Gamejam/commit/f02341063228af043cb322bb36605dbccaf3a82a',
-        sourceLabel: 'Open imported project snapshot',
-        troubleshootingPending: 'Original Week04 source files and pre-snapshot commit history are not available yet. Troubleshooting cases will be added after those files are recovered; the imported Week05 snapshot is not sufficient to reconstruct symptom, cause, and fix truthfully.',
-        troubleshooting: [],
+        evidenceStatus: 'Original Week04 author commits verified',
+        evidenceNote: 'Between the Week03 snapshot c7e30e4e and Week04 main 1d193e53, the preserved graph contains 60 commits attributed to HaXX0rBunny, including 44 non-merge commits. Three authors contributed in this range; personal scope below follows author, diff, and blame evidence rather than assigning every team feature to one person.',
+        sourceUrl: 'https://github.com/HaXX0rBunny/Week3_Team5_DinoEngine/tree/week04/main',
+        sourceLabel: 'Open preserved Week04 source and history',
+        troubleshooting: [
+            {
+                title: 'Korean and other non-ASCII asset paths failed to open reliably',
+                symptom: 'OBJ, MTL, texture, and cooked-asset paths could fail when the project or asset path contained Korean characters.',
+                cause: 'File access mixed UTF-8 strings, std::filesystem narrow conversions, and .string() reconstruction, so Windows path encoding was not handled consistently.',
+                fix: 'Migrated importer, cooker, property, and primitive file-access call sites to the existing FPaths::ToWide UTF-8/UTF-16 helper and rebuilt relative OBJ/MTL paths without converting them back through a narrow filesystem string.',
+                result: 'Importer, cooker, property comparison, and primitive loading now pass Windows-native wide paths to file APIs while retaining normalized engine paths.',
+                code: {
+                    file: 'Engine/Source/Mesh/ObjImporter.cpp',
+                    context: 'FObjImporter::ParseObj()',
+                    language: 'C++',
+                    snippet: `std::ifstream File(
+    FPaths::ToWide(FPaths::ToAbsolutePath(FilePath)));
+
+FString AbsPath = FPaths::ToAbsolutePath(FilePath);
+size_t Slash = AbsPath.rfind('/');
+FString ObjDir = (Slash != std::string::npos)
+    ? AbsPath.substr(0, Slash) : AbsPath;
+MtlPath = ObjDir + "/" + MtlFileName;`
+                },
+                commit: { hash: 'c2cb6e5', url: 'https://github.com/HaXX0rBunny/Week3_Team5_DinoEngine/commit/c2cb6e548e0147de6f4c631b88183ae9e09b9269' }
+            },
+            {
+                title: 'Cold loads had no validated binary alternative to OBJ parsing',
+                symptom: 'A mesh not already present in the runtime cache had to pass through raw OBJ import, with no cooked representation or reliable stale-data check.',
+                cause: 'Raw vertex/index/section data and source identity were not stored together in a versioned binary asset format.',
+                fix: 'Added FAssetCooker and a .dasset header containing magic, format version, source timestamp, and FNV-1a source hash; unchanged sources use binary load while invalid data is recooked.',
+                result: 'The loader can reject wrong or outdated binary data and bypass OBJ parsing when the validated cooked asset is current. No timing benchmark was preserved.',
+                code: {
+                    file: 'Engine/Source/Asset/AssetCooker.cpp',
+                    context: 'FAssetCooker::SaveCookedStaticMesh()',
+                    language: 'C++',
+                    snippet: `FCookedAssetHeader Header{};
+Header.Magic = DINO_COOKED_MAGIC;
+Header.Version = COOKED_STATIC_MESH_VERSION;
+Header.AssetType = static_cast<uint32>(
+    ECookedAssetType::StaticMesh);
+Header.SourceHash = ComputeFileHash(AbsSource);
+Header.SourceTimestamp = GetFileTimestamp(AbsSource);`
+                },
+                commit: { hash: 'a14c7f7', url: 'https://github.com/HaXX0rBunny/Week3_Team5_DinoEngine/commit/a14c7f77c86d923fd78cc138de2212d79519cd14' }
+            },
+            {
+                title: 'OBJ cooking duplicated face-corner vertices and repeated material searches',
+                symptom: 'Each parsed face corner became a new render vertex even when position, normal, and UV were identical, and material lookup contained a duplicate nested loop.',
+                cause: 'The cooker appended vertices linearly without an indexed-vertex key and searched the same material collection twice per section.',
+                fix: 'Introduced a hash/equality key over position, normal, and UV, reused existing indices, and reduced material resolution to one loop with an early exit.',
+                result: 'Equivalent face corners share an index and each section performs one material search. The commit verifies the structural reduction, not a measured frame-time gain.',
+                code: {
+                    file: 'Engine/Source/Mesh/ObjImporter.cpp',
+                    context: 'FObjImporter::Cook()',
+                    language: 'C++',
+                    snippet: `auto It = UniqueVertices.find(V);
+if (It != UniqueVertices.end())
+{
+    MeshData->Indices.push_back(It->second);
+}
+else
+{
+    uint32 NewIndex = static_cast<uint32>(
+        MeshData->Vertices.size());
+    MeshData->Vertices.push_back(V);
+    MeshData->Indices.push_back(NewIndex);
+    UniqueVertices[V] = NewIndex;
+}`
+                },
+                commit: { hash: 'c5677ef', url: 'https://github.com/HaXX0rBunny/Week3_Team5_DinoEngine/commit/c5677ef45dd7247f9b3777e55d903998b8e51efc' }
+            },
+            {
+                title: 'Imported UStaticMesh actors could not be selected',
+                symptom: 'Triangle picking worked for legacy primitive-backed components but skipped static meshes stored through the new mesh-component path.',
+                cause: 'The picker continued only when UPrimitiveComponent::GetPrimitive() returned a legacy CPrimitiveBase instance.',
+                fix: 'Kept the legacy path and added a UMeshComponent fallback that obtains FMeshData directly from the component before triangle intersection.',
+                result: 'Both legacy primitives and imported UStaticMesh components participate in the same triangle-picking pass.',
+                code: {
+                    file: 'Editor/Source/Picking/Picker.cpp',
+                    context: 'FPicker::PickActor()',
+                    language: 'C++',
+                    snippet: `FMeshData* Mesh = nullptr;
+if (PrimitiveComponent->GetPrimitive())
+    Mesh = PrimitiveComponent->GetPrimitive()->GetMeshData();
+else if (PrimitiveComponent->IsA(
+    UMeshComponent::StaticClass()))
+    Mesh = static_cast<UMeshComponent*>(
+        PrimitiveComponent)->GetMeshData();`
+                },
+                commit: { hash: '178e8f0', url: 'https://github.com/HaXX0rBunny/Week3_Team5_DinoEngine/commit/178e8f03427001283f1639faa2b06b4ec126886e' }
+            },
+            {
+                title: 'Reloaded scenes lost mesh-component dependencies and UV state',
+                symptom: 'A scene reload could reconstruct an actor without restoring its component flags, material/texture dependencies, or per-slot UV-scroll settings.',
+                cause: 'FArchive initially lacked the required string-array and float/state coverage, and component classes did not serialize their dependent asset properties end to end.',
+                fix: 'Extended FArchive and component Serialize functions, restored textures after mesh/material creation, and saved each slot’s UVEnabled and UVSpeed values.',
+                result: 'Saved scenes can reconstruct the static-mesh asset relationship and reapply material, texture, and UV-scroll state in dependency order.',
+                code: {
+                    file: 'Engine/Source/Component/StaticMeshComponent.cpp',
+                    context: 'UStaticMeshComponent::Serialize()',
+                    language: 'C++',
+                    snippet: `FString EnabledKey = "UVEnabled_" + std::to_string(i);
+FString SpeedKey = "UVSpeed_" + std::to_string(i);
+
+bool bEnabled = IsUVScrollEnabled(i);
+FVector2 Speed = GetUVScrollSpeed(i);
+FVector SpeedVec3(Speed.X, Speed.Y, 0.0f);
+Ar.Serialize(EnabledKey, bEnabled);
+Ar.Serialize(SpeedKey, SpeedVec3);`
+                },
+                commit: {
+                    label: 'Serialization sequence',
+                    hash: '1a6dbc3 → def0d49 → ac13b14',
+                    url: 'https://github.com/HaXX0rBunny/Week3_Team5_DinoEngine/commit/ac13b1404b566ee7c84fa7e9bb3cbece3e8a3a42'
+                }
+            },
+            {
+                title: 'Texture SRVs and asset caches retained GPU ownership at shutdown',
+                symptom: 'Static-mesh texture assignment added an extra COM reference, while cached SRVs and meshes had no explicit renderer-shutdown cleanup path.',
+                cause: 'Texture ownership was incremented in both the asset manager handoff and the component, and renderer teardown did not clear the engine caches before releasing the D3D11 device.',
+                fix: 'Removed the redundant component AddRef, added FAssetManager::ClearCache to release cached SRVs and clear mesh/texture maps, and invoked primitive/asset cache cleanup before context and device release.',
+                result: 'COM reference ownership and cache teardown are explicit. The change is code-verified; no measured GPU-memory reduction is claimed.',
+                code: {
+                    file: 'Engine/Source/Asset/AssetManager.cpp',
+                    context: 'FAssetManager::ClearCache()',
+                    language: 'C++',
+                    snippet: `for (auto& Pair : LoadedTextures)
+{
+    if (Pair.second)
+        Pair.second->Release();
+}
+LoadedTextures.clear();
+LoadedMeshes.clear();`
+                },
+                commit: { hash: 'c24e24b', url: 'https://github.com/HaXX0rBunny/Week3_Team5_DinoEngine/commit/c24e24b7a525e2c9a705d30c85ddabfdff43f909' }
+            }
+        ],
         commitRefs: [
-            { hash: 'f023410', label: 'OBJ/StaticMesh/Iterator/Viewer/Archive snapshot', url: 'https://github.com/HaXX0rBunny/Week5_Team4_Gamejam/commit/f02341063228af043cb322bb36605dbccaf3a82a' }
+            { hash: 'e97bf4a', label: 'OBJ/MTL importer, FObjInfo, and TObjectIterator', url: 'https://github.com/HaXX0rBunny/Week3_Team5_DinoEngine/commit/e97bf4aaa914b8643717c5942d5c62b533855406' },
+            { hash: 'd877a18', label: 'FObjManager and UStaticMesh foundation', url: 'https://github.com/HaXX0rBunny/Week3_Team5_DinoEngine/commit/d877a18bc00f8445d219ebb204e3e26f22a60b24' },
+            { hash: 'a14c7f7', label: 'Versioned .dasset cooking and loading', url: 'https://github.com/HaXX0rBunny/Week3_Team5_DinoEngine/commit/a14c7f77c86d923fd78cc138de2212d79519cd14' },
+            { hash: 'c2cb6e5', label: 'Unicode asset-path handling', url: 'https://github.com/HaXX0rBunny/Week3_Team5_DinoEngine/commit/c2cb6e548e0147de6f4c631b88183ae9e09b9269' },
+            { hash: 'c5677ef', label: 'Indexed-vertex and material-loop correction', url: 'https://github.com/HaXX0rBunny/Week3_Team5_DinoEngine/commit/c5677ef45dd7247f9b3777e55d903998b8e51efc' },
+            { hash: '178e8f0', label: 'Static-mesh picking integration', url: 'https://github.com/HaXX0rBunny/Week3_Team5_DinoEngine/commit/178e8f03427001283f1639faa2b06b4ec126886e' },
+            { hash: 'ac13b14', label: 'Mesh/material/texture/UV serialization', url: 'https://github.com/HaXX0rBunny/Week3_Team5_DinoEngine/commit/ac13b1404b566ee7c84fa7e9bb3cbece3e8a3a42' },
+            { hash: 'c24e24b', label: 'GPU and asset-cache cleanup', url: 'https://github.com/HaXX0rBunny/Week3_Team5_DinoEngine/commit/c24e24b7a525e2c9a705d30c85ddabfdff43f909' }
         ]
     },
     {
@@ -2680,7 +2822,7 @@ function renderDetailPanel() {
         const pending = week.troubleshootingPending
             ? `<section class="lab-trouble-pending">
                     <span class="lab-detail-label">Pending source recovery</span>
-                    <h4>Week04 troubleshooting is intentionally not reconstructed.</h4>
+                    <h4>Source recovery is still pending.</h4>
                     <p>${week.troubleshootingPending}</p>
                </section>`
             : '';
