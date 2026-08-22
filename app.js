@@ -64,130 +64,131 @@ const projectsData = {
         "downloadLink": "https://drive.google.com/file/d/1XqZQiWAvwnG1kajS_e9Vc4t5MeMhALR_/view?usp=sharing"
     },
     "2": {
-        "title": "MegaRogue Project",
-        "subtitle": "Advanced Roguelike Game",
+        "title": "MegaRogue",
+        "subtitle": "2D Action Platformer · Boss-Rush Prototype",
         "project_type": "team",
         "is_team_project": true,
         "team_size": 2,
-        "my_role": "Gameplay Engineer",
-        "technologies": ["C", "CProcessing"],
-        "description": "A roguelike game developed in C featuring advanced physics systems, AI patterns, and level design tools. The project showcases low-level programming skills and game architecture design.",
+        "my_role": "Gameplay & Systems Programmer",
+        "technologies": ["C", "CProcessing", "FMOD"],
+        "description": "A C-based 2D action prototype built around pooled projectiles, data-driven levels, three boss state machines, and explicit game-state resource lifetimes. The public repository retains the original APETI name while the shipped menu identifies the game as MEGA ROGUE.",
         "videoUrl": "https://www.youtube.com/embed/dd0ZqgdRN5Y",
         "links": {
             "github": "https://github.com/HaXX0rBunny/APETI"
         },
         "collaboration_details": {
             "team_size": 2,
-            "my_role": "System Engineer",
+            "my_role": "Gameplay & Systems Programmer",
             "team_roles": [
-                "Gameplay Engineer (Me)",
-                "System Engineer",
+                "Gameplay & Systems Programmer (Me)",
+                "Gameplay & Content Programmer"
             ],
-            "collaboration_tools": ["Git", "Discord"],
-            "team_dynamics": "Client development including design, programming, and testing"
+            "collaboration_tools": ["Git", "Visual Studio"],
+            "team_dynamics": "Shared C codebase with feature branches for gameplay, bosses, editor integration, and final state wiring"
         },
         "technical_challenges": [
-            "Real-time collision detection optimization",
-            "AI state management complexity",
-            "Memory management without garbage collection",
-            "Cross-platform compatibility issues"
+            "Keeping projectile movement deterministic across frame rates",
+            "Reusing fixed-capacity projectile and hazard pools",
+            "Coordinating menu, game, boss, clear, and game-over states",
+            "Serializing editable level data into text-based .lvl files",
+            "Matching sound-handle lifetime to each game state's init/exit cycle"
         ],
         "troubleshooting": {
-            "collision_performance": {
-                "problem": "Collision detection causing performance bottlenecks",
-                "root_cause": "Naive O(n²) collision checking between all entities",
-                "solution": "Implemented spatial partitioning with quadtree data structure",
-                "result": "Achieved 15% CPU usage optimization for collision detection"
+            "projectile_timestep": {
+                "problem": "Projectile movement could slow down at 60 Hz and stop updating at frame times below 0.01 seconds.",
+                "root_cause": "The integration count used floor(dt / 0.01), discarding the remainder and producing zero steps at 120 Hz.",
+                "solution": "Split each frame's full dt into three equal substeps and run movement plus collision for every substep.",
+                "result": "The updated loop integrates the complete frame delta; this is a code-derived correction, not a measured benchmark."
             },
-            "ai_complexity": {
-                "problem": "Boss AI behavior becoming unpredictable with state conflicts",
-                "root_cause": "Multiple state transitions occurring simultaneously",
-                "solution": "Designed state pattern with priority-based transition system",
-                "result": "Eliminated AI behavior conflicts and improved boss fight experience"
+            "enemy_patrol_collision": {
+                "problem": "A patrolling enemy could accumulate movement into a wall or platform edge before reversing.",
+                "root_cause": "The code reversed velocity after a tentative move without restoring the pre-move position.",
+                "solution": "Save originalPos, test the tentative move, restore on collision or missing ground, then flip direction.",
+                "result": "Rejected patrol moves no longer become the starting point of the next frame."
+            },
+            "sound_lifetime": {
+                "problem": "Player and menu audio handles had overlapping or missing cleanup paths across state transitions.",
+                "root_cause": "Cleanup was split between button callbacks, GameOver_exit, and state-exit functions.",
+                "solution": "Moved ownership to the corresponding game/menu exit paths and removed duplicate callback cleanup.",
+                "result": "Resource lifetime now follows the state lifecycle; no memory-performance figure is claimed."
             }
         },
         "development_timeline": {
-            "duration": "2 weeks",
+            "duration": "June 19–25, 2024",
             "phases": [
-                { "phase": "Core Systems", "duration": "1 weeks", "focus": "Physics engine and collision detection" },
-                { "phase": "AI Implementation", "duration": "5 days", "focus": "Enemy AI and boss patterns" },
-                { "phase": "Polish & Testing", "duration": "2 days", "focus": "Bug fixes and optimization" }
+                { "phase": "Core Gameplay", "duration": "Jun 19–21", "focus": "Player, projectile pools, enemies, and collision" },
+                { "phase": "Boss & Level Systems", "duration": "Jun 22–24", "focus": "Boss state machines, editor integration, and level files" },
+                { "phase": "Integration", "duration": "Jun 25", "focus": "Game states, resource cleanup, naming, and Release build" }
             ]
         },
-        "downloadLink": "https://github.com/HaXX0rBunny/HaXX0rBunny.github.io/raw/main/Assets/downlaods/MEGA_ROGUE_Setup.exe"
+        "downloadLink": "https://github.com/HaXX0rBunny/HaXX0rBunny.github.io/raw/main/Assets/downlaods/MEGA_ROGUE_Setup.exe",
+        "downloadLabel": "Windows Installer"
     },
     "3": {
-        "title": "Huntress Game Jam",
-        "subtitle": "Rapid Prototyping Challenge",
+        "title": "Huntress",
+        "subtitle": "2D Turn-Based Artillery Strategy",
         "project_type": "team",
         "is_team_project": true,
-        "team_size": 3,
-        "my_role": "UI/UX Developer",
-        "technologies": ["C++", "AlphaEngine"],
-        "description": "A game jam project developed under tight time constraints, showcasing rapid prototyping skills and efficient implementation of core game systems.",
+        "team_size": 4,
+        "my_role": "UI Systems & Gameplay Integration Programmer",
+        "technologies": ["C++", "Alpha Engine", "FMOD"],
+        "description": "A four-person C++ team project that combines a store-and-upgrade loop with wind- and gravity-driven artillery combat. I built and integrated the menu, store, combat HUD, button/hover interactions, item tooltips, and the UI-to-combat input path.",
         "videoUrl": "https://www.youtube.com/embed/I_cFyhu3i0E",
+        "detailPage": "huntress.html",
         "links": {
-            "github": "https://github.com/ido-013/Huntress/tree/main"
+            "github": "https://github.com/HaXX0rBunny/Huntress",
+            "upstream": "https://github.com/ido-013/Huntress"
         },
         "collaboration_details": {
-            "team_size": 3,
-            "my_role": "UI/UX Developer",
+            "team_size": 4,
+            "my_role": "UI Systems & Gameplay Integration Programmer",
             "team_roles": [
-                "UI/UX Developer (Me)",
-                "Gameplay Engineer",
-                "System Engineer",
+                "UI Systems & Gameplay Integration (Me)",
+                "Combat & Gameplay",
+                "Level & Content",
+                "Animation & Effects"
             ],
-            "collaboration_tools": ["Git", "Discord"],
-            "team_dynamics": "Rapid prototyping with focus on core mechanics"
+            "collaboration_tools": ["Git branches", "Visual Studio 2022"],
+            "team_dynamics": "Feature-branch workflow across a shared Alpha Engine codebase; 46 commits are directly attributed to HaXX0rBunny and remain reachable from main"
         },
         "technical_challenges": [
-            "Implementing complex systems under time pressure",
-            "Creating intuitive UI/UX for game systems",
-            "Optimizing performance on limited development time",
-            "Balancing scope with quality"
+            "Separating world, interface, and text rendering order",
+            "Routing screen-space UI input without changing world aim state",
+            "Synchronizing store, inventory, combat, and HUD state",
+            "Managing tooltip and interface-object lifetime",
+            "Keeping button hit testing consistent with hover visibility"
         ],
-        "troubleshooting": {
-            "time_management": {
-                "problem": "Limited time to implement all desired features",
-                "root_cause": "Overly ambitious initial scope for 48-hour timeframe",
-                "solution": "Focused on core mechanics first, then polish",
-                "result": "Delivered fully functional prototype with key features"
-            },
-            "ui_responsiveness": {
-                "problem": "UI elements not responding smoothly during gameplay",
-                "root_cause": "Heavy UI updates blocking main thread",
-                "solution": "Implemented efficient UI rendering system with ImGui optimization",
-                "result": "40% improvement in UI response time"
-            }
-        },
+        "troubleshooting": {},
         "development_timeline": {
-            "duration": "1 months",
+            "duration": "August 27–October 9, 2024",
             "phases": [
-                { "phase": "Concept & Planning", "duration": "1 weeks", "focus": "Game design and technical planning" },
-                { "phase": "Core Development", "duration": "2 weeks", "focus": "Gameplay systems and UI" },
-                { "phase": "Polish & Submission", "duration": "1 weeks", "focus": "Bug fixes and final polish" }
+                { "phase": "UI Foundation", "duration": "Aug 27–Sep 6", "focus": "Menu, store, combat HUD, button manager, and UI components" },
+                { "phase": "System Integration", "duration": "Sep 24–30", "focus": "Render order, store/combat synchronization, item input, and lifetime fixes" },
+                { "phase": "Final UI Pass", "duration": "Oct 8–9", "focus": "Hover behavior, tooltips, layout polish, and final integration" }
             ]
         },
-        "downloadLink": "https://github.com/HaXX0rBunny/HaXX0rBunny.github.io/raw/main/Assets/downlaods/Huntress_setup.exe"
+        "downloadLink": "https://github.com/HaXX0rBunny/HaXX0rBunny.github.io/raw/main/Assets/downlaods/Huntress_setup.exe",
+        "downloadLabel": "Windows Installer"
     },
     "4": {
         "title": "GameTechLab3rd",
-        "subtitle": "14-Week C++ Rendering & Engine Development",
+        "subtitle": "C++ Rendering & Engine Development",
         "project_type": "collection",
-        "type_label": "Week01–Week14",
+        "team_label": "Team Project · 3–4 Members",
+        "scope_label": "Weekly Projects",
         "is_team_project": true,
-        "team_size": "Varied",
+        "team_size": "3–4",
         "my_role": "Rendering & Engine Programmer",
         "technologies": ["C++", "DirectX 11", "HLSL", "ImGui", "FBX SDK"],
         "description": "A curated record of the projects I contributed to throughout KRAFTON Jungle Game Tech Lab 3rd. The weekly snapshots trace custom engine development from 3D fundamentals through asset import, lighting, shadows, physics, animation, particles, and final game integration.",
         "coverImage": "Assets/images/GameTechLab3rd-Engine-Editor.png",
         "coverAlt": "Custom C++ engine particle editor developed during Game Tech Lab",
-        "coverLabel": "14 weeks · engine evolution",
+        "coverLabel": "Engine development archive",
         "links": {
             "overview": "gametechlab.html"
         },
         "collaboration_details": {
-            "team_size": "Varied by weekly project",
+            "team_size": "3–4 members per weekly project",
             "my_role": "Rendering & Engine Programmer",
             "team_roles": [
                 "Rendering and engine programming (Me)",
@@ -213,16 +214,26 @@ const projectsData = {
                 "problem": "Weekly engine branches accumulated different render features, asset formats, and third-party runtime dependencies.",
                 "root_cause": "Each assignment extended a different subsystem while sharing a growing custom engine foundation.",
                 "solution": "Organized the verified snapshots by week and repaired build linkage for required libraries such as FBX SDK and FMOD where needed.",
-                "result": "Produced one reviewable hub that connects the full Week01–Week14 development progression."
+                "result": "Produced one reviewable hub that connects the program's weekly development progression."
             }
         },
         "development_timeline": {
-            "duration": "14 weeks",
+            "duration": "Full program",
             "phases": [
-                { "phase": "3D Foundations", "duration": "Weeks 01–04", "focus": "Game jam, 3D primitives, atlas, billboard, bounding box, and OBJ import" },
-                { "phase": "Rendering Systems", "duration": "Weeks 05–08", "focus": "Octahedral impostors, decals, fog, lighting, and shadows" },
-                { "phase": "Runtime & Simulation", "duration": "Weeks 09–11", "focus": "Standalone build, camera pipeline, mass and movement systems" },
-                { "phase": "Final Integration", "duration": "Weeks 12–14", "focus": "Particles, depth of field, animation, tools, and final game production" }
+                { "phase": "1st Game Jam", "duration": "Week 01", "focus": "Jungle Brick Break, game loop, input, and collision foundations" },
+                { "phase": "Break Into 3D", "duration": "Week 02", "focus": "3D primitives, scene components, camera transforms, and sky sphere" },
+                { "phase": "Atlas · Billboard · Batch Line · Bounding Box", "duration": "Week 03", "focus": "Reusable rendering utilities and engine debugging features" },
+                { "phase": "OBJ Import", "duration": "Week 04", "focus": "OBJ viewing, object management, binary baking, and UV behavior" },
+                { "phase": "2nd Game Jam · It's Pie Time", "duration": "Week 05", "focus": "Octahedral impostor baking and large-scene rendering optimization" },
+                { "phase": "Decal · Clearing the Fog", "duration": "Week 06", "focus": "Surface decals, volumetric fog, and atmospheric rendering" },
+                { "phase": "Let There Be Light", "duration": "Week 07", "focus": "Real-time lighting and material integration" },
+                { "phase": "Where There Is Light, There Is Also Shadow", "duration": "Week 08", "focus": "Light-space rendering and real-time shadow evaluation" },
+                { "phase": "3rd Game Jam · Light, Camera, Action!", "duration": "Week 09", "focus": "Standalone build, cook, stage, runtime loading, and verification" },
+                { "phase": "More Than Just Weight", "duration": "Week 10", "focus": "Mass, force, collision, and object response systems" },
+                { "phase": "Let's Go, Move!", "duration": "Week 11", "focus": "Movement, input, actor state, and animation updates" },
+                { "phase": "Dance of the Dust", "duration": "Week 12", "focus": "Particle editor, emitters, modules, curves, and runtime effects" },
+                { "phase": "Understanding Focus and Force in 3D World", "duration": "Week 13", "focus": "Two depth-of-field techniques and camera focus controls" },
+                { "phase": "Final Game Jam", "duration": "Week 14", "focus": "Rendering, FBX, skeletal animation, physics, audio, tools, and gameplay integration" }
             ]
         }
     }
@@ -504,7 +515,8 @@ class YouTubeBackgroundPlayer {
 }
 
 // Global variables
-let currentTheme = 'light';
+const THEME_STORAGE_KEY = 'portfolio-theme-v2';
+let currentTheme = 'dark';
 let heroPlayer = null;
 let currentProjectId = null;
 
@@ -544,8 +556,8 @@ function initializeElements() {
 }
 
 function initializeTheme() {
-    // Check for saved theme or default to light
-    const savedTheme = localStorage.getItem('theme') || 'light';
+    // Keep an explicit user preference, otherwise start in dark mode.
+    const savedTheme = localStorage.getItem(THEME_STORAGE_KEY) || 'dark';
     setTheme(savedTheme);
 
     if (themeToggle) {
@@ -561,7 +573,7 @@ function setTheme(theme) {
         themeToggle.setAttribute('aria-label', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
     }
     try {
-        localStorage.setItem('theme', theme);
+        localStorage.setItem(THEME_STORAGE_KEY, theme);
     } catch (e) {
         console.warn('Could not save theme preference:', e);
     }
@@ -686,17 +698,25 @@ function initializeProjects() {
 function createProjectCard(id, project) {
     const card = document.createElement('div');
     card.className = 'project-card';
+    const dedicatedPageUrl = project.detailPage || (project.project_type === 'collection' ? project.links?.overview : null);
 
-    // 카드 클릭 시 모달 열기 (버튼 영역 제외)
+    // Projects with a dedicated information architecture bypass the generic modal.
     card.addEventListener('click', (e) => {
         if (!e.target.closest('.project-action')) {
             e.preventDefault();
-            openProjectModal(id);
+            if (dedicatedPageUrl) {
+                window.location.href = dedicatedPageUrl;
+            } else {
+                openProjectModal(id);
+            }
         }
     });
 
-    const typeText = project.type_label || (project.is_team_project ? `Team · ${project.team_size}` : 'Solo');
+    const typeText = project.team_label || project.type_label || (project.is_team_project ? `Team · ${project.team_size}` : 'Solo');
     const typeBadgeClass = project.is_team_project ? 'team' : 'solo';
+    const scopeBadge = project.scope_label
+        ? `<div class="project-scope-badge">${project.scope_label}</div>`
+        : '';
 
     const techBadges = project.technologies.map(tech => {
         let badgeClass = 'tech-badge';
@@ -734,7 +754,7 @@ function createProjectCard(id, project) {
 
     const downloadBtn = project.downloadLink
         ? `<a href="${project.downloadLink}" target="_blank" class="btn btn--secondary download-btn project-action">
-           Download Demo
+           ${project.downloadLabel || 'Download Demo'}
        </a>`
         : '';
 
@@ -751,6 +771,7 @@ function createProjectCard(id, project) {
                   <div class="project-type-badge ${typeBadgeClass}">
                       <span>${typeText}</span>
                   </div>
+                  ${scopeBadge}
                   <div class="role-badge">${project.my_role}</div>
               </div>
           </div>
@@ -782,10 +803,14 @@ function createProjectCard(id, project) {
         el.addEventListener('click', e => {
             e.stopPropagation();
 
-            // View Details 버튼인 경우 모달 열기
+            // Open a dedicated project page when available; otherwise use the shared modal.
             if (el.classList.contains('project-detail-btn')) {
                 e.preventDefault();
-                openProjectModal(id);
+                if (dedicatedPageUrl) {
+                    window.location.href = dedicatedPageUrl;
+                } else {
+                    openProjectModal(id);
+                }
             }
         });
     });
@@ -968,13 +993,17 @@ function populateOverviewTab(project) {
 
     // Project type badge
     if (projectTypeBadge) {
-        const typeText = project.type_label || (project.is_team_project ? `Team · ${project.team_size}` : 'Solo');
+        const typeText = project.team_label || project.type_label || (project.is_team_project ? `Team · ${project.team_size}` : 'Solo');
         const typeBadgeClass = project.is_team_project ? 'team' : 'solo';
+        const scopeBadge = project.scope_label
+            ? `<div class="project-scope-badge">${project.scope_label}</div>`
+            : '';
 
         projectTypeBadge.innerHTML = `
             <div class="project-type-badge ${typeBadgeClass}">
                 <span>${typeText}</span>
             </div>
+            ${scopeBadge}
         `;
     }
 
@@ -1100,16 +1129,22 @@ function populateTimelineTab(project) {
     const timelineContent = document.querySelector('#timelineTab .timeline-content');
     if (!timelineContent) return;
 
-    const timelineItems = project.development_timeline.phases.map((phase, index) => `
-        <div class="timeline-item">
-            <div class="timeline-marker">${index + 1}</div>
-            <div class="timeline-content-item">
-                <div class="timeline-phase">${phase.phase}</div>
-                <div class="timeline-duration">${phase.duration}</div>
-                <div class="timeline-focus">${phase.focus}</div>
+    const timelineItems = project.development_timeline.phases.map((phase, index) => {
+        const marker = project.project_type === 'collection'
+            ? String(index + 1).padStart(2, '0')
+            : index + 1;
+
+        return `
+            <div class="timeline-item">
+                <div class="timeline-marker">${marker}</div>
+                <div class="timeline-content-item">
+                    <div class="timeline-phase">${phase.phase}</div>
+                    <div class="timeline-duration">${phase.duration}</div>
+                    <div class="timeline-focus">${phase.focus}</div>
+                </div>
             </div>
-        </div>
-    `).join('');
+        `;
+    }).join('');
 
     timelineContent.innerHTML = `
         <div class="project-detail-section">

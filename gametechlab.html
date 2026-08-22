@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-color-scheme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A public Week01–Week14 overview of HaXX0rBunny's KRAFTON Jungle Game Tech Lab 3rd projects.">
-    <title>GameTechLab3rd · Week01–Week14</title>
+    <meta name="description" content="HaXX0rBunny's C++ rendering and engine development record from KRAFTON Jungle Game Tech Lab 3rd.">
+    <title>GameTechLab3rd · C++ Rendering & Engine Development</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="lab-page" data-color-scheme="dark">
+<body class="lab-page">
     <header class="lab-nav">
         <div class="container lab-nav-content">
             <a class="lab-brand" href="index.html">HaXX0rBunny</a>
@@ -20,17 +20,21 @@
             <div class="container lab-hero-grid">
                 <div class="lab-hero-copy">
                     <p class="section-kicker">KRAFTON Jungle · Game Tech Lab 3rd</p>
-                    <h1>Fourteen weeks of building and extending C++ game engines.</h1>
-                    <p>From 3D foundations and asset import to lighting, shadows, physics, animation, particles, optimization, and final game integration.</p>
+                    <h1>C++ Rendering &amp; Engine Development</h1>
+                    <p>A weekly record of the rendering systems, editor tools, runtime features, and integration work completed during Game Tech Lab 3rd.</p>
 
                     <div class="lab-hero-meta">
                         <div>
-                            <span>Duration</span>
-                            <strong>Week01–Week14</strong>
+                            <span>Project Scope</span>
+                            <strong>Weekly assignments &amp; game jams</strong>
+                        </div>
+                        <div>
+                            <span>Team Structure</span>
+                            <strong>3–4 members per project</strong>
                         </div>
                         <div>
                             <span>Primary Role</span>
-                            <strong>Rendering & Engine Programming</strong>
+                            <strong>Rendering &amp; Engine</strong>
                         </div>
                         <div>
                             <span>Core Stack</span>
@@ -46,143 +50,62 @@
             </div>
         </section>
 
-        <section class="lab-timeline-section">
+        <section class="lab-explorer-section" aria-labelledby="labExplorerTitle">
             <div class="container">
                 <div class="lab-section-heading">
                     <div>
-                        <p class="section-kicker">Development Timeline</p>
-                        <h2>Week01–Week14</h2>
+                        <p class="section-kicker">Development Record</p>
+                        <h2 id="labExplorerTitle">Projects and engine progression</h2>
                     </div>
-                    <p>Every week is visible here. A Public Source link appears only when the repository or preserved commit is accessible without signing in.</p>
+                    <p>Browse one week in depth or scan how the engine work progressed from the first game jam to final integration.</p>
                 </div>
 
-                <div class="lab-week-grid">
-                    <article class="lab-week-card">
-                        <div class="lab-week-number">01</div>
-                        <p class="lab-week-type">1st Game Jam</p>
-                        <h3>Jungle Brick Break</h3>
-                        <p>Built a playable brick-break project while establishing the C++ game loop, input, collision, and team development workflow.</p>
-                        <div class="lab-tags"><span>C++</span><span>Game Loop</span><span>Collision</span></div>
-                        <span class="lab-summary-only">Public summary</span>
-                    </article>
+                <div class="lab-primary-tabs" role="tablist" aria-label="Game Tech Lab views">
+                    <button class="lab-primary-tab is-active" id="weeksViewTab" type="button" role="tab" aria-selected="true" aria-controls="weeksView" data-lab-view="weeks">
+                        <span class="lab-primary-tab-index">01</span>
+                        <span><strong>Week-by-week</strong><small>Role, implementation, and evidence</small></span>
+                    </button>
+                    <button class="lab-primary-tab" id="timelineViewTab" type="button" role="tab" aria-selected="false" aria-controls="timelineView" data-lab-view="timeline" tabindex="-1">
+                        <span class="lab-primary-tab-index">02</span>
+                        <span><strong>Program timeline</strong><small>Engine development progression</small></span>
+                    </button>
+                </div>
 
-                    <article class="lab-week-card">
-                        <div class="lab-week-number">02</div>
-                        <p class="lab-week-type">Break Into 3D</p>
-                        <h3>3D Engine Foundations</h3>
-                        <p>Expanded the engine into 3D with scene components, primitive rendering, camera-space transforms, and sky-sphere work.</p>
-                        <div class="lab-tags"><span>C++</span><span>DirectX</span><span>3D Math</span></div>
-                        <a class="lab-source-link" href="https://github.com/HaXX0rBunny/Week3_Team5_DinoEngine/tree/week02/Skysphere" target="_blank" rel="noopener noreferrer">Public Source</a>
-                    </article>
+                <div class="lab-view-panel is-active" id="weeksView" role="tabpanel" aria-labelledby="weeksViewTab">
+                    <nav class="lab-week-selector" id="labWeekSelector" aria-label="Select a week"></nav>
 
-                    <article class="lab-week-card">
-                        <div class="lab-week-number">03</div>
-                        <p class="lab-week-type">Atlas · Billboard · Batch Line · Bounding Box</p>
-                        <h3>Rendering Utilities</h3>
-                        <p>Added reusable rendering and debugging systems for texture atlases, camera-facing billboards, batched lines, and spatial bounds.</p>
-                        <div class="lab-tags"><span>Atlas</span><span>Billboard</span><span>Debug Draw</span></div>
-                        <a class="lab-source-link" href="https://github.com/HaXX0rBunny/Week3_Team5_DinoEngine" target="_blank" rel="noopener noreferrer">Public Source</a>
-                    </article>
+                    <article class="lab-week-workspace" aria-live="polite">
+                        <header class="lab-week-header">
+                            <div class="lab-week-heading-copy">
+                                <p class="lab-week-eyebrow" id="labWeekEyebrow"></p>
+                                <h3 id="labWeekTitle"></h3>
+                                <p id="labWeekSummary"></p>
+                            </div>
+                        </header>
 
-                    <article class="lab-week-card">
-                        <div class="lab-week-number">04</div>
-                        <p class="lab-week-type">OBJ Import</p>
-                        <h3>Asset Import Pipeline</h3>
-                        <p>Worked around OBJ viewing and asset ingestion, including object management, reusable iteration, binary baking, and UV behavior.</p>
-                        <div class="lab-tags"><span>OBJ</span><span>Binary Bake</span><span>UV</span></div>
-                        <span class="lab-summary-only">Public summary</span>
-                    </article>
+                        <div class="lab-detail-tabs" role="tablist" aria-label="Selected week details">
+                            <button class="lab-detail-tab is-active" id="roleDetailTab" type="button" role="tab" aria-selected="true" aria-controls="labDetailPanel" data-detail-tab="role">Assignment & Role</button>
+                            <button class="lab-detail-tab" id="implementationDetailTab" type="button" role="tab" aria-selected="false" aria-controls="labDetailPanel" data-detail-tab="implementation" tabindex="-1">Implementation & Tech</button>
+                            <button class="lab-detail-tab" id="evidenceDetailTab" type="button" role="tab" aria-selected="false" aria-controls="labDetailPanel" data-detail-tab="evidence" tabindex="-1">Result & Evidence</button>
+                            <button class="lab-detail-tab" id="troubleshootingDetailTab" type="button" role="tab" aria-selected="false" aria-controls="labDetailPanel" data-detail-tab="troubleshooting" tabindex="-1">Troubleshooting</button>
+                        </div>
 
-                    <article class="lab-week-card lab-week-card--featured">
-                        <div class="lab-week-number">05</div>
-                        <p class="lab-week-type">2nd Game Jam · It's Pie Time</p>
-                        <h3>Octahedral Impostor Optimization</h3>
-                        <p>Selected octahedral impostors for a 50,000-object optimization challenge and integrated atlas baking and proxy rendering into the team engine.</p>
-                        <div class="lab-tags"><span>HLSL</span><span>Impostor</span><span>Optimization</span></div>
-                        <a class="lab-source-link" href="https://github.com/HaXX0rBunny/Week5_Team4_Gamejam" target="_blank" rel="noopener noreferrer">Public Game Jam Source</a>
-                    </article>
-
-                    <article class="lab-week-card">
-                        <div class="lab-week-number">06</div>
-                        <p class="lab-week-type">Decal · Clearing the Fog</p>
-                        <h3>Decal & Volumetric Fog</h3>
-                        <p>Extended the renderer with surface decals and a fog pipeline focused on integrating atmospheric effects into the shared engine.</p>
-                        <div class="lab-tags"><span>Decal</span><span>Volumetric Fog</span><span>HLSL</span></div>
-                        <a class="lab-source-link" href="https://github.com/HaXX0rBunny/Jungle_Week6_Team7/tree/feature/v_fog" target="_blank" rel="noopener noreferrer">Public Source</a>
-                    </article>
-
-                    <article class="lab-week-card">
-                        <div class="lab-week-number">07</div>
-                        <p class="lab-week-type">Let There Be Light</p>
-                        <h3>Lighting Pipeline</h3>
-                        <p>Developed and integrated real-time lighting features within a growing custom editor and rendering architecture.</p>
-                        <div class="lab-tags"><span>Lighting</span><span>Materials</span><span>Rendering</span></div>
-                        <span class="lab-summary-only">Public summary</span>
-                    </article>
-
-                    <article class="lab-week-card">
-                        <div class="lab-week-number">08</div>
-                        <p class="lab-week-type">Where There Is Light, There Is Also Shadow</p>
-                        <h3>Shadow Rendering</h3>
-                        <p>Connected light-space rendering and shadow evaluation to the engine's scene, camera, and material systems.</p>
-                        <div class="lab-tags"><span>Shadow</span><span>Light Space</span><span>DirectX</span></div>
-                        <a class="lab-source-link" href="https://github.com/HaXX0rBunny/KraftonJungle_Week8_Team5" target="_blank" rel="noopener noreferrer">Public Source</a>
-                    </article>
-
-                    <article class="lab-week-card lab-week-card--featured">
-                        <div class="lab-week-number">09</div>
-                        <p class="lab-week-type">3rd Game Jam · Light, Camera, Action!</p>
-                        <h3>Standalone Shipping Build</h3>
-                        <p>Worked on the path from editor project to standalone executable, including build, cook, stage, runtime asset loading, and verification.</p>
-                        <div class="lab-tags"><span>Standalone</span><span>Build Pipeline</span><span>Runtime</span></div>
-                        <a class="lab-source-link" href="https://github.com/HaXX0rBunny/Jungle_Week10_Team5/commit/51d741c320864e1f140a36691437cfd3bd99194a" target="_blank" rel="noopener noreferrer">Public Preserved Commit</a>
-                    </article>
-
-                    <article class="lab-week-card">
-                        <div class="lab-week-number">10</div>
-                        <p class="lab-week-type">More Than Just Weight</p>
-                        <h3>Mass & Physics Systems</h3>
-                        <p>Expanded runtime simulation around mass, force, collision, and object response inside the custom engine.</p>
-                        <div class="lab-tags"><span>Physics</span><span>Mass</span><span>Collision</span></div>
-                        <a class="lab-source-link" href="https://github.com/HaXX0rBunny/Jungle_Week10_Team5" target="_blank" rel="noopener noreferrer">Public Source</a>
-                    </article>
-
-                    <article class="lab-week-card">
-                        <div class="lab-week-number">11</div>
-                        <p class="lab-week-type">Let's Go, Move!</p>
-                        <h3>Movement & Runtime Control</h3>
-                        <p>Focused on runtime movement and the systems needed to connect input, actor state, animation, and scene updates.</p>
-                        <div class="lab-tags"><span>Movement</span><span>Runtime</span><span>Animation</span></div>
-                        <span class="lab-summary-only">Public summary</span>
-                    </article>
-
-                    <article class="lab-week-card">
-                        <div class="lab-week-number">12</div>
-                        <p class="lab-week-type">Dance of the Dust</p>
-                        <h3>Particle Editor & Effects</h3>
-                        <p>Integrated particle authoring into the custom editor with emitters, modules, curve controls, preview, and runtime effect playback.</p>
-                        <div class="lab-tags"><span>Particles</span><span>Editor Tools</span><span>Curves</span></div>
-                        <span class="lab-summary-only">Public summary</span>
-                    </article>
-
-                    <article class="lab-week-card">
-                        <div class="lab-week-number">13</div>
-                        <p class="lab-week-type">Understanding Focus and Force in 3D World</p>
-                        <h3>Two Depth-of-Field Techniques</h3>
-                        <p>Compared and integrated two depth-of-field approaches while extending post-processing and camera focus controls.</p>
-                        <div class="lab-tags"><span>DOF</span><span>Post Process</span><span>Camera</span></div>
-                        <a class="lab-source-link" href="https://github.com/HaXX0rBunny/Jungle_Week13_Team3" target="_blank" rel="noopener noreferrer">Public Source</a>
-                    </article>
-
-                    <article class="lab-week-card">
-                        <div class="lab-week-number">14</div>
-                        <p class="lab-week-type">Final Game Jam</p>
-                        <h3>Final Engine & Game Integration</h3>
-                        <p>Brought rendering, FBX assets, skeletal animation, physics, audio, editor tools, and gameplay systems together in the final project.</p>
-                        <div class="lab-tags"><span>FBX</span><span>Animation</span><span>Integration</span></div>
-                        <a class="lab-source-link" href="https://github.com/HaXX0rBunny/Jungle_Week14_Team3" target="_blank" rel="noopener noreferrer">Public Source</a>
+                        <div class="lab-detail-panel" id="labDetailPanel" role="tabpanel" aria-labelledby="roleDetailTab"></div>
                     </article>
                 </div>
+
+                <div class="lab-view-panel" id="timelineView" role="tabpanel" aria-labelledby="timelineViewTab" hidden>
+                    <div class="lab-timeline-intro">
+                        <p class="section-kicker">Week01 → Week14</p>
+                        <h3>From a playable loop to an integrated engine and game.</h3>
+                        <p>Select any milestone to open the same week inside the detailed view.</p>
+                    </div>
+                    <ol class="lab-program-timeline" id="labProgramTimeline"></ol>
+                </div>
+
+                <noscript>
+                    <p class="lab-noscript">JavaScript is required to browse the interactive weekly record.</p>
+                </noscript>
             </div>
         </section>
     </main>
@@ -190,9 +113,10 @@
     <footer class="site-footer">
         <div class="container site-footer-content">
             <strong>HaXX0rBunny</strong>
-            <span>Game Tech Lab 3rd · Week01–Week14</span>
+            <span>Game Tech Lab 3rd · Weekly Project Archive</span>
             <a href="index.html#projects">Portfolio</a>
         </div>
     </footer>
+    <script src="gametechlab.js"></script>
 </body>
 </html>

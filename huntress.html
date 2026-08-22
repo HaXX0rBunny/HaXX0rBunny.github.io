@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en" data-color-scheme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Huntress project case study: C++ UI systems, gameplay integration, architecture, and Git-backed troubleshooting evidence.">
+    <title>Huntress · C++ UI Systems & Gameplay Integration</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="lab-page huntress-page">
+    <header class="lab-nav">
+        <div class="container lab-nav-content">
+            <a class="lab-brand" href="index.html">HaXX0rBunny</a>
+            <a class="lab-back-link" href="index.html#projects">Back to portfolio</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="huntress-hero" id="top">
+            <div class="container huntress-hero-grid">
+                <div class="huntress-hero-copy">
+                    <p class="section-kicker">C++ Team Project · Alpha Engine</p>
+                    <h1>Huntress</h1>
+                    <p class="huntress-hero-role">UI Systems &amp; Gameplay Integration Programmer</p>
+                    <p class="huntress-hero-lede">
+                        A 2D turn-based artillery strategy game that connects a store-and-upgrade loop to wind- and gravity-driven combat. My work centered on the interface architecture, menu and store flow, combat HUD, button interactions, item tooltips, and the handoff between UI input and combat state.
+                    </p>
+
+                    <div class="huntress-hero-actions" aria-label="Project links">
+                        <a class="huntress-action huntress-action--primary" href="https://github.com/HaXX0rBunny/Huntress" target="_blank" rel="noreferrer">Source fork</a>
+                        <a class="huntress-action" href="https://github.com/HaXX0rBunny/Huntress/tree/sanghyeon" target="_blank" rel="noreferrer">Personal branch</a>
+                        <a class="huntress-action" href="https://github.com/HaXX0rBunny/HaXX0rBunny.github.io/raw/main/Assets/downlaods/Huntress_setup.exe" target="_blank" rel="noreferrer">Windows installer</a>
+                    </div>
+
+                    <dl class="huntress-hero-facts">
+                        <div>
+                            <dt>Team</dt>
+                            <dd>4 people</dd>
+                        </div>
+                        <div>
+                            <dt>Period</dt>
+                            <dd>Aug 27–Oct 9, 2024</dd>
+                        </div>
+                        <div>
+                            <dt>Stack</dt>
+                            <dd>C++ · Alpha Engine · FMOD</dd>
+                        </div>
+                        <div>
+                            <dt>Verified history</dt>
+                            <dd>46 authored commits</dd>
+                        </div>
+                    </dl>
+                </div>
+
+                <div class="huntress-hero-media">
+                    <div class="huntress-video-frame">
+                        <iframe src="https://www.youtube.com/embed/I_cFyhu3i0E?modestbranding=1&amp;rel=0"
+                                title="Huntress gameplay demo"
+                                loading="eager"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen></iframe>
+                    </div>
+                    <div class="huntress-media-caption">
+                        <img src="Assets/images/huntress/huntress-logo.png" alt="Huntress game logo">
+                        <p><strong>Runtime evidence</strong><span>Recorded gameplay demo. It shows the integrated game, not a controlled troubleshooting comparison.</span></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <nav class="huntress-section-nav" aria-label="Huntress case study sections">
+            <div class="container">
+                <a href="#overview">Overview</a>
+                <a href="#contribution">My contribution</a>
+                <a href="#architecture">Architecture</a>
+                <a href="#troubleshooting">Troubleshooting</a>
+                <a href="#evidence">Evidence</a>
+            </div>
+        </nav>
+
+        <section class="huntress-section" id="overview">
+            <div class="container">
+                <header class="huntress-section-heading">
+                    <div>
+                        <p class="section-kicker">01 · Project Overview</p>
+                        <h2>One interface across two game loops</h2>
+                    </div>
+                    <p>The project alternates between purchasing upgrades and resolving turn-based projectile combat. The interface has to stay synchronized with inventory, player statistics, combat state, camera input, and render order.</p>
+                </header>
+
+                <div class="huntress-overview-grid">
+                    <article class="huntress-summary-card huntress-summary-card--wide">
+                        <span>Player loop</span>
+                        <h3>Store → prepare → aim → fire → resolve</h3>
+                        <div class="huntress-flow" aria-label="Huntress game loop">
+                            <strong>Buy items</strong><i></i><strong>Enter combat</strong><i></i><strong>Read wind</strong><i></i><strong>Set angle &amp; power</strong><i></i><strong>Launch</strong>
+                        </div>
+                    </article>
+                    <article class="huntress-summary-card">
+                        <span>Primary ownership</span>
+                        <h3>Interface systems</h3>
+                        <p>Menu, store, combat HUD, escape/control overlays, buttons, hover behavior, tooltips, and item-selection integration.</p>
+                    </article>
+                    <article class="huntress-summary-card">
+                        <span>Core constraint</span>
+                        <h3>Shared real-time loop</h3>
+                        <p>UI and gameplay run inside one update loop, so state gating, input arbitration, render phases, and object lifetime must be explicit.</p>
+                    </article>
+                </div>
+
+                <figure class="huntress-feature-figure">
+                    <img src="Assets/images/huntress/ui-tutorial-protractor.png" alt="Huntress combat UI tutorial showing the aiming protractor, power gauge, health bars, and the game field">
+                    <figcaption>
+                        <span>Tracked project visual</span>
+                        <strong>Combat HUD and aiming guide in context</strong>
+                        <p>This repository asset documents the integrated HUD layout: item slots, current and previous angle, movement and power gauges, and both health bars.</p>
+                    </figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <section class="huntress-section huntress-section--surface" id="contribution">
+            <div class="container">
+                <header class="huntress-section-heading">
+                    <div>
+                        <p class="section-kicker">02 · Role &amp; Contribution</p>
+                        <h2>Verified work, not a generic team-role label</h2>
+                    </div>
+                    <p>The figures below use the public <code>HaXX0rBunny</code> author identity and current <code>main</code> blame at <code>f64cd0f</code>. Blame measures surviving lines, not total work performed.</p>
+                </header>
+
+                <div class="huntress-metric-grid">
+                    <article><strong>46</strong><span>authored commits</span><small>32 non-merge · 14 merge</small></article>
+                    <article><strong>1,378</strong><span>surviving C++ lines</span><small>across 34 files on main</small></article>
+                    <article><strong>73.9%</strong><span>CombatUI.cpp</span><small>349 of 472 lines</small></article>
+                    <article><strong>97.3%</strong><span>EscMenu.cpp</span><small>146 of 150 lines</small></article>
+                </div>
+
+                <div class="huntress-contribution-grid">
+                    <article class="huntress-panel">
+                        <span class="huntress-panel-label">Implemented &amp; integrated</span>
+                        <ul class="huntress-check-list">
+                            <li>Built menu, store, combat HUD, escape menu, control guide, and item-information modules.</li>
+                            <li>Connected <code>ButtonComp</code> callbacks to store purchases and combat item selection.</li>
+                            <li>Separated interface components from world graphics to make the draw sequence explicit.</li>
+                            <li>Bound HUD values to player/enemy HP, wind, angle, movement, power, gold, and inventory state.</li>
+                            <li>Resolved input overlap between screen-space controls and world-space aiming.</li>
+                            <li>Worked through feature branches and direct merges; the original hashes remain reachable from <code>main</code>.</li>
+                        </ul>
+                    </article>
+
+                    <article class="huntress-panel">
+                        <span class="huntress-panel-label">Current-line ownership</span>
+                        <div class="huntress-file-ownership">
+                            <div><span>CombatUI.cpp</span><strong>349 / 472</strong><i style="--share:73.9%"></i></div>
+                            <div><span>StoreUI.cpp</span><strong>301 / 446</strong><i style="--share:67.5%"></i></div>
+                            <div><span>EscMenu.cpp</span><strong>146 / 150</strong><i style="--share:97.3%"></i></div>
+                            <div><span>ControlUI.cpp</span><strong>84 / 97</strong><i style="--share:86.6%"></i></div>
+                            <div><span>ItemInfo.cpp</span><strong>56 / 56</strong><i style="--share:100%"></i></div>
+                        </div>
+                        <p class="huntress-panel-note">Source: <code>git blame main</code>, grouped by the public HaXX0rBunny author identity.</p>
+                    </article>
+                </div>
+
+                <div class="huntress-history-strip">
+                    <div><span>Upstream main</span><strong><code>f64cd0f</code></strong></div>
+                    <div><span>User fork main</span><strong><code>f64cd0f</code></strong></div>
+                    <div><span>Preserved personal branch</span><strong><code>sanghyeon@95d8772</code></strong></div>
+                    <a href="https://github.com/HaXX0rBunny/Huntress" target="_blank" rel="noreferrer">Open fork</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="huntress-section" id="architecture">
+            <div class="container">
+                <header class="huntress-section-heading">
+                    <div>
+                        <p class="section-kicker">03 · Architecture &amp; Technical Challenges</p>
+                        <h2>State, input, interface, and rendering stay separate</h2>
+                    </div>
+                    <p>The interface is not a passive overlay. It participates in the engine update, converts cursor actions into domain events, observes combat data, and renders after the world without obscuring text feedback.</p>
+                </header>
+
+                <div class="huntress-architecture-flow" aria-label="Huntress UI architecture flow">
+                    <div><span>01</span><strong>Input</strong><small>Mouse · keyboard</small></div>
+                    <b>→</b>
+                    <div><span>02</span><strong>ButtonManager</strong><small>Hit test · hover · click</small></div>
+                    <b>→</b>
+                    <div><span>03</span><strong>UI modules</strong><small>StoreUI · CombatUI · menus</small></div>
+                    <b>→</b>
+                    <div><span>04</span><strong>Game state</strong><small>Inventory · PlayerComp · CombatComp</small></div>
+                    <b>→</b>
+                    <div><span>05</span><strong>Render phases</strong><small>World → interface → text</small></div>
+                </div>
+
+                <div class="huntress-challenge-grid">
+                    <article>
+                        <span>Render architecture</span>
+                        <h3>Deterministic interface layering</h3>
+                        <p><code>UIComponent</code> moved into an interface-specific component manager so world graphics, interface sprites, and subtitles update in an explicit order.</p>
+                    </article>
+                    <article>
+                        <span>Input architecture</span>
+                        <h3>UI and aiming arbitration</h3>
+                        <p>Button hit testing converts cursor positions into screen-space interactions while combat code rejects clicks inside the HUD region.</p>
+                    </article>
+                    <article>
+                        <span>State integration</span>
+                        <h3>Store-to-combat continuity</h3>
+                        <p>UI callbacks write intent into combat state instead of independently consuming gameplay data, keeping inventory, effects, and HUD feedback in one path.</p>
+                    </article>
+                    <article>
+                        <span>Lifetime</span>
+                        <h3>Transient tooltip ownership</h3>
+                        <p>Item-information objects need an explicit create/use/destroy interval because their visual objects outlive a single hover callback but not the UI module.</p>
+                    </article>
+                </div>
+
+                <div class="huntress-architecture-code">
+                    <header>
+                        <div><span>Code structure</span><strong>Frame update and presentation order</strong></div>
+                        <code>AlphaEngine/GSM/GameStateManager.cpp</code>
+                    </header>
+                    <pre tabindex="0"><code>currentLevel-&gt;Update();
+ComponentManager&lt;GraphicComponent&gt;::GetInstance().Update();
+ComponentManager&lt;InterfaceComponent&gt;::GetInstance().Update();
+SubtitleComp::Update();</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <section class="huntress-section huntress-section--surface" id="troubleshooting">
+            <div class="container">
+                <header class="huntress-section-heading">
+                    <div>
+                        <p class="section-kicker">04 · Troubleshooting</p>
+                        <h2>Six fixes tied to code, context, and commit</h2>
+                    </div>
+                    <p>Each comparison comes from the preserved Git blobs. No controlled runtime A/B capture or benchmark was stored, so the evidence type is stated as <strong>Git-backed code Before/After</strong>.</p>
+                </header>
+
+                <div class="huntress-trouble-list">
+                    <article class="huntress-trouble-card">
+                        <header>
+                            <span class="huntress-case-index">01</span>
+                            <div><p>Render order</p><h3>World and UI shared a presentation phase</h3></div>
+                            <a href="https://github.com/HaXX0rBunny/Huntress/commit/3a050194c58a6007311fa17b682486f69ec49eff" target="_blank" rel="noreferrer"><code>3a05019</code></a>
+                        </header>
+                        <div class="huntress-case-facts">
+                            <div><span>Symptom</span><p>World graphics and interface sprites could not be ordered independently; successive commits explicitly record “Modify/Fix UI Draw sequence.”</p></div>
+                            <div><span>Root cause</span><p><code>UIComponent</code> followed the same graphics-manager path, while the frame only exposed world graphics followed by subtitles.</p></div>
+                            <div><span>Fix</span><p>Introduced <code>InterfaceComponent</code>, moved UI/button behavior onto that layer, and added an interface-manager update between graphics and subtitles.</p></div>
+                            <div><span>Result</span><p>The code now defines a deterministic world → interface → text order. No paired runtime frame was preserved.</p></div>
+                        </div>
+                        <div class="huntress-code-compare">
+                            <div><span>Before · <code>fffb2b1</code></span><pre tabindex="0"><code>currentLevel-&gt;Update();
+ComponentManager&lt;GraphicComponent&gt;::GetInstance().Update();
+SubtitleComp::Update();</code></pre></div>
+                            <div class="is-after"><span>After · <code>3a05019</code></span><pre tabindex="0"><code>currentLevel-&gt;Update();
+ComponentManager&lt;GraphicComponent&gt;::GetInstance().Update();
+ComponentManager&lt;InterfaceComponent&gt;::GetInstance().Update();
+SubtitleComp::Update();</code></pre></div>
+                        </div>
+                        <footer><code>AlphaEngine/GSM/GameStateManager.cpp</code><span>Git-backed code Before/After</span></footer>
+                    </article>
+
+                    <article class="huntress-trouble-card">
+                        <header>
+                            <span class="huntress-case-index">02</span>
+                            <div><p>Button hit testing</p><h3>Hover feedback made visible buttons unclickable</h3></div>
+                            <a href="https://github.com/HaXX0rBunny/Huntress/commit/3f82bc61e80dcae5c53b7703b55298911269ab3b" target="_blank" rel="noreferrer"><code>3f82bc6</code></a>
+                        </header>
+                        <div class="huntress-case-facts">
+                            <div><span>Symptom</span><p>A button changed to alpha <code>0.7</code> on hover, then failed its own click test even though it remained visible.</p></div>
+                            <div><span>Root cause</span><p>The hit test treated every alpha other than exactly <code>1.0</code> as disabled, conflating hidden, disabled, and hover-feedback states.</p></div>
+                            <div><span>Fix</span><p>Reject only fully transparent UI elements, then evaluate the normal rectangle bounds.</p></div>
+                            <div><span>Result</span><p>Hovered buttons remain clickable while alpha-zero controls stay outside the interaction path.</p></div>
+                        </div>
+                        <div class="huntress-code-compare">
+                            <div><span>Before</span><pre tabindex="0"><code>if (uiComp &amp;&amp;
+    uiComp-&gt;GetAlpha() != 1)
+{
+    return false;
+}</code></pre></div>
+                            <div class="is-after"><span>After</span><pre tabindex="0"><code>if (uiComp &amp;&amp;
+    uiComp-&gt;GetAlpha() == 0)
+{
+    return false;
+}</code></pre></div>
+                        </div>
+                        <footer><code>AlphaEngine/Components/ButtonComp.cpp · IsClicked()</code><span>Git-backed code Before/After</span></footer>
+                    </article>
+
+                    <article class="huntress-trouble-card">
+                        <header>
+                            <span class="huntress-case-index">03</span>
+                            <div><p>Input arbitration</p><h3>Clicking the HUD also changed world aiming state</h3></div>
+                            <a href="https://github.com/HaXX0rBunny/Huntress/commit/c21bd735a74f248b91b1c94794233f8849186271" target="_blank" rel="noreferrer"><code>c21bd73</code></a>
+                        </header>
+                        <div class="huntress-case-facts">
+                            <div><span>Symptom</span><p>Clicking a lower-screen item or HUD control could also toggle the left-click aiming path in <code>CombatComp</code>.</p></div>
+                            <div><span>Root cause</span><p>UI and world input both consumed the same left-button trigger without a screen-region boundary.</p></div>
+                            <div><span>Fix</span><p>Guard the aiming transition with the cursor Y boundary before reading the trigger.</p></div>
+                            <div><span>Result</span><p>HUD clicks below the boundary no longer enter the world-aim transition path.</p></div>
+                        </div>
+                        <div class="huntress-code-compare">
+                            <div><span>Before</span><pre tabindex="0"><code>if (isDrawDirection)
+{
+    if (AEInputCheckTriggered(AEVK_LBUTTON))
+        ToggleAimState();
+}</code></pre></div>
+                            <div class="is-after"><span>After</span><pre tabindex="0"><code>if (isDrawDirection)
+{
+    if (GetMouseCursorPositionY() &gt; -250 &amp;&amp;
+        AEInputCheckTriggered(AEVK_LBUTTON))
+        ToggleAimState();
+}</code></pre></div>
+                        </div>
+                        <footer><code>AlphaEngine/Combat/Combat.cpp · CombatComp::Update()</code><span>Git-backed code Before/After</span></footer>
+                    </article>
+
+                    <article class="huntress-trouble-card">
+                        <header>
+                            <span class="huntress-case-index">04</span>
+                            <div><p>HUD data binding</p><h3>Enemy health used the player's maximum HP</h3></div>
+                            <a href="https://github.com/HaXX0rBunny/Huntress/commit/4d687a4957d13daf0913f6dd1f2a271672c50c53" target="_blank" rel="noreferrer"><code>4d687a4</code></a>
+                        </header>
+                        <div class="huntress-case-facts">
+                            <div><span>Symptom</span><p>The enemy bar displayed the wrong normalized height and anchor when player and enemy maximum health differed.</p></div>
+                            <div><span>Root cause</span><p>Enemy current HP was divided by <code>playerData-&gt;maxLife</code> in both scale and position expressions.</p></div>
+                            <div><span>Fix</span><p>Bind the gauge ratio to <code>enemyData-&gt;maxLife</code> and reuse that ratio for size and anchor.</p></div>
+                            <div><span>Result</span><p>The enemy gauge now represents the enemy's own health domain rather than a player-relative value.</p></div>
+                        </div>
+                        <div class="huntress-code-compare">
+                            <div><span>Before</span><pre tabindex="0"><code>float ratio =
+    float(enemyData-&gt;hp) /
+    playerData-&gt;maxLife;</code></pre></div>
+                            <div class="is-after"><span>After</span><pre tabindex="0"><code>float ratio =
+    float(enemyData-&gt;hp) /
+    enemyData-&gt;maxLife;
+enemyHpComp-&gt;SetScale({80, 200 * ratio});</code></pre></div>
+                        </div>
+                        <footer><code>AlphaEngine/UI/CombatUI.cpp · UpdateCombatUI()</code><span>Git-backed code Before/After</span></footer>
+                    </article>
+
+                    <article class="huntress-trouble-card">
+                        <header>
+                            <span class="huntress-case-index">05</span>
+                            <div><p>State-dependent lifetime</p><h3>Combat HUD dereferenced combat objects outside combat</h3></div>
+                            <a href="https://github.com/HaXX0rBunny/Huntress/commit/5dc4717d6f8faca7d8ba64c0638aa1c73451c4f4" target="_blank" rel="noreferrer"><code>5dc4717</code></a>
+                        </header>
+                        <div class="huntress-case-facts">
+                            <div><span>Symptom</span><p>The commit records an exception-handling fix: wind, angle, and gauge updates ran while the game could be in a store or transition state.</p></div>
+                            <div><span>Root cause</span><p>State-dependent <code>player</code>, <code>enemy</code>, and <code>directionArrow</code> components were dereferenced without a combat-state gate.</p></div>
+                            <div><span>Fix</span><p>Move the core combat-only HUD update into <code>state == COMBAT</code>.</p></div>
+                            <div><span>Result</span><p>The invalid dereference surface is reduced. This commit alone does not prove complete null safety, and no crash trace was preserved.</p></div>
+                        </div>
+                        <div class="huntress-code-compare">
+                            <div><span>Before</span><pre tabindex="0"><code>float angle = directionArrow
+    -&gt;GetComponent&lt;CombatComp&gt;()
+    -&gt;data.windAngle;
+UpdateCombatGauges();</code></pre></div>
+                            <div class="is-after"><span>After</span><pre tabindex="0"><code>if (CombatComp::state ==
+    CombatComp::STATE::COMBAT)
+{
+    UpdateWindAndCombatGauges();
+}</code></pre></div>
+                        </div>
+                        <footer><code>AlphaEngine/UI/CombatUI.cpp · UpdateCombatUI()</code><span>Git-backed code Before/After · partial safety fix</span></footer>
+                    </article>
+
+                    <article class="huntress-trouble-card">
+                        <header>
+                            <span class="huntress-case-index">06</span>
+                            <div><p>Tooltip lifetime</p><h3>ItemInfo pointers were used before allocation</h3></div>
+                            <a href="https://github.com/HaXX0rBunny/Huntress/commit/95d8772e2fe6c59e92a1c0853d44b91b95231241" target="_blank" rel="noreferrer"><code>95d8772</code></a>
+                        </header>
+                        <div class="huntress-case-facts">
+                            <div><span>Symptom</span><p>The previous revision initialized four tooltip pointers to null and immediately invoked <code>CreateItemInfo()</code> through them.</p></div>
+                            <div><span>Root cause</span><p>The tooltip feature added use sites without a matching allocation and destruction interval.</p></div>
+                            <div><span>Fix</span><p>Allocate all four objects before setup and delete them in <code>ExitCombatUI()</code>.</p></div>
+                            <div><span>Result</span><p>The combat tooltip array now has a minimal create/use/destroy lifetime pair. No runtime crash log was retained.</p></div>
+                        </div>
+                        <div class="huntress-code-compare">
+                            <div><span>Before · <code>8713369</code></span><pre tabindex="0"><code>ItemInfo* iteminfo[4] = { nullptr };
+
+iteminfo[0]-&gt;CreateItemInfo(
+    "OrbitUI", "Assets/UI/OrbitInfo.png");</code></pre></div>
+                            <div class="is-after"><span>After · <code>95d8772</code></span><pre tabindex="0"><code>for (int i = 0; i &lt; 4; ++i)
+    iteminfo[i] = new ItemInfo();
+
+// ExitCombatUI
+for (int i = 0; i &lt; 4; ++i)
+    delete iteminfo[i];</code></pre></div>
+                        </div>
+                        <footer><code>AlphaEngine/UI/CombatUI.cpp · InitCombatUI()/ExitCombatUI()</code><span>Git-backed code Before/After</span></footer>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="huntress-section" id="evidence">
+            <div class="container">
+                <header class="huntress-section-heading">
+                    <div>
+                        <p class="section-kicker">05 · Visual &amp; Source Evidence</p>
+                        <h2>What the repository proves—and what it does not</h2>
+                    </div>
+                    <p>The source, commit hashes, tracked tutorial frames, and current gameplay video are preserved. A controlled parent/fix runtime capture and performance benchmark are not.</p>
+                </header>
+
+                <div class="huntress-visual-grid">
+                    <figure>
+                        <img src="Assets/images/huntress/ui-tutorial-intro.png" alt="Huntress in-game UI tutorial introduction">
+                        <figcaption><strong>Integrated combat layout</strong><span>Tracked tutorial frame from the repository.</span></figcaption>
+                    </figure>
+                    <figure>
+                        <img src="Assets/images/huntress/ui-tutorial-enemy-hp.png" alt="Huntress tutorial showing the enemy health gauge">
+                        <figcaption><strong>Enemy HP presentation</strong><span>Tracked frame showing the gauge affected by the HP binding fix.</span></figcaption>
+                    </figure>
+                    <figure class="huntress-visual-grid--store">
+                        <img src="Assets/images/huntress/store-background.png" alt="Huntress store background art">
+                        <figcaption><strong>Store interface source asset</strong><span>Repository asset used by the store loop; this is not a runtime screenshot.</span></figcaption>
+                    </figure>
+                </div>
+
+                <div class="huntress-evidence-grid">
+                    <article>
+                        <span>Verified</span>
+                        <h3>Source and authorship</h3>
+                        <ul>
+                            <li>User fork and upstream <code>main</code> share <code>f64cd0f</code>.</li>
+                            <li>46 HaXX0rBunny-authored commits remain reachable from <code>main</code>.</li>
+                            <li>The personal <code>sanghyeon</code> branch is preserved on the user fork.</li>
+                            <li>Current-line blame supports the stated UI-system ownership.</li>
+                        </ul>
+                    </article>
+                    <article>
+                        <span>Verified</span>
+                        <h3>Runtime and visual material</h3>
+                        <ul>
+                            <li>Public gameplay video demonstrates the integrated game.</li>
+                            <li>Tracked tutorial frames show the HUD, aiming guide, and health presentation.</li>
+                            <li>A separately preserved Windows installer is linked from this portfolio.</li>
+                        </ul>
+                    </article>
+                    <article class="is-limit">
+                        <span>Not preserved</span>
+                        <h3>Controlled comparison data</h3>
+                        <ul>
+                            <li>No commit-bound runtime Before/After screenshots or crash logs.</li>
+                            <li>No benchmark CSV, profiler capture, or supported percentage improvement.</li>
+                            <li>No GitHub release/tag or executable committed in the source repository.</li>
+                        </ul>
+                    </article>
+                    <article class="is-limit">
+                        <span>Known remaining risk</span>
+                        <h3>Store tooltip callback lifetime</h3>
+                        <p><code>StoreUI::CreateStoreItem()</code> still captures a local <code>StoreItem</code> by reference in hover callbacks before copying it into the vector. The page therefore does not claim that every UI lifetime issue is resolved.</p>
+                    </article>
+                </div>
+
+                <div class="huntress-repro-note">
+                    <span>Reproduction plan for a future visual A/B</span>
+                    <p>Build the parent and fix commits in isolated worktrees, use the same save/level and 1600×900 viewport, and capture: hovered skill click, HUD-vs-aim input, unequal player/enemy max HP, and CombatUI tooltip initialization. Until that controlled run exists, the six cases above remain code-diff evidence.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container site-footer-content">
+            <strong>HaXX0rBunny</strong>
+            <span>Huntress · C++ UI Systems &amp; Gameplay Integration</span>
+            <a href="index.html#projects">Portfolio</a>
+        </div>
+    </footer>
+</body>
+</html>

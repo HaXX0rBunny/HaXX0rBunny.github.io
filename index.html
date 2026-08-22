@@ -1,27 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-color-scheme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game Developer Portfolio</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-
-        .contact-content {
-            display: flex !important;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .contact-links {
-            flex-direction: row !important;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-    </style>
 </head>
 <body>
     <!-- Loading Spinner -->
@@ -42,7 +25,7 @@
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
             <div class="nav-controls">
-                <button class="theme-toggle" id="themeToggle" aria-label="Switch to dark theme">Dark</button>
+                <button class="theme-toggle" id="themeToggle" aria-label="Switch to light theme">Light</button>
                 <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
                     <span></span>
                     <span></span>
@@ -279,7 +262,7 @@
 
                                 <p id="modalDescription"></p>
                                 <div class="project-meta">
-                                    <div class="project-type-badge" id="projectTypeBadge"></div>
+                                    <div class="project-type-badges" id="projectTypeBadge"></div>
                                     <div class="role-info" id="roleInfo"></div>
                                 </div>
                                 <div class="tech-stack" id="modalTechStack"></div>
