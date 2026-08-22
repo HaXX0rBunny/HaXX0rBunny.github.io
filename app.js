@@ -114,7 +114,7 @@ const projectsData = {
                 { "phase": "Polish & Testing", "duration": "2 days", "focus": "Bug fixes and optimization" }
             ]
         },
-        "downloadLink": "assets/downloads/MEGA_ROGUE_Setup.exe"
+        "downloadLink": "https://github.com/HaXX0rBunny/HaXX0rBunny.github.io/raw/main/Assets/downlaods/MEGA_ROGUE_Setup.exe"
     },
     "3": {
         "title": "Huntress Game Jam",
@@ -168,7 +168,7 @@ const projectsData = {
                 { "phase": "Polish & Submission", "duration": "1 weeks", "focus": "Bug fixes and final polish" }
             ]
         },
-        "downloadLink": "assets/downloads/Huntress_setup.exe"
+        "downloadLink": "https://github.com/HaXX0rBunny/HaXX0rBunny.github.io/raw/main/Assets/downlaods/Huntress_setup.exe"
     }
 };
 
