@@ -13,13 +13,45 @@ const projectsData = {
         "project_type": "team",
         "is_team_project": true,
         "team_size": 4,
+        "team_label_en": "Team Project · 4 Members",
+        "team_label_ko": "팀 프로젝트 · 4명",
+        "scope_label_en": "Game Project",
+        "scope_label_ko": "게임 프로젝트",
         "my_role": "Game Director & Gameplay Programmer",
+        "my_role_en": "Game Director & Gameplay Programmer",
+        "my_role_ko": "게임 디렉터 & 게임플레이 프로그래머",
         "technologies": ["Unreal Engine 5.4", "C++", "Blueprint"],
+        "description_en": "A hybrid 3D action game inspired by Bayonetta, Dark Souls, and Paper Mario. As a DigiPen Busan Academy graduation project, this project enhanced my skills in implementing Unreal Engine 5's latest features and complex gameplay systems.",
+        "description_ko": "베이오네타, 다크 소울, 페이퍼 마리오에서 영감을 받은 하이브리드 3D 액션 게임입니다. 디지펜 부산 아카데미 게임 졸업 프로젝트로, 언리얼 엔진 5의 최신 기능과 복합적인 게임플레이 시스템 구현 역량을 키운 프로젝트입니다.",
         "description": "A hybrid 3D action game inspired by Bayonetta, Dark Souls, and Paper Mario. As a DigiPen Busan Academy graduation project, this project enhanced my skills in implementing Unreal Engine 5's latest features and complex gameplay systems.",
         "videoUrl": "https://www.youtube.com/embed/264Wfi25UOU",
         "links": {
-            "github": "https://github.com/Team-Illegal-Design-Club/EdgeDrive", 
+            "github": "https://github.com/Team-Illegal-Design-Club/EdgeDrive",
             "youtube": "https://youtube.com/watch?v=264Wfi25UOU"
+        },
+        "collaboration_details_en": {
+            "team_size": 4,
+            "my_role": "Game Director & Gameplay Programmer",
+            "team_roles": [
+                "Game Director & Gameplay Programmer (Me)",
+                "3D Artist & Animator",
+                "UI/UX Designer",
+                "Sound Designer & Music Composer"
+            ],
+            "collaboration_tools": ["Git", "GitHub", "Gdrive", "Discord"],
+            "team_dynamics": "Led technical implementation and game design decisions while coordinating with artists and designers. Managed project timeline and feature prioritization."
+        },
+        "collaboration_details_ko": {
+            "team_size": 4,
+            "my_role": "게임 디렉터 & 게임플레이 프로그래머",
+            "team_roles": [
+                "게임 디렉터 & 게임플레이 프로그래머 (본인)",
+                "3D 아티스트 & 애니메이터",
+                "UI/UX 디자이너",
+                "사운드 디자이너 & 음악 편곡"
+            ],
+            "collaboration_tools": ["Git", "GitHub", "Google Drive", "Discord"],
+            "team_dynamics": "아티스트·디자이너와 협업해 기술 구현과 게임 디자인 결정을 주도하고 일정 관리와 기능 우선순위를 조정했습니다."
         },
         "collaboration_details": {
             "team_size": 4,
@@ -33,12 +65,52 @@ const projectsData = {
             "collaboration_tools": ["Git", "Github", "Gdrive", "Discord"],
             "team_dynamics": "Led technical implementation and game design decisions while coordinating with artists and designers. Managed project timeline and feature prioritization."
         },
+        "technical_challenges_en": [
+            "Frame drops during complex combat scenarios",
+            "Memory management with multiple weapon systems",
+            "State synchronization in motion matching system",
+            "Performance optimization for 50-60 FPS target"
+        ],
+        "technical_challenges_ko": [
+            "복잡한 전투 상황에서의 프레임 드랍",
+            "다중 무기 시스템의 메모리 관리",
+            "모션 매칭 시스템에서 상태 동기화",
+            "50~60 FPS 목표를 위한 성능 최적화"
+        ],
         "technical_challenges": [
             "Frame drops during complex combat scenarios",
             "Memory management with multiple weapon systems",
             "State synchronization in motion matching system",
             "Performance optimization for 50-60 FPS target"
         ],
+        "troubleshooting_en": {
+            "performance_issues": {
+                "problem": "Frame drops during complex combat scenarios with multiple enemies and effects",
+                "root_cause": "Excessive draw calls and synchronous combat calculations on main thread",
+                "solution": "Implemented event-driven combat system and object pooling for VFX",
+                "result": "Achieved 30% reduction in CPU usage and stable 50-60 FPS"
+            },
+            "memory_optimization": {
+                "problem": "Memory leaks in weapon switching system",
+                "root_cause": "Improper cleanup of weapon components and animation blueprints",
+                "solution": "Created structured weapon component lifecycle management",
+                "result": "28% reduction in memory usage using Unreal Insights profiling"
+            }
+        },
+        "troubleshooting_ko": {
+            "performance_issues": {
+                "problem": "다수의 적과 이펙트가 동시에 발생하는 복잡한 전투 구간에서 프레임이 급격히 저하됨",
+                "root_cause": "메인 스레드에서 드로우 호출량이 과다하고 전투 계산이 동기식으로 처리됨",
+                "solution": "이벤트 기반 전투 구조와 VFX 오브젝트 풀링을 적용",
+                "result": "CPU 사용량이 약 30% 감소하고 50~60 FPS가 안정적으로 확보됨"
+            },
+            "memory_optimization": {
+                "problem": "무기 전환 시 메모리 누수 발생",
+                "root_cause": "무기 컴포넌트와 애니메이션 블루프린트 정리가 불완전했음",
+                "solution": "무기 컴포넌트 생명주기 관리 구조를 새로 설계",
+                "result": "Unreal Insights 기준 메모리 사용량이 28% 감소함"
+            }
+        },
         "troubleshooting": {
             "performance_issues": {
                 "problem": "Frame drops during complex combat scenarios with multiple enemies and effects",
@@ -52,6 +124,22 @@ const projectsData = {
                 "solution": "Created structured weapon component lifecycle management",
                 "result": "28% reduction in memory usage using Unreal Insights profiling"
             }
+        },
+        "development_timeline_en": {
+            "duration": "2 months",
+            "phases": [
+                { "phase": "Pre-production", "duration": "2 weeks", "focus": "Concept design and technical planning" },
+                { "phase": "Core Development", "duration": "1 months", "focus": "Combat system and core mechanics" },
+                { "phase": "Polish & Optimization", "duration": "2 weeks", "focus": "Performance tuning and bug fixes" }
+            ]
+        },
+        "development_timeline_ko": {
+            "duration": "2개월",
+            "phases": [
+                { "phase": "기획 준비", "duration": "2주", "focus": "컨셉 설계와 기술 기획" },
+                { "phase": "핵심 개발", "duration": "1개월", "focus": "전투 시스템 및 핵심 메커니즘 구현" },
+                { "phase": "폴리싱 & 최적화", "duration": "2주", "focus": "성능 튜닝과 버그 수정" }
+            ]
         },
         "development_timeline": {
             "duration": "2 months",
@@ -69,12 +157,40 @@ const projectsData = {
         "project_type": "team",
         "is_team_project": true,
         "team_size": 2,
+        "team_label_en": "Team Project · 2 Members",
+        "team_label_ko": "팀 프로젝트 · 2명",
+        "scope_label_en": "Game Project",
+        "scope_label_ko": "게임 프로젝트",
         "my_role": "Gameplay & Systems Programmer",
+        "my_role_en": "Gameplay & Systems Programmer",
+        "my_role_ko": "게임플레이 & 시스템 프로그래머",
         "technologies": ["C", "CProcessing", "FMOD"],
+        "description_en": "A C-based 2D action prototype built around pooled projectiles, data-driven levels, three boss state machines, and explicit game-state resource lifetimes. The public repository retains the original APETI name while the shipped menu identifies the game as MEGA ROGUE.",
+        "description_ko": "풀 기반 발사체와 데이터 기반 레벨 설계, 3개 보스 상태기계, 상태 기반 게임 자원 수명 관리를 중심으로 구성한 C 기반 2D 액션 프로토타입입니다. 공개 저장소는 원래의 APETI 이름을 유지하지만 배포 메뉴에서는 게임명이 MEGA ROGUE로 표시됩니다.",
         "description": "A C-based 2D action prototype built around pooled projectiles, data-driven levels, three boss state machines, and explicit game-state resource lifetimes. The public repository retains the original APETI name while the shipped menu identifies the game as MEGA ROGUE.",
         "videoUrl": "https://www.youtube.com/embed/dd0ZqgdRN5Y",
         "links": {
             "github": "https://github.com/HaXX0rBunny/APETI"
+        },
+        "collaboration_details_en": {
+            "team_size": 2,
+            "my_role": "Gameplay & Systems Programmer",
+            "team_roles": [
+                "Gameplay & Systems Programmer (Me)",
+                "Gameplay & Content Programmer"
+            ],
+            "collaboration_tools": ["Git", "Visual Studio"],
+            "team_dynamics": "Shared C codebase with feature branches for gameplay, bosses, editor integration, and final state wiring"
+        },
+        "collaboration_details_ko": {
+            "team_size": 2,
+            "my_role": "게임플레이 & 시스템 프로그래머",
+            "team_roles": [
+                "게임플레이 & 시스템 프로그래머 (본인)",
+                "게임플레이 & 콘텐츠 프로그래머"
+            ],
+            "collaboration_tools": ["Git", "Visual Studio"],
+            "team_dynamics": "공유 C 코드베이스에서 feature branch 기반으로 게임플레이, 보스, 에디터 통합, 상태 연결 파이프라인을 분리해 개발했습니다."
         },
         "collaboration_details": {
             "team_size": 2,
@@ -86,6 +202,20 @@ const projectsData = {
             "collaboration_tools": ["Git", "Visual Studio"],
             "team_dynamics": "Shared C codebase with feature branches for gameplay, bosses, editor integration, and final state wiring"
         },
+        "technical_challenges_en": [
+            "Keeping projectile movement deterministic across frame rates",
+            "Reusing fixed-capacity projectile and hazard pools",
+            "Coordinating menu, game, boss, clear, and game-over states",
+            "Serializing editable level data into text-based .lvl files",
+            "Matching sound-handle lifetime to each game state's init/exit cycle"
+        ],
+        "technical_challenges_ko": [
+            "프레임레이트 변화에 따른 발사체 이동의 결정성 유지",
+            "고정 용량 투사체 및 함정 풀의 재사용 구조 설계",
+            "메뉴/게임/보스/클리어/게임 오버 상태 동기화",
+            "텍스트 기반 .lvl 레벨 데이터의 직렬화 처리",
+            "각 게임 상태의 초기화·종료 구간에 맞춘 사운드 핸들 수명 관리"
+        ],
         "technical_challenges": [
             "Keeping projectile movement deterministic across frame rates",
             "Reusing fixed-capacity projectile and hazard pools",
@@ -93,6 +223,46 @@ const projectsData = {
             "Serializing editable level data into text-based .lvl files",
             "Matching sound-handle lifetime to each game state's init/exit cycle"
         ],
+        "troubleshooting_en": {
+            "projectile_timestep": {
+                "problem": "Projectile movement could slow down at 60 Hz and stop updating at frame times below 0.01 seconds.",
+                "root_cause": "The integration count used floor(dt / 0.01), discarding the remainder and producing zero steps at 120 Hz.",
+                "solution": "Split each frame's full dt into three equal substeps and run movement plus collision for every substep.",
+                "result": "The updated loop integrates the complete frame delta; this is a code-derived correction, not a measured benchmark."
+            },
+            "enemy_patrol_collision": {
+                "problem": "A patrolling enemy could accumulate movement into a wall or platform edge before reversing.",
+                "root_cause": "The code reversed velocity after a tentative move without restoring the pre-move position.",
+                "solution": "Save originalPos, test the tentative move, restore on collision or missing ground, then flip direction.",
+                "result": "Rejected patrol moves no longer become the starting point of the next frame."
+            },
+            "sound_lifetime": {
+                "problem": "Player and menu audio handles had overlapping or missing cleanup paths across state transitions.",
+                "root_cause": "Cleanup was split between button callbacks, GameOver_exit, and state-exit functions.",
+                "solution": "Moved ownership to the corresponding game/menu exit paths and removed duplicate callback cleanup.",
+                "result": "Resource lifetime now follows the state lifecycle; no memory-performance figure is claimed."
+            }
+        },
+        "troubleshooting_ko": {
+            "projectile_timestep": {
+                "problem": "60Hz에서 발사체가 느려지거나, 프레임 간격이 0.01초 미만이면 업데이트가 멈추는 현상",
+                "root_cause": "프레임 통합 횟수를 `floor(dt / 0.01)`으로 계산해 나머지 시간을 버려 120Hz에서 0 step이 발생",
+                "solution": "프레임 델타를 3분할 서브스텝으로 나눠 이동/충돌을 분할 처리",
+                "result": "매 프레임의 전체 dt를 반영하도록 보정해 수치 안정성이 개선됨(정량 검증치는 별도 측정 기준이 아님)"
+            },
+            "enemy_patrol_collision": {
+                "problem": "순찰 적이 벽이나 플랫폼 가장자리에 먼저 스며든 후 방향 전환하는 버그",
+                "root_cause": "임시 이동 후 복구 없이 속도를 반전해 다음 프레임의 시작점이 충돌 지점이 됨",
+                "solution": "이동 전 위치를 저장했다가 충돌/낙하 조건에서 복구 후 방향 전환",
+                "result": "거부된 이동 값이 누적되어 다음 프레임을 오차시키던 문제가 제거됨"
+            },
+            "sound_lifetime": {
+                "problem": "상태 전환 시 플레이어/메뉴 오디오 핸들의 정리 경로가 중복되거나 누락됨",
+                "root_cause": "버튼 콜백, GameOver_exit, 상태 종료 함수로 정리 로직이 분산",
+                "solution": "게임/메뉴 종료 경로로 소유권을 통합하고 중복 콜백 정리를 제거",
+                "result": "자원 수명 주기가 상태 라이프사이클과 정렬되어 추적성이 개선됨"
+            }
+        },
         "troubleshooting": {
             "projectile_timestep": {
                 "problem": "Projectile movement could slow down at 60 Hz and stop updating at frame times below 0.01 seconds.",
@@ -113,6 +283,22 @@ const projectsData = {
                 "result": "Resource lifetime now follows the state lifecycle; no memory-performance figure is claimed."
             }
         },
+        "development_timeline_en": {
+            "duration": "June 19–25, 2024",
+            "phases": [
+                { "phase": "Core Gameplay", "duration": "Jun 19–21", "focus": "Player, projectile pools, enemies, and collision" },
+                { "phase": "Boss & Level Systems", "duration": "Jun 22–24", "focus": "Boss state machines, editor integration, and level files" },
+                { "phase": "Integration", "duration": "Jun 25", "focus": "Game states, resource cleanup, naming, and Release build" }
+            ]
+        },
+        "development_timeline_ko": {
+            "duration": "2024년 6월 19일 ~ 25일",
+            "phases": [
+                { "phase": "핵심 플레이어 로직", "duration": "6/19–6/21", "focus": "플레이어·발사체 풀·적·충돌 처리 구성" },
+                { "phase": "보스 및 레벨 시스템", "duration": "6/22–6/24", "focus": "보스 상태기계, 에디터 연동, 레벨 파일 구성" },
+                { "phase": "통합", "duration": "6/25", "focus": "게임 상태 연동, 자원 정리, 릴리즈 빌드 준비" }
+            ]
+        },
         "development_timeline": {
             "duration": "June 19–25, 2024",
             "phases": [
@@ -122,6 +308,8 @@ const projectsData = {
             ]
         },
         "downloadLink": "https://github.com/HaXX0rBunny/HaXX0rBunny.github.io/raw/main/Assets/downlaods/MEGA_ROGUE_Setup.exe",
+        "downloadLabel_en": "Windows Installer",
+        "downloadLabel_ko": "Windows 실행 파일",
         "downloadLabel": "Windows Installer"
     },
     "3": {
@@ -130,14 +318,46 @@ const projectsData = {
         "project_type": "team",
         "is_team_project": true,
         "team_size": 4,
+        "team_label_en": "Team Project · 4 Members",
+        "team_label_ko": "팀 프로젝트 · 4명",
+        "scope_label_en": "Game Project",
+        "scope_label_ko": "게임 프로젝트",
         "my_role": "UI Systems & Gameplay Integration Programmer",
+        "my_role_en": "UI Systems & Gameplay Integration Programmer",
+        "my_role_ko": "UI 시스템 & 게임플레이 연동 프로그래머",
         "technologies": ["C++", "Alpha Engine", "FMOD"],
+        "description_en": "A four-person C++ team project that combines a store-and-upgrade loop with wind- and gravity-driven artillery combat. I built and integrated the menu, store, combat HUD, button/hover interactions, item tooltips, and the UI-to-combat input path.",
+        "description_ko": "상점/업그레이드 루프와 바람 및 중력 기반의 탄환 투사 탄막 전투를 결합한 4인 C++ 팀 프로젝트입니다. 저는 메뉴, 상점, 전투 HUD, 버튼 및 호버 상호작용, 아이템 툴팁, UI-전투 입력 경로를 구축하고 통합했습니다.",
         "description": "A four-person C++ team project that combines a store-and-upgrade loop with wind- and gravity-driven artillery combat. I built and integrated the menu, store, combat HUD, button/hover interactions, item tooltips, and the UI-to-combat input path.",
         "videoUrl": "https://www.youtube.com/embed/I_cFyhu3i0E",
         "detailPage": "huntress.html",
         "links": {
             "github": "https://github.com/HaXX0rBunny/Huntress",
             "upstream": "https://github.com/ido-013/Huntress"
+        },
+        "collaboration_details_en": {
+            "team_size": 4,
+            "my_role": "UI Systems & Gameplay Integration Programmer",
+            "team_roles": [
+                "UI Systems & Gameplay Integration (Me)",
+                "Combat & Gameplay",
+                "Level & Content",
+                "Animation & Effects"
+            ],
+            "collaboration_tools": ["Git branches", "Visual Studio 2022"],
+            "team_dynamics": "Feature-branch workflow across a shared Alpha Engine codebase; 46 commits are directly attributed to HaXX0rBunny and remain reachable from main"
+        },
+        "collaboration_details_ko": {
+            "team_size": 4,
+            "my_role": "UI 시스템 & 게임플레이 연동 프로그래머",
+            "team_roles": [
+                "UI 시스템 & 게임플레이 연동 (본인)",
+                "전투 & 게임플레이",
+                "레벨 & 콘텐츠",
+                "애니메이션 & 이펙트"
+            ],
+            "collaboration_tools": ["Git 브랜치", "Visual Studio 2022"],
+            "team_dynamics": "공유 Alpha Engine 코드베이스에서 기능 브랜치 기반 협업을 진행했고, main에서 확인 가능한 46건의 커밋을 직접 기여했습니다."
         },
         "collaboration_details": {
             "team_size": 4,
@@ -151,6 +371,20 @@ const projectsData = {
             "collaboration_tools": ["Git branches", "Visual Studio 2022"],
             "team_dynamics": "Feature-branch workflow across a shared Alpha Engine codebase; 46 commits are directly attributed to HaXX0rBunny and remain reachable from main"
         },
+        "technical_challenges_en": [
+            "Separating world, interface, and text rendering order",
+            "Routing screen-space UI input without changing world aim state",
+            "Synchronizing store, inventory, combat, and HUD state",
+            "Managing tooltip and interface-object lifetime",
+            "Keeping button hit testing consistent with hover visibility"
+        ],
+        "technical_challenges_ko": [
+            "월드/인터페이스/텍스트 렌더링 순서 분리",
+            "조준 상태를 바꾸지 않으면서 화면 좌표 기반 UI 입력 전달",
+            "상점, 인벤토리, 전투, HUD 상태 동기화",
+            "툴팁 및 인터페이스 오브젝트 수명 관리",
+            "호버 가시성과 클릭 판정 일관성 유지"
+        ],
         "technical_challenges": [
             "Separating world, interface, and text rendering order",
             "Routing screen-space UI input without changing world aim state",
@@ -158,7 +392,25 @@ const projectsData = {
             "Managing tooltip and interface-object lifetime",
             "Keeping button hit testing consistent with hover visibility"
         ],
+        "troubleshooting_en": {},
+        "troubleshooting_ko": {},
         "troubleshooting": {},
+        "development_timeline_en": {
+            "duration": "August 27–October 9, 2024",
+            "phases": [
+                { "phase": "UI Foundation", "duration": "Aug 27–Sep 6", "focus": "Menu, store, combat HUD, button manager, and UI components" },
+                { "phase": "System Integration", "duration": "Sep 24–30", "focus": "Render order, store/combat synchronization, item input, and lifetime fixes" },
+                { "phase": "Final UI Pass", "duration": "Oct 8–9", "focus": "Hover behavior, tooltips, layout polish, and final integration" }
+            ]
+        },
+        "development_timeline_ko": {
+            "duration": "2024년 8월 27일 ~ 10월 9일",
+            "phases": [
+                { "phase": "UI 기반 구축", "duration": "8/27–9/6", "focus": "메뉴, 상점, 전투 HUD, 버튼 관리, UI 컴포넌트 구성" },
+                { "phase": "시스템 통합", "duration": "9/24–30", "focus": "렌더 순서 정렬, 상점/전투 동기화, 아이템 입력, 수명 정리 보정" },
+                { "phase": "최종 UI 정제", "duration": "10/8–9", "focus": "호버 동작, 툴팁, 레이아웃 정제, 최종 통합" }
+            ]
+        },
         "development_timeline": {
             "duration": "August 27–October 9, 2024",
             "phases": [
@@ -168,6 +420,8 @@ const projectsData = {
             ]
         },
         "downloadLink": "https://github.com/HaXX0rBunny/HaXX0rBunny.github.io/raw/main/Assets/downlaods/Huntress_setup.exe",
+        "downloadLabel_en": "Windows Installer",
+        "downloadLabel_ko": "Windows 실행 파일",
         "downloadLabel": "Windows Installer"
     },
     "4": {
@@ -175,17 +429,48 @@ const projectsData = {
         "subtitle": "C++ Rendering & Engine Development",
         "project_type": "collection",
         "team_label": "Team Project · 3–4 Members",
+        "team_label_en": "Team Project · 3–4 Members",
+        "team_label_ko": "팀 프로젝트 · 3~4명",
         "scope_label": "Weekly Projects",
+        "scope_label_en": "Weekly Projects",
+        "scope_label_ko": "주차별 과제",
         "is_team_project": true,
         "team_size": "3–4",
         "my_role": "Rendering & Engine Programmer",
+        "my_role_en": "Rendering & Engine Programmer",
+        "my_role_ko": "렌더링 & 엔진 프로그래머",
         "technologies": ["C++", "DirectX 11", "HLSL", "ImGui", "FBX SDK"],
+        "description_en": "A curated record of the projects I contributed to throughout KRAFTON Jungle Game Tech Lab 3rd. The weekly snapshots trace custom engine development from 3D fundamentals through asset import, lighting, shadows, physics, animation, particles, and final game integration.",
+        "description_ko": "KRAFTON Jungle Game Tech Lab 3rd 동안 기여한 프로젝트를 통합 정리한 기록입니다. 주차별 스냅샷은 3D 기초부터 에셋 임포트, 조명, 그림자, 물리, 애니메이션, 파티클, 최종 게임 통합까지의 커스텀 엔진 개발 흐름을 보여줍니다.",
         "description": "A curated record of the projects I contributed to throughout KRAFTON Jungle Game Tech Lab 3rd. The weekly snapshots trace custom engine development from 3D fundamentals through asset import, lighting, shadows, physics, animation, particles, and final game integration.",
         "coverImage": "Assets/images/GameTechLab3rd-Engine-Editor.png",
         "coverAlt": "Custom C++ engine particle editor developed during Game Tech Lab",
+        "coverAlt_ko": "게임 텍스랩 동안 제작한 커스텀 C++ 엔진 파티클 에디터",
         "coverLabel": "Engine development archive",
+        "coverLabel_en": "Engine development archive",
+        "coverLabel_ko": "엔진 개발 아카이브",
         "links": {
             "overview": "gametechlab.html"
+        },
+        "collaboration_details_en": {
+            "team_size": "3–4 members per weekly project",
+            "my_role": "Rendering & Engine Programmer",
+            "team_roles": [
+                "Rendering and engine programming (Me)",
+                "Weekly graphics, engine, gameplay, and tool development teams"
+            ],
+            "collaboration_tools": ["Git", "GitHub", "Visual Studio", "Discord"],
+            "team_dynamics": "Worked in changing weekly teams and integrated focused rendering or engine features into each shared codebase. The hub preserves the reviewable snapshots from Week01 through Week14."
+        },
+        "collaboration_details_ko": {
+            "team_size": "주차별 3~4명",
+            "my_role": "렌더링 & 엔진 프로그래머",
+            "team_roles": [
+                "렌더링/엔진 프로그래밍 (본인)",
+                "매주 바뀌는 그래픽스·엔진·게임플레이·툴 개발 파트"
+            ],
+            "collaboration_tools": ["Git", "GitHub", "Visual Studio", "Discord"],
+            "team_dynamics": "매주 바뀌는 팀 구성에 맞춰 렌더링/엔진 기능을 통합했고, Week01~Week14의 검증 가능한 스냅샷을 보존했습니다."
         },
         "collaboration_details": {
             "team_size": "3–4 members per weekly project",
@@ -197,12 +482,52 @@ const projectsData = {
             "collaboration_tools": ["Git", "GitHub", "Visual Studio", "Discord"],
             "team_dynamics": "Worked in changing weekly teams and integrated focused rendering or engine features into each shared codebase. The hub preserves the reviewable snapshots from Week01 through Week14."
         },
+        "technical_challenges_en": [
+            "Evolving custom C++ engines from basic 3D rendering into editor and runtime systems",
+            "Integrating OBJ and FBX assets with lighting, shadow, physics, animation, and particle pipelines",
+            "Optimizing large object scenes with octahedral impostors and GPU-oriented rendering techniques",
+            "Keeping weekly projects buildable across changing codebases and external SDK dependencies"
+        ],
+        "technical_challenges_ko": [
+            "기본 3D 렌더링 기반 엔진을 에디터/런타임 시스템으로 확장",
+            "OBJ/FBX 에셋을 조명·그림자·물리·애니메이션·파티클 파이프라인과 통합",
+            "옥타헤드럴 임포스터를 활용해 대규모 오브젝트 장면 성능 최적화",
+            "주차별 코드베이스 변경과 외부 SDK 의존성 변화에도 빌드 가능한 구조 유지"
+        ],
         "technical_challenges": [
             "Evolving custom C++ engines from basic 3D rendering into editor and runtime systems",
             "Integrating OBJ and FBX assets with lighting, shadow, physics, animation, and particle pipelines",
             "Optimizing large object scenes with octahedral impostors and GPU-oriented rendering techniques",
             "Keeping weekly projects buildable across changing codebases and external SDK dependencies"
         ],
+        "troubleshooting_en": {
+            "large_scene_rendering": {
+                "problem": "Rendering tens of thousands of repeated objects with full mesh geometry created a severe performance bottleneck.",
+                "root_cause": "Per-object geometry and draw overhead scaled poorly as the scene population increased.",
+                "solution": "Implemented an octahedral impostor pipeline that bakes directional appearance into atlases and renders distant objects as lightweight proxies.",
+                "result": "Established a practical comparison path between full-mesh and impostor rendering for the large-scene optimization challenge."
+            },
+            "engine_integration": {
+                "problem": "Weekly engine branches accumulated different render features, asset formats, and third-party runtime dependencies.",
+                "root_cause": "Each assignment extended a different subsystem while sharing a growing custom engine foundation.",
+                "solution": "Organized the verified snapshots by week and repaired build linkage for required libraries such as FBX SDK and FMOD where needed.",
+                "result": "Produced one reviewable hub that connects the program's weekly development progression."
+            }
+        },
+        "troubleshooting_ko": {
+            "large_scene_rendering": {
+                "problem": "동일 메시를 대량 배치한 장면에서 전체 메시 렌더링을 계속 사용해 성능 병목이 급격히 증가",
+                "root_cause": "오브젝트 수 증가에 따라 객체별 지오메트리/드로우 오버헤드가 선형 이상으로 증가",
+                "solution": "방향 정보를 아틀라스로 베이크한 옥타헤드럴 임포스터 파이프라인을 도입해 원거리 오브젝트는 경량 프록시로 대체 렌더",
+                "result": "메쉬 렌더링 대비 임포스터 렌더링 비교 기반의 최적화 경로를 정립"
+            },
+            "engine_integration": {
+                "problem": "주차별 엔진 브랜치가 렌더링 기능, 에셋 형식, 외부 런타임 의존성이 다르게 누적됨",
+                "root_cause": "각 과제가 서로 다른 서브시스템을 확장하면서 공유 기반 엔진이 동시에 분기됨",
+                "solution": "검증된 주차 스냅샷을 정렬해 구성하고 FBX SDK/ FMOD 등 필수 라이브러리 링크를 과제별로 정비",
+                "result": "14주 전개 과정이 한 허브에서 이어지는 검토 가능한 아카이브로 재구성됨"
+            }
+        },
         "troubleshooting": {
             "large_scene_rendering": {
                 "problem": "Rendering tens of thousands of repeated objects with full mesh geometry created a severe performance bottleneck.",
@@ -216,6 +541,44 @@ const projectsData = {
                 "solution": "Organized the verified snapshots by week and repaired build linkage for required libraries such as FBX SDK and FMOD where needed.",
                 "result": "Produced one reviewable hub that connects the program's weekly development progression."
             }
+        },
+        "development_timeline_en": {
+            "duration": "Full program",
+            "phases": [
+                { "phase": "1st Game Jam", "duration": "Week 01", "focus": "Jungle Brick Break, game loop, input, and collision foundations" },
+                { "phase": "Break Into 3D", "duration": "Week 02", "focus": "3D primitives, scene components, camera transforms, and sky sphere" },
+                { "phase": "Atlas · Billboard · Batch Line · Bounding Box", "duration": "Week 03", "focus": "Reusable rendering utilities and engine debugging features" },
+                { "phase": "OBJ Import", "duration": "Week 04", "focus": "OBJ/MTL import, UStaticMesh assets, registry lookup, and versioned .dasset cooking" },
+                { "phase": "2nd Game Jam · It's Pie Time", "duration": "Week 05", "focus": "Octahedral impostor baking and large-scene rendering optimization" },
+                { "phase": "Decal · Clearing the Fog", "duration": "Week 06", "focus": "Surface decals, volumetric fog, and atmospheric rendering" },
+                { "phase": "Let There Be Light", "duration": "Week 07", "focus": "Real-time lighting and material integration" },
+                { "phase": "Where There Is Light, There Is Also Shadow", "duration": "Week 08", "focus": "Light-space rendering and real-time shadow evaluation" },
+                { "phase": "3rd Game Jam · Light, Camera, Action!", "duration": "Week 09", "focus": "Standalone build, cook, stage, runtime loading, and verification" },
+                { "phase": "More Than Just Weight", "duration": "Week 10", "focus": "Mass, force, collision, and object response systems" },
+                { "phase": "Let's Go, Move!", "duration": "Week 11", "focus": "Movement, input, actor state, and animation updates" },
+                { "phase": "Dance of the Dust", "duration": "Week 12", "focus": "Particle editor, emitters, modules, curves, and runtime effects" },
+                { "phase": "Understanding Focus and Force in 3D World", "duration": "Week 13", "focus": "Two depth-of-field techniques and camera focus controls" },
+                { "phase": "Final Game Jam", "duration": "Week 14", "focus": "Rendering, FBX, skeletal animation, physics, audio, tools, and gameplay integration" }
+            ]
+        },
+        "development_timeline_ko": {
+            "duration": "전체 과정",
+            "phases": [
+                { "phase": "1주차: 게임잼", "duration": "Week 01", "focus": "Jungle Brick Break 게임 루프, 입력, 충돌 기초" },
+                { "phase": "2주차: 3D 진입", "duration": "Week 02", "focus": "3D 기본 도형, 씬 컴포넌트, 카메라 변환, 스카이 구 구축" },
+                { "phase": "3주차: Atlas · Billboard · Batch Line · Bounding Box", "duration": "Week 03", "focus": "재사용 가능한 렌더링 유틸과 엔진 디버깅 기능" },
+                { "phase": "4주차: OBJ Import", "duration": "Week 04", "focus": "OBJ/MTL 임포트, UStaticMesh 자산, 레지스트리 조회, 버전형 .dasset 생성" },
+                { "phase": "5주차: 두 번째 게임잼", "duration": "Week 05", "focus": "옥타헤드럴 임포스터 베이킹과 대규모 장면 최적화" },
+                { "phase": "6주차: 데칼 · 안개 정리", "duration": "Week 06", "focus": "디컬·표면 데칼, 볼류메트릭 안개, 환경 렌더링" },
+                { "phase": "7주차: Let There Be Light", "duration": "Week 07", "focus": "실시간 조명과 머티리얼 통합" },
+                { "phase": "8주차: Light & Shadow", "duration": "Week 08", "focus": "라이트 스페이스 렌더링과 실시간 그림자 평가" },
+                { "phase": "9주차: 세 번째 게임잼", "duration": "Week 09", "focus": "독립 실행형 빌드, 쿠킹/패키징, 런타임 로드 및 검증" },
+                { "phase": "10주차: More Than Just Weight", "duration": "Week 10", "focus": "질량·힘·충돌·반응 시스템" },
+                { "phase": "11주차: Let's Go, Move!", "duration": "Week 11", "focus": "이동, 입력, 액터 상태, 애니메이션 갱신" },
+                { "phase": "12주차: Dance of the Dust", "duration": "Week 12", "focus": "파티클 편집기, 모듈, 커브, 런타임 효과" },
+                { "phase": "13주차: Focus and Force", "duration": "Week 13", "focus": "깊이 기반 2종류 뎁스오브필드와 카메라 포커스 제어" },
+                { "phase": "14주차: Final Game Jam", "duration": "Week 14", "focus": "렌더링, FBX, 스켈레탈 애니메이션, 물리, 오디오, 툴, 게임플레이 통합" }
+            ]
         },
         "development_timeline": {
             "duration": "Full program",
@@ -530,6 +893,103 @@ function getPortfolioText(key, fallback = '') {
         : fallback;
 }
 
+function getLocalizedProjectDescription(project, fallback = '') {
+    return getLocalizedProjectField(project, 'description', fallback);
+}
+
+function getCurrentLocale() {
+    return window.PortfolioI18n?.getLocale?.() === 'ko' ? 'ko' : 'en';
+}
+
+function getLocalizedProjectField(project, fieldName, fallback = '') {
+    const locale = getCurrentLocale();
+    const localeField = `${fieldName}_${locale}`;
+    if (project?.[localeField] !== undefined) {
+        return project[localeField];
+    }
+
+    if (project?.[`${fieldName}_en`] !== undefined && locale !== 'ko') {
+        return project[`${fieldName}_en`];
+    }
+
+    if (project?.[`${fieldName}_ko`] !== undefined && locale === 'ko') {
+        return project[`${fieldName}_ko`];
+    }
+
+    return project?.[fieldName] ?? fallback;
+}
+
+function getLocalizedProjectArray(project, fieldName, fallback = []) {
+    const value = getLocalizedProjectField(project, fieldName, fallback);
+    return Array.isArray(value) ? value : fallback;
+}
+
+function getLocalizedProjectObject(project, fieldName, fallback = {}) {
+    const locale = getCurrentLocale();
+    const localized = project?.[`${fieldName}_${locale}`];
+    const source = (localized && typeof localized === 'object') ? localized : project?.[fieldName];
+    return source && typeof source === 'object' ? source : fallback;
+}
+
+function formatTroubleCaseTitle(rawKey, fallback = '') {
+    const locale = getCurrentLocale();
+    const translations = {
+        performance_issues: {
+            en: 'Performance Issues',
+            ko: '성능 문제'
+        },
+        memory_optimization: {
+            en: 'Memory Optimization',
+            ko: '메모리 최적화'
+        },
+        projectile_timestep: {
+            en: 'Projectile Time-Step',
+            ko: '발사체 시간 스텝'
+        },
+        enemy_patrol_collision: {
+            en: 'Enemy Patrol Collision',
+            ko: '적 순찰 충돌'
+        },
+        sound_lifetime: {
+            en: 'Sound Lifetime',
+            ko: '오디오 수명 관리'
+        },
+        large_scene_rendering: {
+            en: 'Large Scene Rendering',
+            ko: '대규모 장면 렌더링'
+        },
+        engine_integration: {
+            en: 'Engine Integration',
+            ko: '엔진 통합'
+        },
+        fog_visibility: {
+            en: 'Fog Visibility',
+            ko: '안개 가시성'
+        },
+        decal_alpha_stability: {
+            en: 'Decal Alpha Stability',
+            ko: '데칼 알파 안정성'
+        }
+    };
+
+    if (translations[rawKey]?.[locale]) {
+        return translations[rawKey][locale];
+    }
+
+    return fallback || rawKey
+        .replace(/_/g, ' ')
+        .replace(/\b[a-z]/g, char => char.toUpperCase())
+        .replace(/(^[a-z])/g, char => char.toUpperCase());
+}
+
+function formatTeamSizeDisplay(teamSize) {
+    const locale = getCurrentLocale();
+    if (typeof teamSize === 'number') {
+        return locale === 'ko' ? `${teamSize}명` : `${teamSize} members`;
+    }
+    return teamSize;
+}
+
 function applyLocalizedChrome() {
     if (window.PortfolioI18n?.applyStaticI18n) {
         window.PortfolioI18n.applyStaticI18n(document);
@@ -567,6 +1027,11 @@ function initializeLocaleFeatures() {
 
     window.addEventListener('portfolio-locale-changed', () => {
         applyLocalizedChrome();
+        const projectsGrid = document.getElementById('projectsGrid');
+        if (projectsGrid) {
+            projectsGrid.innerHTML = '';
+            initializeProjects();
+        }
         if (currentProjectId) {
             openProjectModal(currentProjectId);
         }
@@ -770,11 +1235,19 @@ function createProjectCard(id, project) {
         }
     });
 
-    const typeText = project.team_label || project.type_label || (project.is_team_project ? `Team · ${project.team_size}` : 'Solo');
+    const typeText = getLocalizedProjectField(project, 'team_label')
+        || (project.is_team_project
+            ? `${getPortfolioText('index.projectTypeTeam', 'Team')} · ${formatTeamSizeDisplay(project.team_size)}`
+            : getPortfolioText('index.projectTypeSolo', 'Solo'));
     const typeBadgeClass = project.is_team_project ? 'team' : 'solo';
-    const scopeBadge = project.scope_label
-        ? `<div class="project-scope-badge">${project.scope_label}</div>`
+    const scopeBadgeText = getLocalizedProjectField(project, 'scope_label');
+    const scopeBadge = scopeBadgeText
+        ? `<div class="project-scope-badge">${scopeBadgeText}</div>`
         : '';
+    const roleText = getLocalizedProjectField(project, 'my_role', getPortfolioText('global.myRole', 'My Role'));
+    const coverAltText = getLocalizedProjectField(project, 'coverAlt', project.title);
+    const coverLabelText = getLocalizedProjectField(project, 'coverLabel');
+    const downloadLabelText = getLocalizedProjectField(project, 'downloadLabel', getPortfolioText('global.downloadDemo', 'Download Demo'));
 
     const techBadges = project.technologies.map(tech => {
         let badgeClass = 'tech-badge';
@@ -790,10 +1263,10 @@ function createProjectCard(id, project) {
     const videoSection = project.coverImage
         ? `<div class="project-video project-cover">
            <img src="${project.coverImage}"
-                alt="${project.coverAlt || project.title}"
+                alt="${coverAltText || project.title}"
                 class="project-cover-image"
                 loading="lazy">
-           ${project.coverLabel ? `<span class="project-cover-label">${project.coverLabel}</span>` : ''}
+           ${coverLabelText ? `<span class="project-cover-label">${coverLabelText}</span>` : ''}
        </div>`
         : project.videoUrl
         ? `<div class="project-video">
@@ -815,7 +1288,7 @@ function createProjectCard(id, project) {
 
     const downloadBtn = project.downloadLink
         ? `<a href="${project.downloadLink}" target="_blank" class="btn btn--secondary download-btn project-action">
-           ${project.downloadLabel || getPortfolioText('global.downloadDemo', 'Download Demo')}
+           ${downloadLabelText}
        </a>`
         : '';
 
@@ -833,13 +1306,13 @@ function createProjectCard(id, project) {
                       <span>${typeText}</span>
                   </div>
                   ${scopeBadge}
-                  <div class="role-badge">${project.my_role}</div>
+                  <div class="role-badge">${roleText}</div>
               </div>
           </div>
 
           <div class="project-card-section project-overview">
               <span class="project-card-label" data-i18n="global.overview">Overview</span>
-              <p>${project.description}</p>
+              <p>${getLocalizedProjectDescription(project)}</p>
           </div>
 
           <div class="project-card-section project-stack-block">
@@ -1000,7 +1473,7 @@ function populateOverviewTab(project) {
         if (project.coverImage) {
             modalVideo.innerHTML = `
                 <img src="${project.coverImage}"
-                     alt="${project.coverAlt || project.title}"
+                     alt="${getLocalizedProjectField(project, 'coverAlt', project.title)}"
                      class="project-detail-cover">
             `;
         } else if (project.videoUrl) {
@@ -1039,9 +1512,15 @@ function populateOverviewTab(project) {
                 // Get Icon
                 const iconKey = platform.toLowerCase();
                 const iconSvg = icons[iconKey] || icons.default;
+                const platformLabelMap = {
+                    github: 'GitHub',
+                    youtube: getCurrentLocale() === 'ko' ? 'YouTube' : 'YouTube',
+                    upstream: getCurrentLocale() === 'ko' ? '원본 저장소' : 'Source Repository',
+                    overview: getCurrentLocale() === 'ko' ? '개요' : 'Overview',
+                    steam: 'Steam'
+                };
 
-                // Capitalize Label
-                const label = platform.charAt(0).toUpperCase() + platform.slice(1);
+                const label = platformLabelMap[platform.toLowerCase()] || `${platform.charAt(0).toUpperCase()}${platform.slice(1)}`;
 
                 linkBtn.innerHTML = `${iconSvg} ${label}`;
                 modalLinks.appendChild(linkBtn);
@@ -1051,15 +1530,19 @@ function populateOverviewTab(project) {
 
     // Description
     if (modalDescription) {
-        modalDescription.textContent = project.description;
+        modalDescription.textContent = getLocalizedProjectDescription(project);
     }
 
     // Project type badge
     if (projectTypeBadge) {
-        const typeText = project.team_label || project.type_label || (project.is_team_project ? `Team · ${project.team_size}` : 'Solo');
+        const typeText = getLocalizedProjectField(project, 'team_label')
+            || (project.is_team_project
+                ? `${getPortfolioText('index.projectTypeTeam', 'Team')} · ${formatTeamSizeDisplay(project.team_size)}`
+                : getPortfolioText('index.projectTypeSolo', 'Solo'));
         const typeBadgeClass = project.is_team_project ? 'team' : 'solo';
-        const scopeBadge = project.scope_label
-            ? `<div class="project-scope-badge">${project.scope_label}</div>`
+        const scopeText = getLocalizedProjectField(project, 'scope_label');
+        const scopeBadge = scopeText
+            ? `<div class="project-scope-badge">${scopeText}</div>`
             : '';
 
         projectTypeBadge.innerHTML = `
@@ -1072,7 +1555,8 @@ function populateOverviewTab(project) {
 
     // Role info
     if (roleInfo) {
-        roleInfo.innerHTML = `<strong>${getPortfolioText('modal.rolePrefix', 'Role:')}</strong> ${project.my_role}`;
+        const roleText = getLocalizedProjectField(project, 'my_role', getPortfolioText('modal.rolePrefix', 'My Role:'));
+        roleInfo.innerHTML = `<strong>${getPortfolioText('modal.rolePrefix', 'Role:')}</strong> ${roleText}`;
     }
 
     // Tech stack
@@ -1089,9 +1573,10 @@ function populateOverviewTab(project) {
     // Download section
     if (downloadSection) {
         if (project.downloadLink) {
+            const downloadText = getLocalizedProjectField(project, 'downloadLabel', getPortfolioText('global.downloadProject', 'Download Project'));
             downloadSection.innerHTML = `
                 <a href="${project.downloadLink}" target="_blank" class="download-btn">
-                    <span>${getPortfolioText('global.downloadProject', 'Download Project')}</span>
+                    <span>${downloadText}</span>
                 </a>
             `;
         } else {
@@ -1103,27 +1588,28 @@ function populateOverviewTab(project) {
 function populateCollaborationTab(project) {
     const collaborationContent = document.querySelector('#collaborationTab-content .collaboration-content');
     if (!collaborationContent) return;
+    const localizedCollaboration = getLocalizedProjectObject(project, 'collaboration_details', {});
 
     if (project.is_team_project) {
-        const teamSize = project.collaboration_details.team_size;
-        const teamSizeText = typeof teamSize === 'number' ? `${teamSize} members` : teamSize;
+        const teamSize = localizedCollaboration?.team_size;
+        const teamSizeText = formatTeamSizeDisplay(teamSize);
         collaborationContent.innerHTML = `
             <div class="team-overview">
                 <h3 data-i18n="global.teamOverview">Team Overview</h3>
                 <p><strong>${getPortfolioText('global.teamSize', 'Team Size')}:</strong> ${teamSizeText}</p>
-                <p><strong>${getPortfolioText('global.myRole', 'My Role')}:</strong> ${project.collaboration_details.my_role}</p>
-                <p><strong>${getPortfolioText('global.teamDynamics', 'Team Dynamics')}:</strong> ${project.collaboration_details.team_dynamics}</p>
+                <p><strong>${getPortfolioText('global.myRole', 'My Role')}:</strong> ${localizedCollaboration?.my_role || ''}</p>
+                <p><strong>${getPortfolioText('global.teamDynamics', 'Team Dynamics')}:</strong> ${localizedCollaboration?.team_dynamics || ''}</p>
             </div>
             <div class="team-roles">
                 <h3>${getPortfolioText('global.teamComposition', 'Team Composition')}</h3>
                 <ul>
-                    ${project.collaboration_details.team_roles.map(role => `<li>${role}</li>`).join('')}
+                    ${(localizedCollaboration?.team_roles || []).map(role => `<li>${role}</li>`).join('')}
                 </ul>
             </div>
             <div class="collaboration-tools">
                 <h3>${getPortfolioText('global.collaborationTools', 'Collaboration Tools')}</h3>
                 <ul>
-                    ${project.collaboration_details.collaboration_tools.map(tool => `<li>${tool}</li>`).join('')}
+                    ${(localizedCollaboration?.collaboration_tools || []).map(tool => `<li>${tool}</li>`).join('')}
                 </ul>
             </div>
         `;
@@ -1131,15 +1617,15 @@ function populateCollaborationTab(project) {
         collaborationContent.innerHTML = `
             <div class="team-overview">
                 <h3>${getPortfolioText('global.soloDevelopment', 'Solo Development')}</h3>
-                <p><strong>${getPortfolioText('global.projectType', 'Project Type')}:</strong> ${project.collaboration_details.project_type}</p>
-                <p><strong>${getPortfolioText('global.scope', 'Scope')}:</strong> ${project.collaboration_details.scope}</p>
-                ${project.collaboration_details.time_constraint ?
-                `<p><strong>${getPortfolioText('global.timeConstraint', 'Time Constraint')}:</strong> ${project.collaboration_details.time_constraint}</p>` : ''}
+                <p><strong>${getPortfolioText('global.projectType', 'Project Type')}:</strong> ${localizedCollaboration?.project_type || ''}</p>
+                <p><strong>${getPortfolioText('global.scope', 'Scope')}:</strong> ${localizedCollaboration?.scope || ''}</p>
+                ${localizedCollaboration?.time_constraint
+                ? `<p><strong>${getPortfolioText('global.timeConstraint', 'Time Constraint')}:</strong> ${localizedCollaboration.time_constraint}</p>` : ''}
             </div>
             <div class="team-roles">
                 <h3>${getPortfolioText('global.selfManagedAspects', 'Self-Managed Aspects')}</h3>
                 <ul>
-                    ${project.collaboration_details.self_managed_aspects.map(aspect => `<li>${aspect}</li>`).join('')}
+                    ${(localizedCollaboration?.self_managed_aspects || []).map(aspect => `<li>${aspect}</li>`).join('')}
                 </ul>
             </div>
         `;
@@ -1150,7 +1636,9 @@ function populateTechnicalTab(project) {
     const technicalChallenges = document.getElementById('technicalChallenges');
     if (!technicalChallenges) return;
 
-    technicalChallenges.innerHTML = project.technical_challenges.map(challenge =>
+    const technicalChallengesList = getLocalizedProjectArray(project, 'technical_challenges');
+
+    technicalChallenges.innerHTML = technicalChallengesList.map(challenge =>
         `<li>${challenge}</li>`
     ).join('');
 }
@@ -1158,28 +1646,29 @@ function populateTechnicalTab(project) {
 function populateChallengesTab(project) {
     const challengesContent = document.querySelector('#challengesTab .challenges-content');
     if (!challengesContent) return;
+    const localizedTroubleshooting = getLocalizedProjectObject(project, 'troubleshooting', {});
 
-    const troubleshootingCards = Object.entries(project.troubleshooting).map(([key, issue]) => `
+    const troubleshootingCards = Object.entries(localizedTroubleshooting).map(([key, issue]) => `
         <div class="troubleshooting-card">
-            <h4>${key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</h4>
+            <h4>${formatTroubleCaseTitle(key)}</h4>
             <div class="problem-solution-grid">
                 <div class="problem-section">
                     <h5>${getPortfolioText('global.problem', 'Problem')}</h5>
-                    <p>${issue.problem}</p>
+                    <p>${issue?.problem || ''}</p>
                 </div>
                 <div class="solution-section">
                     <h5>${getPortfolioText('global.solution', 'Solution')}</h5>
-                    <p>${issue.solution}</p>
+                    <p>${issue?.solution || ''}</p>
                 </div>
             </div>
             <div class="problem-solution-grid">
                 <div class="problem-section">
                     <h5>${getPortfolioText('global.rootCause', 'Root Cause')}</h5>
-                    <p>${issue.root_cause}</p>
+                    <p>${issue?.root_cause || ''}</p>
                 </div>
                 <div class="result-highlight">
                     <h5>${getPortfolioText('global.result', 'Result')}</h5>
-                    <p>${issue.result}</p>
+                    <p>${issue?.result || ''}</p>
                 </div>
             </div>
         </div>
@@ -1191,8 +1680,10 @@ function populateChallengesTab(project) {
 function populateTimelineTab(project) {
     const timelineContent = document.querySelector('#timelineTab .timeline-content');
     if (!timelineContent) return;
+    const timeline = getLocalizedProjectObject(project, 'development_timeline', {});
+    const timelinePhases = Array.isArray(timeline?.phases) ? timeline.phases : [];
 
-    const timelineItems = project.development_timeline.phases.map((phase, index) => {
+    const timelineItems = timelinePhases.map((phase, index) => {
         const marker = project.project_type === 'collection'
             ? String(index + 1).padStart(2, '0')
             : index + 1;
@@ -1203,7 +1694,7 @@ function populateTimelineTab(project) {
                 <div class="timeline-content-item">
                     <div class="timeline-phase">${phase.phase}</div>
                     <div class="timeline-duration">${phase.duration}</div>
-                    <div class="timeline-focus">${phase.focus}</div>
+                    <div class="timeline-focus">${phase?.focus || ''}</div>
                 </div>
             </div>
         `;
@@ -1212,7 +1703,7 @@ function populateTimelineTab(project) {
     timelineContent.innerHTML = `
         <div class="project-detail-section">
             <h3>${getPortfolioText('global.timelineLabel', 'Development Timeline')}</h3>
-            <p><strong>${getPortfolioText('global.totalDurationLabel', 'Total Duration')}:</strong> ${project.development_timeline.duration}</p>
+            <p><strong>${getPortfolioText('global.totalDurationLabel', 'Total Duration')}:</strong> ${timeline?.duration || ''}</p>
         </div>
         <div class="timeline-phases">
             ${timelineItems}
