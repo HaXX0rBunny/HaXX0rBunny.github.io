@@ -169,6 +169,62 @@ const projectsData = {
             ]
         },
         "downloadLink": "https://github.com/HaXX0rBunny/HaXX0rBunny.github.io/raw/main/Assets/downlaods/Huntress_setup.exe"
+    },
+    "4": {
+        "title": "GameTechLab3rd",
+        "subtitle": "14-Week C++ Rendering & Engine Development",
+        "project_type": "collection",
+        "type_label": "Week01–Week14",
+        "is_team_project": true,
+        "team_size": "Varied",
+        "my_role": "Rendering & Engine Programmer",
+        "technologies": ["C++", "DirectX 11", "HLSL", "ImGui", "FBX SDK"],
+        "description": "A curated record of the projects I contributed to throughout KRAFTON Jungle Game Tech Lab 3rd. The weekly snapshots trace custom engine development from 3D fundamentals through asset import, lighting, shadows, physics, animation, particles, and final game integration.",
+        "coverImage": "Assets/images/GameTechLab3rd-Engine-Editor.png",
+        "coverAlt": "Custom C++ engine particle editor developed during Game Tech Lab",
+        "coverLabel": "14 weeks · engine evolution",
+        "links": {
+            "overview": "gametechlab.html"
+        },
+        "collaboration_details": {
+            "team_size": "Varied by weekly project",
+            "my_role": "Rendering & Engine Programmer",
+            "team_roles": [
+                "Rendering and engine programming (Me)",
+                "Weekly graphics, engine, gameplay, and tool development teams"
+            ],
+            "collaboration_tools": ["Git", "GitHub", "Visual Studio", "Discord"],
+            "team_dynamics": "Worked in changing weekly teams and integrated focused rendering or engine features into each shared codebase. The hub preserves the reviewable snapshots from Week01 through Week14."
+        },
+        "technical_challenges": [
+            "Evolving custom C++ engines from basic 3D rendering into editor and runtime systems",
+            "Integrating OBJ and FBX assets with lighting, shadow, physics, animation, and particle pipelines",
+            "Optimizing large object scenes with octahedral impostors and GPU-oriented rendering techniques",
+            "Keeping weekly projects buildable across changing codebases and external SDK dependencies"
+        ],
+        "troubleshooting": {
+            "large_scene_rendering": {
+                "problem": "Rendering tens of thousands of repeated objects with full mesh geometry created a severe performance bottleneck.",
+                "root_cause": "Per-object geometry and draw overhead scaled poorly as the scene population increased.",
+                "solution": "Implemented an octahedral impostor pipeline that bakes directional appearance into atlases and renders distant objects as lightweight proxies.",
+                "result": "Established a practical comparison path between full-mesh and impostor rendering for the large-scene optimization challenge."
+            },
+            "engine_integration": {
+                "problem": "Weekly engine branches accumulated different render features, asset formats, and third-party runtime dependencies.",
+                "root_cause": "Each assignment extended a different subsystem while sharing a growing custom engine foundation.",
+                "solution": "Organized the verified snapshots by week and repaired build linkage for required libraries such as FBX SDK and FMOD where needed.",
+                "result": "Produced one reviewable hub that connects the full Week01–Week14 development progression."
+            }
+        },
+        "development_timeline": {
+            "duration": "14 weeks",
+            "phases": [
+                { "phase": "3D Foundations", "duration": "Weeks 01–04", "focus": "Game jam, 3D primitives, atlas, billboard, bounding box, and OBJ import" },
+                { "phase": "Rendering Systems", "duration": "Weeks 05–08", "focus": "Octahedral impostors, decals, fog, lighting, and shadows" },
+                { "phase": "Runtime & Simulation", "duration": "Weeks 09–11", "focus": "Standalone build, camera pipeline, mass and movement systems" },
+                { "phase": "Final Integration", "duration": "Weeks 12–14", "focus": "Particles, depth of field, animation, tools, and final game production" }
+            ]
+        }
     }
 };
 
@@ -639,7 +695,7 @@ function createProjectCard(id, project) {
         }
     });
 
-    const typeText = project.is_team_project ? `Team · ${project.team_size}` : 'Solo';
+    const typeText = project.type_label || (project.is_team_project ? `Team · ${project.team_size}` : 'Solo');
     const typeBadgeClass = project.is_team_project ? 'team' : 'solo';
 
     const techBadges = project.technologies.map(tech => {
@@ -650,7 +706,15 @@ function createProjectCard(id, project) {
     }).join('');
 
 
-    const videoSection = project.videoUrl
+    const videoSection = project.coverImage
+        ? `<div class="project-video project-cover">
+           <img src="${project.coverImage}"
+                alt="${project.coverAlt || project.title}"
+                class="project-cover-image"
+                loading="lazy">
+           ${project.coverLabel ? `<span class="project-cover-label">${project.coverLabel}</span>` : ''}
+       </div>`
+        : project.videoUrl
         ? `<div class="project-video">
            <iframe src="${project.videoUrl}?modestbranding=1&rel=0"
                    title="${project.title}"
@@ -679,6 +743,7 @@ function createProjectCard(id, project) {
       
       <div class="project-info">
           <div class="project-header">
+              <span class="project-card-label">Project</span>
               <h3>${project.title}</h3>
               <p class="project-subtitle">${project.subtitle}</p>
               
@@ -689,12 +754,18 @@ function createProjectCard(id, project) {
                   <div class="role-badge">${project.my_role}</div>
               </div>
           </div>
-          
-          <p>${project.description}</p>
-          
-          <div class="tech-stack">${techBadges}</div>
-          
-          <div class="project-actions" style="display:flex;gap:8px;flex-wrap:wrap">
+
+          <div class="project-card-section project-overview">
+              <span class="project-card-label">Overview</span>
+              <p>${project.description}</p>
+          </div>
+
+          <div class="project-card-section project-stack-block">
+              <span class="project-card-label">Tech Stack</span>
+              <div class="tech-stack">${techBadges}</div>
+          </div>
+
+          <div class="project-actions">
               <button class="btn btn--primary project-detail-btn project-action">
                   View Details
               </button>
@@ -836,7 +907,15 @@ function populateOverviewTab(project) {
 
     // Video
     if (modalVideo) {
-        if (project.videoUrl) {
+        modalVideo.classList.remove('modal-video--no-content');
+
+        if (project.coverImage) {
+            modalVideo.innerHTML = `
+                <img src="${project.coverImage}"
+                     alt="${project.coverAlt || project.title}"
+                     class="project-detail-cover">
+            `;
+        } else if (project.videoUrl) {
             modalVideo.innerHTML = `
                 <iframe src="${project.videoUrl}?modestbranding=1&rel=0" 
                         title="${project.title}" 
@@ -889,7 +968,7 @@ function populateOverviewTab(project) {
 
     // Project type badge
     if (projectTypeBadge) {
-        const typeText = project.is_team_project ? `Team · ${project.team_size}` : 'Solo';
+        const typeText = project.type_label || (project.is_team_project ? `Team · ${project.team_size}` : 'Solo');
         const typeBadgeClass = project.is_team_project ? 'team' : 'solo';
 
         projectTypeBadge.innerHTML = `
@@ -934,10 +1013,12 @@ function populateCollaborationTab(project) {
     if (!collaborationContent) return;
 
     if (project.is_team_project) {
+        const teamSize = project.collaboration_details.team_size;
+        const teamSizeText = typeof teamSize === 'number' ? `${teamSize} members` : teamSize;
         collaborationContent.innerHTML = `
             <div class="team-overview">
                 <h3>Team Overview</h3>
-                <p><strong>Team Size:</strong> ${project.collaboration_details.team_size} members</p>
+                <p><strong>Team Size:</strong> ${teamSizeText}</p>
                 <p><strong>My Role:</strong> ${project.collaboration_details.my_role}</p>
                 <p><strong>Team Dynamics:</strong> ${project.collaboration_details.team_dynamics}</p>
             </div>

@@ -67,7 +67,7 @@
                 </h1>
                 <p class="hero-subtitle">Game Developer</p>
                 <p class="hero-description">
-                    C++ frontend/backend development and Unreal Engine specialist
+                    A systems-minded, performance-conscious developer who turns complex rendering problems into clear, reliable C++ solutions. My work spans engine architecture, real-time rendering, optimization, and Unreal Engine tools.
                 </p>
                 <div class="hero-contact">
                     <a href="https://www.linkedin.com/in/haxxorbunny/" target="_blank" class="contact-link">
@@ -81,9 +81,20 @@
         </section>
 
         <!-- Projects Section -->
-        <section class="projects-section" id="projects">
+        <section class="projects-section portfolio-chapter" id="projects" data-chapter="PROJECTS">
             <div class="container">
-                <h2 class="section-title">Featured Projects</h2>
+                <div class="section-heading section-title-layout">
+                    <span class="section-number" aria-hidden="true">01</span>
+                    <div class="section-heading-copy">
+                        <p class="section-kicker">Selected Work</p>
+                        <h2 class="section-title">Featured Projects</h2>
+                        <p class="section-lead">Selected projects that show how I approach gameplay systems, engine architecture, and performance.</p>
+                    </div>
+                    <div class="section-heading-aside" aria-label="Project scope">
+                        <span>4 Selected Projects</span>
+                        <span>Game · Engine · Tools</span>
+                    </div>
+                </div>
                 <div class="projects-grid" id="projectsGrid">
                     <!-- Projects will be dynamically inserted here -->
                 </div>
@@ -91,9 +102,20 @@
         </section>
 
         <!-- Skills Section -->
-        <section class="skills-section" id="skills">
+        <section class="skills-section portfolio-chapter" id="skills" data-chapter="SKILLS">
             <div class="container">
-                <h2 class="section-title">Skills & Expertise</h2>
+                <div class="section-heading section-title-layout">
+                    <span class="section-number" aria-hidden="true">02</span>
+                    <div class="section-heading-copy">
+                        <p class="section-kicker">Technical Profile</p>
+                        <h2 class="section-title">Skills & Expertise</h2>
+                        <p class="section-lead">Technologies I use to turn rendering and systems problems into working software and tools.</p>
+                    </div>
+                    <div class="section-heading-aside" aria-label="Technical scope">
+                        <span>4 Core Disciplines</span>
+                        <span>Code · Engine · Graphics · Tools</span>
+                    </div>
+                </div>
                 <div class="skills-grid">
                     <div class="skill-category">
                         <h3>Programming Languages</h3>
@@ -135,7 +157,16 @@
                 </div>
 
                 <div class="education-section">
-                    <h3 class="section-title">Education</h3>
+                    <div class="section-subheading section-title-layout">
+                        <div class="section-subheading-title">
+                            <span class="section-number section-number--small" aria-hidden="true">03</span>
+                            <div>
+                                <span class="section-kicker">Background</span>
+                                <h3>Education & Training</h3>
+                            </div>
+                        </div>
+                        <p>Computer science foundation followed by focused game and engine development programs.</p>
+                    </div>
                     <div class="education-card">
                         <div class="education-entry">
                             <p class="education-meta">Gyeongsang National University <span>(2016–2023)</span></p>
@@ -154,29 +185,63 @@
             </div>
         </section>
 
-        <!-- Contact Section (Form Removed) -->
-        <section class="contact-section" id="contact">
+        <!-- Contact Section -->
+        <section class="contact-section portfolio-chapter" id="contact" data-chapter="CONTACT">
             <div class="container">
-                <h2 class="section-title">Get In Touch</h2>
-                <div class="contact-content">
-                    <div class="contact-info">
-                        <h3>Let's Connect</h3>
-                        <p>I'm always interested in discussing new opportunities, innovative projects, and collaborating with fellow game developers.</p>
+                <div class="contact-shell">
+                    <div class="contact-copy">
+                        <div class="contact-title-layout">
+                            <div class="contact-heading-mark">
+                                <span class="section-number" aria-hidden="true">04</span>
+                                <p class="section-kicker">Contact</p>
+                            </div>
+                            <h2>Build better game systems together.</h2>
+                            <p class="contact-lead">Open to C++ gameplay, rendering, and engine development opportunities.</p>
+                        </div>
 
+                        <div class="contact-facts">
+                            <div class="contact-fact">
+                                <span>Focus</span>
+                                <strong>C++ · Unreal Engine · Rendering</strong>
+                            </div>
+                            <div class="contact-fact">
+                                <span>Interests</span>
+                                <strong>Engine Architecture · Optimization</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-panel">
+                        <p class="contact-panel-label">Find me online</p>
                         <div class="contact-links">
-                            <a href="https://www.linkedin.com/in/haxxorbunny/" target="_blank" class="contact-link">
-                                <span>LinkedIn Profile</span>
+                            <a href="https://www.linkedin.com/in/haxxorbunny/" target="_blank" rel="noopener noreferrer" class="contact-link contact-channel">
+                                <span class="contact-channel-copy">
+                                    <strong>LinkedIn</strong>
+                                    <small>Career and professional network</small>
+                                </span>
+                                <span class="contact-channel-action">View profile</span>
                             </a>
-                            <a href="https://github.com/HaXX0rBunny" target="_blank" class="contact-link">
-                                <span>GitHub Profile</span>
+                            <a href="https://github.com/HaXX0rBunny" target="_blank" rel="noopener noreferrer" class="contact-link contact-channel">
+                                <span class="contact-channel-copy">
+                                    <strong>GitHub</strong>
+                                    <small>Source code and project history</small>
+                                </span>
+                                <span class="contact-channel-action">View repositories</span>
                             </a>
                         </div>
                     </div>
-                    <!-- Form Removed Here -->
                 </div>
             </div>
         </section>
     </main>
+
+    <footer class="site-footer">
+        <div class="container site-footer-content">
+            <strong>HaXX0rBunny</strong>
+            <span>C++ · Real-time Rendering · Unreal Engine</span>
+            <a href="#hero">Back to top</a>
+        </div>
+    </footer>
 
     <!-- Project Modal -->
     <div class="modal" id="projectModal">
