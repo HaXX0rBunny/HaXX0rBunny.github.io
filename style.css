@@ -788,6 +788,12 @@ select.form-control {
     transition: all var(--duration-fast) var(--ease-standard);
 }
 
+    .lang-toggle {
+        min-width: 72px;
+        white-space: nowrap;
+        font-size: var(--font-size-xs);
+    }
+
     .theme-toggle:hover {
         background: var(--color-secondary);
     }

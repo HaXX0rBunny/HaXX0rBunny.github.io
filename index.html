@@ -19,13 +19,14 @@
                 <h3>CSH Portfolio</h3>
             </div>
             <ul class="nav-menu" id="navMenu">
-                <li><a href="#hero" class="nav-link">Home</a></li>
-                <li><a href="#projects" class="nav-link">Projects</a></li>
-                <li><a href="#skills" class="nav-link">Skills</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li><a href="#hero" class="nav-link" data-i18n="index.navHome">Home</a></li>
+                <li><a href="#projects" class="nav-link" data-i18n="index.navProjects">Projects</a></li>
+                <li><a href="#skills" class="nav-link" data-i18n="index.navSkills">Skills</a></li>
+                <li><a href="#contact" class="nav-link" data-i18n="index.navContact">Contact</a></li>
             </ul>
             <div class="nav-controls">
-                <button class="theme-toggle" id="themeToggle" aria-label="Switch to light theme">Light</button>
+                <button class="theme-toggle" id="themeToggle" data-i18n-attr-aria-label="global.themeToLightAria" aria-label="Switch to light theme">Light</button>
+                <button class="theme-toggle lang-toggle" id="languageToggle" data-i18n="global.siteLangLabel" data-i18n-attr-aria-label="global.siteLangAria" aria-label="Korean">한국어</button>
                 <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
                     <span></span>
                     <span></span>
@@ -48,8 +49,8 @@
                 <h1 class="hero-name">
                     <span id="typingText"></span><span id="typingCursor" class="typing-cursor">|</span>
                 </h1>
-                <p class="hero-subtitle">Game Developer</p>
-                <p class="hero-description">
+                <p class="hero-subtitle" data-i18n="index.ctaText">Game Developer</p>
+                <p class="hero-description" data-i18n="index.heroDescription">
                     A systems-minded, performance-conscious developer who turns complex rendering problems into clear, reliable C++ solutions. My work spans engine architecture, real-time rendering, optimization, and Unreal Engine tools.
                 </p>
                 <div class="hero-contact">
@@ -69,13 +70,13 @@
                 <div class="section-heading section-title-layout">
                     <span class="section-number" aria-hidden="true">01</span>
                     <div class="section-heading-copy">
-                        <p class="section-kicker">Selected Work</p>
-                        <h2 class="section-title">Featured Projects</h2>
-                        <p class="section-lead">Selected projects that show how I approach gameplay systems, engine architecture, and performance.</p>
+                        <p class="section-kicker" data-i18n="index.selectedWork">Selected Work</p>
+                        <h2 class="section-title" data-i18n="index.featuredProjects">Featured Projects</h2>
+                        <p class="section-lead" data-i18n="index.featuredProjectsLead">Selected projects that show how I approach gameplay systems, engine architecture, and performance.</p>
                     </div>
                     <div class="section-heading-aside" aria-label="Project scope">
-                        <span>4 Selected Projects</span>
-                        <span>Game · Engine · Tools</span>
+                        <span data-i18n="index.featuredProjectsAside1">4 Selected Projects</span>
+                        <span data-i18n="index.featuredProjectsAside2">Game · Engine · Tools</span>
                     </div>
                 </div>
                 <div class="projects-grid" id="projectsGrid">
@@ -87,21 +88,21 @@
         <!-- Skills Section -->
         <section class="skills-section portfolio-chapter" id="skills" data-chapter="SKILLS">
             <div class="container">
-                <div class="section-heading section-title-layout">
-                    <span class="section-number" aria-hidden="true">02</span>
-                    <div class="section-heading-copy">
-                        <p class="section-kicker">Technical Profile</p>
-                        <h2 class="section-title">Skills & Expertise</h2>
-                        <p class="section-lead">Technologies I use to turn rendering and systems problems into working software and tools.</p>
+                    <div class="section-heading section-title-layout">
+                        <span class="section-number" aria-hidden="true">02</span>
+                        <div class="section-heading-copy">
+                        <p class="section-kicker" data-i18n="index.technicalProfile">Technical Profile</p>
+                        <h2 class="section-title" data-i18n="index.skillsExpertise">Skills & Expertise</h2>
+                        <p class="section-lead" data-i18n="index.skillsLead">Technologies I use to turn rendering and systems problems into working software and tools.</p>
                     </div>
                     <div class="section-heading-aside" aria-label="Technical scope">
-                        <span>4 Core Disciplines</span>
-                        <span>Code · Engine · Graphics · Tools</span>
+                        <span data-i18n="index.skillsSub1">4 Core Disciplines</span>
+                        <span data-i18n="index.skillsSub2">Code · Engine · Graphics · Tools</span>
                     </div>
                 </div>
                 <div class="skills-grid">
                     <div class="skill-category">
-                        <h3>Programming Languages</h3>
+                        <h3 data-i18n="index.programmingLanguages">Programming Languages</h3>
                         <div class="tech-stack">
                             <span class="tech-badge expert">C++</span>
                             <span class="tech-badge advanced">C</span>
@@ -111,7 +112,7 @@
                         </div>
                     </div>
                     <div class="skill-category">
-                        <h3>Game Engines</h3>
+                        <h3 data-i18n="index.gameEngines">Game Engines</h3>
                         <div class="tech-stack">
                             <span class="tech-badge expert">Unreal Engine 4/5</span>
                             <span class="tech-badge advanced">Unity</span>
@@ -119,7 +120,7 @@
                         </div>
                     </div>
                     <div class="skill-category">
-                        <h3>Graphics & Rendering</h3>
+                        <h3 data-i18n="index.graphicsRendering">Graphics & Rendering</h3>
                         <div class="tech-stack">
                             <span class="tech-badge expert">OpenGL</span>
                             <span class="tech-badge">DirectX</span>
@@ -128,7 +129,7 @@
                         </div>
                     </div>
                     <div class="skill-category">
-                        <h3>Development Tools</h3>
+                        <h3 data-i18n="index.developmentTools">Development Tools</h3>
                         <div class="tech-stack">
                             <span class="tech-badge expert">Git</span>
                             <span class="tech-badge">Perforce</span>
@@ -144,11 +145,11 @@
                         <div class="section-subheading-title">
                             <span class="section-number section-number--small" aria-hidden="true">03</span>
                             <div>
-                                <span class="section-kicker">Background</span>
-                                <h3>Education & Training</h3>
+                                <span class="section-kicker" data-i18n="index.background">Background</span>
+                                <h3 data-i18n="index.educationTraining">Education & Training</h3>
                             </div>
                         </div>
-                        <p>Computer science foundation followed by focused game and engine development programs.</p>
+                        <p data-i18n="index.backgroundLead">Computer science foundation followed by focused game and engine development programs.</p>
                     </div>
                     <div class="education-card">
                         <div class="education-entry">
@@ -176,40 +177,40 @@
                         <div class="contact-title-layout">
                             <div class="contact-heading-mark">
                                 <span class="section-number" aria-hidden="true">04</span>
-                                <p class="section-kicker">Contact</p>
+                                <p class="section-kicker" data-i18n="index.contact">Contact</p>
                             </div>
-                            <h2>Build better game systems together.</h2>
-                            <p class="contact-lead">Open to C++ gameplay, rendering, and engine development opportunities.</p>
+                            <h2 data-i18n="index.contactTitle">Build better game systems together.</h2>
+                            <p class="contact-lead" data-i18n="index.contactLead">Open to C++ gameplay, rendering, and engine development opportunities.</p>
                         </div>
 
                         <div class="contact-facts">
                             <div class="contact-fact">
-                                <span>Focus</span>
+                                <span data-i18n="index.contactFocusLabel">Focus</span>
                                 <strong>C++ · Unreal Engine · Rendering</strong>
                             </div>
                             <div class="contact-fact">
-                                <span>Interests</span>
+                                <span data-i18n="index.contactInterestsLabel">Interests</span>
                                 <strong>Engine Architecture · Optimization</strong>
                             </div>
                         </div>
                     </div>
 
                     <div class="contact-panel">
-                        <p class="contact-panel-label">Find me online</p>
+                        <p class="contact-panel-label" data-i18n="index.contactOnlineTitle">Find me online</p>
                         <div class="contact-links">
                             <a href="https://www.linkedin.com/in/haxxorbunny/" target="_blank" rel="noopener noreferrer" class="contact-link contact-channel">
                                 <span class="contact-channel-copy">
                                     <strong>LinkedIn</strong>
-                                    <small>Career and professional network</small>
+                                    <small data-i18n="index.contactSubLinkedin">Career and professional network</small>
                                 </span>
-                                <span class="contact-channel-action">View profile</span>
+                                <span class="contact-channel-action" data-i18n="index.contactButtonLinkedIn">View profile</span>
                             </a>
                             <a href="https://github.com/HaXX0rBunny" target="_blank" rel="noopener noreferrer" class="contact-link contact-channel">
                                 <span class="contact-channel-copy">
                                     <strong>GitHub</strong>
-                                    <small>Source code and project history</small>
+                                    <small data-i18n="index.contactSubGithub">Source code and project history</small>
                                 </span>
-                                <span class="contact-channel-action">View repositories</span>
+                                <span class="contact-channel-action" data-i18n="index.contactButtonGithub">View repositories</span>
                             </a>
                         </div>
                     </div>
@@ -231,20 +232,20 @@
         <div class="modal-content">
             <div class="modal-header">
                 <div class="breadcrumb">
-                    <a href="#projects" class="breadcrumb-link" id="modalBreadcrumb">Projects</a>
+                    <a href="#projects" class="breadcrumb-link" id="modalBreadcrumb" data-i18n="modal.projectBreadcrumb">Projects</a>
                     <span> / </span>
-                    <span id="modalTitle">Project Details</span>
+                    <span id="modalTitle" data-i18n="modal.projectDetails">Project Details</span>
                 </div>
-                <button class="modal-close" id="modalClose" aria-label="Close modal">&times;</button>
+                <button class="modal-close" id="modalClose" data-i18n="modal.close" data-i18n-attr-aria-label="modal.close" aria-label="Close modal">&times;</button>
             </div>
             <div class="modal-body">
                 <div class="modal-tabs">
                     <div class="tab-navigation">
-                        <button class="tab-btn active" data-tab="overview">Overview</button>
-                        <button class="tab-btn" data-tab="collaboration" id="collaborationTab">Team & Collaboration</button>
-                        <button class="tab-btn" data-tab="technical">Technical Details</button>
-                        <button class="tab-btn" data-tab="challenges">Challenges & Solutions</button>
-                        <button class="tab-btn" data-tab="timeline">Timeline</button>
+                        <button class="tab-btn active" data-tab="overview" data-i18n="modal.tabOverview">Overview</button>
+                        <button class="tab-btn" data-tab="collaboration" id="collaborationTab" data-i18n="modal.tabCollaboration">Team & Collaboration</button>
+                        <button class="tab-btn" data-tab="technical" data-i18n="modal.tabTechnical">Technical Details</button>
+                        <button class="tab-btn" data-tab="challenges" data-i18n="modal.tabChallenges">Challenges & Solutions</button>
+                        <button class="tab-btn" data-tab="timeline" data-i18n="modal.tabTimeline">Timeline</button>
                     </div>
 
                     <div class="tab-content">
@@ -256,7 +257,7 @@
                             <div class="project-detail-section">
                                 <!-- Header with Links Container -->
                                 <div class="header-with-links" style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
-                                    <h3>Project Overview</h3>
+                                    <h3 data-i18n="global.overview">Project Overview</h3>
                                     <div id="modalLinks" class="project-links"></div>
                                 </div>
 
@@ -281,7 +282,7 @@
                         <div class="tab-pane" id="technicalTab">
                             <div class="technical-content">
                                 <div class="project-detail-section">
-                                    <h3>Technical Challenges</h3>
+                                    <h3 data-i18n="global.challenge">Technical Challenges</h3>
                                     <ul id="technicalChallenges"></ul>
                                 </div>
                             </div>
@@ -307,10 +308,11 @@
     </div>
 
     <!-- Back to Top Button -->
-    <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+    <button class="back-to-top" id="backToTop" data-i18n="index.contactBackToTop" data-i18n-attr-aria-label="index.contactBackToTop" aria-label="Back to top">↑</button>
 
     <!-- YouTube API Script -->
     <script src="https://www.youtube.com/iframe_api"></script>
+    <script src="locale.js"></script>
     <script src="app.js"></script>
 </body>
 </html>

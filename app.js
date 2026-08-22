@@ -521,14 +521,64 @@ let heroPlayer = null;
 let currentProjectId = null;
 
 // DOM elements
-let themeToggle, navToggle, navMenu, backToTop, loadingSpinner, projectModal;
+let themeToggle, languageToggle, navToggle, navMenu, backToTop, loadingSpinner, projectModal;
 let modalClose, tabBtns, tabPanes;
+
+function getPortfolioText(key, fallback = '') {
+    return window.PortfolioI18n?.t
+        ? window.PortfolioI18n.t(key, fallback)
+        : fallback;
+}
+
+function applyLocalizedChrome() {
+    if (window.PortfolioI18n?.applyStaticI18n) {
+        window.PortfolioI18n.applyStaticI18n(document);
+    }
+
+    if (themeToggle) {
+        const isDark = currentTheme === 'dark';
+        themeToggle.textContent = isDark
+            ? getPortfolioText('global.themeToLight', 'Light')
+            : getPortfolioText('global.themeToDark', 'Dark');
+
+        themeToggle.setAttribute(
+            'aria-label',
+            isDark
+                ? getPortfolioText('global.themeToLightAria', 'Switch to light theme')
+                : getPortfolioText('global.themeToDarkAria', 'Switch to dark theme')
+        );
+    }
+
+    if (window.PortfolioI18n?.updateLanguageButton) {
+        window.PortfolioI18n.updateLanguageButton(languageToggle);
+    }
+}
+
+function initializeLocaleFeatures() {
+    if (!window.PortfolioI18n) return;
+
+    const currentLocale = window.PortfolioI18n.getLocale?.();
+    if (currentLocale) {
+        window.PortfolioI18n.setLocale(currentLocale, { persist: false, force: true });
+    }
+
+    window.PortfolioI18n.initializeLocaleToggle('languageToggle');
+    applyLocalizedChrome();
+
+    window.addEventListener('portfolio-locale-changed', () => {
+        applyLocalizedChrome();
+        if (currentProjectId) {
+            openProjectModal(currentProjectId);
+        }
+    });
+}
 
 // Initialize app
 document.addEventListener('DOMContentLoaded', function () {
     console.log('Initializing portfolio...');
     initializeElements();
     initializeTheme();
+    initializeLocaleFeatures();
     initializeNavigation();
     initializeProjects();
     initializeModal();
@@ -545,6 +595,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function initializeElements() {
     themeToggle = document.getElementById('themeToggle');
+    languageToggle = document.getElementById('languageToggle');
     navToggle = document.getElementById('navToggle');
     navMenu = document.getElementById('navMenu');
     backToTop = document.getElementById('backToTop');
@@ -569,8 +620,15 @@ function setTheme(theme) {
     currentTheme = theme;
     document.documentElement.setAttribute('data-color-scheme', theme);
     if (themeToggle) {
-        themeToggle.textContent = theme === 'dark' ? 'Light' : 'Dark';
-        themeToggle.setAttribute('aria-label', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+        themeToggle.textContent = theme === 'dark'
+            ? getPortfolioText('global.themeToLight', 'Light')
+            : getPortfolioText('global.themeToDark', 'Dark');
+        themeToggle.setAttribute(
+            'aria-label',
+            theme === 'dark'
+                ? getPortfolioText('global.themeToLightAria', 'Switch to light theme')
+                : getPortfolioText('global.themeToDarkAria', 'Switch to dark theme')
+        );
     }
     try {
         localStorage.setItem(THEME_STORAGE_KEY, theme);
@@ -726,6 +784,9 @@ function createProjectCard(id, project) {
     }).join('');
 
 
+    const placeholderVideoText = getPortfolioText('global.placeholder.videoLabel', 'VIDEO');
+    const prepareDemoText = getPortfolioText('global.prepareDemoVideo', 'Prepare demo video');
+
     const videoSection = project.coverImage
         ? `<div class="project-video project-cover">
            <img src="${project.coverImage}"
@@ -743,10 +804,10 @@ function createProjectCard(id, project) {
        </div>`
         : `<div class="project-video project-video--placeholder">
            <div class="video-placeholder">
-               <div class="placeholder-icon">VIDEO</div>
+               <div class="placeholder-icon">${placeholderVideoText}</div>
                <div class="placeholder-text">
                    <h4>${project.title}</h4>
-                   <p>Prepare demo video</p>
+                   <p>${prepareDemoText}</p>
                </div>
            </div>
        </div>`;
@@ -754,7 +815,7 @@ function createProjectCard(id, project) {
 
     const downloadBtn = project.downloadLink
         ? `<a href="${project.downloadLink}" target="_blank" class="btn btn--secondary download-btn project-action">
-           ${project.downloadLabel || 'Download Demo'}
+           ${project.downloadLabel || getPortfolioText('global.downloadDemo', 'Download Demo')}
        </a>`
         : '';
 
@@ -763,7 +824,7 @@ function createProjectCard(id, project) {
       
       <div class="project-info">
           <div class="project-header">
-              <span class="project-card-label">Project</span>
+              <span class="project-card-label" data-i18n="global.project">Project</span>
               <h3>${project.title}</h3>
               <p class="project-subtitle">${project.subtitle}</p>
               
@@ -777,18 +838,18 @@ function createProjectCard(id, project) {
           </div>
 
           <div class="project-card-section project-overview">
-              <span class="project-card-label">Overview</span>
+              <span class="project-card-label" data-i18n="global.overview">Overview</span>
               <p>${project.description}</p>
           </div>
 
           <div class="project-card-section project-stack-block">
-              <span class="project-card-label">Tech Stack</span>
+              <span class="project-card-label" data-i18n="global.techStack">Tech Stack</span>
               <div class="tech-stack">${techBadges}</div>
           </div>
 
           <div class="project-actions">
               <button class="btn btn--primary project-detail-btn project-action">
-                  View Details
+                  <span data-i18n="global.viewDetails">View Details</span>
               </button>
               ${downloadBtn}
           </div>
@@ -874,7 +935,9 @@ function openProjectModal(projectId) {
     const collaborationTab = document.getElementById('collaborationTab');
     if (collaborationTab) {
         collaborationTab.style.display = 'block';
-        collaborationTab.textContent = project.is_team_project ? 'Team & Collaboration' : 'Solo Development';
+        collaborationTab.textContent = project.is_team_project
+            ? getPortfolioText('modal.tabCollaboration', 'Team & Collaboration')
+            : getPortfolioText('global.soloDevelopment', 'Solo Development');
     }
 
     // Show modal
@@ -950,10 +1013,10 @@ function populateOverviewTab(project) {
         } else {
             modalVideo.innerHTML = `
                 <div class="modal-video-placeholder">
-                    <div class="placeholder-icon">VIDEO</div>
+                    <div class="placeholder-icon">${getPortfolioText('global.placeholder.videoLabel', 'VIDEO')}</div>
                     <div class="placeholder-content">
-                        <h4>preparing a demo video</h4>
-                        <p>${project.title} preparing a demo project video</p>
+                        <h4>${getPortfolioText('global.prepareDemoVideo', 'Prepare demo video')}</h4>
+                        <p>${getPortfolioText('global.preparingDemoProject', '{title} preparing a demo project video').replace('{title}', project.title)}</p>
                     </div>
                 </div>
             `;
@@ -1009,7 +1072,7 @@ function populateOverviewTab(project) {
 
     // Role info
     if (roleInfo) {
-        roleInfo.innerHTML = `<strong>Role:</strong> ${project.my_role}`;
+        roleInfo.innerHTML = `<strong>${getPortfolioText('modal.rolePrefix', 'Role:')}</strong> ${project.my_role}`;
     }
 
     // Tech stack
@@ -1028,7 +1091,7 @@ function populateOverviewTab(project) {
         if (project.downloadLink) {
             downloadSection.innerHTML = `
                 <a href="${project.downloadLink}" target="_blank" class="download-btn">
-                    <span>Download Project</span>
+                    <span>${getPortfolioText('global.downloadProject', 'Download Project')}</span>
                 </a>
             `;
         } else {
@@ -1046,19 +1109,19 @@ function populateCollaborationTab(project) {
         const teamSizeText = typeof teamSize === 'number' ? `${teamSize} members` : teamSize;
         collaborationContent.innerHTML = `
             <div class="team-overview">
-                <h3>Team Overview</h3>
-                <p><strong>Team Size:</strong> ${teamSizeText}</p>
-                <p><strong>My Role:</strong> ${project.collaboration_details.my_role}</p>
-                <p><strong>Team Dynamics:</strong> ${project.collaboration_details.team_dynamics}</p>
+                <h3 data-i18n="global.teamOverview">Team Overview</h3>
+                <p><strong>${getPortfolioText('global.teamSize', 'Team Size')}:</strong> ${teamSizeText}</p>
+                <p><strong>${getPortfolioText('global.myRole', 'My Role')}:</strong> ${project.collaboration_details.my_role}</p>
+                <p><strong>${getPortfolioText('global.teamDynamics', 'Team Dynamics')}:</strong> ${project.collaboration_details.team_dynamics}</p>
             </div>
             <div class="team-roles">
-                <h3>Team Composition</h3>
+                <h3>${getPortfolioText('global.teamComposition', 'Team Composition')}</h3>
                 <ul>
                     ${project.collaboration_details.team_roles.map(role => `<li>${role}</li>`).join('')}
                 </ul>
             </div>
             <div class="collaboration-tools">
-                <h3>Collaboration Tools</h3>
+                <h3>${getPortfolioText('global.collaborationTools', 'Collaboration Tools')}</h3>
                 <ul>
                     ${project.collaboration_details.collaboration_tools.map(tool => `<li>${tool}</li>`).join('')}
                 </ul>
@@ -1067,14 +1130,14 @@ function populateCollaborationTab(project) {
     } else {
         collaborationContent.innerHTML = `
             <div class="team-overview">
-                <h3>Solo Development</h3>
-                <p><strong>Project Type:</strong> ${project.collaboration_details.project_type}</p>
-                <p><strong>Scope:</strong> ${project.collaboration_details.scope}</p>
+                <h3>${getPortfolioText('global.soloDevelopment', 'Solo Development')}</h3>
+                <p><strong>${getPortfolioText('global.projectType', 'Project Type')}:</strong> ${project.collaboration_details.project_type}</p>
+                <p><strong>${getPortfolioText('global.scope', 'Scope')}:</strong> ${project.collaboration_details.scope}</p>
                 ${project.collaboration_details.time_constraint ?
-                `<p><strong>Time Constraint:</strong> ${project.collaboration_details.time_constraint}</p>` : ''}
+                `<p><strong>${getPortfolioText('global.timeConstraint', 'Time Constraint')}:</strong> ${project.collaboration_details.time_constraint}</p>` : ''}
             </div>
             <div class="team-roles">
-                <h3>Self-Managed Aspects</h3>
+                <h3>${getPortfolioText('global.selfManagedAspects', 'Self-Managed Aspects')}</h3>
                 <ul>
                     ${project.collaboration_details.self_managed_aspects.map(aspect => `<li>${aspect}</li>`).join('')}
                 </ul>
@@ -1101,21 +1164,21 @@ function populateChallengesTab(project) {
             <h4>${key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</h4>
             <div class="problem-solution-grid">
                 <div class="problem-section">
-                    <h5>Problem</h5>
+                    <h5>${getPortfolioText('global.problem', 'Problem')}</h5>
                     <p>${issue.problem}</p>
                 </div>
                 <div class="solution-section">
-                    <h5>Solution</h5>
+                    <h5>${getPortfolioText('global.solution', 'Solution')}</h5>
                     <p>${issue.solution}</p>
                 </div>
             </div>
             <div class="problem-solution-grid">
                 <div class="problem-section">
-                    <h5>Root Cause</h5>
+                    <h5>${getPortfolioText('global.rootCause', 'Root Cause')}</h5>
                     <p>${issue.root_cause}</p>
                 </div>
                 <div class="result-highlight">
-                    <h5>Result</h5>
+                    <h5>${getPortfolioText('global.result', 'Result')}</h5>
                     <p>${issue.result}</p>
                 </div>
             </div>
@@ -1148,8 +1211,8 @@ function populateTimelineTab(project) {
 
     timelineContent.innerHTML = `
         <div class="project-detail-section">
-            <h3>Development Timeline</h3>
-            <p><strong>Total Duration:</strong> ${project.development_timeline.duration}</p>
+            <h3>${getPortfolioText('global.timelineLabel', 'Development Timeline')}</h3>
+            <p><strong>${getPortfolioText('global.totalDurationLabel', 'Total Duration')}:</strong> ${project.development_timeline.duration}</p>
         </div>
         <div class="timeline-phases">
             ${timelineItems}
@@ -1245,3 +1308,4 @@ const debouncedScrollHandler = debounce(() => {
 }, 100);
 
 window.addEventListener('scroll', debouncedScrollHandler);
+
