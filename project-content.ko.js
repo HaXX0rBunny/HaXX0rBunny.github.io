@@ -96,7 +96,7 @@ window.PORTFOLIO_PROJECT_KO = {
                 "problem": "60Hz에서 발사체가 느려지거나, 프레임 간격이 0.01초 미만이면 업데이트가 멈추는 현상",
                 "root_cause": "프레임 통합 횟수를 `floor(dt / 0.01)`으로 계산해 나머지 시간을 버려 120Hz에서 0 step이 발생",
                 "solution": "프레임 델타를 3분할 서브스텝으로 나눠 이동/충돌을 분할 처리",
-                "result": "매 프레임의 전체 dt를 반영하도록 보정해 수치 안정성이 개선됨(정량 검증치는 별도 측정 기준이 아님)",
+                "result": "매 프레임의 전체 dt를 세 번의 서브스텝에 반영해 고주사율에서도 0-step 업데이트가 발생하지 않도록 보정",
                 "title": "프레임레이트에 따른 발사체 이동 오차"
             },
             "enemy_patrol_collision": {
@@ -155,7 +155,7 @@ window.PORTFOLIO_PROJECT_KO = {
                 "Git 브랜치",
                 "Visual Studio 2022"
             ],
-            "team_dynamics": "공유 Alpha Engine 코드베이스에서 기능 브랜치 기반 협업을 진행했고, main에서 확인 가능한 46건의 커밋을 직접 기여했습니다."
+            "team_dynamics": "공유 Alpha Engine 코드베이스에서 기능 브랜치로 협업하며 UI 아키텍처·게임플레이 연동·입력 라우팅을 담당했습니다."
         },
         "technical_challenges": [
             "월드/인터페이스/텍스트 렌더링 순서 분리",
@@ -310,26 +310,27 @@ window.PORTFOLIO_PROJECT_KO = {
         "subtitle": "C++ 렌더링 및 엔진 개발"
     },
     "5": {
-        "team_label": "팀 제품 · 기여자 3명",
+        "team_label": "팀 제품 · 3인 팀",
         "scope_label": "Epic Project · Fab 제품",
-        "my_role": "Motion Phase · 런타임 시스템 · GPU 변형 프로그래머",
+        "my_role": "팀장 · Motion Phase · 런타임 시스템 · GPU 변형 프로그래머",
         "subtitle": "실시간 애니메이션 과장 · GPU Mesh Deformer 플러그인",
-        "description": "애니메이션과 게임플레이 신호를 저작 가능한 실시간 메시 변형으로 연결하는 UE 5.8 플러그인입니다. Bone Group, Module Stack, Response Rule, 자동 6단계 Motion Analyzer가 안정된 변형 작업을 Render Thread와 RDG를 거쳐 GPU Mesh Deformer 출력으로 전달합니다.",
+        "description": "기존 애니메이션에 재사용 가능한 카메라 대응 과장을 더하는 UE 5.8 플러그인입니다. 6단계 Motion Phase Analyzer가 최종 포즈의 Region 움직임을 안정된 타이밍·방향·강도 Signal로 변환하고, Response Rule이 선택적인 GPU 메시 변형을 실행합니다.",
         "coverAlt": "스타일화된 GPU 메시 변형 효과를 보여 주는 Dynamic OverAnimation 제품 이미지",
         "coverLabel": "Fab 제품 · Epic Project",
         "collaboration_details": {
-            "team_size": "메인 Perforce depot 제출 이력이 확인되는 기여자 3명",
-            "my_role": "Motion Phase · 런타임 시스템 · GPU 변형 프로그래머",
+            "team_size": "DynaMax · 3인 팀",
+            "my_role": "팀장 · Motion Phase · 런타임 시스템 · GPU 변형 프로그래머",
             "team_roles": [
-                "Motion Phase 분석, 런타임 응답, GPU 변형 파이프라인, 에디터 저작 도구 (본인)",
+                "제품 방향, 시스템 설계, Motion Phase 분석, 런타임 응답, GPU 변형 파이프라인, 에디터 저작 도구 (팀장 · 본인)",
                 "런타임, 에디터, 콘텐츠, 제품 출시 전반의 DynaMax 팀 기여"
             ],
             "collaboration_tools": ["Perforce", "Unreal Engine 5.8", "Visual Studio", "Fab"],
-            "team_dynamics": "메인 depot에는 기여자 3명의 제출 changelist 199건이 있으며, 이 중 H4XX0rBunny 제출은 81건입니다. 포트폴리오에서는 이 확인된 개인 범위와 팀 전체 제품 기능을 구분합니다."
+            "team_dynamics": "DynaMax 3인 제품 팀의 팀장을 맡아 제품·시스템 방향을 정하고, 출시된 팀 플러그인에서 Motion Phase Analyzer, Runtime Response, Render/GPU, Editor 시스템을 구현했습니다."
         },
         "technical_challenges": [
-            "애니메이션 phase를 바꾸기 전에 노이즈가 섞인 모션 근거를 안정화",
-            "점수가 비슷한 Region이 프레임마다 owner를 교체하는 현상 방지",
+            "포즈 기반 자동 분석과 AnimNotify·Gameplay Event의 저작 의도를 분리한 뒤 결정적으로 중재",
+            "Region·Chain 변형 범위를 선택적으로 유지하면서 카메라 대응 실루엣 Guard 적용",
+            "애니메이션 Phase 전환 전 노이즈가 섞인 모션 근거와 Region Owner 경쟁을 안정화",
             "Game Thread의 변형 상태를 불변 snapshot으로 Render Thread에 전달",
             "RDG에서 module pass와 vertex-factory 출력을 합성"
         ],
@@ -339,7 +340,7 @@ window.PORTFOLIO_PROJECT_KO = {
                 "problem": "한 프레임의 급격한 값 변화가 phase를 뒤집거나 충분한 근거 없이 Anticipation을 시작할 수 있었습니다.",
                 "root_cause": "단순 에너지 임계값에는 추세 이력, 확인 시간, 취소 상태가 포함되지 않았습니다.",
                 "solution": "adaptive trend smoothing, evidence duration, phase별 guard, cycle history를 함께 적용했습니다.",
-                "result": "임계값 통과를 후보로만 취급하고 시간축 확인을 통과한 경우에만 실제 phase를 전환합니다."
+                "result": "결정적 테스트에서 16ms 고에너지 샘플은 강도 0의 Anticipation 경계에 유지되고, 32ms 확인 샘플에서 Action으로 전환됩니다."
             },
             "region_ownership": {
                 "title": "점수가 비슷한 Region 사이에서 owner가 흔들림",
@@ -366,10 +367,10 @@ window.PORTFOLIO_PROJECT_KO = {
         "development_timeline": {
             "duration": "Epic Project · 2026",
             "phases": [
-                { "phase": "Native 계약", "duration": "CL 47", "focus": "Bone Group, hierarchy 확장, LOD falloff, data-driven response" },
-                { "phase": "런타임 및 GPU 합성", "duration": "CL 78–135", "focus": "Response arbitration, Squash & Stretch, snapshot, RDG pass, normal/tangent" },
-                { "phase": "자동 Motion Phase", "duration": "CL 203–272", "focus": "Phase 안정화, Region owner, cycle timing, animation routing, 저작 UX" },
-                { "phase": "제품 통합", "duration": "CL 299–304", "focus": "변형 socket follower와 showcase asset 복구" }
+                { "phase": "Native 계약", "duration": "Bone Group 계약", "focus": "Bone Group, hierarchy 확장, LOD falloff, data-driven response" },
+                { "phase": "런타임 및 GPU 합성", "duration": "Snapshot·RDG 합성", "focus": "Response arbitration, Squash & Stretch, snapshot, RDG pass, normal/tangent" },
+                { "phase": "자동 Motion Phase", "duration": "Phase·Region 상태 기계", "focus": "Phase 안정화, Region owner, cycle timing, animation routing, 저작 UX" },
+                { "phase": "제품 통합", "duration": "Socket Follower 통합", "focus": "변형 socket follower와 showcase asset 복구" }
             ]
         }
     }

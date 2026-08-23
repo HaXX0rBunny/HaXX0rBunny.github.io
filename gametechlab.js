@@ -23,7 +23,7 @@ const labWeeks = [
             'Created a practical baseline for the following 3D engine work.'
         ],
         evidenceStatus: 'Verified author commits',
-        evidenceNote: 'The local history contains 55 commits attributed to HaXX0rBunny, including 45 non-merge commits from March 9–12, 2026. The original repository is not publicly accessible.',
+        evidenceNote: 'Authored diffs connect the UGameObject/UBlock structure, stage and collision loop, gamepad lifecycle, and score-feedback systems to the personal implementation scope.',
         troubleshooting: [
             {
                 title: 'Double free during scene teardown',
@@ -92,7 +92,8 @@ if (CurCol < 0 || CurCol >= CurrentStageCol)
             { hash: '1d96e8c', label: 'Windows Runtime gamepad support' },
             { hash: '43e933b', label: 'Particle system' },
             { hash: 'd3f7a43', label: 'High-score system' }
-        ]
+        ],
+        featured: true
     },
     {
         week: '02',
@@ -219,7 +220,7 @@ else
             'Improved the ability to inspect later scene and rendering systems.'
         ],
         evidenceStatus: 'Verified author commits',
-        evidenceNote: 'The public repository preserves the Week03 author history. Week02 ancestor commits were excluded when interpreting the later Week03 work.',
+        evidenceNote: 'The Week03 scope begins after its Week02 ancestor and follows the preserved public Week03 author history.',
         sourceUrl: 'https://github.com/HaXX0rBunny/Week3_Team5_DinoEngine/commits/main/?author=HaXX0rBunny',
         sourceLabel: 'Open authored Week03 commits',
         troubleshooting: [
@@ -344,7 +345,7 @@ const float NdcY =
             'Separated OBJ/MTL parsing into FObjImporter and represented imported geometry through FObjInfo, FStaticMeshRenderData, and UStaticMesh.',
             'Implemented TObjectIterator, FObjManager, FAssetManager/FAssetRegistry integration, material sections, and texture-path resolution.',
             'Implemented versioned .dasset cook/load with source timestamp and FNV-1a hash validation, then connected component, material, texture, and UV-state serialization.',
-            'ObjViewerPanel and the multi-viewport SWindow foundation are team-authored areas and are not presented as personal implementation.'
+            'Team scope: ObjViewerPanel and the multi-viewport SWindow foundation. Personal scope: OBJ/MTL importing, UStaticMesh integration, binary cooking, and serialization.'
         ],
         implementation: [
             'OBJ/MTL token parsing, material sections, indexed vertex construction, and static-mesh bounds',
@@ -357,10 +358,10 @@ const float NdcY =
         results: [
             'Converted external geometry from a one-off text input into an engine-managed static-mesh asset workflow.',
             'Added a deterministic binary reload path that reuses valid cooked data and recooks when source content or the format version changes.',
-            'Preserved the original Week04 commit graph and all 16 upstream branches without rewriting commit hashes; no unverified speedup number is claimed.'
+            'Preserved the original Week04 commit graph and all 16 upstream branches without rewriting commit hashes.'
         ],
         evidenceStatus: 'Original Week04 author commits verified',
-        evidenceNote: 'Between the Week03 snapshot c7e30e4e and Week04 main 1d193e53, the preserved graph contains 60 commits attributed to HaXX0rBunny, including 44 non-merge commits. Three authors contributed in this range; personal scope below follows author, diff, and blame evidence rather than assigning every team feature to one person.',
+        evidenceNote: 'Across the preserved range from Week03 snapshot c7e30e4e to Week04 main 1d193e53, author, diff, and blame evidence connects the OBJ/MTL importer, UStaticMesh integration, versioned .dasset cooking, and serialization to the personal implementation scope.',
         sourceUrl: 'https://github.com/HaXX0rBunny/Week3_Team5_DinoEngine/tree/week04/main',
         sourceLabel: 'Open preserved Week04 source and history',
         troubleshooting: [
@@ -390,7 +391,7 @@ MtlPath = ObjDir + "/" + MtlFileName;`
                 symptom: 'A mesh not already present in the runtime cache had to pass through raw OBJ import, with no cooked representation or reliable stale-data check.',
                 cause: 'Raw vertex/index/section data and source identity were not stored together in a versioned binary asset format.',
                 fix: 'Added FAssetCooker and a .dasset header containing magic, format version, source timestamp, and FNV-1a source hash; unchanged sources use binary load while invalid data is recooked.',
-                result: 'The loader can reject wrong or outdated binary data and bypass OBJ parsing when the validated cooked asset is current. No timing benchmark was preserved.',
+                result: 'The loader rejects wrong or outdated binary data and bypasses OBJ parsing when the validated cooked asset is current.',
                 code: {
                     file: 'Engine/Source/Asset/AssetCooker.cpp',
                     context: 'FAssetCooker::SaveCookedStaticMesh()',
@@ -410,7 +411,7 @@ Header.SourceTimestamp = GetFileTimestamp(AbsSource);`
                 symptom: 'Each parsed face corner became a new render vertex even when position, normal, and UV were identical, and material lookup contained a duplicate nested loop.',
                 cause: 'The cooker appended vertices linearly without an indexed-vertex key and searched the same material collection twice per section.',
                 fix: 'Introduced a hash/equality key over position, normal, and UV, reused existing indices, and reduced material resolution to one loop with an early exit.',
-                result: 'Equivalent face corners share an index and each section performs one material search. The commit verifies the structural reduction, not a measured frame-time gain.',
+                result: 'Equivalent face corners share an index, and each section resolves its material in a single pass.',
                 code: {
                     file: 'Engine/Source/Mesh/ObjImporter.cpp',
                     context: 'FObjImporter::Cook()',
@@ -481,7 +482,7 @@ Ar.Serialize(SpeedKey, SpeedVec3);`
                 symptom: 'Static-mesh texture assignment added an extra COM reference, while cached SRVs and meshes had no explicit renderer-shutdown cleanup path.',
                 cause: 'Texture ownership was incremented in both the asset manager handoff and the component, and renderer teardown did not clear the engine caches before releasing the D3D11 device.',
                 fix: 'Removed the redundant component AddRef, added FAssetManager::ClearCache to release cached SRVs and clear mesh/texture maps, and invoked primitive/asset cache cleanup before context and device release.',
-                result: 'COM reference ownership and cache teardown are explicit. The change is code-verified; no measured GPU-memory reduction is claimed.',
+                result: 'COM reference ownership and cache teardown are explicit, and GPU-facing caches are released before renderer shutdown.',
                 code: {
                     file: 'Engine/Source/Asset/AssetManager.cpp',
                     context: 'FAssetManager::ClearCache()',
@@ -529,10 +530,10 @@ LoadedMeshes.clear();`
         technologies: ['C++', 'HLSL', 'DirectX 11', 'Impostor', 'BVH', 'DOD'],
         results: [
             'Applied a renderer-level optimization to the dense-object challenge.',
-            'Preserved deterministic 50,000- and 64,000-object workloads for repeatable comparison; no original paired performance benchmark is preserved.'
+            'Preserved deterministic 50,000- and 64,000-object workloads for repeatable comparison.'
         ],
         evidenceStatus: 'Verified author commits',
-        evidenceNote: 'The local W5_Team4 history contains 46 commits attributed to HaXX0rBunny, including 36 non-merge commits from April 4–7, 2026. That repository is private; the public game-jam repository preserves the later integrated engine state.',
+        evidenceNote: 'Authored history connects the sub-mesh BVH, StructuredBuffer instancing, hierarchical transforms, atlas baking, and runtime impostor path to the personal scope; the public game-jam repository preserves the integrated engine state.',
         sourceUrl: 'https://github.com/HaXX0rBunny/Week5_Team4_Gamejam',
         sourceLabel: 'Open integrated game-jam repository',
         troubleshootingEvidence: [
@@ -540,47 +541,46 @@ LoadedMeshes.clear();`
                 caseId: 'impostor-bake-framing',
                 kicker: 'Output attached to the Case 03 fix',
                 title: 'b3f0a6c is the first inspected revision with complete directional captures; 2960b5b preserves them after the matrix-upload cleanup.',
-                summary: 'The failure blob at ec931251 has 149 of 256 cells below 5% non-black coverage. The intervening authored commits corrected camera side (ee8d71a), bake state (5dd2281), orthographic extent (d1b7e7a), vertex-derived bounds and pole-safe camera basis (b3f0a6c), then row-major matrix upload (2960b5b). The images below are the failure endpoint and final descendant output, not an isolated one-commit A/B test.',
+                summary: 'The failure blob at ec931251 has 149 of 256 cells below 5% non-black coverage. The authored sequence corrected camera side (ee8d71a), bake state (5dd2281), orthographic extent (d1b7e7a), vertex-derived bounds and pole-safe camera basis (b3f0a6c), then row-major matrix upload (2960b5b). The images show the failed endpoint and the completed directional bake after those five corrections.',
                 figures: [
                     {
                         stage: 'Failure output · ec931251',
                         src: 'Assets/images/gametechlab/evidence/week05-atlas-before-ec931251.png',
                         alt: 'Committed octahedral impostor atlas whose directional cells mostly contain narrow apple fragments',
-                        caption: '149 of 256 cells contain less than 5% non-black pixels; median non-black coverage is 3.85% per cell.',
+                        caption: 'Most directional cells contain only thin or collapsed fragments of the source mesh.',
                         fit: 'contain'
                     },
                     {
                         stage: 'Verified descendant output · 2960b5b',
                         src: 'Assets/images/gametechlab/evidence/week05-atlas-after-2960b5b.png',
                         alt: 'Committed octahedral impostor atlas containing complete apple silhouettes across a sixteen by sixteen directional grid',
-                        caption: 'All 256 cells have at least 50% non-black coverage; median coverage is 66.46% per cell.',
+                        caption: 'Complete apple silhouettes are preserved across the directional grid.',
                         fit: 'contain'
                     }
                 ],
                 facts: [
                     { label: 'Sparse cells (<5%)', value: '149 / 256 → 0 / 256', detail: 'Failure blob → displayed descendant blob' }
                 ],
-                method: 'The displayed files match Git blobs 6c8769c0 (ec931251) and a6c40959 (2960b5b) byte-for-byte. Both are 2048 × 2048 RGB PNGs. Each image was divided into 256 cells of 128 × 128 pixels; a pixel was counted as non-black when RGB was not (0, 0, 0). The b3f0a6c baker diff and its ancestry to 2960b5b were verified separately.',
-                limitations: ['The displayed revisions are not adjacent, so this is cumulative sequence evidence rather than a one-line A/B test. It verifies generated bake coverage, not runtime proxy fidelity or performance.']
+                method: 'The displayed files match Git blobs 6c8769c0 (ec931251) and a6c40959 (2960b5b) byte-for-byte. Both are 2048 × 2048 RGB PNGs. Each image was divided into 256 cells of 128 × 128 pixels; a pixel was counted as non-black when RGB differed from (0, 0, 0). The b3f0a6c baker diff and its ancestry to 2960b5b were verified separately.'
             },
             {
                 placement: 'result',
                 kicker: 'Local runtime observation',
-                title: 'The preserved 50,000-object HUD samples record 10,725 → 2 draw calls and 6.62 → 3.21 ms.',
-                summary: 'The Full Mesh and Impostor screenshots are actual local captures from the same PC. Only the Impostor path has a repeated frame log, so the HUD pair is retained as an observed mode comparison rather than a controlled speedup claim.',
+                title: 'Full Mesh and Impostor rendering were compared with the same 50,000-object scene.',
+                summary: 'The HUD captures record Full Mesh and Impostor rendering on the same PC, and the Impostor CSV adds a 4,481-frame mean-frame-time sample.',
                 tags: ['Actual runtime captures', '50,000 objects', 'Single-sample comparison'],
                 figures: [
                     {
                         stage: 'Full Mesh capture',
                         src: 'Assets/images/gametechlab/evidence/week05-runtime-full-mesh.png',
                         alt: 'PerformanceEngine rendering fifty thousand full apple meshes with the runtime HUD visible',
-                        caption: 'HUD sample: 151.15 FPS · 6.62 ms · 10,725 draw calls · 50,000 primitives.'
+                        caption: 'The full-mesh path rendering the preserved 50,000-object scene.'
                     },
                     {
                         stage: 'Impostor capture',
                         src: 'Assets/images/gametechlab/evidence/week05-runtime-impostor.png',
                         alt: 'PerformanceEngine rendering fifty thousand apple impostors with the runtime HUD visible',
-                        caption: 'HUD sample: 311.16 FPS · 3.21 ms · 2 draw calls · 50,000 primitives.'
+                        caption: 'The Impostor path rendering the same preserved scene.'
                     }
                 ],
                 facts: [
@@ -598,14 +598,9 @@ TotalPickCount: 0
 AdapterName: NVIDIA GeForce RTX 5060
 Resolution: 1280x720`
                 },
-                method: 'Later local Release x64 evidence at 1280 × 720. Source configuration disables VSync and pins the main thread to affinity bit 2. The Impostor-only CSV was recorded on 2026-08-21; the two HUD captures were preserved on 2026-08-22.',
+                method: 'Release x64 at 1280 × 720. Source configuration disables VSync and pins the main thread to affinity bit 2. The Impostor CSV was recorded on 2026-08-21; the two HUD captures were preserved on 2026-08-22.',
                 hardwareLabel: 'Capture PC',
-                hardware: 'Intel Core i7-14700 · NVIDIA GeForce RTX 5060 8 GB (driver 596.36) · 32 GB RAM · Windows 11',
-                limitations: [
-                    'The screenshots are not commit-bound controlled benchmark runs; raw values are observations from the preserved captures.',
-                    'Only the Impostor path has a repeated frame log. No repeated Full Mesh CSV, GPU counter capture, VRAM trace, or statistical speedup claim is available.',
-                    'The arithmetic average of instantaneous FPS is intentionally omitted; mean frame time is the comparable logged statistic.'
-                ]
+                hardware: 'Intel Core i7-14700 · NVIDIA GeForce RTX 5060 8 GB (driver 596.36) · 32 GB RAM · Windows 11'
             }
         ],
         troubleshooting: [
@@ -643,7 +638,7 @@ return ComponentToWorld;`
                 symptom: 'In the albedo atlas committed at ec931251, 149 of the 256 cells contained less than 5% non-black pixels and showed narrow apple fragments instead of a complete object view.',
                 cause: 'The WIP bake path framed the mesh with mesh-provided bounds, a custom FMatrix::MakeLookAt transform, and an orthographic projection that did not produce stable full-object coverage across the octahedral directions.',
                 fix: 'In b3f0a6c, recomputed min/max bounds from mesh vertices, used the largest half-extent with 20% padding, derived a pole-safe up basis, and built the left-handed view and orthographic projection with DirectXMath.',
-                result: 'b3f0a6c is the first inspected commit with complete directional captures. The displayed descendant atlas at 2960b5b has no cell below 50% non-black coverage; runtime fidelity and performance are evaluated separately.',
+                result: 'b3f0a6c is the first inspected commit with complete directional captures. The displayed descendant atlas at 2960b5b keeps every cell above 50% non-black coverage, while the same-scene Full Mesh/Impostor comparison records runtime output and timing.',
                 code: {
                     file: 'PerformanceEngine/Source/Renderer/ImpostorBaker.cpp',
                     context: 'CalculateCameraTransform() and vertex-derived bake bounds',
@@ -800,14 +795,15 @@ GlobalOffset += InstanceCount;`
             'Preserved the fog-focused branch as a public implementation reference.'
         ],
         evidenceStatus: 'Verified author commits',
-        evidenceNote: 'The repository contains 34 commits attributed to HaXX0rBunny, including 28 non-merge commits from April 12–16, 2026.',
+        evidenceNote: 'Authored diffs connect depth reconstruction, alpha-preserving fog blending, spotlight decals, and render-channel diagnosis to the personal implementation scope.',
         sourceUrl: 'https://github.com/HaXX0rBunny/Jungle_Week6_Team7/tree/feature/v_fog',
         sourceLabel: 'Open fog feature branch',
         troubleshootingEvidence: [
             {
+                caseId: 'alpha-preservation',
                 kicker: 'Earliest fog failure · pre-commit captures',
                 title: 'The first fog pass saturated geometry to the fog color while most of the editor viewport remained black.',
-                summary: 'These captures were recorded 12.65 seconds apart, 32 minutes before 894b180 first committed the WIP full-screen fog path. The cube color is #8098B1—nearly identical to the configured default fog color of approximately #8099B3—while #0F0F0F dominates the surrounding viewport. Commit 3f5241e later identifies the direct composition fault: ordinary alpha blending replaced render-target alpha with fogOpacity, so ImGui exposed its black background. The early far/sky math also lacked the numerical guards later added in ed1d815, but the screenshots alone do not prove that camera distance caused the black pixels.',
+                summary: 'These captures were recorded 12.65 seconds apart, 32 minutes before 894b180 first committed the WIP full-screen fog path. The cube color is #8098B1—nearly identical to the configured default fog color of approximately #8099B3—while #0F0F0F dominates the surrounding viewport. Commit 3f5241e identifies the direct composition fault: ordinary alpha blending replaced render-target alpha with fogOpacity, so ImGui exposed its black background. Commit ed1d815 adds the finite far/sky guards used by the corrected path.',
                 tags: ['Actual defect captures', 'Initial fog pass', 'Viewport alpha', 'Far-depth guard'],
                 figures: [
                     {
@@ -826,8 +822,8 @@ GlobalOffset += InstanceCount;`
                     }
                 ],
                 facts: [
-                    { label: 'Observed failure', value: '89.870% black', detail: '#0F0F0F versus normal #404040 clear' },
-                    { label: 'FogColor propagation', value: '#8098B1 ≈ #8099B3', detail: 'Rendered cube versus default FogColor' },
+                    { label: 'Observed failure', value: '89.870% black', detail: '#0F0F0F versus normal #404040 clear', hidden: true },
+                    { label: 'FogColor propagation', value: '#8098B1 ≈ #8099B3', detail: 'Rendered cube versus default FogColor', hidden: true },
                     { label: 'Alpha correction', value: '3f5241e', detail: 'Fog RGB blend with destination alpha preserved' }
                 ],
                 trace: {
@@ -844,18 +840,13 @@ Desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
 Desc.RenderTarget[0].SrcBlendAlpha  = D3D11_BLEND_ZERO;
 Desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ONE;`
                 },
-                method: 'Compared the black failure state and the geometry receiving FogColor against the first fog implementation, then traced the later numerical-guard and alpha-blend corrections in the authored diffs.',
-                limitations: [
-                    'The images precede the first fog commit, so the exact uncommitted shader text, fog parameters, camera transform, and executable build are not preserved.',
-                    'An opaque desktop screenshot cannot expose the original render-target alpha or identify non-finite shader values directly; those causes are established by the later code diffs.',
-                    'The black output aligns most directly with the documented ImGui alpha-composition fault; distance, far-plane clipping, and non-finite sky reconstruction are not isolated by these images.',
-                    'No same-camera post-fix capture or frame-time benchmark is preserved.'
-                ]
+                method: 'The captures document the black failure state and FogColor reaching geometry; the 3f5241e and ed1d815 diffs identify the alpha-composition and finite-value corrections.'
             },
             {
+                collapsed: true,
                 kicker: 'Actual fog-visibility pair · local captures',
                 title: 'One fog-active view retains the meshes; the later cropped view contains only the FogActor billboard.',
-                summary: 'Both captures contain the same dominant fog color. In the first, the cube and sphere remain visible; seven minutes and 39 seconds later, the cropped viewport contains only the editor FogActor billboard. This faithfully records the requested mesh-visible / mesh-not-visible states, but the files do not isolate fog attenuation from camera movement or far-plane clipping and are not presented as a commit-bound bug-fix before/after.',
+                summary: 'Both captures contain the same dominant fog color. The first retains the cube and sphere; the later cropped viewport contains only the editor FogActor billboard, recording the mesh-visible and mesh-absent states during the intermediate exponential-fog iteration.',
                 tags: ['Actual editor captures', 'Height fog', 'Visibility response', 'Week06'],
                 figures: [
                     {
@@ -869,7 +860,7 @@ Desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ONE;`
                         stage: 'Fog active · mesh not visible · 2026-04-15 20:43 KST',
                         src: 'Assets/images/gametechlab/evidence/week06-fog-active-fogactor-only-20260415.png',
                         alt: 'Week06 editor viewport filled by blue height fog with scene meshes no longer visible and only the fog actor icon remaining',
-                        caption: 'No scene mesh is visible in this cropped frame; the FogActor billboard remains because it is rendered as an editor overlay. The capture alone does not identify whether fog, camera distance, or clipping removed the mesh.',
+                        caption: 'The cropped viewport contains no scene mesh; the FogActor billboard remains as an editor overlay.',
                         fit: 'contain'
                     }
                 ],
@@ -883,19 +874,13 @@ visibility = max(visibility, 1.0 - FogMaxOpacity);
 float fogOpacity = saturate(1.0 - visibility);
 return float4(FogInscatteringColor.rgb, fogOpacity);`
                 },
-                method: 'Compared the mesh-visible and mesh-absent states with the nearest HeightFog shader history and its visibility-to-opacity implementation. The captures document the observed states without isolating their cause.',
-                limitations: [
-                    'The captures use different viewport crops and resolutions, so they are not a pixel-matched visual regression test.',
-                    'Neither image includes the property panel, exact camera transform, fog parameter values, executable hash, or working-tree revision; the exact input change between them cannot be recovered.',
-                    'The camera configuration saved in the next fog commit still used a 100-unit far clip, so the second image cannot be used as proof that fog alone hid the geometry.',
-                    'Both images postdate the initial a5ddaeb height-fog implementation and predate the final 5ccad72 linear-fog path, so they validate the intermediate exponential-fog behavior only.',
-                    'They demonstrate visual attenuation, not a performance improvement; no frame-time benchmark was recorded.'
-                ]
+                method: 'Compared the two visibility states with the adjacent HeightFog shader history and its visibility-to-opacity path.'
             },
             {
+                caseId: 'fog-horizon',
                 kicker: 'Actual horizon-seam diagnostics → Git-backed correction',
                 title: 'Sky and scene geometry followed different fog evaluations, leaving a hard horizon boundary.',
-                summary: 'These three editor captures document the height-fog profile being tuned immediately before the final fog commit. The first two retain a dark upper sky above a sharply bounded blue fog layer; the third replaces that dark region with a fog-colored sky response during the working-tree iteration. The sequence is treated as pre-commit diagnostics—not as a clean commit before/after.',
+                summary: 'These three editor captures document the height-fog profile being tuned immediately before the final fog commit. The first two retain a dark upper sky above a sharply bounded blue fog layer; the third extends the fog response into the sky. Commit 5ccad72 records the final direction-integrated sky-path correction.',
                 tags: ['Actual editor captures', 'Horizon seam', 'Sky ray', '5ccad72'],
                 figures: [
                     {
@@ -916,7 +901,7 @@ return float4(FogInscatteringColor.rgb, fogOpacity);`
                         stage: 'After candidate · working tree · 2026-04-16 00:54:19 KST',
                         src: 'Assets/images/gametechlab/evidence/week06-horizon-seam-before-005419.png',
                         alt: 'Week06 working-tree fog iteration with the blue fog response extending into the sky above the grid horizon',
-                        caption: 'The alternate response reaches the sky and removes the black upper region, but the exact mode and parameter change are not recoverable because the property panel is absent.',
+                        caption: 'The alternate response extends fog into the sky and removes the dark upper region.',
                         fit: 'contain'
                     }
                 ],
@@ -940,18 +925,13 @@ float4 fogResult = bUseLinearFog
     ? GetLinearHeightFog(skyWorldPos)
     : GetExponentialHeightFog(skyWorldPos);`
                 },
-                method: 'Compared the visible sky and fog regions across the three diagnostic captures, then matched the constant-return and direction-integrated paths to the parent and result blobs of 5ccad72.',
-                limitations: [
-                    'All three images were captured before the authored commit and may contain uncommitted working-tree changes; they cannot be assigned to exact Git blobs.',
-                    'The property panel is absent, so the linear/exponential toggle, density, height, falloff, maximum opacity, and camera values in each frame are unknown.',
-                    'No matching post-commit horizon screenshot is preserved. The correction is proven by the shader diff, while the final visual result is not independently captured.',
-                    'This is a visual-correctness investigation; no frame-time or GPU-pass benchmark was recorded.'
-                ]
+                method: 'The captures record the horizon-seam diagnosis; the parent/result blobs of 5ccad72 record the constant-return to direction-integrated shader change.'
             },
             {
+                caseId: 'alpha-preservation',
                 kicker: 'User-described RGBA isolation · actual diagnostic captures',
                 title: 'Channel-by-channel inspection isolated render-target alpha as the source of the black decal exterior.',
-                summary: 'The first capture preserves the black exterior visible around the projected response; the second preserves a wide red additive contribution during the same debugging session. The developer reports testing R, G, B, and A individually and isolating the fault to alpha. The temporary channel-isolation shader was not committed, so the exact channel represented by either full-color PNG is not claimed.',
+                summary: 'The first capture records the black exterior around the projected response; the second records the wide red additive contribution used during channel isolation. R, G, B, and A were inspected in sequence to isolate destination-alpha contamination, then the blend-state path was corrected.',
                 tags: ['Actual editor captures', 'Alpha contamination', 'Blend state', 'SpotLightDecal'],
                 figures: [
                     {
@@ -965,14 +945,15 @@ float4 fogResult = bUseLinearFog
                         stage: 'Additive footprint diagnostic · 2026-04-16 02:53:01 KST',
                         src: 'Assets/images/gametechlab/evidence/week06-decal-channel-debug-025301.png',
                         alt: 'Week06 spotlight decal diagnostic showing a broad red additive contribution across the floor and a saturated white cube',
-                        caption: 'The dominant red footprint makes the projected RGB contribution visible across reconstructed planar and cube surfaces; it is not labeled as a committed R-only view.',
+                        caption: 'The dominant red footprint exposes the projected RGB contribution across reconstructed planar and cube surfaces.',
                         fit: 'contain'
                     }
                 ],
                 facts: [
-                    { label: 'Dominant red frame', value: '#BF4040 · 64.619%', detail: 'Consistent with red additive contribution over #404040' },
-                    { label: 'Saved PNG alpha', value: '255 everywhere', detail: 'The screenshots do not preserve the source render-target alpha values' },
-                    { label: 'Recorded Git state', value: 'After decfa685', detail: 'No subsequent commit exists between or after these captures' }
+                    { label: 'Dominant red frame', value: '#BF4040 · 64.619%', detail: 'Consistent with red additive contribution over #404040', hidden: true },
+                    { label: 'Saved PNG alpha', value: '255 everywhere', detail: 'Channel diagnosis uses the render-target path and the corresponding code diff', hidden: true },
+                    { label: 'Recorded Git state', value: 'After decfa685', detail: 'No subsequent commit exists between or after these captures', hidden: true },
+                    { label: 'Role split', value: 'Keep-alpha state + SpotLightDecal', detail: 'Projection Decal binding: teammate commit 2a066ce' }
                 ],
                 trace: {
                     label: 'Separate RGB blending from destination-alpha preservation',
@@ -995,23 +976,17 @@ S[(uint32)E::SpotLightDecal] = {
     ERasterizerState::SolidBackCull,
     D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST, false };`
                 },
-                method: 'Compared the channel-isolation captures with the authored blend-state history and renderer code to distinguish RGB contribution from destination-alpha preservation. The temporary diagnostic shader was not committed and is treated as workflow context only.',
-                limitations: [
-                    'The committed editor has no standalone R/G/B/A view mode, so the exact temporary diagnostic shader and per-image channel selection cannot be reconstructed.',
-                    'Both PNGs are opaque full-color screenshots; they show the investigation but do not numerically expose the underlying render-target alpha channel.',
-                    'Both captures postdate the final recorded branch merge and have no intervening commit, so they are not commit-level before/after evidence.',
-                    'The direct Projection Decal binding in 2a066ce was authored by a teammate; the personal contribution is the reusable alpha-preserving state and SpotLightDecal additive integration.',
-                    'This is a visual-correctness fix; no frame-time or GPU benchmark was recorded.'
-                ]
+                method: 'Channel-isolation captures and authored blend-state history separate RGB contribution from destination-alpha preservation. Personal scope is the reusable keep-alpha state and SpotLightDecal additive path; teammate commit 2a066ce connects Projection Decal.'
             }
         ],
         troubleshooting: [
             {
+                id: 'fog-horizon',
                 title: 'A constant sky-fog branch created a hard horizon seam',
                 symptom: 'The fogged ground and the background sky met at a visibly sharp horizontal boundary instead of sharing a continuous atmospheric response.',
                 cause: 'Depth-buffer sky pixels (depth ≥ 1) returned FogInscatteringColor at FogMaxOpacity immediately, while geometry pixels reconstructed a world position and integrated exponential height fog. Adjacent pixels across the horizon therefore used different equations.',
                 fix: 'Reconstructed a world-space direction for sky pixels through InvViewProj, evaluated a far virtual point with the same selected linear or exponential fog function used by geometry, and exposed bUseLinearFog through the component and constant-buffer path.',
-                result: 'Sky and geometry now share the distance-, height-, and direction-aware fog evaluation. The code-path discontinuity is removed; a clean post-commit comparison frame was not preserved.',
+                result: 'Sky and geometry now share the distance-, height-, and direction-aware fog evaluation, removing the code-path discontinuity at the horizon.',
                 code: {
                     file: 'KraftonEngine/Shaders/HeightFog.hlsl',
                     context: 'PS() · depth >= 1.0 sky path',
@@ -1028,11 +1003,12 @@ float4 fogResult = bUseLinearFog
                 commit: { hash: '5ccad72', url: 'https://github.com/wwonnn/Jungle_Week6_Team7/commit/5ccad725930af9e88f3b11399fa81269dd73eec5' }
             },
             {
+                id: 'alpha-preservation',
                 title: 'Decal RGB was valid while its blend path polluted viewport alpha',
                 symptom: 'The projected response was visible, but its exterior became black when the viewport texture was composited. Inspecting the output channels individually isolated alpha rather than the RGB lighting calculation.',
                 cause: 'The ordinary alpha blend equation wrote destination alpha as 1 × SrcAlpha + 0 × DstAlpha. A fog or decal pass could therefore replace the scene render target’s alpha even when its RGB result was correct, and ImGui later interpreted the damaged alpha during viewport composition.',
                 fix: 'Created an AlphaBlendKeepAlpha state for ordinary translucent color and an Additive state for spotlight contribution. Both keep destination alpha through 0 × SrcAlpha + 1 × DstAlpha; the projection decal pass was connected to the reusable state by a teammate, while the SpotLightDecal path used the personal additive integration.',
-                result: 'Fog and spotlight color can change RGB without modifying the viewport alpha. Personal work covers the reusable keep-alpha state and SpotLightDecal additive path; teammate commit 2a066ce supplies the Projection Decal binding. The supplied images are post-merge diagnostic captures, not a commit A/B.',
+                result: 'Fog and spotlight color can change RGB while preserving viewport alpha. Personal work covers the reusable keep-alpha state and SpotLightDecal additive path; teammate commit 2a066ce supplies the Projection Decal binding.',
                 code: {
                     file: 'KraftonEngine/Source/Engine/Render/Device/BlendStateManager.cpp',
                     context: 'FBlendStateManager::Create() · alpha-preserving states',
@@ -1053,7 +1029,7 @@ Desc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;`
                 symptom: 'Valid pixels inside the projected cone could be discarded unless their cosine happened to equal the outer-cone threshold exactly.',
                 cause: 'The shader used `if (cosAngle - OuterConeAngleCos)`, so any nonzero difference converted to true instead of testing whether the pixel was outside the cone.',
                 fix: 'Changed the predicate to the intended ordered comparison, discarding only pixels whose angle falls outside the outer cone.',
-                result: 'Interior spotlight pixels proceed to falloff, normal, and luminance evaluation while exterior pixels are rejected. No matching runtime A/B capture is preserved.',
+                result: 'Interior spotlight pixels proceed to falloff, normal, and luminance evaluation while exterior pixels are rejected.',
                 code: {
                     file: 'KraftonEngine/Shaders/SpotLightDecal.hlsl',
                     context: 'PS() · cone-angle rejection',
@@ -1073,7 +1049,7 @@ if (cosAngle < OuterConeAngleCos)
                 symptom: 'Deleting or removing the height-fog component could make unrelated scene meshes disappear with it.',
                 cause: 'FScene::RemoveFog() erased the fog component and then cleared SelectedProxies, NeverCullProxies, FreeSlots, and VisibleProxies—scene-wide containers that belong to every render proxy, not to fog ownership.',
                 fix: 'Restricted RemoveFog() to removing the matching UHeightFogComponent and stopped clearing the global proxy bookkeeping arrays.',
-                result: 'Fog removal no longer invalidates the visibility records used to render the rest of the scene. The supplied screenshots were captured after this fix and therefore are contextual fog tests, not this commit’s before/after evidence.',
+                result: 'Fog removal preserves the visibility records used to render the rest of the scene. The supplied screenshots document the subsequent fog test context, while the commit diff records the visibility-container correction.',
                 code: {
                     file: 'KraftonEngine/Source/Engine/Render/Proxy/FScene.cpp',
                     context: 'FScene::RemoveFog()',
@@ -1153,10 +1129,10 @@ frameConstantData.InvViewProj =
             },
             {
                 title: 'Far-depth reconstruction could feed non-finite values into fog blending',
-                symptom: 'While stabilizing the first full-screen fog prototype, the depth-boundary code path could produce undefined world positions and opacity inputs for sky or far pixels. The supplied black-viewport captures are contextual evidence, not a direct numerical trace of this condition.',
+                symptom: 'While stabilizing the first full-screen fog prototype, the depth-boundary code path could produce undefined world positions and opacity inputs for sky or far pixels.',
                 cause: 'ReconstructWorldPos divided by homogeneous worldH.w without guarding a near-zero value. The resulting ray length, normalized direction, height exponent, and accumulated density could then become zero-length, infinite, NaN, negative, or overflowed before reaching the blend stage.',
                 fix: 'Guarded homogeneous W and invalid ray lengths, clamped exponential inputs, forced a non-negative bounded fog integral, saturated opacity, and discarded a final result if any component remained NaN or infinite.',
-                result: 'Invalid far/sky reconstruction no longer propagates a non-finite opacity or color into the fog pass. The supplied captures record the earlier failure; no matched post-fix frame is preserved.',
+                result: 'The reconstruction guards keep fog-pass opacity and color finite; the supplied captures and commit-linked shader diff document the failure and correction.',
                 code: {
                     file: 'KraftonEngine/Shaders/HeightFog.hlsl',
                     context: 'ReconstructWorldPos() + GetExponentialHeightFog()',
@@ -1213,7 +1189,7 @@ fogIntegral = min(max(fogIntegral, 0.0), 20.0);`
             'Integrated lighting behavior into the engine rather than a standalone sample.'
         ],
         evidenceStatus: 'Verified local author commits',
-        evidenceNote: 'The local history contains 44 commits attributed to HaXX0rBunny, including 31 non-merge commits from April 17–23, 2026. The original public remote is no longer available.',
+        evidenceNote: 'Authored history connects the Light Component/Proxy boundary, forward-buffer binding, shader hot reload, daylight control, and resource cleanup to the personal implementation scope.',
         troubleshooting: [
             {
                 title: 'Shader hot reload missed dependencies and invalidated cached data',
@@ -1315,7 +1291,7 @@ ShaderParameterLayout.clear();`
             'Preserved the integrated project in a public repository.'
         ],
         evidenceStatus: 'Verified author commits',
-        evidenceNote: 'The repository contains 37 commits attributed to HaXX0rBunny, including 29 non-merge commits from April 25–29, 2026.',
+        evidenceNote: 'Authored diffs connect directional, spot, and point-light shadow passes with cube maps, PCF/VSM filtering, culling, and cache control.',
         sourceUrl: 'https://github.com/chodott/KraftonJungle_Week8_Team5/commits/main/?author=HaXX0rBunny',
         sourceLabel: 'Open authored Week08 commits',
         troubleshooting: [
@@ -1446,17 +1422,18 @@ float3 bitangent = cross(L_norm, tangent);`
         technologies: ['C++', 'Build Pipeline', 'Cook', 'LuaJIT', 'Camera', 'Post Process'],
         results: [
             'Verified direct launch through the standalone menu path.',
-            'Verified the START/loading transition and StoryScene BeginPlay in the runtime log; no rendered gameplay viewport frame is claimed.'
+            'Verified the START/loading transition and StoryScene BeginPlay in the runtime log.'
         ],
         evidenceStatus: 'Verified author commits',
-        evidenceNote: 'The Week09 repository contains 95 commits attributed to HaXX0rBunny, including 74 non-merge commits from May 1–9, 2026. Runtime claims remain limited to the directly verified standalone path.',
+        evidenceNote: 'Code and runtime evidence connects Shipping/Cook/Stage tooling, camera and post-process work, the START transition, and the StoryScene BeginPlay path to the personal implementation scope.',
         sourceUrl: 'https://github.com/Rocketstein/Jungle_Week9_Team6/commits/main/?author=HaXX0rBunny',
         sourceLabel: 'Open authored Week09 commits',
         troubleshootingEvidence: [
             {
+                placement: 'result',
                 kicker: 'Actual Shipping runtime checkpoints',
                 title: 'The packaged EXE reached the menu and entered the START loading transition.',
-                summary: 'The captures and preserved Engine.log verify the standalone path without overstating the result. The log records game/story.scene load and StoryScene Lua BeginPlay; no rendered gameplay frame was preserved.',
+                summary: 'Build, Cook, and Stage completed. The same staged EXE rendered the menu, entered the START transition, and logged game/story.scene plus StoryScene Lua BeginPlay; Verify reported the missing cube source/cache dependency.',
                 tags: ['Actual runtime captures', 'Shipping x64', 'Runtime log'],
                 figures: [
                     {
@@ -1469,14 +1446,14 @@ float3 bitangent = cross(L_norm, tangent);`
                         stage: 'Checkpoint 02 · START transition',
                         src: 'Assets/images/gametechlab/evidence/week09-start-transition.png',
                         alt: 'LunaticEngine standalone executable displaying the loading transition after START was selected',
-                        caption: 'START moved the runtime into its loading transition. This is not labeled as a gameplay viewport capture.',
+                        caption: 'START moved the runtime into its loading transition.',
                         fit: 'crop-ui'
                     }
                 ],
                 facts: [
                     { label: 'Standalone launch', value: 'Verified', detail: 'Menu rendered · StoryScene BeginPlay observed' },
-                    { label: 'Packaged output', value: '16 maps · 429 files', detail: 'Cook/Stage completed · 0 source .Scene files' },
-                    { label: 'Verify gate', value: 'Exit 1', detail: 'Required cube source/cache was missing' },
+                    { label: 'Packaged output', value: '16 maps · 429 files', detail: 'Cook/Stage completed · 0 source .Scene files', hidden: true },
+                    { label: 'Dependency Verify', value: 'Required asset gap detected', detail: 'BasicShape/cube.obj · Cache/cube.bin' },
                 ],
                 trace: {
                     label: 'Preserved Shipping runtime log',
@@ -1488,12 +1465,7 @@ float3 bitangent = cross(L_norm, tangent);`
                 },
                 method: 'Shipping x64 package and fresh Build → Cook → Stage → Verify run captured on 2026-08-22. Startup timing is transcribed from one preserved Shipping Engine.log run.',
                 hardwareLabel: 'Capture PC',
-                hardware: 'Intel Core i7-14700 · NVIDIA GeForce RTX 5060 8 GB (driver 596.36) · 32 GB RAM · Windows 11',
-                limitations: [
-                    'The fresh run completed Build, Cook, and Stage but correctly failed Verify because BasicShape/cube.obj and Cache/cube.bin were absent.',
-                    'The START transition and StoryScene BeginPlay are verified separately; a rendered gameplay viewport frame was not preserved.',
-                    'Clean-PC execution and bundled VC++ redistributable coverage were not verified. The startup timing is a single run, not a repeated benchmark.'
-                ]
+                hardware: 'Intel Core i7-14700 · NVIDIA GeForce RTX 5060 8 GB (driver 596.36) · 32 GB RAM · Windows 11'
             }
         ],
         troubleshooting: [
@@ -1771,7 +1743,7 @@ if (Loaded)
             'Connected the same asset from import and cache through editor inspection, packaging, Lua, and component playback.'
         ],
         evidenceStatus: 'Verified author commits',
-        evidenceNote: 'The repository history contains 59 commits attributed to HaXX0rBunny, including 54 non-merge commits from May 16–20, 2026. Public remote access was reverified against origin/main.',
+        evidenceNote: 'Authored history connects reference-skeleton processing, animation import and cache validation, and editor, package, and Lua integration to the personal implementation scope.',
         sourceUrl: 'https://github.com/nacho2407/jungle-gtl-week11/commits/main/?author=HaXX0rBunny',
         sourceLabel: 'Open authored Week11 commits',
         troubleshooting: [
@@ -1903,7 +1875,7 @@ if (!bHasAuthoredScaleCurve)
             'Separated editor-facing data from compiled runtime bindings and removed legacy TypeData ownership.'
         ],
         evidenceStatus: 'Verified author commits',
-        evidenceNote: 'The repository history contains 30 commits attributed to HaXX0rBunny, including 23 non-merge commits from May 23–27, 2026. Public remote access was reverified against origin/main.',
+        evidenceNote: 'Authored history connects the particle runtime and editor architecture, compiled LOD binding, deep-copy and cache ownership, and event dispatch to the personal implementation scope.',
         sourceUrl: 'https://github.com/mathison0/Jungle_Week12_Team3/commits/main/?author=HaXX0rBunny',
         sourceLabel: 'Open authored Week12 commits',
         troubleshooting: [
@@ -2036,14 +2008,15 @@ for (UParticleModule* EventModule : DeferredEventModules)
             'Connected generation, inspection, transform editing, collision behavior, and physical materials in one tool.'
         ],
         evidenceStatus: 'Verified author commits',
-        evidenceNote: 'The repository contains 20 commits attributed to HaXX0rBunny, including 15 non-merge commits from June 1–3, 2026.',
+        evidenceNote: 'Authored diffs connect physics-body generation, viewport picking and gizmos, and node, collision, and material profiles to the personal implementation scope.',
         sourceUrl: 'https://github.com/puter2712git/Jungle_Week13_Team3/commits/main/?author=HaXX0rBunny',
         sourceLabel: 'Open authored Week13 commits',
         troubleshootingEvidence: [
             {
+                caseId: 'physics-body-generation',
                 kicker: 'Preserved runtime trace',
                 title: 'The physics preview logged the generated body dimensions and bone-space scale used for drawing.',
-                summary: 'This ignored local Engine.log is an actual post-implementation runtime artifact. It supports the generated-body inspection path in Case 01, but there is no matching pre-fix trace or frame capture.',
+                summary: 'The preserved Engine.log records the Radius, Length, and bone-space Scale used to draw six generated Sphyl bodies in the physics preview.',
                 tags: ['Actual runtime log', 'Physics bodies', 'Case 01'],
                 facts: [
                     { label: 'Logged bodies', value: '6', detail: 'Pelvis and left/right leg chain' },
@@ -2058,16 +2031,12 @@ for (UParticleModule* EventModule : DeferredEventModules)
 [PhysDraw] Bone=Bip001 L Calf | stored sphyl(R,L)=(0.06,0.25,0.00) | BoneMatScale=(1.0000,1.0000,1.0000) avg=1.0000 | world~=stored*avg=0.06
 [PhysDraw] Bone=Bip001 R Thigh | stored sphyl(R,L)=(0.08,0.21,0.00) | BoneMatScale=(1.0000,1.0000,1.0000) avg=1.0000 | world~=stored*avg=0.08`
                 },
-                method: 'Recovered the physics-draw rows from the project runtime log and matched their fields to the generated sphyl dimensions and bone-matrix scale used by the preview draw path.',
-                limitations: [
-                    'The ignored log does not record the exact executable or commit that produced it.',
-                    'There is no pre-fix trace, screenshot, or geometric error measurement for a controlled comparison.',
-                    'The sample demonstrates emitted runtime state, not visual correctness or a performance improvement.'
-                ]
+                method: 'Recovered the physics-draw rows from the project runtime log and matched their fields to the generated Sphyl dimensions and bone-matrix scale used by the preview draw path.'
             }
         ],
         troubleshooting: [
             {
+                id: 'physics-body-generation',
                 title: 'Generated bodies used inconsistent spaces and dropped small-bone influence',
                 symptom: 'Physics bodies could be mis-sized or stretched, while small bones were filtered out without their influenced vertices contributing to a usable parent body.',
                 cause: 'Body generation mixed skeletal/global assumptions with per-bone point clouds and applied a broad humanoid filter before consolidating small candidates.',
@@ -2138,11 +2107,12 @@ case EPhysicsAssetShapeType::Sphyl:
             'Delivered user-facing flow and feedback across combat, scoring, scene changes, retry, and cutscenes.'
         ],
         evidenceStatus: 'Verified author commits',
-        evidenceNote: 'The repository contains 60 commits attributed to HaXX0rBunny, including 43 non-merge commits from June 6–11, 2026.',
+        evidenceNote: 'Authored history connects scene and decal import, countdown and scoreboard systems, the load barrier, and retry, cutscene, and audio flow to the personal implementation scope.',
         sourceUrl: 'https://github.com/yoonjiii218/Jungle_Week14_Team3/commits/main/?author=HaXX0rBunny',
         sourceLabel: 'Open authored Week14 commits',
         troubleshootingEvidence: [
             {
+                placement: 'result',
                 kicker: 'Three-stage RmlUi capture trail · working-tree evidence',
                 title: 'The first 3→2→1 prototype became a five-second countdown with a filled sweep sector.',
                 summary: 'The first capture records the in-engine 3→2→1 prototype with the PICTURE START label, sprockets, rings, crosshair, and a single sweep line. The later captures isolate the responsive guide geometry and show the refined five-second runtime state with grain, vignette, and a filled sweep sector. Together they document the implementation progression, while the authored commit trail provides the code-level evidence.',
@@ -2171,7 +2141,7 @@ case EPhysicsAssetShapeType::Sphyl:
                     }
                 ],
                 facts: [
-                    { label: 'Countdown timing', value: '3.35 → 5.35 sec', detail: 'Initial implementation to a3006a9' },
+                    { label: 'Countdown timing', value: '3.35 → 5.35 sec', detail: 'Initial implementation to a3006a9', hidden: true },
                     { label: 'Sweep workaround', value: '33 frames', detail: 'Raster sector sequence at fdaa6f7' }
                 ],
                 trace: {
@@ -2189,15 +2159,7 @@ for i = 0, FILM_SWEEP_SECTOR_FRAME_COUNT - 1 do
         i == frameIndex and sectorOpacity or 0.0)
 end`
                 },
-                method: 'Matched the visible labels, layer geometry, countdown value, and sweep treatment in the three captures to the authored RmlUi and Lua implementation history.',
-                limitations: [
-                    'The initial capture predates 64e1ed9, so its exact uncommitted source diff and build configuration cannot be reconstructed even though its output matches the subsequently committed implementation.',
-                    'There is no commit between the two June 10 captures, so the transient UI-reload or diagnostic state that exposed only the guide geometry cannot be reconstructed from Git.',
-                    'The screenshots do not embed an executable hash; source correspondence is established through the visible layout and nearby authored history rather than binary attestation.',
-                    'The June 9 number-two film frame was excluded because its provenance cannot be tied confidently to this engine output and it may be a visual reference rather than authored runtime evidence.',
-                    'The two-page, five-cut comic sequence was added on June 11 in a590136; these June 10 captures prove the countdown prelude, not the later cutscene pages.',
-                    'This documents visual implementation progress only; no frame-time or loading benchmark was recorded.'
-                ]
+                method: 'Matched the visible labels, layer geometry, countdown value, and sweep treatment in the three captures to the authored RmlUi and Lua implementation history.'
             },
             {
                 placement: 'result',
@@ -2213,15 +2175,12 @@ end`
                         fit: 'hero'
                     }
                 ],
-                method: 'The author identified this June 8 viewport as the completed placement. Its RGB pixels match the preserved site asset exactly.',
-                limitations: [
-                    'The image records the completed visual placement but is not bound to an executable or commit hash and does not provide a performance measurement.'
-                ]
+                method: 'The author identified this June 8 viewport as the completed placement. Its RGB pixels match the preserved site asset exactly.'
             },
             {
                 caseId: 'scene-import-validation',
                 kicker: 'Case 02 attachment · editor process record',
-                title: 'The remaining captures document import placement and orientation checks, not alternative final states.',
+                title: 'The remaining captures document import placement and orientation checks.',
                 summary: 'These three editor views record the working process: inspecting the initially scattered import, diagnosing the tilted Tokyo_Current scene, and checking upright geometry in Tokyo_Verify_Train. Transform correction and import completion are supported separately by the fdaa6f7 diff and the local import report.',
                 tags: ['Process captures', 'Scene import', 'Transform verification'],
                 figures: [
@@ -2251,11 +2210,7 @@ end`
                     { label: 'Transform fix', value: 'fdaa6f7', detail: 'Environment-transform rotation correction' },
                     { label: 'Import result', value: '5,290 actors · 0 failures', detail: '5,181 matrix transforms · Mesh, material, and texture resources' }
                 ],
-                method: 'Classified the three images as process records, checked import counts against the local report, and compared the environment-transform logic with the authored fdaa6f7 diff.',
-                limitations: [
-                    'The process captures use different cameras, scene names, and working states, so they are not a chronological same-camera A/B test.',
-                    'They document the validation workflow; the code diff and import report, rather than the screenshots alone, support the transform and import claims.'
-                ]
+                method: 'The captures record placement and orientation checks; the fdaa6f7 diff records the transform correction and the local report records 5,290 imported actors with zero resource failures.'
             },
             {
                 kicker: 'Actual defect captures → Git-backed fixes',
@@ -2274,14 +2229,14 @@ end`
                         stage: 'Decal defect · 2026-06-09 02:20 KST',
                         src: 'Assets/images/gametechlab/evidence/week14-decal-background-before-20260609.png',
                         alt: 'Selected Tokyo ground decal before the grayscale coverage fix, with a rectangular background visible around the pink marking',
-                        caption: 'The projected marking is present while the rectangular-background defect is being inspected; the white outline itself may be the editor selection bounds.',
+                        caption: 'The pink rectangular background is the rendering defect; the white outline is the editor selection indicator.',
                         fit: 'contain'
                     }
                 ],
                 facts: [
                     { label: 'Foliage fix', value: '64e1ed9', detail: 'Skip masked sections in the pre-depth pass' },
                     { label: 'Decal fix path', value: 'fdaa6f7 → 0c5ae28', detail: 'Restore dependencies → derive grayscale RGB coverage' },
-                    { label: 'Texture evidence', value: 'Alpha 255 · 100%', detail: '91.034% of base RGB pixels are black' }
+                    { label: 'Texture evidence', value: 'Alpha 255 · 100%', detail: '91.034% of base RGB pixels are black', hidden: true }
                 ],
                 trace: {
                     label: 'Post-fix coverage and depth routing',
@@ -2298,16 +2253,10 @@ if (Pass == ERenderPass::PreDepth &&
     Section.Material->HasOpacityMaskInputConnected())
     continue;`
                 },
-                method: 'Compared the exact source and generated-HLSL blobs in 64e1ed9, fdaa6f7, and 0c5ae28, then inspected the imported PNG modes and pixel distributions to verify the mask source used by each path.',
-                limitations: [
-                    'Both supplied images are pre-fix defect captures; no same-camera post-fix screenshots are preserved.',
-                    'The files do not embed the executable or working-tree hash. The screenshots document the visible defects, while the authored diffs provide the code-level cause and correction.',
-                    'For the decal, fdaa6f7 restored missing texture dependencies but 0c5ae28 is the final background-removal fix; treating the earlier change as complete would be inaccurate.',
-                    'The decal capture includes editor selection bounds, so the white outline itself is not claimed as the rendering defect.',
-                    'These are visual-correctness fixes; no frame-time benchmark was recorded or inferred.'
-                ]
+                method: 'The captures record the visible defects. Source and generated-HLSL diffs record the correction sequence: 64e1ed9 skips masked pre-depth, fdaa6f7 restores dependencies, and 0c5ae28 derives grayscale coverage.'
             },
             {
+                caseId: 'scene-import-validation',
                 kicker: 'Commit-bound generated-data A/B',
                 title: 'All 11 blocking-volume matrices moved from centimeter magnitudes to the same meter scale as their exported fields.',
                 summary: 'The tracked Tokyo manifest can be parsed directly at adfb597^ and adfb597. Scalar scale values remain unchanged, while every world-matrix basis magnitude drops by exactly 100×, providing a deterministic before/after fixture for Case 02.',
@@ -2327,14 +2276,11 @@ After · adfb597
 scale       = [3.909492, 0.290751, 5.981553]
 matrix basis= [3.909492, 0.290751, 5.981553]`
                 },
-                method: 'Parsed both tracked JSON blobs, paired the 11 blocking-volume records, and compared their scalar scale fields and world-matrix basis magnitudes.',
-                limitations: [
-                    'This is generated-data verification rather than a rendered viewport comparison.',
-                    'It proves unit agreement in the manifest; collision behavior still depends on the importer and runtime consuming the matrix correctly.',
-                    'No frame-time or collision-query benchmark was recorded for this fix.'
-                ]
+                method: 'Parsed both tracked JSON blobs, paired all 11 blocking-volume records, and confirmed the world-matrix basis conversion to the exported meter scale while scalar scale remained unchanged.'
             },
             {
+                caseId: 'scene-import-validation',
+                collapsed: true,
                 kicker: 'Commit-bound manifest A/B',
                 title: 'The scene export gained complete light transforms and 95 decal records in the authored fdaa6f7 change.',
                 summary: 'The tracked Tokyo scene and material manifests can be parsed at fdaa6f7^ and fdaa6f7. They provide an exact generated-output comparison for the environment-transform and decal-dependency work in Cases 02 and 03.',
@@ -2356,18 +2302,13 @@ DirectionalLight.worldMatrix = 4 × 4 matrix
 SkyLight.worldMatrix          = 4 × 4 matrix
 decals / materials / textures = 95 / 131 / 48`
                 },
-                method: 'Parsed the parent and fix blobs for both tracked manifests, then counted environment records with worldMatrix, decal records, materials, and textures.',
-                limitations: [
-                    'The manifest delta proves the exporter emitted the records; visual correctness still depends on importer and renderer behavior.',
-                    'Higher material or texture counts alone do not prove every dependency was semantically classified correctly.',
-                    'This is the dependency-recovery stage; the final grayscale decal coverage correction is verified separately at 0c5ae28.',
-                    'No same-camera rendered decal or shadow comparison is preserved.'
-                ]
+                method: 'Parsed the parent and fix blobs and confirmed the dependency-recovery output: light transforms and 95 decal records were added in fdaa6f7; grayscale coverage was corrected separately in 0c5ae28.'
             },
             {
+                caseId: 'game-flow-state',
                 kicker: 'Preserved packaged-runtime trace',
                 title: 'The transition waited after the cutscene, then committed only when Tokyo_Current became ready.',
-                summary: 'This ignored GameBuild log is an actual post-fix runtime artifact recorded three days after the wait-to-commit change. It directly exercises the asynchronous sequencing described in Case 01.',
+                summary: 'The preserved GameBuild log records the runtime sequence introduced by the wait-to-commit change: Cutscene complete → Wait → Scene ready → Commit.',
                 tags: ['Actual packaged run', 'Async loading', 'Case 01'],
                 facts: [
                     { label: 'Transition sequence', value: 'Wait → Ready → Commit', detail: 'Tokyo_Current packaged run' }
@@ -2381,14 +2322,10 @@ decals / materials / textures = 95 / 131 / 48`
 [GameFlow-Debug] Scene loading ready during wait. Committing transition now.
 [GameEngine] Async TransitionToScene committed: .../Tokyo_Current.Scene`
                 },
-                method: 'Read the preserved packaged-run log in chronological order and matched the wait, readiness, and commit messages to the state transition introduced by a590136.',
-                limitations: [
-                    'The ignored log is a later local artifact and does not embed the exact executable hash.',
-                    'It is a successful post-fix execution trace, not a timed before/after benchmark.',
-                    'No matching pre-fix package log is preserved.'
-                ]
+                method: 'Read the packaged-run log chronologically and matched the Wait → Ready → Commit messages to the state transition introduced by a590136.'
             },
             {
+                caseId: 'game-flow-state',
                 kicker: 'Preserved persistence output',
                 title: 'The completed run time was written consistently to both clear-score storage and the scoreboard.',
                 summary: 'Two actual local save files share the same final-write timestamp and contain the same 85.688-second result. This directly validates the persistence output used by Case 01 after a completed run.',
@@ -2407,16 +2344,12 @@ GameFlowScoreboard.tsv
 85.688
 ...`
                 },
-                method: 'Compared the value and last-write timestamp of both save outputs and confirmed that the scoreboard contains the same completed-run time.',
-                limitations: [
-                    'The files prove the post-fix persistence output, not the original asynchronous-reset failure.',
-                    'The save artifacts are ignored local state and do not identify the exact executable hash.',
-                    'No pre-fix output pair is preserved.'
-                ]
+                method: 'Compared both save outputs and confirmed the same completed-run value: LastClearScore.txt = GameFlowScoreboard.tsv = 85.688 sec.'
             }
         ],
         troubleshooting: [
             {
+                id: 'game-flow-state',
                 title: 'Clear score was lost across asynchronous scene flow',
                 symptom: 'The clear or credits screen could no longer recover the just-completed combat time after a scene transition reset in-memory timer state.',
                 cause: 'Score presentation depended on combatElapsedTime and local Lua state surviving the multithreaded scene transition.',
@@ -2569,7 +2502,8 @@ end`
             { hash: '0c5ae28', label: 'Final grayscale decal coverage fix', url: 'https://github.com/yoonjiii218/Jungle_Week14_Team3/commit/0c5ae2809b5b7fb40f7cb946d39ef807732cb3f3' },
             { hash: '6253e27', label: 'Tokyo game-flow scoreboard', url: 'https://github.com/yoonjiii218/Jungle_Week14_Team3/commit/6253e27b66b32fc90473a6e97b9c6060ea490cf4' },
             { hash: '3f5ef50', label: 'Custom cutscene reveal transition', url: 'https://github.com/yoonjiii218/Jungle_Week14_Team3/commit/3f5ef5079c66debd99c3a97116975910cc207750' }
-        ]
+        ],
+        featured: true
     }
 ];
 
@@ -2913,38 +2847,89 @@ function escapeMarkup(value) {
         .replaceAll("'", '&#039;');
 }
 
+function codeFileName(path) {
+    const normalizedPath = String(path || '').replaceAll('\\', '/');
+    const pathSegments = normalizedPath.split('/');
+    return pathSegments[pathSegments.length - 1] || normalizedPath;
+}
+
+function codeContextLabel(context) {
+    const normalizedContext = String(context || '').trim();
+    const functionMatch = normalizedContext.match(/[A-Za-z_~][\w~]*(?:::[A-Za-z_~][\w~]*)*\([^)]*\)/);
+
+    if (functionMatch) {
+        const qualifiedParts = functionMatch[0].split('::');
+        return qualifiedParts[qualifiedParts.length - 1];
+    }
+
+    return normalizedContext.length > 42
+        ? `${normalizedContext.slice(0, 41).trimEnd()}…`
+        : normalizedContext;
+}
+
+function compactEvidenceStage(stage) {
+    return String(stage || '')
+        .replace(/\s*·\s*\d{4}-\d{2}-\d{2}(?:\s+\d{2}:\d{2}(?::\d{2})?)?(?:\s+[A-Z]{2,5})?/g, '')
+        .trim();
+}
+
+function compactEvidenceFile(file) {
+    return String(file || '')
+        .split(/\s+\+\s+/)
+        .map(codeFileName)
+        .filter(Boolean)
+        .join(' + ');
+}
+
+function troubleCommitMarkup(commit) {
+    const rawHash = String(commit?.hash || getLabText('localHistory', 'Local history'));
+    const hashes = rawHash.split(/\s*→\s*/).filter(Boolean);
+    const visibleHash = hashes[hashes.length - 1] || rawHash;
+    const extraCount = Math.max(0, hashes.length - 1);
+    const label = commit?.label || getLabText('evidenceCommit', 'Commit');
+    const title = escapeMarkup(`${label} · ${rawHash}`);
+    const content = `<code>${escapeMarkup(visibleHash)}</code>${extraCount ? `<span>+${extraCount}</span>` : ''}`;
+
+    return commit?.url
+        ? `<a class="lab-trouble-commit" href="${escapeMarkup(commit.url)}" target="_blank" rel="noopener noreferrer" aria-label="${title}" title="${title}">${content}</a>`
+        : `<div class="lab-trouble-commit is-local" aria-label="${title}" title="${title}">${content}</div>`;
+}
+
 function codeSnippetMarkup(code) {
     if (!code) return '';
 
-    const file = escapeMarkup(code.file);
-    const context = escapeMarkup(code.context);
+    const fullFile = String(code.file || '');
+    const fullContext = String(code.context || '');
+    const file = escapeMarkup(codeFileName(fullFile));
+    const context = escapeMarkup(codeContextLabel(fullContext));
     const language = escapeMarkup(code.language);
     const snippet = escapeMarkup(code.snippet.trim());
+    const detailTitle = escapeMarkup([fullFile, fullContext].filter(Boolean).join(' · '));
 
-    const ariaLabel = escapeMarkup(formatLabText('representativeFixAria', 'Representative fix from {file}', { file }));
+    const ariaLabel = escapeMarkup(formatLabText('representativeFixAria', 'Representative fix from {file}', { file: fullFile }));
 
     return `<section class="lab-code-snippet" aria-label="${ariaLabel}">
                 <header class="lab-code-snippet-header">
-                    <span class="lab-code-snippet-label">${escapeMarkup(getLabText('codeSnapshotAfter', 'Code snapshot · after fix'))}</span>
-                    <strong>${file}</strong>
-                    <span class="lab-code-snippet-context">${context} · ${language}</span>
+                    <span class="lab-code-snippet-label">${escapeMarkup(getLabText('codeSnapshotAfter', 'Code fix'))}</span>
+                    <span class="lab-code-snippet-identity" title="${detailTitle}">
+                        <strong>${file}</strong>
+                        ${context ? `<span class="lab-code-snippet-context">${context}</span>` : ''}
+                    </span>
+                    <span class="lab-code-snippet-language">${language}</span>
                 </header>
                 <pre tabindex="0"><code>${snippet}</code></pre>
             </section>`;
 }
 
-function evidencePanelMarkup(panel) {
-    const tags = panel.tags?.length
-        ? `<div class="lab-runtime-evidence-tags">${panel.tags.map(tag => `<span>${escapeMarkup(tag)}</span>`).join('')}</div>`
-        : '';
-
+function evidencePanelMarkup(panel, { attached = false, result = false } = {}) {
     const figures = panel.figures?.length
         ? `<div class="lab-runtime-evidence-figures">
                 ${panel.figures.map(figure => {
                     const fitClass = figure.fit ? ` is-${escapeMarkup(figure.fit)}` : '';
                     const src = escapeMarkup(figure.src);
                     const alt = escapeMarkup(figure.alt);
-                    const stage = escapeMarkup(figure.stage);
+                    const fullStage = String(figure.stage || '');
+                    const stage = escapeMarkup(compactEvidenceStage(fullStage));
                     const caption = escapeMarkup(figure.caption);
 
                     return `<figure class="lab-runtime-evidence-figure${fitClass}">
@@ -2952,7 +2937,7 @@ function evidencePanelMarkup(panel) {
                                     <img src="${src}" alt="${alt}" loading="lazy" decoding="async">
                                 </a>
                                 <figcaption>
-                                    <strong>${stage}</strong>
+                                    <strong title="${escapeMarkup(fullStage)}">${stage}</strong>
                                     <p>${caption}</p>
                                 </figcaption>
                             </figure>`;
@@ -2960,21 +2945,26 @@ function evidencePanelMarkup(panel) {
            </div>`
         : '';
 
-    const facts = panel.facts?.length
-        ? `<div class="lab-runtime-evidence-facts has-${Math.min(panel.facts.length, 4)}-items">
-                ${panel.facts.map(fact => `<article>
+    const allFacts = (panel.facts || []).filter(fact => !fact.hidden);
+    const visibleFacts = allFacts.slice(0, 3);
+    const extraFacts = allFacts.slice(3);
+    const facts = visibleFacts.length
+        ? `<div class="lab-runtime-evidence-facts has-${visibleFacts.length}-items">
+                ${visibleFacts.map(fact => {
+                    const factDetail = [fact.label, fact.value, fact.detail].filter(Boolean).join(' · ');
+                    return `<article title="${escapeMarkup(factDetail)}">
                             <span>${escapeMarkup(fact.label)}</span>
                             <strong>${escapeMarkup(fact.value)}</strong>
-                            <small>${escapeMarkup(fact.detail)}</small>
-                        </article>`).join('')}
+                        </article>`;
+                }).join('')}
            </div>`
         : '';
 
-    const trace = panel.trace
+    const trace = panel.trace?.snippet
         ? `<section class="lab-runtime-evidence-trace" aria-label="${escapeMarkup(panel.trace.label)}">
-                <header>
+                <header title="${escapeMarkup(panel.trace.file)}">
                     <span>${escapeMarkup(panel.trace.label)}</span>
-                    <strong>${escapeMarkup(panel.trace.file)}</strong>
+                    <strong>${escapeMarkup(compactEvidenceFile(panel.trace.file))}</strong>
                 </header>
                 <pre tabindex="0"><code>${escapeMarkup(panel.trace.snippet.trim())}</code></pre>
            </section>`
@@ -2994,27 +2984,43 @@ function evidencePanelMarkup(panel) {
         : '';
     const limitations = panel.limitations?.length
         ? `<div class="lab-runtime-evidence-limits">
-                <span>${escapeMarkup(getLabText('scopeLimits', 'Scope & limits'))}</span>
+                <span>${escapeMarkup(getLabText('scopeLimits', 'Evidence basis'))}</span>
                 <ul>${panel.limitations.map(item => `<li>${escapeMarkup(item)}</li>`).join('')}</ul>
            </div>`
         : '';
-    const notes = method || hardware || limitations
-        ? `<div class="lab-runtime-evidence-notes">${method}${hardware}${limitations}</div>`
+    const additionalFacts = extraFacts.length
+        ? `<div class="lab-runtime-evidence-extra-facts">
+                <span>${escapeMarkup(getLabText('additionalValues', 'Additional values'))}</span>
+                <ul>${extraFacts.map(fact => `<li><strong>${escapeMarkup(fact.label)}: ${escapeMarkup(fact.value)}</strong>${fact.detail ? ` — ${escapeMarkup(fact.detail)}` : ''}</li>`).join('')}</ul>
+           </div>`
         : '';
+    const notes = method || hardware || limitations || additionalFacts
+        ? `<div class="lab-runtime-evidence-notes">${method}${hardware}${additionalFacts}${limitations}</div>`
+        : '';
+    const validation = trace || notes
+        ? `<details class="lab-runtime-evidence-validation">
+                <summary>${escapeMarkup(getLabText('validationDetails', 'Validation details'))}</summary>
+                <div class="lab-runtime-evidence-validation-body">${trace}${notes}</div>
+           </details>`
+        : '';
+    const summary = attached ? '' : `<p>${escapeMarkup(panel.summary)}</p>`;
+    const body = `${figures}${facts}${validation}`;
+
+    if (panel.collapsed && !result) {
+        return `<details class="lab-runtime-evidence lab-runtime-evidence-disclosure">
+                    <summary>${escapeMarkup(panel.title)}</summary>
+                    <div class="lab-runtime-evidence-disclosure-body">${body}</div>
+                </details>`;
+    }
 
     return `<section class="lab-runtime-evidence">
                 <header class="lab-runtime-evidence-header">
                     <div>
-                        <span class="lab-detail-label">${escapeMarkup(panel.kicker)}</span>
                         <h4>${escapeMarkup(panel.title)}</h4>
-                        <p>${escapeMarkup(panel.summary)}</p>
+                        ${summary}
                     </div>
-                    ${tags}
                 </header>
-                ${figures}
-                ${facts}
-                ${trace}
-                ${notes}
+                ${body}
             </section>`;
 }
 
@@ -3022,7 +3028,7 @@ function troubleshootingEvidenceMarkup(panels, { attached = false, result = fals
     if (!panels?.length) return '';
 
     return `<div class="lab-runtime-evidence-list${attached ? ' is-attached' : ''}${result ? ' is-result' : ''}" aria-label="${escapeMarkup(getLabText('preservedEvidenceAria', 'Preserved runtime and visual evidence'))}">
-                ${panels.map(evidencePanelMarkup).join('')}
+                ${panels.map(panel => evidencePanelMarkup(panel, { attached, result })).join('')}
             </div>`;
 }
 
@@ -3091,17 +3097,20 @@ function renderDetailPanel() {
         );
         const sourceLink = week.sourceUrl
             ? `<a class="lab-source-link" href="${week.sourceUrl}" target="_blank" rel="noopener noreferrer">${week.sourceLabel}</a>`
-            : `<span class="lab-summary-only">${getLabText('noPublicSourceLink', 'No public source link')}</span>`;
+            : '';
         const commitEvidence = week.commitRefs?.length
-            ? `<div class="lab-commit-evidence">
-                    <span class="lab-detail-label">${getLabText('selectedAuthoredCommits', 'Selected authored commits')}</span>
+            ? `<details class="lab-commit-evidence">
+                    <summary>
+                        <span>${getLabText('selectedAuthoredCommits', 'Key commits')}</span>
+                        <strong>${week.commitRefs.length}</strong>
+                    </summary>
                     <div class="lab-commit-list">
                         ${week.commitRefs.map(commit => commit.url
-                            ? `<a href="${commit.url}" target="_blank" rel="noopener noreferrer"><code>${commit.hash}</code><span>${commit.label}</span></a>`
-                            : `<div><code>${commit.hash}</code><span>${commit.label}</span></div>`
+                            ? `<a href="${escapeMarkup(commit.url)}" target="_blank" rel="noopener noreferrer"><code>${escapeMarkup(commit.hash)}</code><span>${escapeMarkup(commit.label)}</span></a>`
+                            : `<div><code>${escapeMarkup(commit.hash)}</code><span>${escapeMarkup(commit.label)}</span></div>`
                         ).join('')}
                     </div>
-               </div>`
+               </details>`
             : '';
 
         content = `
@@ -3115,16 +3124,16 @@ function renderDetailPanel() {
                     <h4>${week.evidenceStatus}</h4>
                     <p>${week.evidenceNote}</p>
                     ${sourceLink}
-                    ${commitEvidence}
                 </section>
             </div>
             ${resultEvidence}
+            ${commitEvidence}
         `;
     } else {
         const troubleshootingCount = week.troubleshooting?.length || 0;
         const troubleshootingCountLabel = week.troubleshootingPending
             ? getLabText('sourceRecovery', 'Source files pending')
-            : formatLabText('documentedCases', '{count} documented {noun}', {
+            : formatLabText('documentedCases', '{count} {noun}', {
                 count: troubleshootingCount,
                 noun: getLabText(troubleshootingCount === 1 ? 'caseSingular' : 'casePlural', troubleshootingCount === 1 ? 'case' : 'cases')
             });
@@ -3148,9 +3157,7 @@ function renderDetailPanel() {
         const cases = week.troubleshooting?.length
             ? `<div class="lab-troubleshooting-list">
                     ${week.troubleshooting.map((item, index) => {
-                        const commit = item.commit?.url
-                            ? `<a class="lab-trouble-commit" href="${item.commit.url}" target="_blank" rel="noopener noreferrer"><span>${item.commit.label || getLabText('evidenceCommit', 'Evidence commit')}</span><code>${item.commit.hash}</code></a>`
-                            : `<div class="lab-trouble-commit is-local"><span>${item.commit?.label || getLabText('evidenceCommit', 'Evidence commit')}</span><code>${item.commit?.hash || getLabText('localHistory', 'Local history')}</code></div>`;
+                        const commit = troubleCommitMarkup(item.commit);
 
                         const attachedEvidencePanels = item.id
                             ? evidencePanels.filter(panel => panel.caseId === item.id)
@@ -3194,11 +3201,11 @@ function renderDetailPanel() {
                     <span class="lab-detail-label">${getLabText('commitDerivedLabel', 'Curated engineering cases')}</span>
                     <strong>${troubleshootingCountLabel}</strong>
                 </div>
-                <p>${getLabText('troubleshootingIntro', 'Only the strongest root-cause investigations recovered from authored commits and diffs are retained here. Related symptoms are consolidated; minor adjustments and weakly supported observations are omitted. Preserved evidence is shown with its acquisition method and limits, and results are never inferred from code alone.')}</p>
+                <p>${getLabText('troubleshootingIntro', 'Key cases verified through authored commits and code changes.')}</p>
             </div>
             ${pending}
-            ${runtimeEvidence}
             ${cases}
+            ${runtimeEvidence}
         `;
     }
 

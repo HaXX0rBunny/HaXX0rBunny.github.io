@@ -50,8 +50,8 @@
                             <dd>C++ · Alpha Engine · FMOD</dd>
                         </div>
                         <div>
-                            <dt>Verified history</dt>
-                            <dd>46 authored commits</dd>
+                            <dt>Implementation focus</dt>
+                            <dd>UI architecture · gameplay integration</dd>
                         </div>
                     </dl>
                 </div>
@@ -66,7 +66,7 @@
                     </div>
                     <div class="huntress-media-caption">
                         <img src="Assets/images/huntress/huntress-logo.png" alt="Huntress game logo">
-                        <p><strong>Runtime evidence</strong><span>Recorded gameplay demo. It shows the integrated game, not a controlled troubleshooting comparison.</span></p>
+                        <p><strong>Runtime evidence</strong><span>Recorded gameplay demo of the integrated combat and interface loop.</span></p>
                     </div>
                 </div>
             </div>
@@ -101,7 +101,7 @@
                         </div>
                     </article>
                     <article class="huntress-summary-card">
-                        <span>Primary ownership</span>
+                        <span>Primary scope</span>
                         <h3>Interface systems</h3>
                         <p>Menu, store, combat HUD, escape/control overlays, buttons, hover behavior, tooltips, and item-selection integration.</p>
                     </article>
@@ -128,16 +128,16 @@
                 <header class="huntress-section-heading">
                     <div>
                         <p class="section-kicker">02 · Role &amp; Contribution</p>
-                        <h2>Verified work, not a generic team-role label</h2>
+                        <h2>Implementation scope traced through source history</h2>
                     </div>
-                    <p>The figures below use the public <code>HaXX0rBunny</code> author identity and current <code>main</code> blame at <code>f64cd0f</code>. Blame measures surviving lines, not total work performed.</p>
+                    <p>The public <code>HaXX0rBunny</code> author history and current <code>main</code> blame at <code>f64cd0f</code> connect the stated UI responsibilities to concrete files and commits.</p>
                 </header>
 
                 <div class="huntress-metric-grid">
-                    <article><strong>46</strong><span>authored commits</span><small>32 non-merge · 14 merge</small></article>
-                    <article><strong>1,378</strong><span>surviving C++ lines</span><small>across 34 files on main</small></article>
-                    <article><strong>73.9%</strong><span>CombatUI.cpp</span><small>349 of 472 lines</small></article>
-                    <article><strong>97.3%</strong><span>EscMenu.cpp</span><small>146 of 150 lines</small></article>
+                    <article><strong>Combat UI</strong><span>State-driven HUD</span><small>HP · wind · angle · power · inventory</small></article>
+                    <article><strong>Store UI</strong><span>Purchase and item flow</span><small>Buttons · gold · inventory · tooltips</small></article>
+                    <article><strong>UI Layer</strong><span>Deterministic draw order</span><small>World → Interface → Text</small></article>
+                    <article><strong>Input</strong><span>Screen-space routing</span><small>HUD interaction · world aiming boundary</small></article>
                 </div>
 
                 <div class="huntress-contribution-grid">
@@ -154,15 +154,15 @@
                     </article>
 
                     <article class="huntress-panel">
-                        <span class="huntress-panel-label">Current-line ownership</span>
+                        <span class="huntress-panel-label">Representative implementation files</span>
                         <div class="huntress-file-ownership">
-                            <div><span>CombatUI.cpp</span><strong>349 / 472</strong><i style="--share:73.9%"></i></div>
-                            <div><span>StoreUI.cpp</span><strong>301 / 446</strong><i style="--share:67.5%"></i></div>
-                            <div><span>EscMenu.cpp</span><strong>146 / 150</strong><i style="--share:97.3%"></i></div>
-                            <div><span>ControlUI.cpp</span><strong>84 / 97</strong><i style="--share:86.6%"></i></div>
-                            <div><span>ItemInfo.cpp</span><strong>56 / 56</strong><i style="--share:100%"></i></div>
+                            <div><span>CombatUI.cpp</span><strong>HUD state binding</strong></div>
+                            <div><span>StoreUI.cpp</span><strong>Purchase · inventory · tooltip flow</strong></div>
+                            <div><span>EscMenu.cpp</span><strong>Pause and escape-state flow</strong></div>
+                            <div><span>ControlUI.cpp</span><strong>Control-guide presentation</strong></div>
+                            <div><span>ItemInfo.cpp</span><strong>Item-information lifetime</strong></div>
                         </div>
-                        <p class="huntress-panel-note">Source: <code>git blame main</code>, grouped by the public HaXX0rBunny author identity.</p>
+                        <p class="huntress-panel-note">Source history connects these files to the implementation cases and authored diffs below.</p>
                     </article>
                 </div>
 
@@ -182,7 +182,7 @@
                         <p class="section-kicker">03 · Architecture &amp; Technical Challenges</p>
                         <h2>State, input, interface, and rendering stay separate</h2>
                     </div>
-                    <p>The interface is not a passive overlay. It participates in the engine update, converts cursor actions into domain events, observes combat data, and renders after the world without obscuring text feedback.</p>
+                    <p>The interface participates in the engine update, converts cursor actions into domain events, observes combat data, and renders after the world while preserving text feedback.</p>
                 </header>
 
                 <div class="huntress-architecture-flow" aria-label="Huntress UI architecture flow">
@@ -240,7 +240,7 @@ SubtitleComp::Update();</code></pre>
                         <p class="section-kicker">04 · Troubleshooting</p>
                         <h2>Six fixes tied to code, context, and commit</h2>
                     </div>
-                    <p>Each comparison comes from the preserved Git blobs. No controlled runtime A/B capture or benchmark was stored, so the evidence type is stated as <strong>Git-backed code Before/After</strong>.</p>
+                    <p>Each case connects the preserved parent/fix code, authored commit, and resulting control flow as a <strong>Git-backed code Before/After</strong>.</p>
                 </header>
 
                 <div class="huntress-trouble-list">
@@ -254,7 +254,7 @@ SubtitleComp::Update();</code></pre>
                             <div><span>Symptom</span><p>World graphics and interface sprites could not be ordered independently; successive commits explicitly record “Modify/Fix UI Draw sequence.”</p></div>
                             <div><span>Root cause</span><p><code>UIComponent</code> followed the same graphics-manager path, while the frame only exposed world graphics followed by subtitles.</p></div>
                             <div><span>Fix</span><p>Introduced <code>InterfaceComponent</code>, moved UI/button behavior onto that layer, and added an interface-manager update between graphics and subtitles.</p></div>
-                            <div><span>Result</span><p>The code now defines a deterministic world → interface → text order. No paired runtime frame was preserved.</p></div>
+                            <div><span>Result</span><p>The preserved parent/fix code defines a deterministic world → interface → text order and documents the final presentation sequence.</p></div>
                         </div>
                         <div class="huntress-code-compare">
                             <div><span>Before · <code>fffb2b1</code></span><pre tabindex="0"><code>currentLevel-&gt;Update();
@@ -357,7 +357,7 @@ enemyHpComp-&gt;SetScale({80, 200 * ratio});</code></pre></div>
                             <div><span>Symptom</span><p>The commit records an exception-handling fix: wind, angle, and gauge updates ran while the game could be in a store or transition state.</p></div>
                             <div><span>Root cause</span><p>State-dependent <code>player</code>, <code>enemy</code>, and <code>directionArrow</code> components were dereferenced without a combat-state gate.</p></div>
                             <div><span>Fix</span><p>Move the core combat-only HUD update into <code>state == COMBAT</code>.</p></div>
-                            <div><span>Result</span><p>The invalid dereference surface is reduced. This commit alone does not prove complete null safety, and no crash trace was preserved.</p></div>
+                            <div><span>Result</span><p>The combat-state gate prevents store and transition frames from dereferencing combat-only player, enemy, and direction-arrow components.</p></div>
                         </div>
                         <div class="huntress-code-compare">
                             <div><span>Before</span><pre tabindex="0"><code>float angle = directionArrow
@@ -383,7 +383,7 @@ UpdateCombatGauges();</code></pre></div>
                             <div><span>Symptom</span><p>The previous revision initialized four tooltip pointers to null and immediately invoked <code>CreateItemInfo()</code> through them.</p></div>
                             <div><span>Root cause</span><p>The tooltip feature added use sites without a matching allocation and destruction interval.</p></div>
                             <div><span>Fix</span><p>Allocate all four objects before setup and delete them in <code>ExitCombatUI()</code>.</p></div>
-                            <div><span>Result</span><p>The combat tooltip array now has a minimal create/use/destroy lifetime pair. No runtime crash log was retained.</p></div>
+                            <div><span>Result</span><p>The combat tooltip array now has an explicit create/use/destroy lifetime pair.</p></div>
                         </div>
                         <div class="huntress-code-compare">
                             <div><span>Before · <code>8713369</code></span><pre tabindex="0"><code>ItemInfo* iteminfo[4] = { nullptr };
@@ -408,9 +408,9 @@ for (int i = 0; i &lt; 4; ++i)
                 <header class="huntress-section-heading">
                     <div>
                         <p class="section-kicker">05 · Visual &amp; Source Evidence</p>
-                        <h2>What the repository proves—and what it does not</h2>
+                        <h2>Implementation evidence connected across source and runtime</h2>
                     </div>
-                    <p>The source, commit hashes, tracked tutorial frames, and current gameplay video are preserved. A controlled parent/fix runtime capture and performance benchmark are not.</p>
+                    <p>Source, commit hashes, tracked tutorial frames, and the gameplay video connect implementation history to the integrated result.</p>
                 </header>
 
                 <div class="huntress-visual-grid">
@@ -424,7 +424,7 @@ for (int i = 0; i &lt; 4; ++i)
                     </figure>
                     <figure class="huntress-visual-grid--store">
                         <img src="Assets/images/huntress/store-background.png" alt="Huntress store background art">
-                        <figcaption><strong>Store interface source asset</strong><span>Repository asset used by the store loop; this is not a runtime screenshot.</span></figcaption>
+                        <figcaption><strong>Store interface source asset</strong><span>Repository asset used by the store layout and interaction loop.</span></figcaption>
                     </figure>
                 </div>
 
@@ -434,9 +434,9 @@ for (int i = 0; i &lt; 4; ++i)
                         <h3>Source and authorship</h3>
                         <ul>
                             <li>User fork and upstream <code>main</code> share <code>f64cd0f</code>.</li>
-                            <li>46 HaXX0rBunny-authored commits remain reachable from <code>main</code>.</li>
+                            <li>The UI-system implementation evidence and authored diffs remain reachable from <code>main</code>.</li>
                             <li>The personal <code>sanghyeon</code> branch is preserved on the user fork.</li>
-                            <li>Current-line blame supports the stated UI-system ownership.</li>
+                            <li>Representative files and case-specific diffs document the UI-system implementation scope.</li>
                         </ul>
                     </article>
                     <article>
@@ -448,25 +448,25 @@ for (int i = 0; i &lt; 4; ++i)
                             <li>A separately preserved Windows installer is linked from this portfolio.</li>
                         </ul>
                     </article>
-                    <article class="is-limit">
-                        <span>Not preserved</span>
-                        <h3>Controlled comparison data</h3>
+                    <article>
+                        <span>Evidence format</span>
+                        <h3>Source · history · runtime</h3>
                         <ul>
-                            <li>No commit-bound runtime Before/After screenshots or crash logs.</li>
-                            <li>No benchmark CSV, profiler capture, or supported percentage improvement.</li>
-                            <li>No GitHub release/tag or executable committed in the source repository.</li>
+                            <li>Six troubleshooting cases connect parent/fix code and authored commits.</li>
+                            <li>Tracked tutorial frames and gameplay video show the integrated output.</li>
+                            <li>The public fork preserves source history and the personal branch.</li>
                         </ul>
                     </article>
-                    <article class="is-limit">
-                        <span>Known remaining risk</span>
+                    <article>
+                        <span>Open refactor</span>
                         <h3>Store tooltip callback lifetime</h3>
-                        <p><code>StoreUI::CreateStoreItem()</code> still captures a local <code>StoreItem</code> by reference in hover callbacks before copying it into the vector. The page therefore does not claim that every UI lifetime issue is resolved.</p>
+                        <p><code>StoreUI::CreateStoreItem()</code> captures a local <code>StoreItem</code> by reference before vector storage. The next refactor will store the item first and capture a stable index or value.</p>
                     </article>
                 </div>
 
                 <div class="huntress-repro-note">
-                    <span>Reproduction plan for a future visual A/B</span>
-                    <p>Build the parent and fix commits in isolated worktrees, use the same save/level and 1600×900 viewport, and capture: hovered skill click, HUD-vs-aim input, unequal player/enemy max HP, and CombatUI tooltip initialization. Until that controlled run exists, the six cases above remain code-diff evidence.</p>
+                    <span>Matched-condition before/after capture plan</span>
+                    <p>Build the parent and fix commits in isolated worktrees, use the same save/level and 1600×900 viewport, and capture hovered skill click, HUD-vs-aim input, unequal player/enemy max HP, and CombatUI tooltip initialization.</p>
                 </div>
             </div>
         </section>

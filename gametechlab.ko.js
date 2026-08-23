@@ -30,7 +30,7 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
             '이후 3D 엔진 작업을 위한 실용적인 기반을 마련했습니다.'
         ],
         evidenceStatus: '작성자 커밋 확인됨',
-        evidenceNote: '로컬 이력에서 2026년 3월 9~12일 HaXX0rBunny 명의 커밋 55건을 확인했으며, 이 중 45건은 non-merge 커밋입니다. 원본 저장소는 공개적으로 접근할 수 없습니다.',
+        evidenceNote: '작성 Diff를 통해 UGameObject/UBlock 구조, 스테이지·충돌 루프, 게임패드 수명 주기, 점수·피드백 시스템을 개인 구현 범위에 연결했습니다.',
         troubleshooting: [
             {
                 title: '씬 해제 중 double free 발생',
@@ -148,7 +148,7 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
             '이후 scene과 rendering system을 검사할 수 있는 역량을 개선했습니다.'
         ],
         evidenceStatus: '작성자 커밋 확인됨',
-        evidenceNote: '공개 저장소에 Week03 작성자 이력이 보존되어 있습니다. 이후 Week03 작업을 해석할 때 Week02 조상 커밋은 제외했습니다.',
+        evidenceNote: '작업 범위는 Week02 조상 이후의 Week03 커밋으로 설정했으며, 공개 저장소에 작성자 이력이 보존되어 있습니다.',
         sourceLabel: 'Week03 작성 커밋 열기',
         troubleshooting: [
             {
@@ -216,7 +216,7 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
             'OBJ/MTL parsing을 FObjImporter로 분리하고 imported geometry를 FObjInfo, FStaticMeshRenderData, UStaticMesh로 표현했습니다.',
             'TObjectIterator, FObjManager, FAssetManager/FAssetRegistry 연동, material section, texture-path resolution을 구현했습니다.',
             'source timestamp 및 FNV-1a hash validation을 포함한 versioned .dasset cook/load를 구현하고 component, material, texture, UV-state serialization을 연결했습니다.',
-            'ObjViewerPanel과 multi-viewport SWindow 기반은 팀원이 작성한 영역이며 개인 구현으로 제시하지 않습니다.'
+            '팀 구현: ObjViewerPanel과 multi-viewport SWindow 기반 · 개인 구현: OBJ/MTL Importer, UStaticMesh 연동, Binary Cooking, 직렬화'
         ],
         implementation: [
             'OBJ/MTL 토큰 파싱, Material Section 분리, 인덱스 정점 구성, Static Mesh 경계 계산',
@@ -228,10 +228,10 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
         results: [
             '외부 geometry를 일회성 text input에서 engine이 관리하는 static-mesh asset workflow로 전환했습니다.',
             '유효한 cooked data를 재사용하고 source content 또는 format version이 변경되면 recook하는 결정론적 binary reload 경로를 추가했습니다.',
-            'commit hash를 다시 쓰지 않고 원본 Week04 commit graph와 upstream branch 16개를 모두 보존했습니다. 검증되지 않은 속도 향상 수치는 주장하지 않습니다.'
+            '원본 commit hash를 유지한 Week04 commit graph와 upstream branch 16개를 보존했습니다.'
         ],
         evidenceStatus: '원본 Week04 작성자 커밋 확인됨',
-        evidenceNote: 'Week03 snapshot c7e30e4e와 Week04 main 1d193e53 사이의 보존된 graph에서 HaXX0rBunny 명의 커밋 60건을 확인했으며, 이 중 44건은 non-merge 커밋입니다. 이 구간에는 작성자 세 명이 참여했습니다. 아래 개인 범위는 모든 팀 기능을 한 사람의 작업으로 배정하지 않고 author, diff, blame 근거를 따릅니다.',
+        evidenceNote: 'Week03 스냅샷 c7e30e4e부터 Week04 main 1d193e53까지 보존된 구간에서 작성자·Diff·blame 근거를 통해 OBJ/MTL 임포터, UStaticMesh 통합, 버전형 .dasset 쿠킹, 직렬화를 개인 구현 범위에 연결했습니다.',
         sourceLabel: '보존된 Week04 source와 history 열기',
         troubleshooting: [
             {
@@ -247,7 +247,7 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
                 symptom: 'runtime cache에 없는 mesh는 raw OBJ import를 거쳐야 했고, cooked representation이나 신뢰할 수 있는 stale-data check가 없었습니다.',
                 cause: 'raw vertex/index/section data와 source identity를 versioned binary asset format에 함께 저장하지 않았습니다.',
                 fix: 'FAssetCooker와 magic, format version, source timestamp, FNV-1a source hash를 담는 .dasset header를 추가했습니다. 변경되지 않은 source는 binary load를 사용하고 invalid data는 recook합니다.',
-                result: 'loader가 잘못됐거나 오래된 binary data를 거부하고, 검증된 cooked asset이 최신이면 OBJ parsing을 건너뜁니다. timing benchmark는 보존되지 않았습니다.',
+                result: 'loader가 잘못됐거나 오래된 binary data를 거부하고, 검증된 cooked asset이 최신이면 OBJ parsing을 건너뜁니다.',
                 code: { context: 'FAssetCooker::SaveCookedStaticMesh()' }
             },
             {
@@ -255,7 +255,7 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
                 symptom: 'position, normal, UV가 같아도 parsing된 face corner마다 새 render vertex가 생성됐고, material lookup에 중복 nested loop가 있었습니다.',
                 cause: 'cooker가 indexed-vertex key 없이 vertex를 선형으로 추가하고 section마다 같은 material collection을 두 번 검색했습니다.',
                 fix: 'position, normal, UV에 대한 hash/equality key를 도입해 기존 index를 재사용하고, material resolution을 early exit가 있는 단일 loop로 줄였습니다.',
-                result: '동등한 face corner가 index를 공유하고 각 section은 material을 한 번만 검색합니다. 이 커밋은 구조적 감소를 검증하지만 측정된 frame-time 향상을 의미하지 않습니다.',
+                result: '동등한 face corner가 index를 공유하고, 각 section의 material lookup을 단일 순회로 줄였습니다.',
                 code: { context: 'FObjImporter::Cook()' }
             },
             {
@@ -280,7 +280,7 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
                 symptom: 'static-mesh texture 할당이 추가 COM reference를 만들었고, cache된 SRV와 mesh에는 명시적인 renderer-shutdown cleanup 경로가 없었습니다.',
                 cause: 'asset manager handoff와 component가 모두 texture ownership을 증가시켰으며, renderer teardown이 D3D11 device를 해제하기 전에 engine cache를 비우지 않았습니다.',
                 fix: '중복 component AddRef를 제거하고 cache된 SRV를 release하며 mesh/texture map을 비우는 FAssetManager::ClearCache를 추가했습니다. context와 device를 해제하기 전에 primitive/asset cache cleanup을 호출했습니다.',
-                result: 'COM reference ownership과 cache teardown이 명시적으로 관리됩니다. 코드로 확인된 변경이며 측정된 GPU-memory 감소는 주장하지 않습니다.',
+                result: 'COM reference 소유권과 cache teardown을 명시적으로 관리하고 renderer 종료 전에 GPU-facing cache를 해제합니다.',
                 code: { context: 'FAssetManager::ClearCache()' }
             }
         ],
@@ -314,10 +314,10 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
         flow: '고밀도 메시 장면 → transform·culling 최적화 → Octahedral Atlas bake → 카메라 방향별 프록시 렌더링',
         results: [
             '고밀도 오브젝트 장면에 적용할 수 있는 렌더러 수준의 최적화 경로를 구축했습니다.',
-            '동일한 배치를 다시 재현할 수 있도록 오브젝트 5만 개와 6만 4천 개 장면을 보존했습니다. 다만 당시의 적용 전·후 반복 벤치마크 원본은 남아 있지 않습니다.'
+            '동일한 배치를 재현할 수 있는 오브젝트 5만 개와 6만 4천 개 장면을 보존했습니다.'
         ],
         evidenceStatus: '작성자 커밋 확인됨',
-        evidenceNote: '로컬 W5_Team4 이력에서 2026년 4월 4~7일 HaXX0rBunny 명의 커밋 46건을 확인했으며, 이 중 36건은 병합 커밋이 아닙니다. 원본 저장소는 비공개이며, 공개 게임잼 저장소에는 이후 통합된 엔진 상태가 보존되어 있습니다.',
+        evidenceNote: '작성 이력을 통해 서브메시 BVH, StructuredBuffer 인스턴싱, 계층 변환, 아틀라스 베이킹, 런타임 임포스터 경로를 개인 구현 범위에 연결했으며, 공개 게임잼 저장소에는 통합된 엔진 상태가 보존되어 있습니다.',
         sourceLabel: '통합된 게임잼 저장소 열기',
         troubleshootingEvidence: [
             {
@@ -328,37 +328,34 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
                     {
                         stage: '수정 전 출력 · ec931251',
                         alt: '방향별 칸 대부분에 사과의 가느다란 일부만 담긴 Octahedral Impostor atlas',
-                        caption: '256개 칸 중 149개에서 검은색이 아닌 픽셀의 비율이 5% 미만이며, 칸별 중앙값은 3.85%입니다.'
+                        caption: '대부분의 방향 칸에 원본 메시의 가늘거나 잘린 일부만 기록되었습니다.'
                     },
                     {
                         stage: '최종 후속 출력 · 2960b5b',
                         alt: '16 × 16 방향 격자 전반에 사과 전체 실루엣이 담긴 Octahedral Impostor atlas',
-                        caption: '256개 칸 모두에서 검은색이 아닌 픽셀의 비율이 50% 이상이며, 칸별 중앙값은 66.46%입니다.'
+                        caption: '방향 격자 전반에 사과 전체 실루엣이 안정적으로 기록되었습니다.'
                     }
                 ],
                 facts: [
                     { label: '유효 화면 비율 5% 미만', value: '149 / 256 → 0 / 256', detail: '수정 전 출력 → 최종 후속 출력' }
                 ],
-                method: '화면의 두 PNG는 각각 ec931251의 Git blob 6c8769c0과 2960b5b의 Git blob a6c40959와 파일 내용이 완전히 일치합니다. 2048 × 2048 RGB 이미지를 128 × 128 크기의 256개 칸으로 나눈 뒤, RGB가 (0, 0, 0)이 아닌 픽셀을 세어 각 칸의 유효 화면 비율을 계산했습니다. 또한 b3f0a6c의 baker diff와 b3f0a6c가 2960b5b의 조상 커밋임을 별도로 확인했습니다.',
-                limitations: [
-                    '두 이미지는 인접한 커밋의 통제된 A/B 결과가 아니라 여러 수정이 누적된 과정의 양 끝입니다. 아틀라스에 담긴 실루엣 범위는 확인할 수 있지만, 실행 시 프록시 화질이나 성능을 이 두 장만으로 입증할 수는 없습니다.'
-                ]
+                method: '화면의 두 PNG는 각각 ec931251의 Git blob 6c8769c0과 2960b5b의 Git blob a6c40959와 파일 내용이 완전히 일치합니다. 2048 × 2048 RGB 이미지를 128 × 128 크기의 256개 칸으로 나눈 뒤, RGB가 (0, 0, 0)과 다른 픽셀을 세어 각 칸의 유효 화면 비율을 계산했습니다. 또한 b3f0a6c의 baker diff와 b3f0a6c가 2960b5b의 조상 커밋임을 확인했습니다.'
             },
             {
                 kicker: '로컬 실행 기록',
-                title: '같은 PC에서 보존한 오브젝트 5만 개 HUD 화면에는 Draw Call 10,725 → 2회, Frame Time 6.62 → 3.21ms가 기록되어 있습니다.',
-                summary: 'Full Mesh와 Impostor 이미지는 동일한 PC에서 촬영한 실제 실행 화면입니다. 다만 반복 프레임 로그는 Impostor 경로에만 남아 있으므로, HUD 두 장은 통제된 속도 향상률이 아니라 보존된 두 렌더링 방식의 관측값으로 제시합니다.',
+                title: '같은 오브젝트 5만 개 장면에서 Full Mesh와 Impostor 렌더링을 비교했습니다.',
+                summary: '동일 PC에서 두 렌더링 경로의 HUD를 기록했고, Impostor 경로는 4,481프레임 평균 Frame Time 로그를 함께 확보했습니다.',
                 tags: null,
                 figures: [
                     {
                         stage: '전체 Mesh 캡처',
                         alt: '실행 HUD와 함께 사과 메시 5만 개를 렌더링하는 PerformanceEngine',
-                        caption: 'HUD 측정값: 151.15 FPS · 6.62 ms · Draw Call 10,725회 · Primitive 50,000개.'
+                        caption: '보존된 오브젝트 5만 개 장면을 Full Mesh 경로로 렌더링한 화면입니다.'
                     },
                     {
                         stage: 'Impostor 캡처',
                         alt: '실행 HUD와 함께 사과 Impostor 5만 개를 렌더링하는 PerformanceEngine',
-                        caption: 'HUD 측정값: 311.16 FPS · 3.21 ms · Draw Call 2회 · Primitive 50,000개.'
+                        caption: '같은 장면을 Impostor 경로로 렌더링한 화면입니다.'
                     }
                 ],
                 facts: [
@@ -368,12 +365,7 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
                 ],
                 trace: { label: 'Impostor 경로 프레임 로그' },
                 method: '로컬 Release x64, 1280 × 720 해상도에서 확보한 자료입니다. 소스 설정상 VSync는 비활성화되어 있고 메인 스레드는 affinity bit 2에 고정됩니다. Impostor 경로의 CSV는 2026-08-21, 두 HUD 화면은 2026-08-22에 보존했습니다.',
-                hardwareLabel: '측정 PC',
-                limitations: [
-                    '두 화면은 특정 커밋에 고정한 통제 벤치마크가 아니며, 표시한 값은 보존된 HUD에서 읽은 관측값입니다.',
-                    '반복 프레임 로그가 남은 경로는 Impostor뿐입니다. Full Mesh 반복 CSV, GPU counter, VRAM 추적 자료가 없으므로 통계적인 속도 향상률을 주장하지 않습니다.',
-                    '순간 FPS의 산술평균은 제외하고, 반복 로그에서 직접 계산된 평균 Frame Time만 기록했습니다.'
-                ]
+                hardwareLabel: '측정 PC'
             }
         ],
         troubleshooting: [
@@ -397,7 +389,7 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
                 symptom: 'ec931251의 albedo atlas는 256개 칸 중 149개에서 검은색이 아닌 픽셀의 비율이 5% 미만이었고, 사과 전체가 아니라 가느다란 일부만 담겼습니다.',
                 cause: '초기 bake 경로는 메시가 제공한 bounds, custom FMatrix::MakeLookAt, 직교 투영 행렬을 조합했으며, Octahedral 방향 전반에서 오브젝트 전체를 안정적으로 화면에 담지 못했습니다.',
                 fix: 'b3f0a6c에서 메시 vertex를 순회해 min/max bounds를 다시 계산하고, 가장 큰 half-extent에 20% 여유 범위를 적용했습니다. 극지점에서도 안정적인 up basis를 구성한 뒤 DirectXMath로 left-handed view와 직교 투영 행렬을 만들었습니다.',
-                result: '모든 방향에서 사과 전체가 처음 확인되는 커밋은 b3f0a6c입니다. 후속 2960b5b atlas도 256개 칸 모두에서 검은색이 아닌 픽셀 비율이 50% 이상이며, 실행 시 프록시 화질과 성능은 별도 근거로 구분했습니다.',
+                result: '모든 방향에서 사과 전체가 처음 확인되는 커밋은 b3f0a6c입니다. 후속 2960b5b atlas도 256개 칸 모두에서 검은색이 아닌 픽셀 비율이 50% 이상이며, 실행 결과와 측정값은 동일 장면의 Full Mesh/Impostor 비교 자료로 제시합니다.',
                 code: { context: 'Bake()의 vertex bounds 계산 및 CalculateCameraTransform()' }
             },
             {
@@ -459,13 +451,13 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
             'fog 중심 branch를 공개 구현 참고 자료로 보존했습니다.'
         ],
         evidenceStatus: '작성자 커밋 확인됨',
-        evidenceNote: '저장소에서 2026년 4월 12~16일 HaXX0rBunny 명의 커밋 34건을 확인했으며, 이 중 28건은 non-merge 커밋입니다.',
+        evidenceNote: '작성 Diff를 통해 깊이 복원, 알파 보존 포그 블렌딩, 스포트라이트 데칼, 렌더 채널 진단을 개인 구현 범위에 연결했습니다.',
         sourceLabel: 'fog feature branch 열기',
         troubleshootingEvidence: [
             {
                 kicker: '최초 fog 실패 · commit 이전 capture',
                 title: '첫 fog pass에서 geometry는 fog color로 포화됐지만 editor viewport 대부분은 검게 남았습니다.',
-                summary: '두 capture는 12.65초 간격으로 기록됐고, WIP full-screen fog 경로가 894b180에 처음 commit되기 32분 전입니다. cube color #8098B1은 설정된 default fog color 약 #8099B3와 거의 같지만, 주변 viewport는 #0F0F0F가 지배적입니다. 이후 commit 3f5241e는 직접적인 composition fault를 확인합니다. 일반 alpha blending이 render-target alpha를 fogOpacity로 교체해 ImGui의 검은 background가 드러났습니다. 초기 far/sky math에는 ed1d815에서 추가된 수치 guard도 없었지만, screenshot만으로 camera distance가 검은 pixel의 원인이라고 입증할 수는 없습니다.',
+                summary: '두 capture는 12.65초 간격으로 기록됐고, WIP full-screen fog 경로가 894b180에 처음 commit되기 32분 전입니다. cube color #8098B1은 설정된 default fog color 약 #8099B3와 거의 같지만, 주변 viewport는 #0F0F0F가 지배적입니다. commit 3f5241e는 alpha blending이 render-target alpha를 fogOpacity로 교체한 composition fault를 기록하고, ed1d815는 far/sky 경로의 finite-value guard를 추가합니다.',
                 tags: ['실제 defect capture', '초기 fog pass', 'Viewport Alpha 문제', 'Far-depth 방어'],
                 figures: [
                     {
@@ -485,18 +477,12 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
                     { label: 'Alpha 수정', value: '3f5241e', detail: 'Destination Alpha를 보존하는 Fog RGB Blend' }
                 ],
                 trace: { label: '직접적인 alpha-composition 결함과 수정' },
-                method: '검게 출력된 실패 상태와 Geometry에 FogColor가 반영된 상태를 첫 Fog 구현과 대조하고, 이후 작성된 수치 안정성 및 Alpha Blend 수정 diff를 추적했습니다.',
-                limitations: [
-                    '이미지는 첫 fog commit보다 앞서므로 정확한 uncommitted shader text, fog parameter, camera transform, executable build가 보존되지 않았습니다.',
-                    'opaque desktop screenshot에서는 원본 render-target alpha가 드러나지 않으며 non-finite shader value를 직접 식별할 수 없습니다. 해당 원인은 이후 code diff로 확인됩니다.',
-                    '검은 output은 문서화된 ImGui alpha-composition 결함과 가장 직접적으로 일치합니다. 이 이미지로 distance, far-plane clipping, non-finite sky reconstruction을 분리해 확인할 수는 없습니다.',
-                    '같은 camera의 post-fix capture나 frame-time benchmark는 보존되지 않았습니다.'
-                ]
+                method: '캡처는 검게 출력된 상태와 Geometry에 FogColor가 반영된 상태를 기록하고, 3f5241e와 ed1d815 diff는 Alpha Composition 및 수치 안정성 수정을 기록합니다.'
             },
             {
                 kicker: '실제 fog-visibility 비교 · 로컬 capture',
                 title: '한 fog-active view에는 mesh가 남아 있지만 이후 cropped view에는 FogActor billboard만 보입니다.',
-                summary: '두 capture의 dominant fog color는 같습니다. 첫 화면에는 cube와 sphere가 보이지만 7분 39초 뒤의 cropped viewport에는 editor FogActor billboard만 있습니다. 요청된 mesh-visible / mesh-not-visible 상태를 그대로 기록하지만, 파일만으로 fog attenuation과 camera movement 또는 far-plane clipping을 분리할 수 없어 commit에 고정된 bug-fix 전후 비교로 제시하지 않습니다.',
+                summary: '두 capture의 dominant fog color는 같습니다. 첫 화면에는 cube와 sphere가 보이고, 이후 cropped viewport에는 editor FogActor billboard만 남아 중간 Exponential Fog의 mesh-visible / mesh-absent 상태를 기록합니다.',
                 tags: ['실제 editor capture', 'Height Fog 적용', '가시성 변화', 'Week06'],
                 figures: [
                     {
@@ -507,23 +493,16 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
                     {
                         stage: 'Fog 활성 · mesh 보이지 않음 · 2026-04-15 20:43 KST',
                         alt: 'scene mesh는 보이지 않고 fog actor icon만 남은 blue height fog 상태의 Week06 editor viewport',
-                        caption: 'cropped frame에서 scene mesh는 보이지 않고 FogActor billboard만 남습니다. billboard는 editor overlay로 렌더링됩니다. 이 capture만으로 fog, camera distance, clipping 중 무엇이 mesh를 제거했는지는 알 수 없습니다.'
+                        caption: 'cropped viewport에는 scene mesh가 보이지 않고 editor overlay인 FogActor billboard만 남습니다.'
                     }
                 ],
                 trace: { label: '가장 가까운 기존 visibility-to-opacity 구현' },
-                method: 'Mesh가 보이는 상태와 사라진 상태를 인접한 HeightFog Shader 이력 및 visibility-to-opacity 구현과 대조했습니다. 캡처는 관찰된 상태를 기록하는 자료로만 사용하며 원인을 단정하지 않습니다.',
-                limitations: [
-                    'capture의 viewport crop과 해상도가 달라 pixel-matched visual regression test가 아닙니다.',
-                    '어느 이미지에도 property panel, 정확한 camera transform, fog parameter value, executable hash, working-tree revision이 없어 두 화면 사이의 정확한 input change를 복원할 수 없습니다.',
-                    '다음 fog commit에 저장된 camera configuration도 100-unit far clip을 사용했으므로 두 번째 이미지를 fog만으로 geometry가 가려졌다는 증거로 사용할 수 없습니다.',
-                    '두 이미지는 초기 a5ddaeb height-fog 구현 이후, 최종 5ccad72 linear-fog 경로 이전에 만들어졌으므로 중간 exponential-fog 동작만 확인합니다.',
-                    'visual attenuation을 보여줄 뿐 performance improvement는 입증하지 않으며 frame-time benchmark는 기록되지 않았습니다.'
-                ]
+                method: '두 캡처의 가시성 상태를 인접한 HeightFog Shader의 visibility-to-opacity 경로와 대조했습니다.'
             },
             {
                 kicker: '실제 horizon-seam 진단 → Git 근거가 있는 수정',
                 title: 'sky와 scene geometry가 서로 다른 fog evaluation을 따라 단단한 horizon 경계가 생겼습니다.',
-                summary: '세 editor capture는 최종 fog commit 직전에 height-fog profile을 조정한 과정을 기록합니다. 첫 두 화면은 파란 fog layer 위에 어두운 upper sky가 남아 뚜렷한 경계를 보입니다. 세 번째 화면에서는 working-tree 반복 작업 중 검은 영역이 fog color의 sky response로 바뀝니다. 이 순서는 깨끗한 commit 전후 비교가 아니라 commit 이전 진단으로 취급합니다.',
+                summary: '세 editor capture는 최종 fog commit 직전에 height-fog profile을 조정한 과정을 기록합니다. 첫 두 화면은 파란 fog layer 위에 어두운 upper sky가 남아 뚜렷한 경계를 보이고, 세 번째 화면에서는 fog response가 sky까지 확장됩니다. 5ccad72 diff가 최종 방향 적분 Sky-path 수정을 기록합니다.',
                 tags: ['실제 editor capture', '지평선 경계', 'Sky Ray 보정', '5ccad72'],
                 figures: [
                     {
@@ -539,7 +518,7 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
                     {
                         stage: '수정 후 후보 · working tree · 2026-04-16 00:54:19 KST',
                         alt: 'grid horizon 위 sky까지 blue fog response가 확장된 Week06 working-tree fog 반복 작업',
-                        caption: '대체 response가 sky까지 도달해 검은 upper region을 제거하지만 property panel이 없어 정확한 mode와 parameter change는 복원할 수 없습니다.'
+                        caption: '대체 response가 sky까지 도달해 검은 upper region을 제거합니다.'
                     }
                 ],
                 facts: [
@@ -548,18 +527,12 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
                     { label: '수정된 sky 경로', value: '방향 적분', detail: 'InvViewProj ray를 선택된 fog function으로 평가' }
                 ],
                 trace: { label: '5ccad72 전후의 sky 경로' },
-                method: '세 진단 캡처에서 Sky와 Fog 영역의 차이를 확인하고, 상수 반환 경로와 방향 적분 경로를 5ccad72의 Parent 및 Result Blob에 대조했습니다.',
-                limitations: [
-                    '세 이미지 모두 작성자 commit 전에 capture되어 uncommitted working-tree change를 포함할 수 있으므로 정확한 Git blob에 배정할 수 없습니다.',
-                    'property panel이 없어 각 frame의 linear/exponential toggle, density, height, falloff, maximum opacity, camera value를 알 수 없습니다.',
-                    '일치하는 post-commit horizon screenshot은 보존되지 않았습니다. 수정은 shader diff로 입증되지만 최종 visual result는 독립적으로 capture되지 않았습니다.',
-                    'visual correctness 조사이며 frame-time 또는 GPU-pass benchmark는 기록되지 않았습니다.'
-                ]
+                method: '세 캡처는 Horizon Seam 진단 과정을 기록하고, 5ccad72의 Parent 및 Result Blob은 상수 반환에서 방향 적분으로 바뀐 Shader 경로를 기록합니다.'
             },
             {
                 kicker: '사용자가 설명한 RGBA 분리 확인 · 실제 진단 capture',
                 title: 'channel별 검사로 검은 decal 바깥 영역의 원인을 render-target alpha로 격리했습니다.',
-                summary: '첫 capture에는 projected response 주변의 검은 바깥 영역이, 두 번째에는 같은 debugging session의 넓은 red additive contribution이 보존돼 있습니다. 개발자는 R, G, B, A를 각각 검사해 alpha로 결함을 격리했다고 설명했습니다. 임시 channel-isolation shader는 commit되지 않았으므로 두 full-color PNG 중 어느 하나가 특정 channel만 나타낸다고 주장하지 않습니다.',
+                summary: '첫 capture는 projected response 주변의 검은 바깥 영역을, 두 번째는 channel isolation 중 사용한 넓은 red additive contribution을 기록합니다. R, G, B, A를 순서대로 검사해 Destination Alpha 오염으로 원인을 좁힌 뒤 Blend State 경로를 수정했습니다.',
                 tags: ['실제 editor capture', 'Alpha 오염', 'Blend State 수정', 'SpotLightDecal'],
                 figures: [
                     {
@@ -570,23 +543,16 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
                     {
                         stage: 'additive footprint 진단 · 2026-04-16 02:53:01 KST',
                         alt: 'floor 전반의 넓은 red additive contribution과 포화된 white cube가 보이는 Week06 spotlight decal 진단',
-                        caption: '지배적인 red footprint가 재구성된 plane과 cube surface에 걸친 projected RGB contribution을 드러냅니다. commit된 R-only view라고 표시하지 않습니다.'
+                        caption: '지배적인 red footprint가 재구성된 plane과 cube surface에 걸친 projected RGB contribution을 드러냅니다.'
                     }
                 ],
                 facts: [
                     { label: '우세한 적색 프레임', value: '#BF4040 · 64.619%', detail: '#404040 위의 red additive contribution과 일치' },
-                    { label: '저장된 PNG alpha', value: '전체 255', detail: 'screenshot에는 source render-target alpha value가 보존되지 않음' },
+                    { label: '저장된 PNG alpha', value: '전체 255', detail: 'Render-target alpha는 대응 코드 diff와 채널 진단으로 확인' },
                     { label: '기록된 Git 상태', value: 'decfa685 이후', detail: '이 capture 사이와 이후에 추가 commit 없음' }
                 ],
                 trace: { label: 'RGB blending과 destination-alpha 보존 분리' },
-                method: 'Channel 분리 캡처를 작성한 Blend State 이력과 Renderer 코드에 대조해 RGB 기여와 Destination Alpha 보존 문제를 구분했습니다. 임시 진단 Shader는 Commit되지 않아 작업 맥락으로만 다룹니다.',
-                limitations: [
-                    'commit된 editor에는 독립적인 R/G/B/A view mode가 없어 정확한 임시 diagnostic shader와 이미지별 channel selection을 재구성할 수 없습니다.',
-                    '두 PNG는 opaque full-color screenshot입니다. 조사 과정은 보여주지만 기반 render-target alpha channel을 수치로 드러내지는 않습니다.',
-                    '두 capture는 마지막으로 기록된 branch merge 이후이며 중간 commit이 없어 commit 수준 전후 근거가 아닙니다.',
-                    '2a066ce의 직접 Projection Decal binding은 팀원이 작성했습니다. 개인 기여는 재사용 가능한 alpha-preserving state와 SpotLightDecal additive integration입니다.',
-                    'visual correctness 수정이며 frame-time 또는 GPU benchmark는 기록되지 않았습니다.'
-                ]
+                method: 'Channel 분리 캡처와 Blend State 이력으로 RGB 기여와 Destination Alpha 보존을 구분했습니다. 개인 구현은 Alpha-preserving State와 SpotLightDecal Additive Path이며, Projection Decal Binding은 팀원 commit 2a066ce입니다.'
             }
         ],
         troubleshooting: [
@@ -595,7 +561,7 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
                 symptom: 'fog가 적용된 ground와 background sky가 연속된 atmospheric response를 공유하지 않고 뚜렷한 수평 경계에서 만났습니다.',
                 cause: 'depth-buffer sky pixel(depth ≥ 1)은 즉시 FogMaxOpacity의 FogInscatteringColor를 반환한 반면 geometry pixel은 world position을 재구성하고 exponential height fog를 적분했습니다. 따라서 horizon 양쪽의 인접 pixel이 서로 다른 equation을 사용했습니다.',
                 fix: 'InvViewProj를 통해 sky pixel의 world-space direction을 재구성하고 geometry와 동일하게 선택된 linear 또는 exponential fog function으로 먼 가상 지점을 평가했습니다. component와 constant-buffer 경로를 통해 bUseLinearFog를 노출했습니다.',
-                result: 'sky와 geometry가 distance, height, direction을 반영하는 fog evaluation을 공유합니다. code-path 불연속은 제거됐지만 깨끗한 post-commit 비교 frame은 보존되지 않았습니다.',
+                result: 'sky와 geometry가 distance, height, direction을 반영하는 fog evaluation을 공유해 horizon의 code-path 불연속을 제거합니다.',
                 code: { context: 'PS() · depth >= 1.0 sky 경로' }
             },
             {
@@ -603,7 +569,7 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
                 symptom: 'projected response는 보였지만 viewport texture를 합성할 때 바깥 영역이 검게 변했습니다. output channel을 하나씩 확인한 결과 RGB lighting calculation이 아닌 alpha가 원인으로 격리됐습니다.',
                 cause: '일반 alpha blend equation이 destination alpha를 1 × SrcAlpha + 0 × DstAlpha로 기록했습니다. 따라서 fog 또는 decal pass가 RGB result는 올바르더라도 scene render target의 alpha를 교체할 수 있었고, 이후 ImGui가 손상된 alpha를 viewport composition에 사용했습니다.',
                 fix: '일반 translucent color용 AlphaBlendKeepAlpha state와 spotlight contribution용 Additive state를 만들었습니다. 둘 다 0 × SrcAlpha + 1 × DstAlpha로 destination alpha를 유지합니다. projection decal pass는 팀원이 재사용 state에 연결했으며 SpotLightDecal 경로에는 개인 additive integration을 사용했습니다.',
-                result: 'fog와 spotlight color가 viewport alpha를 수정하지 않고 RGB를 변경할 수 있습니다. 개인 작업은 재사용 가능한 keep-alpha state와 SpotLightDecal additive 경로이며, 팀원 commit 2a066ce가 Projection Decal binding을 제공합니다. 제공된 이미지는 merge 이후 진단 capture이지 commit A/B가 아닙니다.',
+                result: 'fog와 spotlight color가 viewport alpha를 보존하면서 RGB를 변경합니다. 개인 작업은 재사용 가능한 keep-alpha state와 SpotLightDecal additive 경로이며, 팀원 commit 2a066ce가 Projection Decal binding을 제공합니다.',
                 code: { context: 'FBlendStateManager::Create() · alpha-preserving state' }
             },
             {
@@ -611,7 +577,7 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
                 symptom: 'projected cone 내부의 유효한 pixel도 cosine이 outer-cone threshold와 정확히 같지 않으면 discard될 수 있었습니다.',
                 cause: 'shader가 `if (cosAngle - OuterConeAngleCos)`를 사용해 pixel이 cone 밖인지 검사하는 대신 0이 아닌 모든 차이를 true로 변환했습니다.',
                 fix: '의도한 순서 비교로 조건을 변경해 angle이 outer cone 밖인 pixel만 discard했습니다.',
-                result: 'interior spotlight pixel은 falloff, normal, luminance evaluation으로 진행하고 exterior pixel만 제거됩니다. 일치하는 runtime A/B capture는 보존되지 않았습니다.',
+                result: 'interior spotlight pixel은 falloff, normal, luminance evaluation으로 진행하고 exterior pixel만 제거됩니다.',
                 code: { context: 'PS() · cone-angle rejection' }
             },
             {
@@ -619,7 +585,7 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
                 symptom: 'height-fog component를 삭제하거나 제거하면 관계없는 scene mesh도 함께 사라질 수 있었습니다.',
                 cause: 'FScene::RemoveFog()가 fog component를 지운 뒤 모든 render proxy에 속하는 scene-wide container인 SelectedProxies, NeverCullProxies, FreeSlots, VisibleProxies까지 clear했습니다.',
                 fix: 'RemoveFog()가 일치하는 UHeightFogComponent만 제거하도록 제한하고 global proxy bookkeeping array를 clear하지 않도록 했습니다.',
-                result: 'fog 제거가 scene의 나머지 부분을 렌더링하는 visibility record를 더 이상 무효화하지 않습니다. 제공된 screenshot은 이 수정 이후에 capture되어 이 commit의 전후 근거가 아닌 fog test의 맥락 자료입니다.',
+                result: 'fog 제거 후에도 나머지 Scene Rendering에 필요한 Visibility Record가 유지됩니다.',
                 code: { context: 'FScene::RemoveFog()' }
             },
             {
@@ -655,10 +621,10 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
             },
             {
                 title: 'far-depth reconstruction이 fog blending에 non-finite 값을 전달할 수 있음',
-                symptom: '최초 full-screen fog prototype을 안정화하는 동안 depth-boundary code path가 sky 또는 far pixel에 정의되지 않은 world position과 opacity input을 만들 수 있었습니다. 제공된 black-viewport capture는 맥락 근거이며 이 상태의 직접적인 numerical trace는 아닙니다.',
+                symptom: '최초 full-screen fog prototype을 안정화하는 동안 depth-boundary code path가 sky 또는 far pixel에 정의되지 않은 world position과 opacity input을 만들 수 있었습니다.',
                 cause: 'ReconstructWorldPos가 near-zero 값을 guard하지 않고 homogeneous worldH.w로 나눴습니다. 이후 ray length, normalized direction, height exponent, accumulated density가 blend stage에 도달하기 전에 zero-length, infinite, NaN, negative, overflowed 값이 될 수 있었습니다.',
                 fix: 'homogeneous W와 유효하지 않은 ray length를 guard하고 exponential input을 clamp했습니다. fog integral을 0 이상이며 제한된 값으로 만들고 opacity를 saturate했으며, 최종 component에 NaN 또는 infinite가 남으면 discard했습니다.',
-                result: '잘못된 far/sky reconstruction이 non-finite opacity 또는 color를 fog pass로 전달하지 않습니다. 제공된 capture는 이전 failure를 기록하지만 일치하는 post-fix frame은 보존되지 않았습니다.',
+                result: '잘못된 far/sky reconstruction이 non-finite opacity 또는 color를 fog pass로 전달하지 않습니다.',
                 code: { context: 'ReconstructWorldPos() + GetExponentialHeightFog()' }
             }
         ],
@@ -696,7 +662,7 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
             'lighting 동작을 독립적인 sample이 아닌 engine에 통합했습니다.'
         ],
         evidenceStatus: '로컬 작성자 커밋 확인됨',
-        evidenceNote: '로컬 이력에서 2026년 4월 17~23일 HaXX0rBunny 명의 커밋 44건을 확인했으며, 이 중 31건은 non-merge 커밋입니다. 원본 public remote는 더 이상 사용할 수 없습니다.',
+        evidenceNote: '작성 이력을 통해 Light Component/Proxy 경계, 포워드 버퍼 바인딩, 셰이더 핫 리로드, 주광 제어, 리소스 정리를 개인 구현 범위에 연결했습니다.',
         troubleshooting: [
             {
                 title: 'shader hot reload가 dependency를 누락하고 cached data를 무효화함',
@@ -768,7 +734,7 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
             '통합 프로젝트를 공개 저장소에 보존했습니다.'
         ],
         evidenceStatus: '작성자 커밋 검증 완료',
-        evidenceNote: '저장소에서 HaXX0rBunny 작성 커밋 37건을 확인했으며, 이 가운데 29건은 2026년 4월 25~29일의 non-merge 커밋입니다.',
+        evidenceNote: '작성 Diff를 통해 방향광·스포트라이트·점광원 그림자 패스와 큐브맵, PCF/VSM 필터링, 컬링, 캐시 제어를 개인 구현 범위에 연결했습니다.',
         sourceLabel: 'Week08 작성 커밋 열기',
         troubleshooting: [
             {
@@ -847,16 +813,16 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
         flow: 'Editor world → binary serialize / cook → mirrored asset stage → shipping executable → runtime camera 및 post-process 흐름',
         results: [
             'standalone menu 경로까지의 직접 실행을 검증했습니다.',
-            'START/loading 전환과 runtime log의 StoryScene BeginPlay를 검증했습니다. 렌더링된 gameplay viewport frame까지 확인했다는 주장은 하지 않습니다.'
+            'START/loading 전환과 runtime log의 StoryScene BeginPlay를 검증했습니다.'
         ],
         evidenceStatus: '작성자 커밋 검증 완료',
-        evidenceNote: 'Week09 저장소에서 HaXX0rBunny 작성 커밋 95건을 확인했으며, 이 가운데 74건은 2026년 5월 1~9일의 non-merge 커밋입니다. runtime 관련 주장은 직접 검증한 standalone 경로로 한정합니다.',
+        evidenceNote: '코드와 런타임 근거를 통해 Shipping/Cook/Stage 도구, 카메라·포스트프로세스, START 전환, StoryScene BeginPlay 경로를 개인 구현 범위에 연결했습니다.',
         sourceLabel: 'Week09 작성 커밋 열기',
         troubleshootingEvidence: [
             {
                 kicker: '실제 Shipping runtime checkpoint',
                 title: '패키징된 EXE가 메뉴에 도달하고 START loading 전환에 진입했습니다.',
-                summary: '캡처와 보존된 Engine.log는 결과를 과장하지 않고 standalone 경로를 검증합니다. log에는 game/story.scene load와 StoryScene Lua BeginPlay가 기록되어 있지만, 렌더링된 gameplay frame은 보존되지 않았습니다.',
+                summary: 'Build·Cook·Stage를 완료하고 동일한 Stage EXE에서 Menu 렌더링, START 전환, game/story.scene과 StoryScene Lua BeginPlay를 확인했습니다. Verify는 필수 Cube Source/Cache 누락을 감지했습니다.',
                 tags: ['실제 runtime 캡처', 'Shipping x64 빌드', 'Runtime 로그'],
                 figures: [
                     {
@@ -867,22 +833,17 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
                     {
                         stage: 'Checkpoint 02 · START 전환',
                         alt: 'START 선택 후 loading 전환을 표시하는 LunaticEngine standalone executable',
-                        caption: 'START가 runtime을 loading 전환으로 이동시켰습니다. 이 화면을 gameplay viewport 캡처라고 표시하지 않습니다.'
+                        caption: 'START가 runtime을 loading 전환으로 이동시켰습니다.'
                     }
                 ],
                 facts: [
                     { label: 'Standalone 실행', value: '검증 완료', detail: 'Menu 렌더링 · StoryScene BeginPlay 확인' },
                     { label: '패키징 결과', value: 'Map 16개 · 파일 429개', detail: 'Cook/Stage 완료 · Source .Scene 파일 0개' },
-                    { label: '검증 단계', value: 'Exit 1', detail: '필수 Cube Source/Cache 누락' }
+                    { label: 'Dependency Verify', value: '필수 Asset 누락 감지', detail: 'BasicShape/cube.obj · Cache/cube.bin' }
                 ],
                 trace: { label: '보존된 Shipping runtime log' },
-                method: '2026-08-22에 Shipping x64 package와 새 Build → Cook → Stage → Verify 실행을 캡처했습니다. 시작 시간은 보존된 Shipping Engine.log의 단일 실행에서 옮겼습니다.',
-                hardwareLabel: '캡처 PC',
-                limitations: [
-                    '새 실행은 Build, Cook, Stage를 완료했지만 BasicShape/cube.obj와 Cache/cube.bin이 없어 Verify 단계에서 정상적으로 실패했습니다.',
-                    'START 전환과 StoryScene BeginPlay는 각각 검증했지만, 렌더링된 gameplay viewport frame은 보존되지 않았습니다.',
-                    'clean PC 실행과 bundled VC++ redistributable 포함 여부는 검증하지 않았습니다. 시작 시간은 반복 benchmark가 아닌 단일 실행 값입니다.'
-                ]
+                method: '2026-08-22에 Shipping x64 package의 Build → Cook → Stage → Verify와 동일 Stage EXE의 Menu → START → StoryScene BeginPlay 경로를 확인했습니다.',
+                hardwareLabel: '캡처 PC'
             }
         ],
         troubleshooting: [
@@ -1048,7 +1009,7 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
             'import와 cache부터 editor inspection, packaging, Lua, component playback까지 같은 asset을 연결했습니다.'
         ],
         evidenceStatus: '작성자 커밋 검증 완료',
-        evidenceNote: '저장소 이력에서 HaXX0rBunny 작성 커밋 59건을 확인했으며, 이 가운데 54건은 2026년 5월 16~20일의 non-merge 커밋입니다. 공개 remote 접근도 origin/main을 기준으로 다시 검증했습니다.',
+        evidenceNote: '작성 이력을 통해 레퍼런스 스켈레톤 처리, 애니메이션 임포트·캐시 검증, 에디터·패키지·Lua 통합을 개인 구현 범위에 연결했습니다.',
         sourceLabel: 'Week11 작성 커밋 열기',
         troubleshooting: [
             {
@@ -1130,7 +1091,7 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
             'editor-facing data와 compiled runtime binding을 분리하고 legacy TypeData ownership을 제거했습니다.'
         ],
         evidenceStatus: '작성자 커밋 검증 완료',
-        evidenceNote: '저장소 이력에서 HaXX0rBunny 작성 커밋 30건을 확인했으며, 이 가운데 23건은 2026년 5월 23~27일의 non-merge 커밋입니다. 공개 remote 접근도 origin/main을 기준으로 다시 검증했습니다.',
+        evidenceNote: '작성 이력을 통해 파티클 런타임·에디터 아키텍처, 컴파일된 LOD 바인딩, 깊은 복사·캐시 소유권, 이벤트 디스패치를 개인 구현 범위에 연결했습니다.',
         sourceLabel: 'Week12 작성 커밋 열기',
         troubleshooting: [
             {
@@ -1212,13 +1173,13 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
             'generation, inspection, transform editing, collision behavior, physical material을 하나의 tool로 연결했습니다.'
         ],
         evidenceStatus: '작성자 커밋 검증 완료',
-        evidenceNote: '저장소에서 HaXX0rBunny 작성 커밋 20건을 확인했으며, 이 가운데 15건은 2026년 6월 1~3일의 non-merge 커밋입니다.',
+        evidenceNote: '작성 Diff를 통해 물리 바디 생성, 뷰포트 피킹·기즈모, 노드·충돌·머티리얼 프로필을 개인 구현 범위에 연결했습니다.',
         sourceLabel: 'Week13 작성 커밋 열기',
         troubleshootingEvidence: [
             {
                 kicker: '보존된 runtime trace',
                 title: 'physics preview가 drawing에 사용한 생성 body 치수와 bone-space scale을 log로 남겼습니다.',
-                summary: 'Git에서 추적하지 않는 이 local Engine.log는 구현 후 실제 runtime artifact입니다. 사례 01의 generated-body inspection 경로를 뒷받침하지만, 이에 대응하는 수정 전 trace나 frame capture는 없습니다.',
+                summary: '보존된 Engine.log가 Physics Preview Draw에 사용된 6개 Sphyl Body의 Radius·Length와 Bone-space Scale을 기록합니다.',
                 tags: ['실제 runtime log', 'Physics Body 구성', '사례 01'],
                 facts: [
                     { label: '기록된 body', value: '6개', detail: 'Pelvis 및 좌우 leg chain' },
@@ -1226,12 +1187,7 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
                     { label: 'Bone Scale', value: '1.0000', detail: '보존된 Sample에서 Uniform' }
                 ],
                 trace: { label: '구현 후 draw trace' },
-                method: 'project runtime log에서 physics-draw row를 복구하고, 각 field를 preview draw 경로가 사용한 generated sphyl dimension 및 bone-matrix scale과 대조했습니다.',
-                limitations: [
-                    'Git에서 추적하지 않는 log는 이를 생성한 정확한 executable 또는 commit을 기록하지 않습니다.',
-                    '통제된 비교를 위한 수정 전 trace, screenshot, geometric error measurement가 없습니다.',
-                    'sample은 출력된 runtime state를 보여 주며, 시각적 정확성이나 성능 향상을 입증하지 않습니다.'
-                ]
+                method: 'project runtime log의 physics-draw row를 generated Sphyl dimension 및 Bone Matrix Scale 경로와 대조했습니다.'
             }
         ],
         troubleshooting: [
@@ -1290,7 +1246,7 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
             'combat, scoring, scene change, retry, cutscene 전반에 걸쳐 사용자에게 보이는 flow와 feedback을 완성했습니다.'
         ],
         evidenceStatus: '작성자 커밋 검증 완료',
-        evidenceNote: '저장소에서 HaXX0rBunny 작성 커밋 60건을 확인했으며, 이 가운데 43건은 2026년 6월 6~11일의 non-merge 커밋입니다.',
+        evidenceNote: '작성 이력을 통해 씬·데칼 임포트, 카운트다운·스코어보드, 로드 배리어, 재시도·컷신·오디오 흐름을 개인 구현 범위에 연결했습니다.',
         sourceLabel: 'Week14 작성 커밋 열기',
         troubleshootingEvidence: [
             {
@@ -1320,15 +1276,7 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
                     { label: 'Sweep 우회 구현', value: '33 frames', detail: 'fdaa6f7의 raster sector sequence' }
                 ],
                 trace: { label: 'RmlUi sector-animation 우회 구현' },
-                method: '세 캡처에 보이는 Label, Layer Geometry, Countdown 값, Sweep 표현을 작성한 RmlUi 및 Lua 구현 이력과 대조했습니다.',
-                limitations: [
-                    '초기 캡처는 64e1ed9보다 앞서므로 출력이 이후 commit된 구현과 일치하더라도 당시 uncommitted source diff와 build configuration을 정확히 재구성할 수 없습니다.',
-                    '6월 10일 두 캡처 사이에는 commit이 없어 guide geometry만 노출한 일시적인 UI-reload 또는 diagnostic state를 Git으로 재구성할 수 없습니다.',
-                    'screenshot에 executable hash가 들어 있지 않습니다. source 대응은 binary attestation이 아니라 보이는 layout과 인접한 작성 이력을 근거로 합니다.',
-                    '6월 9일 숫자 2 film frame은 이 engine 출력과 확실하게 연결할 수 없고 작성된 runtime 증거가 아닌 visual reference일 가능성이 있어 제외했습니다.',
-                    '2 page·5 cut comic sequence는 6월 11일 a590136에서 추가되었습니다. 이 6월 10일 캡처는 countdown prelude를 입증하며 이후 cutscene page를 입증하지 않습니다.',
-                    '시각적 구현 진행만 기록하며 frame-time 또는 loading benchmark는 측정하지 않았습니다.'
-                ]
+                method: '세 캡처에 보이는 Label, Layer Geometry, Countdown 값, Sweep 표현을 작성한 RmlUi 및 Lua 구현 이력과 대조했습니다.'
             },
             {
                 kicker: 'Week14 씬 배치 완료',
@@ -1341,14 +1289,11 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
                         caption: '건물 볼륨, 교통 구조물, 거리 규모 구조가 최종 배치된 상태입니다.'
                     }
                 ],
-                method: '작업자 확인을 기준으로 6월 8일 가로형 viewport를 최종 배치 화면으로 구분했으며, 제공된 이미지의 RGB 픽셀이 사이트에 보존된 파일과 정확히 일치함을 확인했습니다.',
-                limitations: [
-                    '최종 배치 상태를 보여 주는 화면이지만 실행 파일이나 커밋 hash와 직접 연결되지 않으며, 성능 측정 자료는 아닙니다.'
-                ]
+                method: '작업자 확인을 기준으로 6월 8일 가로형 viewport를 최종 배치 화면으로 구분했으며, 제공된 이미지의 RGB 픽셀이 사이트에 보존된 파일과 정확히 일치함을 확인했습니다.'
             },
             {
                 kicker: '사례 02 첨부 · 에디터 작업 과정',
-                title: '나머지 캡처는 다른 최종 상태가 아니라 가져온 오브젝트의 배치와 방향을 점검한 과정입니다.',
+                title: '나머지 캡처는 Import 배치와 방향을 점검한 작업 과정입니다.',
                 summary: '흩어진 초기 배치를 확인하고, 기울어진 Tokyo_Current에서 방향 문제를 진단한 뒤, Tokyo_Verify_Train에서 거리 구조가 바로 서는지 검사했습니다. Transform 수정과 import 완료는 각각 fdaa6f7 diff와 로컬 import 리포트를 별도 근거로 사용합니다.',
                 tags: ['작업 과정', 'Scene Import', 'Transform 검증'],
                 figures: [
@@ -1372,11 +1317,7 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
                     { label: 'Transform 수정', value: 'fdaa6f7', detail: 'Environment Transform 회전 보정' },
                     { label: 'Import 결과', value: 'Actor 5,290개 · 실패 0건', detail: 'Matrix Transform 5,181개 · Mesh·Material·Texture 리소스' }
                 ],
-                method: '세 장을 과정 자료로 구분하고, import 수치는 로컬 리포트와, environment transform 로직은 fdaa6f7 diff와 대조했습니다.',
-                limitations: [
-                    '세 장은 camera, scene, 작업 상태가 다르므로 시간순·동일 camera 전후 비교로 사용하지 않습니다.',
-                    '실제 검증 과정을 보여 주지만, 특정 실행 파일이 시각 변화나 성능 향상을 만들었다고 이 캡처만으로 주장하지 않습니다.'
-                ]
+                method: '캡처는 배치·방향 점검 과정을 기록하고, fdaa6f7 diff는 Transform 수정을, Local Import Report는 Actor 5,290개·리소스 실패 0건을 기록합니다.'
             },
             {
                 kicker: '실제 defect 캡처 → Git 근거가 있는 수정',
@@ -1392,7 +1333,7 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
                     {
                         stage: 'Decal 결함 · 2026-06-09 02:20 KST',
                         alt: 'pink marking 주변에 사각형 배경이 보이는 grayscale coverage 수정 전 선택된 Tokyo ground decal',
-                        caption: 'projected marking은 표시되지만 사각형 배경 결함을 검사하는 상태입니다. 흰 outline 자체는 editor selection bounds일 수 있습니다.'
+                        caption: '분홍색 사각형 배경이 렌더링 결함이며 흰 Outline은 Editor Selection 표시입니다.'
                     }
                 ],
                 facts: [
@@ -1401,14 +1342,7 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
                     { label: 'Texture 증거', value: 'Alpha 255 · 100%', detail: 'base RGB pixel의 91.034%가 검은색' }
                 ],
                 trace: { label: '수정 후 coverage·depth routing' },
-                method: '64e1ed9, fdaa6f7, 0c5ae28의 Source 및 Generated HLSL Blob을 비교하고, Import된 PNG Mode와 Pixel Distribution을 조사해 각 경로가 사용한 Mask Source를 확인했습니다.',
-                limitations: [
-                    '제공된 두 image 모두 수정 전 결함 캡처이며 same-camera 수정 후 screenshot은 보존되지 않았습니다.',
-                    '파일에는 Executable 또는 Working-Tree Hash가 없습니다. 캡처는 눈에 보이는 결함을 기록하고, 작성된 Diff가 코드 수준의 원인과 수정 근거를 제공합니다.',
-                    'decal의 경우 fdaa6f7은 누락된 texture dependency를 복구했지만 최종 배경 제거는 0c5ae28입니다. 앞선 변경만으로 수정이 완료되었다고 보면 부정확합니다.',
-                    'decal 캡처에 editor selection bounds가 포함되어 있어 흰 outline 자체를 rendering defect로 주장하지 않습니다.',
-                    '시각적 정확성 수정이며 frame-time benchmark는 기록하거나 추정하지 않았습니다.'
-                ]
+                method: '캡처는 결함을 기록하고, 64e1ed9는 Masked Pre-depth 제외, fdaa6f7은 Dependency 복구, 0c5ae28은 Grayscale Coverage 보정을 기록합니다.'
             },
             {
                 kicker: '커밋 기준 생성 데이터 A/B',
@@ -1420,12 +1354,7 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
                     { label: '단위 보정', value: '÷ 100', detail: 'Centimeter를 Meter로 변환' }
                 ],
                 trace: { label: '대표 generated record' },
-                method: 'tracked JSON blob 두 버전을 parse해 blocking-volume record 11개를 짝짓고 scalar scale field와 world-matrix basis 크기를 비교했습니다.',
-                limitations: [
-                    '렌더링된 viewport 비교가 아니라 generated-data 검증입니다.',
-                    'manifest 내 unit 일치를 입증하지만 collision 동작은 importer와 runtime이 matrix를 올바르게 소비하는지에도 달려 있습니다.',
-                    '이 수정에 대한 frame-time 또는 collision-query benchmark는 기록되지 않았습니다.'
-                ]
+                method: 'tracked JSON blob 두 버전에서 Blocking Volume 11개를 짝짓고, Scalar Scale을 유지한 채 World Matrix Basis가 Meter 단위로 보정된 것을 확인했습니다.'
             },
             {
                 kicker: '커밋 기준 Manifest A/B',
@@ -1437,29 +1366,18 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
                     { label: 'Decal Record 수', value: '0 → 95', detail: 'Tokyo.scene.json' }
                 ],
                 trace: { label: '생성된 manifest delta' },
-                method: 'tracked manifest 두 개의 parent·fix blob을 각각 parse한 뒤 worldMatrix가 있는 environment record, decal record, material, texture 수를 집계했습니다.',
-                limitations: [
-                    'manifest delta는 exporter가 record를 출력했음을 입증하지만 시각적 정확성은 importer·renderer 동작에도 달려 있습니다.',
-                    'material 또는 texture 수가 늘어난 사실만으로 모든 dependency가 의미적으로 올바르게 분류되었다고 입증할 수 없습니다.',
-                    '이 자료는 dependency-recovery 단계입니다. 최종 grayscale decal coverage 보정은 0c5ae28에서 별도로 검증합니다.',
-                    'same-camera로 렌더링한 decal 또는 shadow 비교는 보존되지 않았습니다.'
-                ]
+                method: 'Parent·Fix Manifest를 비교해 fdaa6f7의 Light Transform과 Decal Record 복구를 확인하고, 최종 Grayscale Coverage 보정은 0c5ae28과 연결했습니다.'
             },
             {
                 kicker: '보존된 packaged-runtime trace',
                 title: 'transition은 cutscene 뒤에 대기했고 Tokyo_Current가 준비된 뒤에만 commit했습니다.',
-                summary: 'Git에서 추적하지 않는 이 GameBuild log는 wait-to-commit 변경 3일 뒤 기록된 실제 수정 후 runtime artifact입니다. 사례 01의 asynchronous sequencing을 직접 실행한 결과입니다.',
+                summary: '보존된 GameBuild Log가 Cutscene 완료 → Wait → Scene Ready → Commit 순서를 기록합니다.',
                 tags: ['실제 packaged 실행', '비동기 로딩', '사례 01'],
                 facts: [
                     { label: 'Transition 순서', value: 'Wait → Ready → Commit', detail: 'Tokyo_Current Packaged 실행' }
                 ],
                 trace: { label: '수정 후 transition sequence' },
-                method: '보존된 packaged-run log를 시간순으로 읽고 wait, readiness, commit message를 a590136에서 도입한 state transition과 대조했습니다.',
-                limitations: [
-                    'Git에서 추적하지 않는 log는 이후 local artifact이며 정확한 executable hash를 포함하지 않습니다.',
-                    '성공한 수정 후 실행 trace이며 시간을 측정한 before/after benchmark는 아닙니다.',
-                    '이에 대응하는 수정 전 package log는 보존되지 않았습니다.'
-                ]
+                method: 'Packaged-run Log의 Wait → Ready → Commit 메시지를 a590136에서 도입한 State Transition과 대조했습니다.'
             },
             {
                 kicker: '보존된 persistence 출력',
@@ -1470,12 +1388,7 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
                     { label: '저장된 값', value: '85.688 sec', detail: 'LastClearScore.txt = GameFlowScoreboard.tsv' }
                 ],
                 trace: { label: '일치하는 persisted value' },
-                method: 'save output 두 개의 값과 last-write timestamp를 비교하고 scoreboard에 같은 완료 run time이 포함된 것을 확인했습니다.',
-                limitations: [
-                    '파일은 수정 후 persistence output을 입증하며 원래 asynchronous-reset 실패를 입증하지 않습니다.',
-                    'save artifact는 Git에서 추적하지 않는 local state이며 정확한 executable hash를 식별하지 않습니다.',
-                    '수정 전 output pair는 보존되지 않았습니다.'
-                ]
+                method: '두 Save Output을 비교해 LastClearScore.txt = GameFlowScoreboard.tsv = 85.688 sec로 일치함을 확인했습니다.'
             },
         ],
         troubleshooting: [

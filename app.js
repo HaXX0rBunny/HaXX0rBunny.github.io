@@ -98,7 +98,7 @@ const projectsData = {
                 "problem": "Projectile movement could slow down at 60 Hz and stop updating at frame times below 0.01 seconds.",
                 "root_cause": "The integration count used floor(dt / 0.01), discarding the remainder and producing zero steps at 120 Hz.",
                 "solution": "Split each frame's full dt into three equal substeps and run movement plus collision for every substep.",
-                "result": "The updated loop integrates the complete frame delta; this is a code-derived correction, not a measured benchmark."
+                "result": "The updated loop integrates the complete frame delta across three substeps, eliminating zero-step updates at high refresh rates."
             },
             "enemy_patrol_collision": {
                 "problem": "A patrolling enemy could accumulate movement into a wall or platform edge before reversing.",
@@ -110,7 +110,7 @@ const projectsData = {
                 "problem": "Player and menu audio handles had overlapping or missing cleanup paths across state transitions.",
                 "root_cause": "Cleanup was split between button callbacks, GameOver_exit, and state-exit functions.",
                 "solution": "Moved ownership to the corresponding game/menu exit paths and removed duplicate callback cleanup.",
-                "result": "Resource lifetime now follows the state lifecycle; no memory-performance figure is claimed."
+                "result": "Audio-handle ownership and cleanup now follow the corresponding game-state lifecycle."
             }
         },
         "development_timeline": {
@@ -149,7 +149,7 @@ const projectsData = {
                 "Animation & Effects"
             ],
             "collaboration_tools": ["Git branches", "Visual Studio 2022"],
-            "team_dynamics": "Feature-branch workflow across a shared Alpha Engine codebase; 46 commits are directly attributed to HaXX0rBunny and remain reachable from main"
+            "team_dynamics": "Feature-branch collaboration across a shared Alpha Engine codebase, with personal scope covering UI architecture, gameplay integration, and input routing"
         },
         "technical_challenges": [
             "Separating world, interface, and text rendering order",
@@ -241,13 +241,13 @@ const projectsData = {
         "title": "Dynamic OverAnimation",
         "subtitle": "Real-time Animation Exaggeration · GPU Mesh Deformer Plug-in",
         "project_type": "team",
-        "team_label": "Team Product · 3 Contributors",
+        "team_label": "Team Product · 3-Person Team",
         "scope_label": "Epic Project · Fab Product",
         "is_team_project": true,
         "team_size": 3,
-        "my_role": "Motion Phase, Runtime Systems & GPU Deformation Programmer",
+        "my_role": "Team Lead · Motion Phase, Runtime Systems & GPU Deformation Programmer",
         "technologies": ["Unreal Engine 5.8", "C++", "HLSL", "RDG", "Slate", "Perforce"],
-        "description": "A UE 5.8 plug-in that turns animation and gameplay signals into authorable real-time mesh deformation. Bone Groups, Module Stacks, Response Rules, and an automatic six-stage Motion Analyzer carry stable deformation work through the Render Thread and RDG into GPU Mesh Deformer output.",
+        "description": "A UE 5.8 plug-in that adds reusable, camera-aware exaggeration to existing animation. Its six-stage Motion Phase Analyzer converts final-pose Region motion into stable timing, direction, and strength signals; Response Rules then drive selective GPU mesh deformation.",
         "coverImage": "Assets/images/overanimation/dynamic-overanimation-hero.webp",
         "coverAlt": "Dynamic OverAnimation product artwork showing a stylized GPU mesh deformation effect",
         "coverLabel": "Fab product · Epic Project",
@@ -258,18 +258,19 @@ const projectsData = {
             "documentation": "https://dynamaxgtl3rd.github.io/OverAnimDocs/"
         },
         "collaboration_details": {
-            "team_size": "3 contributors verified in the main Perforce depot",
-            "my_role": "Motion Phase, Runtime Systems & GPU Deformation Programmer",
+            "team_size": "DynaMax · 3-person team",
+            "my_role": "Team Lead · Motion Phase, Runtime Systems & GPU Deformation Programmer",
             "team_roles": [
-                "Motion phase analysis, runtime response, GPU deformation pipeline, and editor authoring tools (Me)",
+                "Product direction, system design, motion phase analysis, runtime response, GPU deformation pipeline, and editor authoring tools (Team Lead · Me)",
                 "DynaMax team contributions across runtime, editor, content, and product delivery"
             ],
             "collaboration_tools": ["Perforce", "Unreal Engine 5.8", "Visual Studio", "Fab"],
-            "team_dynamics": "The main depot contains 199 submitted changelists from three contributors. H4XX0rBunny submitted 81 of those changelists; the portfolio separates this verified scope from the full team product."
+            "team_dynamics": "I led the three-person DynaMax product team, set the product and system direction, and implemented the Motion Phase Analyzer, runtime response, render/GPU, and editor systems within the released team plug-in."
         },
         "technical_challenges": [
-            "Stabilizing noisy motion evidence before changing animation phase",
-            "Preventing competing Regions from changing owner frame by frame",
+            "Separating pose-derived automation from authored AnimNotify and Gameplay Event intent before deterministic arbitration",
+            "Keeping Region and Chain deformation selective while applying camera-aware silhouette guards",
+            "Stabilizing noisy motion evidence and competing Region ownership before changing animation phase",
             "Carrying immutable deformation state from the Game Thread to the Render Thread",
             "Composing module passes and vertex-factory outputs through RDG"
         ],
@@ -279,7 +280,7 @@ const projectsData = {
                 "problem": "Single-frame spikes could flip the phase or start Anticipation without sustained motion evidence.",
                 "root_cause": "Raw energy thresholds did not encode trend history, confirmation duration, or cancellation state.",
                 "solution": "Combined adaptive trend smoothing, evidence duration, phase-local guards, and cycle history.",
-                "result": "The analyzer now treats threshold crossings as candidates and commits transitions only after temporal confirmation."
+                "result": "In the deterministic fixture, the 16 ms high-energy sample remains a zero-strength Anticipation boundary and the confirmed 32 ms sample commits Action."
             },
             "region_ownership": {
                 "title": "Similar Region scores produced owner jitter",
@@ -306,10 +307,10 @@ const projectsData = {
         "development_timeline": {
             "duration": "Epic Project · 2026",
             "phases": [
-                { "phase": "Native contracts", "duration": "CL 47", "focus": "Bone Groups, hierarchy expansion, LOD falloff, and data-driven responses" },
-                { "phase": "Runtime & GPU composition", "duration": "CL 78–135", "focus": "Response arbitration, Squash & Stretch, snapshots, RDG passes, normals, and tangents" },
-                { "phase": "Automatic motion phases", "duration": "CL 203–272", "focus": "Phase stability, Region ownership, cycle timing, animation routing, and authoring UX" },
-                { "phase": "Product integration", "duration": "CL 299–304", "focus": "Deformed socket followers and restored showcase assets" }
+                { "phase": "Native contracts", "duration": "Bone Group contracts", "focus": "Bone Groups, hierarchy expansion, LOD falloff, and data-driven responses" },
+                { "phase": "Runtime & GPU composition", "duration": "Snapshot & RDG composition", "focus": "Response arbitration, Squash & Stretch, snapshots, RDG passes, normals, and tangents" },
+                { "phase": "Automatic motion phases", "duration": "Phase & Region state machine", "focus": "Phase stability, Region ownership, cycle timing, animation routing, and authoring UX" },
+                { "phase": "Product integration", "duration": "Socket-follower integration", "focus": "Deformed socket followers and restored showcase assets" }
             ]
         }
     }
