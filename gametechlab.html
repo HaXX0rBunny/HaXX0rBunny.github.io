@@ -3,15 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="HaXX0rBunny's C++ rendering and engine development record from KRAFTON Jungle Game Tech Lab 3rd.">
-    <title>GameTechLab3rd · C++ Rendering & Engine Development</title>
+    <meta name="description" id="pageDescription" content="HaXX0rBunny's C++ rendering and engine development record from KRAFTON Jungle Game Tech Lab 3rd." data-i18n-attr-content="lab.pageDescription">
+    <title data-i18n="lab.pageTitle">GameTechLab3rd · C++ Rendering & Engine Development</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="lab-page">
     <header class="lab-nav">
         <div class="container lab-nav-content">
             <a class="lab-brand" href="index.html">HaXX0rBunny</a>
-            <a class="lab-back-link" href="index.html#projects">Back to portfolio</a>
+            <div class="lab-nav-actions">
+                <a class="lab-back-link" href="index.html#projects" data-i18n="global.backToPortfolio">Back to portfolio</a>
+                <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to light theme">Light</button>
+                <button class="theme-toggle lang-toggle" id="languageToggle" type="button" aria-label="Switch to Korean">한국어</button>
+            </div>
         </div>
     </header>
 
@@ -19,33 +23,33 @@
         <section class="lab-hero">
             <div class="container lab-hero-grid">
                 <div class="lab-hero-copy">
-                    <p class="section-kicker">KRAFTON Jungle · Game Tech Lab 3rd</p>
-                    <h1>C++ Rendering &amp; Engine Development</h1>
-                    <p>A weekly record of the rendering systems, editor tools, runtime features, and integration work completed during Game Tech Lab 3rd.</p>
+                    <p class="section-kicker" data-i18n="lab.heroKicker">KRAFTON Jungle · Game Tech Lab 3rd</p>
+                    <h1 data-i18n="lab.heroTitle">C++ Rendering &amp; Engine Development</h1>
+                    <p data-i18n="lab.heroDescription">A weekly record of the rendering systems, editor tools, runtime features, and integration work completed during Game Tech Lab 3rd.</p>
 
                     <div class="lab-hero-meta">
                         <div>
-                            <span>Project Scope</span>
-                            <strong>Weekly assignments &amp; game jams</strong>
+                            <span data-i18n="lab.heroScope">Project Scope</span>
+                            <strong data-i18n="lab.heroScopeValue">Weekly assignments &amp; game jams</strong>
                         </div>
                         <div>
-                            <span>Team Structure</span>
-                            <strong>3–4 members per project</strong>
+                            <span data-i18n="lab.heroTeam">Team Structure</span>
+                            <strong data-i18n="lab.heroTeamValue">3–4 members per project</strong>
                         </div>
                         <div>
-                            <span>Primary Role</span>
-                            <strong>Rendering &amp; Engine</strong>
+                            <span data-i18n="lab.heroRole">Primary Role</span>
+                            <strong data-i18n="lab.heroRoleValue">Rendering &amp; Engine</strong>
                         </div>
                         <div>
-                            <span>Core Stack</span>
-                            <strong>C++ · DirectX 11 · HLSL</strong>
+                            <span data-i18n="lab.heroStack">Core Stack</span>
+                            <strong data-i18n="lab.heroStackValue">C++ · DirectX 11 · HLSL</strong>
                         </div>
                     </div>
                 </div>
 
                 <figure class="lab-hero-visual">
-                    <img src="Assets/images/GameTechLab3rd-Engine-Editor.png" alt="Custom C++ engine particle editor developed during Game Tech Lab">
-                    <figcaption>Custom engine particle editor from the later stage of the program.</figcaption>
+                    <img src="Assets/images/GameTechLab3rd-Engine-Editor.png" alt="Custom C++ engine particle editor developed during Game Tech Lab" data-i18n-attr-alt="lab.heroImageAlt">
+                    <figcaption data-i18n="lab.heroImageCaption">Custom engine particle editor from the later stage of the program.</figcaption>
                 </figure>
             </div>
         </section>
@@ -54,25 +58,25 @@
             <div class="container">
                 <div class="lab-section-heading">
                     <div>
-                        <p class="section-kicker">Development Record</p>
-                        <h2 id="labExplorerTitle">Projects and engine progression</h2>
+                        <p class="section-kicker" data-i18n="lab.developmentRecord">Development Record</p>
+                        <h2 id="labExplorerTitle" data-i18n="lab.explorerHeading">Projects and engine progression</h2>
                     </div>
-                    <p>Browse one week in depth or scan how the engine work progressed from the first game jam to final integration.</p>
+                    <p data-i18n="lab.explorerIntro">Browse one week in depth or scan how the engine work progressed from the first game jam to final integration.</p>
                 </div>
 
-                <div class="lab-primary-tabs" role="tablist" aria-label="Game Tech Lab views">
+                <div class="lab-primary-tabs" role="tablist" aria-label="Game Tech Lab views" data-i18n-attr-aria-label="lab.viewsAria">
                     <button class="lab-primary-tab is-active" id="weeksViewTab" type="button" role="tab" aria-selected="true" aria-controls="weeksView" data-lab-view="weeks">
                         <span class="lab-primary-tab-index">01</span>
-                        <span><strong>Week-by-week</strong><small>Role, implementation, and evidence</small></span>
+                        <span><strong data-i18n="lab.weekByWeek">Week-by-week</strong><small data-i18n="lab.weekByWeekSub">Role, implementation, and evidence</small></span>
                     </button>
                     <button class="lab-primary-tab" id="timelineViewTab" type="button" role="tab" aria-selected="false" aria-controls="timelineView" data-lab-view="timeline" tabindex="-1">
                         <span class="lab-primary-tab-index">02</span>
-                        <span><strong>Program timeline</strong><small>Engine development progression</small></span>
+                        <span><strong data-i18n="lab.timeline">Program timeline</strong><small data-i18n="lab.timelineSub">Engine development progression</small></span>
                     </button>
                 </div>
 
                 <div class="lab-view-panel is-active" id="weeksView" role="tabpanel" aria-labelledby="weeksViewTab">
-                    <nav class="lab-week-selector" id="labWeekSelector" aria-label="Select a week"></nav>
+                    <nav class="lab-week-selector" id="labWeekSelector" aria-label="Select a week" data-i18n-attr-aria-label="lab.weekSelectorAria"></nav>
 
                     <article class="lab-week-workspace" aria-live="polite">
                         <header class="lab-week-header">
@@ -83,11 +87,11 @@
                             </div>
                         </header>
 
-                        <div class="lab-detail-tabs" role="tablist" aria-label="Selected week details">
-                            <button class="lab-detail-tab is-active" id="roleDetailTab" type="button" role="tab" aria-selected="true" aria-controls="labDetailPanel" data-detail-tab="role">Assignment & Role</button>
-                            <button class="lab-detail-tab" id="implementationDetailTab" type="button" role="tab" aria-selected="false" aria-controls="labDetailPanel" data-detail-tab="implementation" tabindex="-1">Implementation & Tech</button>
-                            <button class="lab-detail-tab" id="evidenceDetailTab" type="button" role="tab" aria-selected="false" aria-controls="labDetailPanel" data-detail-tab="evidence" tabindex="-1">Result & Evidence</button>
-                            <button class="lab-detail-tab" id="troubleshootingDetailTab" type="button" role="tab" aria-selected="false" aria-controls="labDetailPanel" data-detail-tab="troubleshooting" tabindex="-1">Troubleshooting</button>
+                        <div class="lab-detail-tabs" role="tablist" aria-label="Selected week details" data-i18n-attr-aria-label="lab.detailTabsAria">
+                            <button class="lab-detail-tab is-active" id="roleDetailTab" type="button" role="tab" aria-selected="true" aria-controls="labDetailPanel" data-detail-tab="role" data-i18n="lab.roleTab">Assignment & Role</button>
+                            <button class="lab-detail-tab" id="implementationDetailTab" type="button" role="tab" aria-selected="false" aria-controls="labDetailPanel" data-detail-tab="implementation" data-i18n="lab.implTab" tabindex="-1">Implementation & Tech</button>
+                            <button class="lab-detail-tab" id="evidenceDetailTab" type="button" role="tab" aria-selected="false" aria-controls="labDetailPanel" data-detail-tab="evidence" data-i18n="lab.evidenceTab" tabindex="-1">Result & Evidence</button>
+                            <button class="lab-detail-tab" id="troubleshootingDetailTab" type="button" role="tab" aria-selected="false" aria-controls="labDetailPanel" data-detail-tab="troubleshooting" data-i18n="lab.troubleTab" tabindex="-1">Troubleshooting</button>
                         </div>
 
                         <div class="lab-detail-panel" id="labDetailPanel" role="tabpanel" aria-labelledby="roleDetailTab"></div>
@@ -97,14 +101,14 @@
                 <div class="lab-view-panel" id="timelineView" role="tabpanel" aria-labelledby="timelineViewTab" hidden>
                     <div class="lab-timeline-intro">
                         <p class="section-kicker">Week01 → Week14</p>
-                        <h3>From a playable loop to an integrated engine and game.</h3>
-                        <p>Select any milestone to open the same week inside the detailed view.</p>
+                        <h3 data-i18n="lab.timelineTitle">From a playable loop to an integrated engine and game.</h3>
+                        <p data-i18n="lab.timelineIntro">Select any milestone to open the same week inside the detailed view.</p>
                     </div>
                     <ol class="lab-program-timeline" id="labProgramTimeline"></ol>
                 </div>
 
                 <noscript>
-                    <p class="lab-noscript">JavaScript is required to browse the interactive weekly record.</p>
+                    <p class="lab-noscript" data-i18n="lab.noscript">JavaScript is required to browse the interactive weekly record.</p>
                 </noscript>
             </div>
         </section>
@@ -113,10 +117,13 @@
     <footer class="site-footer">
         <div class="container site-footer-content">
             <strong>HaXX0rBunny</strong>
-            <span>Game Tech Lab 3rd · Weekly Project Archive</span>
-            <a href="index.html#projects">Portfolio</a>
+            <span data-i18n="lab.footerLabel">Game Tech Lab 3rd · Weekly Project Archive</span>
+            <a href="index.html#projects" data-i18n="global.portfolio">Portfolio</a>
         </div>
     </footer>
+    <script src="locale.js"></script>
+    <script src="detail-shell.js"></script>
+    <script src="gametechlab.ko.js"></script>
     <script src="gametechlab.js"></script>
 </body>
 </html>

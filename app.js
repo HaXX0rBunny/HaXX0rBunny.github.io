@@ -530,6 +530,34 @@ function getPortfolioText(key, fallback = '') {
         : fallback;
 }
 
+function mergeProjectLocaleValue(baseValue, overrideValue) {
+    if (overrideValue === undefined) return baseValue;
+
+    if (Array.isArray(baseValue) && Array.isArray(overrideValue)) {
+        return overrideValue;
+    }
+
+    if (
+        baseValue && overrideValue
+        && typeof baseValue === 'object' && !Array.isArray(baseValue)
+        && typeof overrideValue === 'object' && !Array.isArray(overrideValue)
+    ) {
+        const merged = { ...baseValue };
+        Object.entries(overrideValue).forEach(([key, value]) => {
+            merged[key] = mergeProjectLocaleValue(baseValue[key], value);
+        });
+        return merged;
+    }
+
+    return overrideValue;
+}
+
+function getLocalizedProject(projectId, project = projectsData[projectId]) {
+    if (!project || window.PortfolioI18n?.getLocale?.() !== 'ko') return project;
+    const override = window.PORTFOLIO_PROJECT_KO?.[projectId];
+    return override ? mergeProjectLocaleValue(project, override) : project;
+}
+
 function applyLocalizedChrome() {
     if (window.PortfolioI18n?.applyStaticI18n) {
         window.PortfolioI18n.applyStaticI18n(document);
@@ -565,10 +593,12 @@ function initializeLocaleFeatures() {
     window.PortfolioI18n.initializeLocaleToggle('languageToggle');
     applyLocalizedChrome();
 
-    window.addEventListener('portfolio-locale-changed', () => {
+    document.addEventListener('portfolio-locale-changed', () => {
         applyLocalizedChrome();
+        initializeProjects();
         if (currentProjectId) {
-            openProjectModal(currentProjectId);
+            const activeTab = document.querySelector('.tab-btn.active')?.dataset.tab || 'overview';
+            openProjectModal(currentProjectId, { activeTab });
         }
     });
 }
@@ -608,7 +638,14 @@ function initializeElements() {
 
 function initializeTheme() {
     // Keep an explicit user preference, otherwise start in dark mode.
-    const savedTheme = localStorage.getItem(THEME_STORAGE_KEY) || 'dark';
+    let savedTheme = 'dark';
+
+    try {
+        savedTheme = localStorage.getItem(THEME_STORAGE_KEY) || 'dark';
+    } catch (error) {
+        console.warn('Could not read the saved theme preference.', error);
+    }
+
     setTheme(savedTheme);
 
     if (themeToggle) {
@@ -747,6 +784,8 @@ function initializeProjects() {
     const projectsGrid = document.getElementById('projectsGrid');
     if (!projectsGrid) return;
 
+    projectsGrid.replaceChildren();
+
     Object.entries(projectsData).forEach(([id, project]) => {
         const projectCard = createProjectCard(id, project);
         projectsGrid.appendChild(projectCard);
@@ -754,6 +793,7 @@ function initializeProjects() {
 }
 
 function createProjectCard(id, project) {
+    project = getLocalizedProject(id, project);
     const card = document.createElement('div');
     card.className = 'project-card';
     const dedicatedPageUrl = project.detailPage || (project.project_type === 'collection' ? project.links?.overview : null);
@@ -770,7 +810,9 @@ function createProjectCard(id, project) {
         }
     });
 
-    const typeText = project.team_label || project.type_label || (project.is_team_project ? `Team · ${project.team_size}` : 'Solo');
+    const typeText = project.team_label || project.type_label || (project.is_team_project
+        ? `${getPortfolioText('index.team', 'Team')} · ${project.team_size}`
+        : getPortfolioText('index.solo', 'Solo'));
     const typeBadgeClass = project.is_team_project ? 'team' : 'solo';
     const scopeBadge = project.scope_label
         ? `<div class="project-scope-badge">${project.scope_label}</div>`
@@ -824,7 +866,7 @@ function createProjectCard(id, project) {
       
       <div class="project-info">
           <div class="project-header">
-              <span class="project-card-label" data-i18n="global.project">Project</span>
+              <span class="project-card-label">${getPortfolioText('global.project', 'Project')}</span>
               <h3>${project.title}</h3>
               <p class="project-subtitle">${project.subtitle}</p>
               
@@ -838,18 +880,18 @@ function createProjectCard(id, project) {
           </div>
 
           <div class="project-card-section project-overview">
-              <span class="project-card-label" data-i18n="global.overview">Overview</span>
+              <span class="project-card-label">${getPortfolioText('global.overview', 'Overview')}</span>
               <p>${project.description}</p>
           </div>
 
           <div class="project-card-section project-stack-block">
-              <span class="project-card-label" data-i18n="global.techStack">Tech Stack</span>
+              <span class="project-card-label">${getPortfolioText('global.techStack', 'Tech Stack')}</span>
               <div class="tech-stack">${techBadges}</div>
           </div>
 
           <div class="project-actions">
               <button class="btn btn--primary project-detail-btn project-action">
-                  <span data-i18n="global.viewDetails">View Details</span>
+                  <span>${getPortfolioText('global.viewDetails', 'View Details')}</span>
               </button>
               ${downloadBtn}
           </div>
@@ -908,10 +950,10 @@ function initializeModal() {
     });
 }
 
-function openProjectModal(projectId) {
+function openProjectModal(projectId, options = {}) {
     console.log('Opening modal for project:', projectId);
     currentProjectId = projectId;
-    const project = projectsData[projectId];
+    const project = getLocalizedProject(projectId);
 
     if (!project) {
         console.error('Project not found:', projectId);
@@ -944,8 +986,7 @@ function openProjectModal(projectId) {
     projectModal.classList.add('active');
     document.body.style.overflow = 'hidden';
 
-    // Reset to overview tab
-    switchTab('overview');
+    switchTab(options.activeTab || 'overview');
 }
 
 function closeProjectModal() {
@@ -1056,7 +1097,9 @@ function populateOverviewTab(project) {
 
     // Project type badge
     if (projectTypeBadge) {
-        const typeText = project.team_label || project.type_label || (project.is_team_project ? `Team · ${project.team_size}` : 'Solo');
+        const typeText = project.team_label || project.type_label || (project.is_team_project
+            ? `${getPortfolioText('index.team', 'Team')} · ${project.team_size}`
+            : getPortfolioText('index.solo', 'Solo'));
         const typeBadgeClass = project.is_team_project ? 'team' : 'solo';
         const scopeBadge = project.scope_label
             ? `<div class="project-scope-badge">${project.scope_label}</div>`
@@ -1091,7 +1134,7 @@ function populateOverviewTab(project) {
         if (project.downloadLink) {
             downloadSection.innerHTML = `
                 <a href="${project.downloadLink}" target="_blank" class="download-btn">
-                    <span>${getPortfolioText('global.downloadProject', 'Download Project')}</span>
+                    <span>${project.downloadLabel || getPortfolioText('global.downloadProject', 'Download Project')}</span>
                 </a>
             `;
         } else {
@@ -1106,10 +1149,12 @@ function populateCollaborationTab(project) {
 
     if (project.is_team_project) {
         const teamSize = project.collaboration_details.team_size;
-        const teamSizeText = typeof teamSize === 'number' ? `${teamSize} members` : teamSize;
+        const teamSizeText = typeof teamSize === 'number'
+            ? (window.PortfolioI18n?.getLocale?.() === 'ko' ? `${teamSize}명` : `${teamSize} members`)
+            : teamSize;
         collaborationContent.innerHTML = `
             <div class="team-overview">
-                <h3 data-i18n="global.teamOverview">Team Overview</h3>
+                <h3>${getPortfolioText('global.teamOverview', 'Team Overview')}</h3>
                 <p><strong>${getPortfolioText('global.teamSize', 'Team Size')}:</strong> ${teamSizeText}</p>
                 <p><strong>${getPortfolioText('global.myRole', 'My Role')}:</strong> ${project.collaboration_details.my_role}</p>
                 <p><strong>${getPortfolioText('global.teamDynamics', 'Team Dynamics')}:</strong> ${project.collaboration_details.team_dynamics}</p>
@@ -1161,7 +1206,7 @@ function populateChallengesTab(project) {
 
     const troubleshootingCards = Object.entries(project.troubleshooting).map(([key, issue]) => `
         <div class="troubleshooting-card">
-            <h4>${key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</h4>
+            <h4>${issue.title || key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</h4>
             <div class="problem-solution-grid">
                 <div class="problem-section">
                     <h5>${getPortfolioText('global.problem', 'Problem')}</h5>

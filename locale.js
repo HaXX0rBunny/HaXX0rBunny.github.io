@@ -15,7 +15,7 @@ const PORTFOLIO_I18N = {
             viewDetails: 'View Details',
             downloadDemo: 'Download Demo',
             downloadProject: 'Download Project',
-            challenge: 'Challenge',
+            challenge: 'Technical Challenges',
             solution: 'Solution',
             rootCause: 'Root Cause',
             result: 'Result',
@@ -33,6 +33,8 @@ const PORTFOLIO_I18N = {
             timeConstraint: 'Time Constraint',
             selfManagedAspects: 'Self-Managed Aspects',
             navHome: 'Home',
+            backToPortfolio: 'Back to portfolio',
+            portfolio: 'Portfolio',
             developmentTimeline: 'Development Timeline',
             systemFlow: 'System flow',
             assignment: 'Assignment',
@@ -57,6 +59,8 @@ const PORTFOLIO_I18N = {
             totalDurationLabel: 'Total Duration'
         },
         index: {
+            pageTitle: 'Game Developer Portfolio',
+            pageDescription: 'HaXX0rBunny portfolio: C++ gameplay, real-time rendering, engine architecture, and Unreal Engine development.',
             navHome: 'Home',
             navProjects: 'Projects',
             navSkills: 'Skills',
@@ -97,8 +101,11 @@ const PORTFOLIO_I18N = {
             solo: 'Solo'
         },
         lab: {
+            pageTitle: 'GameTechLab3rd · C++ Rendering & Engine Development',
+            pageDescription: "HaXX0rBunny's C++ rendering and engine development record from KRAFTON Jungle Game Tech Lab 3rd.",
             heroKicker: 'KRAFTON Jungle · Game Tech Lab 3rd',
             heroTitle: 'C++ Rendering & Engine Development',
+            heroDescription: 'A weekly record of the rendering systems, editor tools, runtime features, and integration work completed during Game Tech Lab 3rd.',
             heroScope: 'Project Scope',
             heroScopeValue: 'Weekly assignments & game jams',
             heroTeam: 'Team Structure',
@@ -107,6 +114,12 @@ const PORTFOLIO_I18N = {
             heroRoleValue: 'Rendering & Engine',
             heroStack: 'Core Stack',
             heroStackValue: 'C++ · DirectX 11 · HLSL',
+            heroImageAlt: 'Custom C++ engine particle editor developed during Game Tech Lab',
+            heroImageCaption: 'Custom engine particle editor from the later stage of the program.',
+            developmentRecord: 'Development Record',
+            viewsAria: 'Game Tech Lab views',
+            weekSelectorAria: 'Select a week',
+            detailTabsAria: 'Selected week details',
             explorerHeading: 'Projects and engine progression',
             explorerIntro: 'Browse one week in depth or scan how the engine work progressed from the first game jam to final integration.',
             weekByWeek: 'Week-by-week',
@@ -117,15 +130,40 @@ const PORTFOLIO_I18N = {
             implTab: 'Implementation & Tech',
             evidenceTab: 'Result & Evidence',
             troubleTab: 'Troubleshooting',
+            timelineTitle: 'From a playable loop to an integrated engine and game.',
+            timelineIntro: 'Select any milestone to open the same week inside the detailed view.',
+            noscript: 'JavaScript is required to browse the interactive weekly record.',
+            footerLabel: 'Game Tech Lab 3rd · Weekly Project Archive',
+            weekLabel: 'Week',
             timelineOpen: 'Open',
             assignmentLabel: 'Assignment',
             myRoleLabel: 'My role',
-            roleListLabel: 'Team & Collaboration',
+            implementationFlowAria: 'Implementation flow',
+            coreImplementation: 'Core implementation',
+            selectedAuthoredCommits: 'Selected authored commits',
+            noPublicSourceLink: 'No public source link',
             sourceRecovery: 'Source files pending',
             sourceRecoveryTitle: 'Source recovery is still pending.',
-            commitDerivedLabel: 'Commit-derived engineering cases',
-            commitCountLabel: 'No public source link',
-            pending: 'No public source link'
+            pendingSourceRecovery: 'Pending source recovery',
+            commitDerivedLabel: 'Curated engineering cases',
+            evidenceCommit: 'Evidence commit',
+            localHistory: 'Local history',
+            documentedCases: '{count} documented {noun}',
+            caseSingular: 'case',
+            casePlural: 'cases',
+            caseLabel: 'Case {number}',
+            symptom: 'Symptom',
+            rootCause: 'Root cause',
+            fix: 'Fix',
+            result: 'Result',
+            troubleshootingIntro: 'Only the strongest root-cause investigations recovered from authored commits and diffs are retained here. Related symptoms are consolidated; minor adjustments and weakly supported observations are omitted. Preserved evidence is shown with its acquisition method and limits, and results are never inferred from code alone.',
+            codeSnapshotAfter: 'Code snapshot · after fix',
+            representativeFixAria: 'Representative fix from {file}',
+            openEvidenceAria: 'Open full-size evidence: {stage}',
+            method: 'Method',
+            testPc: 'Test PC',
+            scopeLimits: 'Scope & limits',
+            preservedEvidenceAria: 'Preserved runtime and visual evidence'
         },
         modal: {
             tabOverview: 'Overview',
@@ -173,12 +211,12 @@ const PORTFOLIO_I18N = {
             themeToDarkAria: '다크 테마로 전환',
             themeToLightAria: '라이트 테마로 전환',
             project: '프로젝트',
-            overview: '요약',
+            overview: '개요',
             techStack: '기술 스택',
             viewDetails: '상세 보기',
             downloadDemo: '다운로드',
             downloadProject: '프로젝트 다운로드',
-            challenge: '문제',
+            challenge: '기술적 과제',
             solution: '해결',
             rootCause: '원인',
             result: '결과',
@@ -196,6 +234,8 @@ const PORTFOLIO_I18N = {
             timeConstraint: '일정 제약',
             selfManagedAspects: '직접 담당',
             navHome: '홈',
+            backToPortfolio: '포트폴리오로 돌아가기',
+            portfolio: '포트폴리오',
             developmentTimeline: '개발 타임라인',
             systemFlow: '동작 흐름',
             assignment: '과제',
@@ -220,6 +260,8 @@ const PORTFOLIO_I18N = {
             totalDurationLabel: '총 소요 기간'
         },
         index: {
+            pageTitle: '게임 개발자 포트폴리오',
+            pageDescription: 'HaXX0rBunny의 C++ 게임플레이, 실시간 렌더링, 엔진 아키텍처, Unreal Engine 개발 포트폴리오입니다.',
             navHome: '홈',
             navProjects: '프로젝트',
             navSkills: '기술',
@@ -249,6 +291,7 @@ const PORTFOLIO_I18N = {
             contactFocusLabel: '포커스',
             contactInterestsLabel: '관심 분야',
             contactOnlineTitle: '온라인 채널',
+            contactBackToTop: '맨 위로',
             contactButtonLinkedIn: '프로필 보기',
             contactButtonGithub: '저장소 보기',
             contactSubGithub: '소스 코드 및 프로젝트 히스토리',
@@ -259,8 +302,11 @@ const PORTFOLIO_I18N = {
             solo: '개인'
         },
         lab: {
+            pageTitle: 'GameTechLab3rd · C++ 렌더링 및 엔진 개발',
+            pageDescription: 'HaXX0rBunny가 KRAFTON Jungle Game Tech Lab 3rd에서 수행한 C++ 렌더링 및 엔진 개발 기록입니다.',
             heroKicker: 'KRAFTON Jungle · Game Tech Lab 3rd',
             heroTitle: 'C++ 렌더링 및 엔진 개발',
+            heroDescription: 'Game Tech Lab 3rd에서 주차별로 구현한 렌더링 시스템, 에디터 도구, 런타임 기능, 통합 작업을 정리했습니다.',
             heroScope: '프로젝트 범위',
             heroScopeValue: '주차 과제 · 게임잼',
             heroTeam: '팀 구조',
@@ -269,6 +315,12 @@ const PORTFOLIO_I18N = {
             heroRoleValue: '렌더링 및 엔진',
             heroStack: '핵심 스택',
             heroStackValue: 'C++ · DirectX 11 · HLSL',
+            heroImageAlt: 'Game Tech Lab 과정에서 개발한 커스텀 C++ 엔진 파티클 에디터',
+            heroImageCaption: '과정 후반부에 개발한 커스텀 엔진 파티클 에디터입니다.',
+            developmentRecord: '개발 기록',
+            viewsAria: 'Game Tech Lab 보기 방식',
+            weekSelectorAria: '주차 선택',
+            detailTabsAria: '선택한 주차의 상세 내용',
             explorerHeading: '프로젝트와 엔진 진행',
             explorerIntro: '주차별로 깊게 보거나 전체 14주 진행 흐름을 한 번에 확인하세요.',
             weekByWeek: '주차별 보기',
@@ -279,15 +331,40 @@ const PORTFOLIO_I18N = {
             implTab: '구현 및 기술',
             evidenceTab: '결과 및 증빙',
             troubleTab: '트러블슈팅',
+            timelineTitle: '플레이 가능한 루프에서 통합 엔진과 게임까지.',
+            timelineIntro: '마일스톤을 선택하면 해당 주차의 상세 화면으로 이동합니다.',
+            noscript: '주차별 기록을 탐색하려면 JavaScript가 필요합니다.',
+            footerLabel: 'Game Tech Lab 3rd · 주차별 프로젝트 아카이브',
+            weekLabel: 'Week',
             timelineOpen: '열기',
             assignmentLabel: '과제',
             myRoleLabel: '담당 역할',
-            roleListLabel: '팀 및 협업',
+            implementationFlowAria: '구현 흐름',
+            coreImplementation: '핵심 구현',
+            selectedAuthoredCommits: '주요 작성 커밋',
+            noPublicSourceLink: '공개 소스 링크 없음',
             sourceRecovery: '소스 파일 대기 중',
             sourceRecoveryTitle: '소스 복구가 아직 진행 중입니다.',
-            commitDerivedLabel: '커밋 기반 엔지니어링 사례',
-            commitCountLabel: '공개 소스 링크가 없습니다',
-            pending: '공개 링크가 없습니다'
+            pendingSourceRecovery: '소스 복구 대기 중',
+            commitDerivedLabel: '선별한 핵심 엔지니어링 사례',
+            evidenceCommit: '근거 커밋',
+            localHistory: '로컬 이력',
+            documentedCases: '문서화된 사례 {count}건',
+            caseSingular: '사례',
+            casePlural: '사례',
+            caseLabel: '사례 {number}',
+            symptom: '증상',
+            rootCause: '근본 원인',
+            fix: '수정',
+            result: '결과',
+            troubleshootingIntro: '본인이 작성한 커밋과 diff에서 확인되는 핵심 원인 분석만 남겼습니다. 같은 원인의 증상은 하나로 합치고, 경미한 수정과 근거가 약한 항목은 제외했습니다. 보존된 자료는 확보 방법과 한계를 함께 밝히며 코드만으로 결과를 추정하지 않습니다.',
+            codeSnapshotAfter: '코드 스냅샷 · 수정 후',
+            representativeFixAria: '{file}의 대표 수정 코드',
+            openEvidenceAria: '원본 증거 이미지 열기: {stage}',
+            method: '확인 방법',
+            testPc: '테스트 PC',
+            scopeLimits: '범위 및 한계',
+            preservedEvidenceAria: '보존된 실행 및 시각 자료'
         },
         modal: {
             tabOverview: '개요',
@@ -327,7 +404,13 @@ const PORTFOLIO_I18N = {
 };
 
 const PORTFOLIO_LOCALE_STORAGE_KEY = 'portfolio-locale-v2';
-let currentLocale = localStorage.getItem(PORTFOLIO_LOCALE_STORAGE_KEY) || 'en';
+let currentLocale = 'en';
+
+try {
+    currentLocale = localStorage.getItem(PORTFOLIO_LOCALE_STORAGE_KEY) || 'en';
+} catch (error) {
+    console.warn('Could not read the saved language preference.', error);
+}
 
 function resolveLocaleValue(locale, keyPath) {
     const [group, ...keys] = keyPath.split('.');
@@ -409,6 +492,22 @@ function applyStaticI18n(root = document) {
         const keyValue = getLocalizedLabel(key);
         if (keyValue && keyValue !== key) {
             element.setAttribute('title', keyValue);
+        }
+    });
+
+    root.querySelectorAll('[data-i18n-attr-alt]').forEach((element) => {
+        const key = element.getAttribute('data-i18n-attr-alt');
+        const keyValue = getLocalizedLabel(key);
+        if (keyValue && keyValue !== key) {
+            element.setAttribute('alt', keyValue);
+        }
+    });
+
+    root.querySelectorAll('[data-i18n-attr-content]').forEach((element) => {
+        const key = element.getAttribute('data-i18n-attr-content');
+        const keyValue = getLocalizedLabel(key);
+        if (keyValue && keyValue !== key) {
+            element.setAttribute('content', keyValue);
         }
     });
 }
