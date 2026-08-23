@@ -29,8 +29,41 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
             '첫 번째 플레이 가능 게임잼 마일스톤을 완성했습니다.',
             '이후 3D 엔진 작업을 위한 실용적인 기반을 마련했습니다.'
         ],
-        evidenceStatus: '작성자 커밋 확인됨',
-        evidenceNote: '작성 Diff를 통해 UGameObject/UBlock 구조, 스테이지·충돌 루프, 게임패드 수명 주기, 점수·피드백 시스템을 개인 구현 범위에 연결했습니다.',
+        evidenceStatus: '구현 및 소스 이력',
+        evidenceNote: '게임잼에서 UGameObject/UBlock 구조, 스테이지·충돌 루프, 게임패드 수명 주기, 파티클, 점수 피드백을 구현했습니다.',
+        troubleshootingEvidence: [
+            {
+                title: '색상 규칙에서 시작해 완성된 플레이 루프까지 발전시켰습니다.',
+                summary: '벽돌 색상과 점수 규칙을 정한 뒤 첫 플레이 화면을 구성하고, 충돌 파티클과 공 궤적을 추가해 스테이지 패턴·점수·최고 점수·피드백이 함께 동작하는 게임 화면으로 완성했습니다.',
+                figures: [
+                    {
+                        stage: '통합 결과',
+                        alt: '여러 벽돌 패턴, 점수, 최고 점수, 충돌 파티클, 공 궤적이 함께 표시되는 Jungle Brick Break 완성 화면',
+                        caption: '네 가지 벽돌 패턴과 현재 점수·최고 점수, 충돌 파티클, 공 궤적을 하나의 플레이 루프로 통합했습니다.'
+                    },
+                    {
+                        stage: '색상과 점수 규칙',
+                        alt: '각 벽돌 색상에 점수 값을 연결한 Jungle Brick Break 초기 색상표',
+                        caption: '벽돌 색상에 점수 값을 연결해 스테이지 데이터와 화면 피드백이 같은 규칙을 사용하도록 구성했습니다.'
+                    },
+                    {
+                        stage: '첫 플레이 화면',
+                        alt: '계단형 벽돌, 공, 패들, 점수, 남은 목숨이 표시된 Jungle Brick Break 초기 플레이 화면',
+                        caption: '공·패들·벽돌 충돌, 점수, 남은 목숨을 연결해 첫 플레이 루프를 만들었습니다.'
+                    },
+                    {
+                        stage: '벽돌 충돌 피드백',
+                        alt: '공이 자홍색 벽돌에 충돌하며 사각 파티클이 생성되는 근접 화면',
+                        caption: '벽돌 색상과 맞춘 파티클로 충돌과 파괴 시점을 더 분명하게 표현했습니다.'
+                    },
+                    {
+                        stage: '공 궤적과 파티클',
+                        alt: '잔상이 남는 공과 녹색 충돌 파티클이 표시된 근접 화면',
+                        caption: '잔상으로 공의 진행 방향을 보여 주고 파티클로 충돌 지점을 강조했습니다.'
+                    }
+                ]
+            }
+        ],
         troubleshooting: [
             {
                 title: '씬 해제 중 double free 발생',
@@ -84,8 +117,8 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
             '엔진의 초기 3D 렌더링 경로를 구축했습니다.',
             'SkySphere 구현을 공개적으로 접근 가능한 branch에 보존했습니다.'
         ],
-        evidenceStatus: '작성자 커밋 확인됨',
-        evidenceNote: 'Week02 저장소 이력에서 HaXX0rBunny 명의 renderer, input, editor-camera, SkySphere 커밋을 확인했습니다.',
+        evidenceStatus: '구현 및 소스 이력',
+        evidenceNote: 'Week02에서 D3D11 렌더러 기반, 입력과 에디터 카메라 흐름, SkySphere 렌더링 경로를 구현했습니다.',
         sourceLabel: 'Week02 작성 커밋 열기',
         troubleshooting: [
             {
@@ -147,8 +180,8 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
             '일회성 visual test가 아닌 재사용 가능한 renderer utility를 구축했습니다.',
             '이후 scene과 rendering system을 검사할 수 있는 역량을 개선했습니다.'
         ],
-        evidenceStatus: '작성자 커밋 확인됨',
-        evidenceNote: '작업 범위는 Week02 조상 이후의 Week03 커밋으로 설정했으며, 공개 저장소에 작성자 이력이 보존되어 있습니다.',
+        evidenceStatus: '구현 및 소스 이력',
+        evidenceNote: 'Week03에서 Atlas, Billboard, Batch Line, Bounds, 이름·타입, Gizmo Guide, MetaObject 기능을 구현했습니다.',
         sourceLabel: 'Week03 작성 커밋 열기',
         troubleshooting: [
             {
@@ -230,8 +263,8 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
             '유효한 cooked data를 재사용하고 source content 또는 format version이 변경되면 recook하는 결정론적 binary reload 경로를 추가했습니다.',
             '원본 commit hash를 유지한 Week04 commit graph와 upstream branch 16개를 보존했습니다.'
         ],
-        evidenceStatus: '원본 Week04 작성자 커밋 확인됨',
-        evidenceNote: 'Week03 스냅샷 c7e30e4e부터 Week04 main 1d193e53까지 보존된 구간에서 작성자·Diff·blame 근거를 통해 OBJ/MTL 임포터, UStaticMesh 통합, 버전형 .dasset 쿠킹, 직렬화를 개인 구현 범위에 연결했습니다.',
+        evidenceStatus: 'OBJ Importer 구현 이력',
+        evidenceNote: '복구한 Week04 이력에서 OBJ/MTL Importer, UStaticMesh 통합, 버전형 .dasset Cook, 직렬화를 구현했습니다.',
         sourceLabel: '보존된 Week04 source와 history 열기',
         troubleshooting: [
             {
@@ -314,24 +347,24 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
         flow: '고밀도 메시 장면 → transform·culling 최적화 → Octahedral Atlas bake → 카메라 방향별 프록시 렌더링',
         results: [
             '고밀도 오브젝트 장면에 적용할 수 있는 렌더러 수준의 최적화 경로를 구축했습니다.',
-            '동일한 배치를 재현할 수 있는 오브젝트 5만 개와 6만 4천 개 장면을 보존했습니다.'
+            '동일한 배치를 재현할 수 있는 오브젝트 5만 개와 6만 4천 개 장면을 구성했습니다.'
         ],
-        evidenceStatus: '작성자 커밋 확인됨',
-        evidenceNote: '작성 이력을 통해 서브메시 BVH, StructuredBuffer 인스턴싱, 계층 변환, 아틀라스 베이킹, 런타임 임포스터 경로를 개인 구현 범위에 연결했으며, 공개 게임잼 저장소에는 통합된 엔진 상태가 보존되어 있습니다.',
+        evidenceStatus: '구현 및 소스 이력',
+        evidenceNote: '서브메시 BVH, StructuredBuffer 인스턴싱, 계층 변환, Atlas Baker, 런타임 Impostor 경로를 구현하고 팀 게임잼 엔진에 통합했습니다.',
         sourceLabel: '통합된 게임잼 저장소 열기',
         troubleshootingEvidence: [
             {
                 kicker: '방향별 atlas bake 검증',
-                title: 'vertex 기반 bounds와 camera basis를 보정한 뒤 256개 방향 칸에 사과 전체가 기록되었습니다.',
-                summary: '실패 상태인 ec931251에서는 256개 칸 중 149개의 유효 화면 비율이 5% 미만이었습니다. 이후 camera 위치(ee8d71a), bake 상태(5dd2281), 직교 투영 범위(d1b7e7a), vertex 기반 bounds와 극지점에서도 안정적인 camera basis(b3f0a6c), row-major matrix upload(2960b5b)을 순서대로 정리했습니다. 아래 두 이미지는 이 누적 수정 과정의 실패 시점과 최종 후속 출력을 비교합니다.',
+                title: 'Bake Camera를 보정해 방향별 Atlas에 온전한 실루엣을 기록했습니다.',
+                summary: '초기 Atlas는 256개 칸 중 149개에서 메시가 가느다란 조각으로 잘렸습니다. Vertex로 Bounds를 다시 계산하고 여유 범위, 극지점 Camera Basis, Matrix Upload를 바로잡아 16 × 16 방향 전체를 완성했습니다.',
                 figures: [
                     {
-                        stage: '수정 전 출력 · ec931251',
+                        stage: '수정 전 · 잘린 방향 캡처',
                         alt: '방향별 칸 대부분에 사과의 가느다란 일부만 담긴 Octahedral Impostor atlas',
                         caption: '대부분의 방향 칸에 원본 메시의 가늘거나 잘린 일부만 기록되었습니다.'
                     },
                     {
-                        stage: '최종 후속 출력 · 2960b5b',
+                        stage: '수정 후 · 완성된 방향별 Bake',
                         alt: '16 × 16 방향 격자 전반에 사과 전체 실루엣이 담긴 Octahedral Impostor atlas',
                         caption: '방향 격자 전반에 사과 전체 실루엣이 안정적으로 기록되었습니다.'
                     }
@@ -339,10 +372,10 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
                 facts: [
                     { label: '유효 화면 비율 5% 미만', value: '149 / 256 → 0 / 256', detail: '수정 전 출력 → 최종 후속 출력' }
                 ],
-                method: '화면의 두 PNG는 각각 ec931251의 Git blob 6c8769c0과 2960b5b의 Git blob a6c40959와 파일 내용이 완전히 일치합니다. 2048 × 2048 RGB 이미지를 128 × 128 크기의 256개 칸으로 나눈 뒤, RGB가 (0, 0, 0)과 다른 픽셀을 세어 각 칸의 유효 화면 비율을 계산했습니다. 또한 b3f0a6c의 baker diff와 b3f0a6c가 2960b5b의 조상 커밋임을 확인했습니다.'
+                method: '2048 × 2048 Atlas를 256개 방향 Cell로 나누고, 각 Cell에서 검은색이 아닌 Pixel의 비율이 5% 미만이면 잘린 출력으로 분류했습니다.'
             },
             {
-                kicker: '로컬 실행 기록',
+                kicker: '오브젝트 5만 개 렌더링 비교',
                 title: '같은 오브젝트 5만 개 장면에서 Full Mesh와 Impostor 렌더링을 비교했습니다.',
                 summary: '동일 PC에서 두 렌더링 경로의 HUD를 기록했고, Impostor 경로는 4,481프레임 평균 Frame Time 로그를 함께 확보했습니다.',
                 tags: null,
@@ -350,7 +383,7 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
                     {
                         stage: '전체 Mesh 캡처',
                         alt: '실행 HUD와 함께 사과 메시 5만 개를 렌더링하는 PerformanceEngine',
-                        caption: '보존된 오브젝트 5만 개 장면을 Full Mesh 경로로 렌더링한 화면입니다.'
+                        caption: '오브젝트 5만 개 장면을 Full Mesh 경로로 렌더링한 화면입니다.'
                     },
                     {
                         stage: 'Impostor 캡처',
@@ -364,7 +397,7 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
                     { label: 'Draw Call', value: '10,725 → 2', detail: 'Full Mesh → Impostor' }
                 ],
                 trace: { label: 'Impostor 경로 프레임 로그' },
-                method: '로컬 Release x64, 1280 × 720 해상도에서 확보한 자료입니다. 소스 설정상 VSync는 비활성화되어 있고 메인 스레드는 affinity bit 2에 고정됩니다. Impostor 경로의 CSV는 2026-08-21, 두 HUD 화면은 2026-08-22에 보존했습니다.',
+                method: 'Release x64, 1280 × 720, VSync 비활성화, Main Thread Affinity Bit 2 고정 조건으로 측정했습니다.',
                 hardwareLabel: '측정 PC'
             }
         ],
@@ -389,7 +422,7 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
                 symptom: 'ec931251의 albedo atlas는 256개 칸 중 149개에서 검은색이 아닌 픽셀의 비율이 5% 미만이었고, 사과 전체가 아니라 가느다란 일부만 담겼습니다.',
                 cause: '초기 bake 경로는 메시가 제공한 bounds, custom FMatrix::MakeLookAt, 직교 투영 행렬을 조합했으며, Octahedral 방향 전반에서 오브젝트 전체를 안정적으로 화면에 담지 못했습니다.',
                 fix: 'b3f0a6c에서 메시 vertex를 순회해 min/max bounds를 다시 계산하고, 가장 큰 half-extent에 20% 여유 범위를 적용했습니다. 극지점에서도 안정적인 up basis를 구성한 뒤 DirectXMath로 left-handed view와 직교 투영 행렬을 만들었습니다.',
-                result: '모든 방향에서 사과 전체가 처음 확인되는 커밋은 b3f0a6c입니다. 후속 2960b5b atlas도 256개 칸 모두에서 검은색이 아닌 픽셀 비율이 50% 이상이며, 실행 결과와 측정값은 동일 장면의 Full Mesh/Impostor 비교 자료로 제시합니다.',
+                result: '수정된 Bake는 모든 방향 칸에 사과 전체 실루엣을 유지하며, 완성된 Atlas를 Runtime Impostor 경로에서 사용합니다.',
                 code: { context: 'Bake()의 vertex bounds 계산 및 CalculateCameraTransform()' }
             },
             {
@@ -450,8 +483,8 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
             'fog와 decal color contribution이 ImGui가 사용하는 viewport alpha를 덮어쓰지 않도록 했습니다.',
             'fog 중심 branch를 공개 구현 참고 자료로 보존했습니다.'
         ],
-        evidenceStatus: '작성자 커밋 확인됨',
-        evidenceNote: '작성 Diff를 통해 깊이 복원, 알파 보존 포그 블렌딩, 스포트라이트 데칼, 렌더 채널 진단을 개인 구현 범위에 연결했습니다.',
+        evidenceStatus: '구현 및 소스 이력',
+        evidenceNote: '깊이 복원, 알파를 보존하는 Fog Blending, Spotlight Decal, 렌더 채널 수정을 구현해 Fog와 Decal Artifact를 해결했습니다.',
         sourceLabel: 'fog feature branch 열기',
         troubleshootingEvidence: [
             {
@@ -500,7 +533,7 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
                 method: '두 캡처의 가시성 상태를 인접한 HeightFog Shader의 visibility-to-opacity 경로와 대조했습니다.'
             },
             {
-                kicker: '실제 horizon-seam 진단 → Git 근거가 있는 수정',
+                kicker: '지평선 Fog 경계 보정',
                 title: 'sky와 scene geometry가 서로 다른 fog evaluation을 따라 단단한 horizon 경계가 생겼습니다.',
                 summary: '세 editor capture는 최종 fog commit 직전에 height-fog profile을 조정한 과정을 기록합니다. 첫 두 화면은 파란 fog layer 위에 어두운 upper sky가 남아 뚜렷한 경계를 보이고, 세 번째 화면에서는 fog response가 sky까지 확장됩니다. 5ccad72 diff가 최종 방향 적분 Sky-path 수정을 기록합니다.',
                 tags: ['실제 editor capture', '지평선 경계', 'Sky Ray 보정', '5ccad72'],
@@ -661,8 +694,8 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
             '다음 shadow 과제에 필요한 lighting layer를 구축했습니다.',
             'lighting 동작을 독립적인 sample이 아닌 engine에 통합했습니다.'
         ],
-        evidenceStatus: '로컬 작성자 커밋 확인됨',
-        evidenceNote: '작성 이력을 통해 Light Component/Proxy 경계, 포워드 버퍼 바인딩, 셰이더 핫 리로드, 주광 제어, 리소스 정리를 개인 구현 범위에 연결했습니다.',
+        evidenceStatus: '구현 및 소스 이력',
+        evidenceNote: 'Light Component/Proxy 경계, Forward Buffer Binding, Shader Hot Reload, 주광 제어, Light Resource 정리를 구현했습니다.',
         troubleshooting: [
             {
                 title: 'shader hot reload가 dependency를 누락하고 cached data를 무효화함',
@@ -733,8 +766,8 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
             'Week07 조명 파이프라인에 공간적 접지감이 드러나는 그림자를 추가했습니다.',
             '통합 프로젝트를 공개 저장소에 보존했습니다.'
         ],
-        evidenceStatus: '작성자 커밋 검증 완료',
-        evidenceNote: '작성 Diff를 통해 방향광·스포트라이트·점광원 그림자 패스와 큐브맵, PCF/VSM 필터링, 컬링, 캐시 제어를 개인 구현 범위에 연결했습니다.',
+        evidenceStatus: '구현 및 소스 이력',
+        evidenceNote: '방향광·Spotlight·Point Light Shadow Pass와 Cube Map, PCF/VSM Filtering, Culling, Cache 제어를 구현했습니다.',
         sourceLabel: 'Week08 작성 커밋 열기',
         troubleshooting: [
             {
@@ -812,17 +845,17 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
         ],
         flow: 'Editor world → binary serialize / cook → mirrored asset stage → shipping executable → runtime camera 및 post-process 흐름',
         results: [
-            'standalone menu 경로까지의 직접 실행을 검증했습니다.',
-            'START/loading 전환과 runtime log의 StoryScene BeginPlay를 검증했습니다.'
+            'Windows에서 패키징 실행 파일을 직접 실행하고 START에서 Story Scene으로 진입했습니다.',
+            'Cook된 Gameplay Level에서 Score, Distance, Log, Trace, Dump, Stability UI가 함께 동작했습니다.'
         ],
-        evidenceStatus: '작성자 커밋 검증 완료',
-        evidenceNote: '코드와 런타임 근거를 통해 Shipping/Cook/Stage 도구, 카메라·포스트프로세스, START 전환, StoryScene BeginPlay 경로를 개인 구현 범위에 연결했습니다.',
+        evidenceStatus: '구현 및 소스 이력',
+        evidenceNote: 'Shipping/Cook/Stage 도구, 런타임 Camera·Post Process 연결, START에서 StoryScene으로 이어지는 실행 경로를 구현했습니다.',
         sourceLabel: 'Week09 작성 커밋 열기',
         troubleshootingEvidence: [
             {
                 kicker: '실제 Shipping runtime checkpoint',
-                title: '패키징된 EXE가 메뉴에 도달하고 START loading 전환에 진입했습니다.',
-                summary: 'Build·Cook·Stage를 완료하고 동일한 Stage EXE에서 Menu 렌더링, START 전환, game/story.scene과 StoryScene Lua BeginPlay를 확인했습니다. Verify는 필수 Cube Source/Cache 누락을 감지했습니다.',
+                title: '패키징 실행 파일이 Main Menu에서 Story와 Gameplay까지 이어집니다.',
+                summary: 'Stage된 Build를 Visual Studio 없이 실행하고 START에서 Story Scene을 거쳐 Cook된 Runner Level을 로드했습니다. Gameplay HUD와 Crash Dump 저장 경로도 같은 실행 흐름 안에서 동작합니다.',
                 tags: ['실제 runtime 캡처', 'Shipping x64 빌드', 'Runtime 로그'],
                 figures: [
                     {
@@ -834,16 +867,29 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
                         stage: 'Checkpoint 02 · START 전환',
                         alt: 'START 선택 후 loading 전환을 표시하는 LunaticEngine standalone executable',
                         caption: 'START가 runtime을 loading 전환으로 이동시켰습니다.'
+                    },
+                    {
+                        stage: 'Checkpoint 03 · Story Scene',
+                        alt: '대화와 진단 패널이 표시되는 패키징된 Engine Dive Story Scene',
+                        caption: 'START 경로가 Cook된 Story Scene으로 진입하고 Lua 기반 대화 흐름을 실행합니다.'
+                    },
+                    {
+                        stage: 'Checkpoint 04 · Cooked Gameplay',
+                        alt: 'Player Ship, 장애물 코스, 대화, 점수 Telemetry가 표시되는 Engine Dive 패키징 Runner Level',
+                        caption: 'Player 조작, 장애물, 수집물, 대화와 Score·Distance·Log·Trace·Dump·Stability HUD가 함께 동작합니다.'
+                    },
+                    {
+                        stage: 'Checkpoint 05 · Crash Dump',
+                        alt: 'Crash Dump 파일 저장을 알리는 Windows Dialog와 Engine Dive Gameplay 화면',
+                        caption: 'Gameplay 상태 위에서 진단 경로가 패키징 Build의 Saves/Dump 폴더에 .dmp 파일을 저장합니다.'
                     }
                 ],
                 facts: [
-                    { label: 'Standalone 실행', value: '검증 완료', detail: 'Menu 렌더링 · StoryScene BeginPlay 확인' },
-                    { label: '패키징 결과', value: 'Map 16개 · 파일 429개', detail: 'Cook/Stage 완료 · Source .Scene 파일 0개' },
-                    { label: 'Dependency Verify', value: '필수 Asset 누락 감지', detail: 'BasicShape/cube.obj · Cache/cube.bin' }
+                    { label: '실행 흐름', value: 'Menu → Story → Gameplay', detail: '하나의 Stage 실행 파일' },
+                    { label: 'Crash 출력', value: 'Saves/Dump/*.dmp', detail: 'Runtime 진단 경로' }
                 ],
-                trace: { label: '보존된 Shipping runtime log' },
-                method: '2026-08-22에 Shipping x64 package의 Build → Cook → Stage → Verify와 동일 Stage EXE의 Menu → START → StoryScene BeginPlay 경로를 확인했습니다.',
-                hardwareLabel: '캡처 PC'
+                trace: { label: 'Shipping 실행 로그' },
+                method: '패키징된 Engine Dive 실행 영상과 같은 Stage Build의 Shipping Log를 함께 정리했습니다.'
             }
         ],
         troubleshooting: [
@@ -926,8 +972,8 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
             'import된 skeletal asset에 필요한 component와 renderer 경로를 구축했습니다.',
             'Blender/FBX bind data가 일치하지 않을 때 발생하던 90도 bind-pose offset을 해결했습니다.'
         ],
-        evidenceStatus: '작성자 커밋 검증 완료',
-        evidenceNote: '2026년 5월 9~13일의 skeletal import·rendering 커밋 구간을 기준으로, 상속된 Week09 이력과 Week10 고유 작업을 분리했습니다.',
+        evidenceStatus: '구현 및 소스 이력',
+        evidenceNote: 'Week09 엔진 기반 위에 Week10 Skeletal Import와 Rendering 기능을 추가했습니다.',
         sourceLabel: 'Week10 작성 커밋 열기',
         troubleshooting: [
             {
@@ -1008,8 +1054,8 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
             '재사용 가능한 animation asset을 skeletal-mesh import에서 분리하고 명시적인 호환성 검사를 추가했습니다.',
             'import와 cache부터 editor inspection, packaging, Lua, component playback까지 같은 asset을 연결했습니다.'
         ],
-        evidenceStatus: '작성자 커밋 검증 완료',
-        evidenceNote: '작성 이력을 통해 레퍼런스 스켈레톤 처리, 애니메이션 임포트·캐시 검증, 에디터·패키지·Lua 통합을 개인 구현 범위에 연결했습니다.',
+        evidenceStatus: '구현 및 소스 이력',
+        evidenceNote: 'Reference Skeleton 처리, Animation Import와 Cache Validation, Editor·Package·Lua 통합을 구현했습니다.',
         sourceLabel: 'Week11 작성 커밋 열기',
         troubleshooting: [
             {
@@ -1090,8 +1136,8 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
             'base runtime부터 authoring, placement, validation, rendering까지 이어지는 particle system을 구축했습니다.',
             'editor-facing data와 compiled runtime binding을 분리하고 legacy TypeData ownership을 제거했습니다.'
         ],
-        evidenceStatus: '작성자 커밋 검증 완료',
-        evidenceNote: '작성 이력을 통해 파티클 런타임·에디터 아키텍처, 컴파일된 LOD 바인딩, 깊은 복사·캐시 소유권, 이벤트 디스패치를 개인 구현 범위에 연결했습니다.',
+        evidenceStatus: '구현 및 소스 이력',
+        evidenceNote: 'Particle Runtime·Editor Architecture, Compile된 LOD Binding, Deep Copy와 Cache Ownership, Event Dispatch를 구현했습니다.',
         sourceLabel: 'Week12 작성 커밋 열기',
         troubleshooting: [
             {
@@ -1172,19 +1218,19 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
             '읽기 전용 collision preview가 아닌 end-to-end physics-asset authoring workflow를 구현했습니다.',
             'generation, inspection, transform editing, collision behavior, physical material을 하나의 tool로 연결했습니다.'
         ],
-        evidenceStatus: '작성자 커밋 검증 완료',
-        evidenceNote: '작성 Diff를 통해 물리 바디 생성, 뷰포트 피킹·기즈모, 노드·충돌·머티리얼 프로필을 개인 구현 범위에 연결했습니다.',
+        evidenceStatus: '구현 및 소스 이력',
+        evidenceNote: 'Physics Body 생성, Viewport Picking·Gizmo, Node·Collision·Material Profile 편집 흐름을 구현했습니다.',
         sourceLabel: 'Week13 작성 커밋 열기',
         troubleshootingEvidence: [
             {
-                kicker: '보존된 runtime trace',
+                kicker: 'Physics Preview 실행 데이터',
                 title: 'physics preview가 drawing에 사용한 생성 body 치수와 bone-space scale을 log로 남겼습니다.',
-                summary: '보존된 Engine.log가 Physics Preview Draw에 사용된 6개 Sphyl Body의 Radius·Length와 Bone-space Scale을 기록합니다.',
+                summary: 'Engine.log의 Radius·Length·Bone-space Scale 값을 Physics Preview의 Sphyl Body 생성 경로와 연결했습니다.',
                 tags: ['실제 runtime log', 'Physics Body 구성', '사례 01'],
                 facts: [
                     { label: '기록된 body', value: '6개', detail: 'Pelvis 및 좌우 leg chain' },
                     { label: 'Shape 유형', value: 'Sphyl', detail: '저장된 radius와 length' },
-                    { label: 'Bone Scale', value: '1.0000', detail: '보존된 Sample에서 Uniform' }
+                    { label: 'Bone Scale', value: '1.0000', detail: 'Uniform Scale' }
                 ],
                 trace: { label: '구현 후 draw trace' },
                 method: 'project runtime log의 physics-draw row를 generated Sphyl dimension 및 Bone Matrix Scale 경로와 대조했습니다.'
@@ -1245,20 +1291,51 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
             'editor에서 제작한 content와 engine system을 최종 playable game sequence로 연결했습니다.',
             'combat, scoring, scene change, retry, cutscene 전반에 걸쳐 사용자에게 보이는 flow와 feedback을 완성했습니다.'
         ],
-        evidenceStatus: '작성자 커밋 검증 완료',
-        evidenceNote: '작성 이력을 통해 씬·데칼 임포트, 카운트다운·스코어보드, 로드 배리어, 재시도·컷신·오디오 흐름을 개인 구현 범위에 연결했습니다.',
+        evidenceStatus: '구현 및 소스 이력',
+        evidenceNote: 'Scene·Decal Import, Countdown·Scoreboard, 비동기 Load Barrier, Retry·Cutscene·Audio 흐름을 구현했습니다.',
         sourceLabel: 'Week14 작성 커밋 열기',
         troubleshootingEvidence: [
             {
-                kicker: '3단계 RmlUi 캡처 흐름 · working-tree 증거',
-                title: '초기 3→2→1 prototype을 filled sweep sector가 있는 5초 countdown으로 발전시켰습니다.',
-                summary: '첫 캡처는 PICTURE START Label, Sprocket, Ring, Crosshair, 단일 Sweep Line을 사용한 3→2→1 In-Engine Prototype을 기록합니다. 이후 캡처는 반응형 Guide Geometry를 분리해 확인한 과정과 Grain, Vignette, Filled Sweep Sector가 적용된 5초 Runtime 상태를 보여 줍니다. 화면은 구현 발전 과정을 설명하고, 코드 수준의 근거는 작성 Commit 이력으로 연결합니다.',
-                tags: ['실제 UI 캡처', 'RmlUi + Lua', '필름 카운트다운', 'Prototype → 개선'],
+                title: 'Final Game Jam에서 메뉴부터 보스전과 엔딩 크레딧까지 완성했습니다.',
+                summary: 'Cyber Runner는 Custom Engine에서 Mode 선택, Film Countdown, 완성된 Tokyo Level의 Ascendant Boss 전투, HP·Core·Chain·Burst 피드백, 4인 팀 Ending Credits까지 하나의 플레이 흐름으로 이어집니다.',
                 figures: [
                     {
-                        stage: '초기 in-engine prototype · 2026-06-08 23:55 KST',
+                        stage: 'Main Menu',
+                        alt: 'Start Game, Training Map, Credits, Exit 항목이 있는 Cyber Runner Main Menu',
+                        caption: '최종 RmlUi 흐름에서 본 게임, Training Map, Credits, Exit 경로를 선택할 수 있습니다.'
+                    },
+                    {
+                        stage: 'Film Countdown',
+                        alt: 'Gameplay 진입 전 숫자 2를 표시하는 Cyber Runner Film Countdown',
+                        caption: 'Film Leader 전환이 비동기 Scene 준비 구간을 덮은 뒤 Gameplay로 제어권을 넘깁니다.'
+                    },
+                    {
+                        stage: 'Boss Encounter',
+                        alt: '완성된 Tokyo Level에서 Ascendant Boss와 마주한 Cyber Runner Player Character',
+                        caption: 'Import한 City Environment와 Boss Actor, Player HP, Boss Core, Chain, Burst UI가 Encounter 시작 화면에 함께 표시됩니다.'
+                    },
+                    {
+                        stage: 'Combat Feedback',
+                        alt: 'Attack Telegraph, Enemy, Chain Counter, HP, Core, Burst UI가 표시되는 Cyber Runner Boss Combat',
+                        caption: '전투 중 Attack Telegraph, Damage, Enemy Group, Chain, Boss Core, Player HP, Burst Charge가 실시간으로 갱신됩니다.'
+                    },
+                    {
+                        stage: '4인 팀 Ending Credits',
+                        alt: 'Team Member 04 조상현을 포함한 Cyber Runner Ending Credits',
+                        caption: 'Ending 흐름이 4인 팀 Credits까지 이어지고 Team Member 04로 조상현이 표시됩니다.'
+                    }
+                ]
+            },
+            {
+                kicker: '필름 카운트다운 UI',
+                title: '게임 흐름에 맞는 다층 전환 화면으로 카운트다운을 완성했습니다.',
+                summary: 'RmlUi와 Lua로 PICTURE START Label, Sprocket, Ring, Crosshair, Countdown Number, Grain, Vignette, Sweep Animation을 구성했습니다. 아래 화면은 초기 구현, Layout 조정, 최종 인게임 결과 순서입니다.',
+                tags: ['RmlUi + Lua', '필름 카운트다운', '런타임 UI'],
+                figures: [
+                    {
+                        stage: '초기 Countdown 구현 · 2026-06-08 23:55 KST',
                         alt: 'sepia film strip, sprocket hole, ring, crosshair, single sweep line, Picture Start label, 숫자 3이 표시된 Week14 초기 in-engine film countdown prototype',
-                        caption: 'commit 전 working-tree 결과에서 single rotating sweep line과 첫 film-frame 처리를 사용한 초기 3→2→1 presentation이 이미 실행되고 있습니다.'
+                        caption: '첫 3→2→1 구현은 회전 Sweep Line과 초기 Film Frame 처리를 사용했습니다.'
                     },
                     {
                         stage: 'Layout 분리 진단 · 2026-06-10 17:27 KST',
@@ -1266,7 +1343,7 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
                         caption: '이후 진단 화면은 presentation layer에서 responsive center, outer·inner circle, crosshair를 분리해 보여 줍니다.'
                     },
                     {
-                        stage: '개선된 runtime 검증 · 2026-06-10 17:38 KST',
+                        stage: '최종 Runtime 상태 · 2026-06-10 17:38 KST',
                         alt: 'sepia film gate, sprocket hole, grain, sweep arm, Picture Start label, 숫자 5가 표시된 Week14 완성 film countdown UI',
                         caption: '개선된 출력은 digit 5에서 전체 presentation을 복원하고 filled sector, 이동 sprocket, grain, vignette, layered number 처리를 함께 보여 줍니다.'
                     }
@@ -1276,7 +1353,7 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
                     { label: 'Sweep 우회 구현', value: '33 frames', detail: 'fdaa6f7의 raster sector sequence' }
                 ],
                 trace: { label: 'RmlUi sector-animation 우회 구현' },
-                method: '세 캡처에 보이는 Label, Layer Geometry, Countdown 값, Sweep 표현을 작성한 RmlUi 및 Lua 구현 이력과 대조했습니다.'
+                method: '세 화면은 초기 Countdown, 반응형 Guide Layout, 최종 Layered Runtime 상태를 순서대로 보여 줍니다.'
             },
             {
                 kicker: 'Week14 씬 배치 완료',
@@ -1288,13 +1365,12 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
                         alt: '건물과 교통 구조물, 거리 규모 구조가 정렬된 Week14 Tokyo 최종 씬 배치',
                         caption: '건물 볼륨, 교통 구조물, 거리 규모 구조가 최종 배치된 상태입니다.'
                     }
-                ],
-                method: '작업자 확인을 기준으로 6월 8일 가로형 viewport를 최종 배치 화면으로 구분했으며, 제공된 이미지의 RGB 픽셀이 사이트에 보존된 파일과 정확히 일치함을 확인했습니다.'
+                ]
             },
             {
                 kicker: '사례 02 첨부 · 에디터 작업 과정',
                 title: '나머지 캡처는 Import 배치와 방향을 점검한 작업 과정입니다.',
-                summary: '흩어진 초기 배치를 확인하고, 기울어진 Tokyo_Current에서 방향 문제를 진단한 뒤, Tokyo_Verify_Train에서 거리 구조가 바로 서는지 검사했습니다. Transform 수정과 import 완료는 각각 fdaa6f7 diff와 로컬 import 리포트를 별도 근거로 사용합니다.',
+                summary: '흩어진 Import를 하나의 Level로 조립하고, 기울어진 Tokyo_Current에서 방향 문제를 진단한 뒤, Tokyo_Verify_Train에서 거리 구조가 바로 서는지 확인한 과정입니다.',
                 tags: ['작업 과정', 'Scene Import', 'Transform 검증'],
                 figures: [
                     {
@@ -1312,18 +1388,13 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
                         alt: 'Tokyo Verify Train scene에서 바로 선 Tokyo 거리를 보여 주는 custom engine editor',
                         caption: '전용 Tokyo_Verify_Train scene에서 import된 거리 구조가 바로 서는지 확인했습니다.'
                     }
-                ],
-                facts: [
-                    { label: 'Transform 수정', value: 'fdaa6f7', detail: 'Environment Transform 회전 보정' },
-                    { label: 'Import 결과', value: 'Actor 5,290개 · 실패 0건', detail: 'Matrix Transform 5,181개 · Mesh·Material·Texture 리소스' }
-                ],
-                method: '캡처는 배치·방향 점검 과정을 기록하고, fdaa6f7 diff는 Transform 수정을, Local Import Report는 Actor 5,290개·리소스 실패 0건을 기록합니다.'
+                ]
             },
             {
-                kicker: '실제 defect 캡처 → Git 근거가 있는 수정',
-                title: '눈에 보이는 decal 사각형과 foliage-card 배경의 원인을 mask source와 pre-depth 결함으로 추적했습니다.',
-                summary: '첫 캡처는 masked foliage에서 각 leaf card의 투명 영역이 보이는 문제를 기록하고, 두 번째는 사각형 배경을 진단하던 중 선택된 decal을 기록합니다. foliage 수정은 alpha를 고려하지 않는 pre-depth pass에서 masked section을 제외합니다. decal 경로는 먼저 누락된 dependency texture를 복구한 뒤, 항상 opaque인 synthetic alpha channel 대신 실제 grayscale pixel data에서 coverage를 계산합니다.',
-                tags: ['실제 defect 캡처', 'Alpha Mask 처리', 'Pre-depth Pass', '사례 03–04'],
+                kicker: 'Decal·Foliage 렌더링 수정',
+                title: 'Mask Sampling과 Pre-depth Routing을 고쳐 Decal과 나뭇잎 주변의 사각형 배경을 제거했습니다.',
+                summary: 'Masked Foliage는 투명도를 반영하지 않는 Pre-depth Pass에 들어가 있었고, Grayscale Decal Texture는 항상 불투명한 합성 Alpha를 읽고 있었습니다. Masked Foliage를 해당 Pass에서 제외하고 Decal Coverage를 실제 Grayscale Channel에서 계산하도록 수정했습니다.',
+                tags: ['Alpha Mask', 'Pre-depth', 'Decal Coverage'],
                 figures: [
                     {
                         stage: 'Foliage 결함 · 2026-06-08 21:28 KST',
@@ -1336,42 +1407,22 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
                         caption: '분홍색 사각형 배경이 렌더링 결함이며 흰 Outline은 Editor Selection 표시입니다.'
                     }
                 ],
-                facts: [
-                    { label: 'Foliage 수정', value: '64e1ed9', detail: 'Pre-Depth Pass에서 Masked Section 제외' },
-                    { label: 'Decal 수정 경로', value: 'fdaa6f7 → 0c5ae28', detail: 'Dependency 복구 → Grayscale RGB Coverage 계산' },
-                    { label: 'Texture 증거', value: 'Alpha 255 · 100%', detail: 'base RGB pixel의 91.034%가 검은색' }
-                ],
-                trace: { label: '수정 후 coverage·depth routing' },
-                method: '캡처는 결함을 기록하고, 64e1ed9는 Masked Pre-depth 제외, fdaa6f7은 Dependency 복구, 0c5ae28은 Grayscale Coverage 보정을 기록합니다.'
+                trace: { label: '수정 후 Coverage·Depth Routing' }
             },
             {
-                kicker: '커밋 기준 생성 데이터 A/B',
-                title: 'blocking-volume matrix 11개 모두가 centimeter 크기에서 export field와 같은 meter scale로 바뀌었습니다.',
-                summary: 'tracked Tokyo manifest를 adfb597^와 adfb597에서 직접 parse할 수 있습니다. scalar scale 값은 그대로인 반면 모든 world-matrix basis 크기는 정확히 100분의 1로 줄어, 사례 02에 대한 결정적인 수정 전·후 fixture를 제공합니다.',
-                tags: ['정확한 Git blob', '11개 volume', '사례 02'],
+                kicker: 'Blocking Volume 단위 보정',
+                title: '충돌 볼륨의 Scale Field와 World Matrix가 같은 Meter 단위를 사용하도록 수정했습니다.',
+                summary: 'Exporter가 Centimeter 기반 Bounds와 Meter 기반 배치 데이터를 섞어 사용해 충돌 볼륨이 100배 커졌습니다. Matrix Override에도 Meter로 변환한 Scale을 전달해 크기를 바로잡았습니다.',
+                tags: ['Scene Import', '단위 변환', 'World Matrix'],
                 facts: [
-                    { label: '검증한 Matrix', value: '11 / 11', detail: '동일 Record · Scalar Scale 유지' },
-                    { label: '단위 보정', value: '÷ 100', detail: 'Centimeter를 Meter로 변환' }
+                    { label: '단위 보정', value: 'cm → m', detail: 'World Matrix Scale을 100분의 1로 변환' }
                 ],
-                trace: { label: '대표 generated record' },
-                method: 'tracked JSON blob 두 버전에서 Blocking Volume 11개를 짝짓고, Scalar Scale을 유지한 채 World Matrix Basis가 Meter 단위로 보정된 것을 확인했습니다.'
+                trace: { label: 'Exporter 수정 코드' }
             },
             {
-                kicker: '커밋 기준 Manifest A/B',
-                title: 'fdaa6f7 변경에서 scene export에 완전한 light transform과 decal record 95개가 추가되었습니다.',
-                summary: 'tracked Tokyo scene·material manifest를 fdaa6f7^와 fdaa6f7에서 parse할 수 있습니다. 사례 02·03의 environment-transform 및 decal-dependency 작업에 대해 정확한 generated-output 비교를 제공합니다.',
-                tags: ['정확한 Git blob', 'Scene Manifest 검증', '사례 02–03'],
-                facts: [
-                    { label: 'Light World Matrix 수', value: '0 → 2', detail: 'DirectionalLight와 SkyLight' },
-                    { label: 'Decal Record 수', value: '0 → 95', detail: 'Tokyo.scene.json' }
-                ],
-                trace: { label: '생성된 manifest delta' },
-                method: 'Parent·Fix Manifest를 비교해 fdaa6f7의 Light Transform과 Decal Record 복구를 확인하고, 최종 Grayscale Coverage 보정은 0c5ae28과 연결했습니다.'
-            },
-            {
-                kicker: '보존된 packaged-runtime trace',
+                kicker: '비동기 Scene 전환',
                 title: 'transition은 cutscene 뒤에 대기했고 Tokyo_Current가 준비된 뒤에만 commit했습니다.',
-                summary: '보존된 GameBuild Log가 Cutscene 완료 → Wait → Scene Ready → Commit 순서를 기록합니다.',
+                summary: 'GameBuild Log에서 Cutscene 완료 → Wait → Scene Ready → Commit 순서로 전환이 진행됩니다.',
                 tags: ['실제 packaged 실행', '비동기 로딩', '사례 01'],
                 facts: [
                     { label: 'Transition 순서', value: 'Wait → Ready → Commit', detail: 'Tokyo_Current Packaged 실행' }
@@ -1380,7 +1431,7 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
                 method: 'Packaged-run Log의 Wait → Ready → Commit 메시지를 a590136에서 도입한 State Transition과 대조했습니다.'
             },
             {
-                kicker: '보존된 persistence 출력',
+                kicker: 'Clear Time 저장',
                 title: '완료된 run time이 clear-score storage와 scoreboard에 동일하게 기록되었습니다.',
                 summary: '실제 local save file 두 개가 같은 최종 write timestamp와 동일한 85.688초 결과를 보유합니다. 완료된 run 이후 사례 01에서 사용하는 persistence output을 직접 검증합니다.',
                 tags: ['실제 save file', '점수 영속화', '사례 01'],

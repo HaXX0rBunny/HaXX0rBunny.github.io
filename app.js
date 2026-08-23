@@ -270,16 +270,16 @@ const projectsData = {
         "technical_challenges": [
             "Separating pose-derived automation from authored AnimNotify and Gameplay Event intent before deterministic arbitration",
             "Keeping Region and Chain deformation selective while applying camera-aware silhouette guards",
-            "Stabilizing noisy motion evidence and competing Region ownership before changing animation phase",
+            "Stabilizing noisy motion measurements and resolving competing Region ownership before changing animation phase",
             "Carrying immutable deformation state from the Game Thread to the Render Thread",
             "Composing module passes and vertex-factory outputs through RDG"
         ],
         "troubleshooting": {
             "phase_stability": {
                 "title": "Motion noise caused false phase transitions",
-                "problem": "Single-frame spikes could flip the phase or start Anticipation without sustained motion evidence.",
+                "problem": "Single-frame spikes could flip the phase or start Anticipation before a movement trend was established.",
                 "root_cause": "Raw energy thresholds did not encode trend history, confirmation duration, or cancellation state.",
-                "solution": "Combined adaptive trend smoothing, evidence duration, phase-local guards, and cycle history.",
+                "solution": "Combined adaptive trend smoothing, a confirmation window, phase-local guards, and cycle history.",
                 "result": "In the deterministic fixture, the 16 ms high-energy sample remains a zero-strength Anticipation boundary and the confirmed 32 ms sample commits Action."
             },
             "region_ownership": {

@@ -2950,6 +2950,23 @@ select.form-control {
     object-fit: contain;
 }
 
+.lab-runtime-evidence-figure.is-focus {
+    grid-column: 1 / -1;
+}
+
+.lab-runtime-evidence-figure.is-focus a {
+    display: grid;
+    place-items: center;
+}
+
+.lab-runtime-evidence-figure.is-focus img {
+    width: auto;
+    max-width: 100%;
+    height: min(72vh, 720px);
+    aspect-ratio: auto;
+    object-fit: contain;
+}
+
 .lab-runtime-evidence-figure.is-crop-ui img {
     aspect-ratio: 1.88 / 1;
     object-position: top center;
@@ -3031,6 +3048,24 @@ select.form-control {
     font-weight: var(--font-weight-semibold);
     line-height: 1.4;
     overflow-wrap: anywhere;
+}
+
+.lab-runtime-evidence-hardware {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-6) var(--space-12);
+    margin: 0;
+    padding: var(--space-10) var(--space-20);
+    color: var(--color-text-secondary);
+    background: rgba(var(--color-surface-rgb), 0.42);
+    border-bottom: 1px solid var(--color-card-border);
+    font-size: var(--font-size-xs);
+    line-height: 1.55;
+}
+
+.lab-runtime-evidence-hardware strong {
+    color: var(--color-text);
+    font-weight: var(--font-weight-semibold);
 }
 
 .lab-runtime-evidence-trace {
@@ -3653,6 +3688,10 @@ a.lab-trouble-commit:hover {
         grid-template-columns: 1fr;
     }
 
+    .lab-runtime-evidence-figure.is-focus img {
+        height: min(68vh, 560px);
+    }
+
     .lab-runtime-evidence-header {
         align-items: start;
     }
@@ -3844,6 +3883,12 @@ a.lab-trouble-commit:hover {
     .lab-runtime-evidence-figure figcaption {
         min-height: 0;
         padding: var(--space-16) var(--space-20) var(--space-20);
+    }
+
+    .lab-runtime-evidence-figure.is-focus img {
+        width: 100%;
+        height: auto;
+        max-height: 60vh;
     }
 
     .lab-runtime-evidence-tags span {

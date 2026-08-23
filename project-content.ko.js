@@ -330,16 +330,16 @@ window.PORTFOLIO_PROJECT_KO = {
         "technical_challenges": [
             "포즈 기반 자동 분석과 AnimNotify·Gameplay Event의 저작 의도를 분리한 뒤 결정적으로 중재",
             "Region·Chain 변형 범위를 선택적으로 유지하면서 카메라 대응 실루엣 Guard 적용",
-            "애니메이션 Phase 전환 전 노이즈가 섞인 모션 근거와 Region Owner 경쟁을 안정화",
+            "애니메이션 Phase 전환 전 노이즈가 섞인 움직임 측정값과 Region Owner 경쟁을 안정화",
             "Game Thread의 변형 상태를 불변 snapshot으로 Render Thread에 전달",
             "RDG에서 module pass와 vertex-factory 출력을 합성"
         ],
         "troubleshooting": {
             "phase_stability": {
                 "title": "모션 노이즈로 잘못된 phase 전이가 발생",
-                "problem": "한 프레임의 급격한 값 변화가 phase를 뒤집거나 충분한 근거 없이 Anticipation을 시작할 수 있었습니다.",
+                "problem": "한 프레임의 급격한 값 변화만으로 움직임 추세가 형성되기 전에 Phase가 뒤집히거나 Anticipation이 시작될 수 있었습니다.",
                 "root_cause": "단순 에너지 임계값에는 추세 이력, 확인 시간, 취소 상태가 포함되지 않았습니다.",
-                "solution": "adaptive trend smoothing, evidence duration, phase별 guard, cycle history를 함께 적용했습니다.",
+                "solution": "Adaptive Trend Smoothing, 확인 시간, Phase별 Guard, Cycle History를 함께 적용했습니다.",
                 "result": "결정적 테스트에서 16ms 고에너지 샘플은 강도 0의 Anticipation 경계에 유지되고, 32ms 확인 샘플에서 Action으로 전환됩니다."
             },
             "region_ownership": {

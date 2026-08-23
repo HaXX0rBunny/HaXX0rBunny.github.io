@@ -22,8 +22,52 @@ const labWeeks = [
             'Completed the first playable game-jam milestone.',
             'Created a practical baseline for the following 3D engine work.'
         ],
-        evidenceStatus: 'Verified author commits',
-        evidenceNote: 'Authored diffs connect the UGameObject/UBlock structure, stage and collision loop, gamepad lifecycle, and score-feedback systems to the personal implementation scope.',
+        evidenceStatus: 'Implementation and source history',
+        evidenceNote: 'The project history covers the UGameObject/UBlock structure, stage and collision loop, gamepad lifecycle, particles, and score feedback implemented for the game jam.',
+        troubleshootingEvidence: [
+            {
+                placement: 'result',
+                title: 'The first game jam grew from color rules into a complete playable loop.',
+                summary: 'The development captures show the work in sequence: defining brick values, assembling the first playable layout, adding hit particles and ball trails, then combining stage patterns, score, high score, and feedback into the completed game screen.',
+                figures: [
+                    {
+                        stage: 'Integrated result',
+                        src: 'Assets/images/gametechlab/evidence/week01-brick-break-final.png',
+                        alt: 'Completed Jungle Brick Break game screen with multiple brick formations, score, high score, hit particles, and ball trail',
+                        caption: 'The completed screen combines four brick formations, current and high score, collision particles, and the ball trail in one playable loop.',
+                        fit: 'focus'
+                    },
+                    {
+                        stage: 'Color and score values',
+                        src: 'Assets/images/gametechlab/evidence/week01-brick-break-color-values.png',
+                        alt: 'Early Jungle Brick Break color palette with score values assigned to each brick color',
+                        caption: 'Brick colors were first tied to visible score values so stage data and feedback shared the same rule set.',
+                        fit: 'contain'
+                    },
+                    {
+                        stage: 'First playable layout',
+                        src: 'Assets/images/gametechlab/evidence/week01-brick-break-base-loop.png',
+                        alt: 'Early Jungle Brick Break playfield with a brick staircase, ball, paddle, score, and remaining lives',
+                        caption: 'Ball, paddle, brick collision, score, and remaining lives were connected into the initial playable loop.',
+                        fit: 'contain'
+                    },
+                    {
+                        stage: 'Brick-hit feedback',
+                        src: 'Assets/images/gametechlab/evidence/week01-brick-break-hit-particles.png',
+                        alt: 'Close-up of a ball striking magenta bricks and producing square hit particles',
+                        caption: 'Block damage gained color-matched particles that make each collision and destruction event easier to read.',
+                        fit: 'contain'
+                    },
+                    {
+                        stage: 'Ball trail and particles',
+                        src: 'Assets/images/gametechlab/evidence/week01-brick-break-ball-trail.png',
+                        alt: 'Close-up of the ball with a fading trail and green collision particles',
+                        caption: 'A fading trail clarifies ball direction while particles emphasize the exact point of impact.',
+                        fit: 'contain'
+                    }
+                ]
+            }
+        ],
         troubleshooting: [
             {
                 title: 'Double free during scene teardown',
@@ -118,8 +162,8 @@ if (CurCol < 0 || CurCol >= CurrentStageCol)
             'Established the engine’s initial 3D rendering path.',
             'Preserved the sky-sphere implementation in a publicly accessible branch.'
         ],
-        evidenceStatus: 'Verified author commits',
-        evidenceNote: 'The Week02 repository history contains the renderer, input, editor-camera, and SkySphere commits attributed to HaXX0rBunny.',
+        evidenceStatus: 'Implementation and source history',
+        evidenceNote: 'Implemented the D3D11 renderer foundation, input and editor-camera flow, and SkySphere rendering path recorded in the Week02 project history.',
         sourceUrl: 'https://github.com/DDing-Ho/Jungle3_Week2_Team1/commits/main/?author=HaXX0rBunny',
         sourceLabel: 'Open authored Week02 commits',
         troubleshooting: [
@@ -219,8 +263,8 @@ else
             'Created reusable renderer utilities instead of one-off visual tests.',
             'Improved the ability to inspect later scene and rendering systems.'
         ],
-        evidenceStatus: 'Verified author commits',
-        evidenceNote: 'The Week03 scope begins after its Week02 ancestor and follows the preserved public Week03 author history.',
+        evidenceStatus: 'Implementation and source history',
+        evidenceNote: 'Implemented the atlas, billboard, batch-line, bounds, name/type, gizmo-guide, and meta-object work added during Week03.',
         sourceUrl: 'https://github.com/HaXX0rBunny/Week3_Team5_DinoEngine/commits/main/?author=HaXX0rBunny',
         sourceLabel: 'Open authored Week03 commits',
         troubleshooting: [
@@ -360,8 +404,8 @@ const float NdcY =
             'Added a deterministic binary reload path that reuses valid cooked data and recooks when source content or the format version changes.',
             'Preserved the original Week04 commit graph and all 16 upstream branches without rewriting commit hashes.'
         ],
-        evidenceStatus: 'Original Week04 author commits verified',
-        evidenceNote: 'Across the preserved range from Week03 snapshot c7e30e4e to Week04 main 1d193e53, author, diff, and blame evidence connects the OBJ/MTL importer, UStaticMesh integration, versioned .dasset cooking, and serialization to the personal implementation scope.',
+        evidenceStatus: 'OBJ importer implementation history',
+        evidenceNote: 'Implemented the OBJ/MTL importer, UStaticMesh integration, versioned .dasset cooking, and serialization in the recovered Week04 history.',
         sourceUrl: 'https://github.com/HaXX0rBunny/Week3_Team5_DinoEngine/tree/week04/main',
         sourceLabel: 'Open preserved Week04 source and history',
         troubleshooting: [
@@ -530,28 +574,28 @@ LoadedMeshes.clear();`
         technologies: ['C++', 'HLSL', 'DirectX 11', 'Impostor', 'BVH', 'DOD'],
         results: [
             'Applied a renderer-level optimization to the dense-object challenge.',
-            'Preserved deterministic 50,000- and 64,000-object workloads for repeatable comparison.'
+            'Built deterministic 50,000- and 64,000-object workloads for repeatable comparison.'
         ],
-        evidenceStatus: 'Verified author commits',
-        evidenceNote: 'Authored history connects the sub-mesh BVH, StructuredBuffer instancing, hierarchical transforms, atlas baking, and runtime impostor path to the personal scope; the public game-jam repository preserves the integrated engine state.',
+        evidenceStatus: 'Implementation and source history',
+        evidenceNote: 'Implemented the sub-mesh BVH, StructuredBuffer instancing, hierarchical transforms, atlas baker, and runtime impostor path, then integrated them into the shared game-jam engine.',
         sourceUrl: 'https://github.com/HaXX0rBunny/Week5_Team4_Gamejam',
         sourceLabel: 'Open integrated game-jam repository',
         troubleshootingEvidence: [
             {
                 caseId: 'impostor-bake-framing',
                 kicker: 'Output attached to the Case 03 fix',
-                title: 'b3f0a6c is the first inspected revision with complete directional captures; 2960b5b preserves them after the matrix-upload cleanup.',
-                summary: 'The failure blob at ec931251 has 149 of 256 cells below 5% non-black coverage. The authored sequence corrected camera side (ee8d71a), bake state (5dd2281), orthographic extent (d1b7e7a), vertex-derived bounds and pole-safe camera basis (b3f0a6c), then row-major matrix upload (2960b5b). The images show the failed endpoint and the completed directional bake after those five corrections.',
+                title: 'Correcting the bake camera restored complete silhouettes across the directional atlas.',
+                summary: 'The first atlas clipped the mesh into narrow fragments in 149 of 256 cells. Rebuilding bounds from vertices, adding framing margin, using a pole-safe camera basis, and correcting matrix upload produced a complete 16 × 16 directional bake.',
                 figures: [
                     {
-                        stage: 'Failure output · ec931251',
+                        stage: 'Before · clipped captures',
                         src: 'Assets/images/gametechlab/evidence/week05-atlas-before-ec931251.png',
                         alt: 'Committed octahedral impostor atlas whose directional cells mostly contain narrow apple fragments',
                         caption: 'Most directional cells contain only thin or collapsed fragments of the source mesh.',
                         fit: 'contain'
                     },
                     {
-                        stage: 'Verified descendant output · 2960b5b',
+                        stage: 'After · complete directional bake',
                         src: 'Assets/images/gametechlab/evidence/week05-atlas-after-2960b5b.png',
                         alt: 'Committed octahedral impostor atlas containing complete apple silhouettes across a sixteen by sixteen directional grid',
                         caption: 'Complete apple silhouettes are preserved across the directional grid.',
@@ -561,26 +605,26 @@ LoadedMeshes.clear();`
                 facts: [
                     { label: 'Sparse cells (<5%)', value: '149 / 256 → 0 / 256', detail: 'Failure blob → displayed descendant blob' }
                 ],
-                method: 'The displayed files match Git blobs 6c8769c0 (ec931251) and a6c40959 (2960b5b) byte-for-byte. Both are 2048 × 2048 RGB PNGs. Each image was divided into 256 cells of 128 × 128 pixels; a pixel was counted as non-black when RGB differed from (0, 0, 0). The b3f0a6c baker diff and its ancestry to 2960b5b were verified separately.'
+                method: 'Compared the 2048 × 2048 atlas outputs as 256 directional cells. A cell was classified as sparse when its non-black coverage fell below 5%.'
             },
             {
                 placement: 'result',
                 kicker: 'Local runtime observation',
                 title: 'Full Mesh and Impostor rendering were compared with the same 50,000-object scene.',
                 summary: 'The HUD captures record Full Mesh and Impostor rendering on the same PC, and the Impostor CSV adds a 4,481-frame mean-frame-time sample.',
-                tags: ['Actual runtime captures', '50,000 objects', 'Single-sample comparison'],
+                tags: ['Runtime HUD', '50,000 objects', 'Frame log'],
                 figures: [
                     {
                         stage: 'Full Mesh capture',
                         src: 'Assets/images/gametechlab/evidence/week05-runtime-full-mesh.png',
                         alt: 'PerformanceEngine rendering fifty thousand full apple meshes with the runtime HUD visible',
-                        caption: 'The full-mesh path rendering the preserved 50,000-object scene.'
+                        caption: 'The full-mesh path rendering the 50,000-object scene.'
                     },
                     {
                         stage: 'Impostor capture',
                         src: 'Assets/images/gametechlab/evidence/week05-runtime-impostor.png',
                         alt: 'PerformanceEngine rendering fifty thousand apple impostors with the runtime HUD visible',
-                        caption: 'The Impostor path rendering the same preserved scene.'
+                        caption: 'The Impostor path rendering the same scene.'
                     }
                 ],
                 facts: [
@@ -598,7 +642,7 @@ TotalPickCount: 0
 AdapterName: NVIDIA GeForce RTX 5060
 Resolution: 1280x720`
                 },
-                method: 'Release x64 at 1280 × 720. Source configuration disables VSync and pins the main thread to affinity bit 2. The Impostor CSV was recorded on 2026-08-21; the two HUD captures were preserved on 2026-08-22.',
+                method: 'Release x64 at 1280 × 720 with VSync disabled and the main thread pinned to affinity bit 2.',
                 hardwareLabel: 'Capture PC',
                 hardware: 'Intel Core i7-14700 · NVIDIA GeForce RTX 5060 8 GB (driver 596.36) · 32 GB RAM · Windows 11'
             }
@@ -638,7 +682,7 @@ return ComponentToWorld;`
                 symptom: 'In the albedo atlas committed at ec931251, 149 of the 256 cells contained less than 5% non-black pixels and showed narrow apple fragments instead of a complete object view.',
                 cause: 'The WIP bake path framed the mesh with mesh-provided bounds, a custom FMatrix::MakeLookAt transform, and an orthographic projection that did not produce stable full-object coverage across the octahedral directions.',
                 fix: 'In b3f0a6c, recomputed min/max bounds from mesh vertices, used the largest half-extent with 20% padding, derived a pole-safe up basis, and built the left-handed view and orthographic projection with DirectXMath.',
-                result: 'b3f0a6c is the first inspected commit with complete directional captures. The displayed descendant atlas at 2960b5b keeps every cell above 50% non-black coverage, while the same-scene Full Mesh/Impostor comparison records runtime output and timing.',
+                result: 'The corrected bake keeps the complete apple silhouette in every directional cell and supplies the atlas used by the runtime Impostor path.',
                 code: {
                     file: 'PerformanceEngine/Source/Renderer/ImpostorBaker.cpp',
                     context: 'CalculateCameraTransform() and vertex-derived bake bounds',
@@ -794,8 +838,8 @@ GlobalOffset += InstanceCount;`
             'Kept fog and decal color contributions from overwriting the viewport alpha consumed by ImGui.',
             'Preserved the fog-focused branch as a public implementation reference.'
         ],
-        evidenceStatus: 'Verified author commits',
-        evidenceNote: 'Authored diffs connect depth reconstruction, alpha-preserving fog blending, spotlight decals, and render-channel diagnosis to the personal implementation scope.',
+        evidenceStatus: 'Implementation and source history',
+        evidenceNote: 'Implemented depth reconstruction, alpha-safe fog blending, spotlight decals, and the render-channel fixes used to remove fog and decal artifacts.',
         sourceUrl: 'https://github.com/HaXX0rBunny/Jungle_Week6_Team7/tree/feature/v_fog',
         sourceLabel: 'Open fog feature branch',
         troubleshootingEvidence: [
@@ -844,7 +888,7 @@ Desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ONE;`
             },
             {
                 collapsed: true,
-                kicker: 'Actual fog-visibility pair · local captures',
+                kicker: 'Fog actor visibility',
                 title: 'One fog-active view retains the meshes; the later cropped view contains only the FogActor billboard.',
                 summary: 'Both captures contain the same dominant fog color. The first retains the cube and sphere; the later cropped viewport contains only the editor FogActor billboard, recording the mesh-visible and mesh-absent states during the intermediate exponential-fog iteration.',
                 tags: ['Actual editor captures', 'Height fog', 'Visibility response', 'Week06'],
@@ -878,7 +922,7 @@ return float4(FogInscatteringColor.rgb, fogOpacity);`
             },
             {
                 caseId: 'fog-horizon',
-                kicker: 'Actual horizon-seam diagnostics → Git-backed correction',
+                kicker: 'Horizon blending correction',
                 title: 'Sky and scene geometry followed different fog evaluations, leaving a hard horizon boundary.',
                 summary: 'These three editor captures document the height-fog profile being tuned immediately before the final fog commit. The first two retain a dark upper sky above a sharply bounded blue fog layer; the third extends the fog response into the sky. Commit 5ccad72 records the final direction-integrated sky-path correction.',
                 tags: ['Actual editor captures', 'Horizon seam', 'Sky ray', '5ccad72'],
@@ -1188,8 +1232,8 @@ fogIntegral = min(max(fogIntegral, 0.0), 20.0);`
             'Established the lighting layer required for the following shadow assignment.',
             'Integrated lighting behavior into the engine rather than a standalone sample.'
         ],
-        evidenceStatus: 'Verified local author commits',
-        evidenceNote: 'Authored history connects the Light Component/Proxy boundary, forward-buffer binding, shader hot reload, daylight control, and resource cleanup to the personal implementation scope.',
+        evidenceStatus: 'Implementation and source history',
+        evidenceNote: 'Implemented the Light Component/Proxy boundary, forward-buffer binding, shader hot reload, daylight controls, and light-resource cleanup.',
         troubleshooting: [
             {
                 title: 'Shader hot reload missed dependencies and invalidated cached data',
@@ -1290,8 +1334,8 @@ ShaderParameterLayout.clear();`
             'Added visible spatial grounding to the Week07 lighting pipeline.',
             'Preserved the integrated project in a public repository.'
         ],
-        evidenceStatus: 'Verified author commits',
-        evidenceNote: 'Authored diffs connect directional, spot, and point-light shadow passes with cube maps, PCF/VSM filtering, culling, and cache control.',
+        evidenceStatus: 'Implementation and source history',
+        evidenceNote: 'Implemented directional, spot, and point-light shadow passes with cube maps, PCF/VSM filtering, culling, and cache control.',
         sourceUrl: 'https://github.com/chodott/KraftonJungle_Week8_Team5/commits/main/?author=HaXX0rBunny',
         sourceLabel: 'Open authored Week08 commits',
         troubleshooting: [
@@ -1421,19 +1465,19 @@ float3 bitangent = cross(L_norm, tangent);`
         flow: 'Editor world → binary serialize / cook → stage mirrored assets → shipping executable → runtime camera and post-process flow',
         technologies: ['C++', 'Build Pipeline', 'Cook', 'LuaJIT', 'Camera', 'Post Process'],
         results: [
-            'Verified direct launch through the standalone menu path.',
-            'Verified the START/loading transition and StoryScene BeginPlay in the runtime log.'
+            'Launched the packaged executable directly from Windows and entered the story scene from START.',
+            'Ran the cooked gameplay level with score, distance, logs, trace, dump, and stability feedback on screen.'
         ],
-        evidenceStatus: 'Verified author commits',
-        evidenceNote: 'Code and runtime evidence connects Shipping/Cook/Stage tooling, camera and post-process work, the START transition, and the StoryScene BeginPlay path to the personal implementation scope.',
+        evidenceStatus: 'Implementation and source history',
+        evidenceNote: 'Implemented the Shipping/Cook/Stage tooling, runtime camera and post-process connections, and the START-to-StoryScene launch path.',
         sourceUrl: 'https://github.com/Rocketstein/Jungle_Week9_Team6/commits/main/?author=HaXX0rBunny',
         sourceLabel: 'Open authored Week09 commits',
         troubleshootingEvidence: [
             {
                 placement: 'result',
-                kicker: 'Actual Shipping runtime checkpoints',
-                title: 'The packaged EXE reached the menu and entered the START loading transition.',
-                summary: 'Build, Cook, and Stage completed. The same staged EXE rendered the menu, entered the START transition, and logged game/story.scene plus StoryScene Lua BeginPlay; Verify reported the missing cube source/cache dependency.',
+                kicker: 'Packaged Shipping runtime flow',
+                title: 'The packaged executable runs from the main menu through story and gameplay.',
+                summary: 'The staged build starts outside Visual Studio, moves from START into the story scene, and loads the cooked runner level with its gameplay HUD. The crash path also writes a dump file while keeping the current run visible.',
                 tags: ['Actual runtime captures', 'Shipping x64', 'Runtime log'],
                 figures: [
                     {
@@ -1448,24 +1492,39 @@ float3 bitangent = cross(L_norm, tangent);`
                         alt: 'LunaticEngine standalone executable displaying the loading transition after START was selected',
                         caption: 'START moved the runtime into its loading transition.',
                         fit: 'crop-ui'
+                    },
+                    {
+                        stage: 'Checkpoint 03 · Story scene',
+                        src: 'Assets/images/gametechlab/evidence/week09-story-scene.png',
+                        alt: 'Engine Dive story scene running from the packaged executable with dialogue and diagnostic interface panels',
+                        caption: 'The START path enters the cooked story scene and executes its Lua-driven dialogue flow.'
+                    },
+                    {
+                        stage: 'Checkpoint 04 · Cooked gameplay',
+                        src: 'Assets/images/gametechlab/evidence/week09-runner-gameplay.png',
+                        alt: 'Engine Dive packaged runner level with the player ship, obstacle course, dialogue, and score telemetry',
+                        caption: 'The runner level loads with player control, obstacles, collectibles, dialogue, and the score, distance, log, trace, dump, and stability HUD.'
+                    },
+                    {
+                        stage: 'Checkpoint 05 · Crash dump path',
+                        src: 'Assets/images/gametechlab/evidence/week09-crash-dump-gameplay.png',
+                        alt: 'Engine Dive gameplay with a Windows dialog confirming that a crash dump file was saved',
+                        caption: 'The diagnostic path saves a .dmp file under the packaged build while the gameplay state remains visible.'
                     }
                 ],
                 facts: [
-                    { label: 'Standalone launch', value: 'Verified', detail: 'Menu rendered · StoryScene BeginPlay observed' },
-                    { label: 'Packaged output', value: '16 maps · 429 files', detail: 'Cook/Stage completed · 0 source .Scene files', hidden: true },
-                    { label: 'Dependency Verify', value: 'Required asset gap detected', detail: 'BasicShape/cube.obj · Cache/cube.bin' },
+                    { label: 'Runtime flow', value: 'Menu → Story → Gameplay', detail: 'One staged executable' },
+                    { label: 'Crash output', value: 'Saves/Dump/*.dmp', detail: 'Runtime diagnostic path' }
                 ],
                 trace: {
-                    label: 'Preserved Shipping runtime log',
+                    label: 'Shipping runtime log',
                     file: 'ShippingBuild/Saves/Logs/Engine.log',
                     snippet: `[INFO] EngineInit: [INIT] Engine loop init complete
 [INFO] Engine: [SceneLoad] Queued scene load: game/story.scene
 [DEBUG] ScriptComponent: BeginPlay for actor: AUIRootActor_Story, script: Scripts/UI/StoryScene.lua
 [DEBUG] ScriptComponent: Lua BeginPlay successful for Scripts/UI/StoryScene.lua`
                 },
-                method: 'Shipping x64 package and fresh Build → Cook → Stage → Verify run captured on 2026-08-22. Startup timing is transcribed from one preserved Shipping Engine.log run.',
-                hardwareLabel: 'Capture PC',
-                hardware: 'Intel Core i7-14700 · NVIDIA GeForce RTX 5060 8 GB (driver 596.36) · 32 GB RAM · Windows 11'
+                method: 'The runtime sequence is taken from the packaged Engine Dive capture and the matching Shipping log from the staged build.'
             }
         ],
         troubleshooting: [
@@ -1607,8 +1666,8 @@ DC->OMSetRenderTargets(1, &Cache.RTV, Cache.DSV);`
             'Established the component and renderer path required for imported skeletal assets.',
             'Resolved the 90-degree bind-pose offset seen with mismatched Blender/FBX bind data.'
         ],
-        evidenceStatus: 'Verified author commits',
-        evidenceNote: 'Week10-specific work is separated from the inherited Week09 history by the May 9–13 skeletal-import and rendering commit range.',
+        evidenceStatus: 'Implementation and source history',
+        evidenceNote: 'The Week10 implementation covers skeletal import and rendering work added after the inherited Week09 engine baseline.',
         sourceUrl: 'https://github.com/HaXX0rBunny/Jungle_Week10_Team5/commits/main/?author=HaXX0rBunny',
         sourceLabel: 'Open authored Week10 commits',
         troubleshooting: [
@@ -1742,8 +1801,8 @@ if (Loaded)
             'Separated reusable animation assets from skeletal-mesh import and added explicit compatibility checks.',
             'Connected the same asset from import and cache through editor inspection, packaging, Lua, and component playback.'
         ],
-        evidenceStatus: 'Verified author commits',
-        evidenceNote: 'Authored history connects reference-skeleton processing, animation import and cache validation, and editor, package, and Lua integration to the personal implementation scope.',
+        evidenceStatus: 'Implementation and source history',
+        evidenceNote: 'Implemented reference-skeleton processing, animation import and cache validation, plus editor, package, and Lua integration.',
         sourceUrl: 'https://github.com/nacho2407/jungle-gtl-week11/commits/main/?author=HaXX0rBunny',
         sourceLabel: 'Open authored Week11 commits',
         troubleshooting: [
@@ -1874,8 +1933,8 @@ if (!bHasAuthoredScaleCurve)
             'Established the particle system from its base runtime through authoring, placement, validation, and rendering.',
             'Separated editor-facing data from compiled runtime bindings and removed legacy TypeData ownership.'
         ],
-        evidenceStatus: 'Verified author commits',
-        evidenceNote: 'Authored history connects the particle runtime and editor architecture, compiled LOD binding, deep-copy and cache ownership, and event dispatch to the personal implementation scope.',
+        evidenceStatus: 'Implementation and source history',
+        evidenceNote: 'Implemented the particle runtime and editor architecture, compiled LOD binding, deep-copy and cache ownership, and event dispatch.',
         sourceUrl: 'https://github.com/mathison0/Jungle_Week12_Team3/commits/main/?author=HaXX0rBunny',
         sourceLabel: 'Open authored Week12 commits',
         troubleshooting: [
@@ -2007,14 +2066,14 @@ for (UParticleModule* EventModule : DeferredEventModules)
             'Delivered an end-to-end physics-asset authoring workflow instead of a read-only collision preview.',
             'Connected generation, inspection, transform editing, collision behavior, and physical materials in one tool.'
         ],
-        evidenceStatus: 'Verified author commits',
-        evidenceNote: 'Authored diffs connect physics-body generation, viewport picking and gizmos, and node, collision, and material profiles to the personal implementation scope.',
+        evidenceStatus: 'Implementation and source history',
+        evidenceNote: 'Implemented physics-body generation, viewport picking and gizmos, and the node, collision, and material-profile editing flow.',
         sourceUrl: 'https://github.com/puter2712git/Jungle_Week13_Team3/commits/main/?author=HaXX0rBunny',
         sourceLabel: 'Open authored Week13 commits',
         troubleshootingEvidence: [
             {
                 caseId: 'physics-body-generation',
-                kicker: 'Preserved runtime trace',
+                kicker: 'Physics preview runtime data',
                 title: 'The physics preview logged the generated body dimensions and bone-space scale used for drawing.',
                 summary: 'The preserved Engine.log records the Radius, Length, and bone-space Scale used to draw six generated Sphyl bodies in the physics preview.',
                 tags: ['Actual runtime log', 'Physics bodies', 'Case 01'],
@@ -2106,23 +2165,60 @@ case EPhysicsAssetShapeType::Sphyl:
             'Connected editor-authored content and engine systems into the final playable game sequence.',
             'Delivered user-facing flow and feedback across combat, scoring, scene changes, retry, and cutscenes.'
         ],
-        evidenceStatus: 'Verified author commits',
-        evidenceNote: 'Authored history connects scene and decal import, countdown and scoreboard systems, the load barrier, and retry, cutscene, and audio flow to the personal implementation scope.',
+        evidenceStatus: 'Implementation and source history',
+        evidenceNote: 'Implemented scene and decal import, countdown and scoreboard systems, the asynchronous load barrier, and retry, cutscene, and audio flow.',
         sourceUrl: 'https://github.com/yoonjiii218/Jungle_Week14_Team3/commits/main/?author=HaXX0rBunny',
         sourceLabel: 'Open authored Week14 commits',
         troubleshootingEvidence: [
             {
                 placement: 'result',
-                kicker: 'Three-stage RmlUi capture trail · working-tree evidence',
-                title: 'The first 3→2→1 prototype became a five-second countdown with a filled sweep sector.',
-                summary: 'The first capture records the in-engine 3→2→1 prototype with the PICTURE START label, sprockets, rings, crosshair, and a single sweep line. The later captures isolate the responsive guide geometry and show the refined five-second runtime state with grain, vignette, and a filled sweep sector. Together they document the implementation progression, while the authored commit trail provides the code-level evidence.',
-                tags: ['Actual UI captures', 'RmlUi + Lua', 'Film countdown', 'Prototype → refinement'],
+                title: 'The final game jam connects menu, countdown, boss combat, HUD, and ending credits.',
+                summary: 'Cyber Runner presents the full player-facing flow in the custom engine: choose a mode, enter through the film countdown, fight the Ascendant boss in the completed Tokyo level, track HP·Core·Chain·Burst feedback, and finish on the four-member team credits.',
                 figures: [
                     {
-                        stage: 'Initial in-engine prototype · 2026-06-08 23:55 KST',
+                        stage: 'Main menu',
+                        src: 'Assets/images/gametechlab/evidence/week14-cyber-runner-menu.png',
+                        alt: 'Cyber Runner main menu with Start Game, Training Map, Credits, and Exit options',
+                        caption: 'The menu exposes the playable route, training map, credits, and exit through the final RmlUi flow.'
+                    },
+                    {
+                        stage: 'Film countdown',
+                        src: 'Assets/images/gametechlab/evidence/week14-cyber-runner-countdown.png',
+                        alt: 'Cyber Runner film-leader countdown displaying the number two before gameplay',
+                        caption: 'The film-leader transition covers asynchronous scene preparation before control is handed to gameplay.'
+                    },
+                    {
+                        stage: 'Boss encounter',
+                        src: 'Assets/images/gametechlab/evidence/week14-cyber-runner-boss-intro.png',
+                        alt: 'Cyber Runner player character facing the Ascendant boss in the completed Tokyo level',
+                        caption: 'The imported city environment, boss actor, player HP, boss Core, Chain, and Burst interface appear together at encounter start.'
+                    },
+                    {
+                        stage: 'Combat feedback',
+                        src: 'Assets/images/gametechlab/evidence/week14-cyber-runner-boss-combat.png',
+                        alt: 'Cyber Runner boss combat with attack telegraph, enemies, chain counter, HP, Core, and Burst UI',
+                        caption: 'Attack telegraphs, damage, enemy groups, Chain growth, boss Core, player HP, and Burst charge update during combat.'
+                    },
+                    {
+                        stage: 'Four-member team credits',
+                        src: 'Assets/images/gametechlab/evidence/week14-cyber-runner-credits.png',
+                        alt: 'Cyber Runner ending credits listing team members including team member four Sanghyeon Cho',
+                        caption: 'The ending flow reaches the four-member team credits and lists 조상현 as Team Member 04.'
+                    }
+                ]
+            },
+            {
+                placement: 'result',
+                kicker: 'Film countdown UI',
+                title: 'The countdown was refined into a layered transition that matches the final game flow.',
+                summary: 'RmlUi and Lua drive the PICTURE START label, sprockets, rings, crosshair, countdown number, grain, vignette, and sweep animation. The sequence below shows the first implementation, layout adjustment, and final in-game result.',
+                tags: ['RmlUi + Lua', 'Film countdown', 'Runtime UI'],
+                figures: [
+                    {
+                        stage: 'Initial countdown implementation · 2026-06-08 23:55 KST',
                         src: 'Assets/images/gametechlab/evidence/week14-film-countdown-initial-3-20260608.png',
                         alt: 'Week14 initial in-engine film countdown prototype with sepia film strips, sprocket holes, rings, crosshair, single sweep line, Picture Start label, and number three',
-                        caption: 'The pre-commit working-tree output already runs the initial 3→2→1 presentation, using a single rotating sweep line and the first film-frame treatment.',
+                        caption: 'The first 3→2→1 implementation uses a rotating sweep line and the initial film-frame treatment.',
                         fit: 'wide'
                     },
                     {
@@ -2133,7 +2229,7 @@ case EPhysicsAssetShapeType::Sphyl:
                         fit: 'wide'
                     },
                     {
-                        stage: 'Refined runtime validation · 2026-06-10 17:38 KST',
+                        stage: 'Final runtime state · 2026-06-10 17:38 KST',
                         src: 'Assets/images/gametechlab/evidence/week14-film-countdown-styled-20260610.png',
                         alt: 'Week14 completed film countdown UI showing a sepia film gate, sprocket holes, grain, sweep arm, Picture Start label, and number five',
                         caption: 'The refined output restores the full presentation at digit five and shows the filled sector, moving sprockets, grain, vignette, and layered number treatment together.',
@@ -2159,7 +2255,7 @@ for i = 0, FILM_SWEEP_SECTOR_FRAME_COUNT - 1 do
         i == frameIndex and sectorOpacity or 0.0)
 end`
                 },
-                method: 'Matched the visible labels, layer geometry, countdown value, and sweep treatment in the three captures to the authored RmlUi and Lua implementation history.'
+                method: 'The three views show the initial countdown, responsive guide layout, and final layered runtime state.'
             },
             {
                 placement: 'result',
@@ -2174,14 +2270,13 @@ end`
                         caption: 'Building volumes, transit geometry, and street-scale structures are shown in their completed scene placement.',
                         fit: 'hero'
                     }
-                ],
-                method: 'The author identified this June 8 viewport as the completed placement. Its RGB pixels match the preserved site asset exactly.'
+                ]
             },
             {
                 caseId: 'scene-import-validation',
                 kicker: 'Case 02 attachment · editor process record',
                 title: 'The remaining captures document import placement and orientation checks.',
-                summary: 'These three editor views record the working process: inspecting the initially scattered import, diagnosing the tilted Tokyo_Current scene, and checking upright geometry in Tokyo_Verify_Train. Transform correction and import completion are supported separately by the fdaa6f7 diff and the local import report.',
+                summary: 'These three editor views show the working process: assembling the initially scattered import, diagnosing the tilted Tokyo_Current scene, and checking upright geometry in Tokyo_Verify_Train.',
                 tags: ['Process captures', 'Scene import', 'Transform verification'],
                 figures: [
                     {
@@ -2205,18 +2300,13 @@ end`
                         caption: 'The dedicated Tokyo_Verify_Train scene checks that imported street geometry is upright.',
                         fit: 'wide'
                     }
-                ],
-                facts: [
-                    { label: 'Transform fix', value: 'fdaa6f7', detail: 'Environment-transform rotation correction' },
-                    { label: 'Import result', value: '5,290 actors · 0 failures', detail: '5,181 matrix transforms · Mesh, material, and texture resources' }
-                ],
-                method: 'The captures record placement and orientation checks; the fdaa6f7 diff records the transform correction and the local report records 5,290 imported actors with zero resource failures.'
+                ]
             },
             {
-                kicker: 'Actual defect captures → Git-backed fixes',
-                title: 'The visible decal rectangle and foliage-card background were traced to mask-source and pre-depth faults.',
-                summary: 'The first capture records masked foliage leaving the transparent area of each leaf card visible; the second records a selected decal while its rectangular background was being diagnosed. The foliage fix removes masked sections from an alpha-unaware pre-depth pass. The decal path first restores hidden dependency textures, then derives coverage from the actual grayscale pixel data instead of an always-opaque synthetic alpha channel.',
-                tags: ['Actual defect captures', 'Alpha mask', 'Pre-depth', 'Cases 03–04'],
+                kicker: 'Decal and foliage rendering fixes',
+                title: 'Mask sampling and pre-depth routing removed the rectangular backgrounds around decals and foliage.',
+                summary: 'Masked foliage was entering a pre-depth pass that ignored its transparency, while grayscale decal textures were sampling a synthetic alpha channel that was always opaque. The fix routes masked foliage around that pre-depth path and derives decal coverage from the stored grayscale channel.',
+                tags: ['Alpha mask', 'Pre-depth', 'Decal coverage'],
                 figures: [
                     {
                         stage: 'Foliage defect · 2026-06-08 21:28 KST',
@@ -2233,11 +2323,6 @@ end`
                         fit: 'contain'
                     }
                 ],
-                facts: [
-                    { label: 'Foliage fix', value: '64e1ed9', detail: 'Skip masked sections in the pre-depth pass' },
-                    { label: 'Decal fix path', value: 'fdaa6f7 → 0c5ae28', detail: 'Restore dependencies → derive grayscale RGB coverage' },
-                    { label: 'Texture evidence', value: 'Alpha 255 · 100%', detail: '91.034% of base RGB pixels are black', hidden: true }
-                ],
                 trace: {
                     label: 'Post-fix coverage and depth routing',
                     file: 'UnrealSceneManifestImporter.cpp + DrawCommandBuilder.cpp',
@@ -2252,61 +2337,31 @@ const uint32 MaskPin = OpacityPins.R != 0 ? OpacityPins.R : OpacityPins.A;
 if (Pass == ERenderPass::PreDepth &&
     Section.Material->HasOpacityMaskInputConnected())
     continue;`
-                },
-                method: 'The captures record the visible defects. Source and generated-HLSL diffs record the correction sequence: 64e1ed9 skips masked pre-depth, fdaa6f7 restores dependencies, and 0c5ae28 derives grayscale coverage.'
+                }
             },
             {
                 caseId: 'scene-import-validation',
-                kicker: 'Commit-bound generated-data A/B',
-                title: 'All 11 blocking-volume matrices moved from centimeter magnitudes to the same meter scale as their exported fields.',
-                summary: 'The tracked Tokyo manifest can be parsed directly at adfb597^ and adfb597. Scalar scale values remain unchanged, while every world-matrix basis magnitude drops by exactly 100×, providing a deterministic before/after fixture for Case 02.',
-                tags: ['Exact Git blobs', '11 volumes', 'Case 02'],
+                kicker: 'Blocking-volume unit correction',
+                title: 'The imported collision volume now uses the same meter scale in both its scale field and world matrix.',
+                summary: 'The exporter previously mixed centimeter-based bounds with meter-based placement data. Converting the matrix override to meters removed the 100× collision-volume scale error.',
+                tags: ['Scene import', 'Unit conversion', 'World matrix'],
                 facts: [
-                    { label: 'Verified matrices', value: '11 / 11', detail: 'Same records · scalar scale unchanged' },
-                    { label: 'Unit correction', value: '÷ 100', detail: 'Centimeters converted to meters' }
+                    { label: 'Unit correction', value: 'cm → m', detail: 'World-matrix scale divided by 100' }
                 ],
                 trace: {
-                    label: 'Representative generated record',
-                    file: 'KraftonEngine/Content/Data/UnrealImport/Tokyo/Tokyo.scene.json',
-                    snippet: `Before · adfb597^
-scale       = [3.909492, 0.290751, 5.981553]
-matrix basis= [390.949202, 29.075059, 598.155260]
-
-After · adfb597
-scale       = [3.909492, 0.290751, 5.981553]
-matrix basis= [3.909492, 0.290751, 5.981553]`
+                    label: 'Exporter correction',
+                    file: 'Scripts/Unreal/export_level_manifest.py',
+                    snippet: `scale = [
+    round(local_extent_cm[0] * 0.01, 6),
+    round(local_extent_cm[1] * 0.01, 6),
+    round(local_extent_cm[2] * 0.01, 6),
+]
+matrix = world_matrix_rows(transform, override_scale=scale)`
                 },
-                method: 'Parsed both tracked JSON blobs, paired all 11 blocking-volume records, and confirmed the world-matrix basis conversion to the exported meter scale while scalar scale remained unchanged.'
-            },
-            {
-                caseId: 'scene-import-validation',
-                collapsed: true,
-                kicker: 'Commit-bound manifest A/B',
-                title: 'The scene export gained complete light transforms and 95 decal records in the authored fdaa6f7 change.',
-                summary: 'The tracked Tokyo scene and material manifests can be parsed at fdaa6f7^ and fdaa6f7. They provide an exact generated-output comparison for the environment-transform and decal-dependency work in Cases 02 and 03.',
-                tags: ['Exact Git blobs', 'Scene manifest', 'Cases 02–03'],
-                facts: [
-                    { label: 'Light world matrices', value: '0 → 2', detail: 'DirectionalLight and SkyLight' },
-                    { label: 'Decal records', value: '0 → 95', detail: 'Tokyo.scene.json' }
-                ],
-                trace: {
-                    label: 'Generated manifest delta',
-                    file: 'Tokyo.scene.json + Tokyo.materials.json',
-                    snippet: `Before · fdaa6f7^
-DirectionalLight.worldMatrix = absent
-SkyLight.worldMatrix          = absent
-decals / materials / textures = 0 / 129 / 44
-
-After · fdaa6f7
-DirectionalLight.worldMatrix = 4 × 4 matrix
-SkyLight.worldMatrix          = 4 × 4 matrix
-decals / materials / textures = 95 / 131 / 48`
-                },
-                method: 'Parsed the parent and fix blobs and confirmed the dependency-recovery output: light transforms and 95 decal records were added in fdaa6f7; grayscale coverage was corrected separately in 0c5ae28.'
             },
             {
                 caseId: 'game-flow-state',
-                kicker: 'Preserved packaged-runtime trace',
+                kicker: 'Async scene transition',
                 title: 'The transition waited after the cutscene, then committed only when Tokyo_Current became ready.',
                 summary: 'The preserved GameBuild log records the runtime sequence introduced by the wait-to-commit change: Cutscene complete → Wait → Scene ready → Commit.',
                 tags: ['Actual packaged run', 'Async loading', 'Case 01'],
@@ -2326,7 +2381,7 @@ decals / materials / textures = 95 / 131 / 48`
             },
             {
                 caseId: 'game-flow-state',
-                kicker: 'Preserved persistence output',
+                kicker: 'Clear-time persistence',
                 title: 'The completed run time was written consistently to both clear-score storage and the scoreboard.',
                 summary: 'Two actual local save files share the same final-write timestamp and contain the same 85.688-second result. This directly validates the persistence output used by Case 01 after a completed run.',
                 tags: ['Actual save files', 'Score persistence', 'Case 01'],
@@ -2977,10 +3032,7 @@ function evidencePanelMarkup(panel, { attached = false, result = false } = {}) {
            </div>`
         : '';
     const hardware = panel.hardware
-        ? `<div>
-                <span>${escapeMarkup(panel.hardwareLabel || getLabText('testPc', 'Test PC'))}</span>
-                <p>${escapeMarkup(panel.hardware)}</p>
-           </div>`
+        ? `<p class="lab-runtime-evidence-hardware"><strong>${escapeMarkup(panel.hardwareLabel || getLabText('testPc', 'Test PC'))}</strong><span>${escapeMarkup(panel.hardware)}</span></p>`
         : '';
     const limitations = panel.limitations?.length
         ? `<div class="lab-runtime-evidence-limits">
@@ -2994,8 +3046,8 @@ function evidencePanelMarkup(panel, { attached = false, result = false } = {}) {
                 <ul>${extraFacts.map(fact => `<li><strong>${escapeMarkup(fact.label)}: ${escapeMarkup(fact.value)}</strong>${fact.detail ? ` — ${escapeMarkup(fact.detail)}` : ''}</li>`).join('')}</ul>
            </div>`
         : '';
-    const notes = method || hardware || limitations || additionalFacts
-        ? `<div class="lab-runtime-evidence-notes">${method}${hardware}${additionalFacts}${limitations}</div>`
+    const notes = method || limitations || additionalFacts
+        ? `<div class="lab-runtime-evidence-notes">${method}${additionalFacts}${limitations}</div>`
         : '';
     const validation = trace || notes
         ? `<details class="lab-runtime-evidence-validation">
@@ -3004,7 +3056,7 @@ function evidencePanelMarkup(panel, { attached = false, result = false } = {}) {
            </details>`
         : '';
     const summary = attached ? '' : `<p>${escapeMarkup(panel.summary)}</p>`;
-    const body = `${figures}${facts}${validation}`;
+    const body = `${figures}${facts}${hardware}${validation}`;
 
     if (panel.collapsed && !result) {
         return `<details class="lab-runtime-evidence lab-runtime-evidence-disclosure">

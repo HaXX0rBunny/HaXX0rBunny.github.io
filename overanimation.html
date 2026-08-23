@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="An Unreal Engine 5.8 plug-in for reusable, camera-aware animation exaggeration through runtime response authoring and GPU mesh deformation." data-oa-key="meta.description" data-oa-attr="content">
     <title data-oa-key="meta.title">Dynamic OverAnimation · Unreal Engine GPU Mesh Deformation</title>
-    <link rel="stylesheet" href="style.css?v=20260823-overanim-troubleshooting-v2">
+    <link rel="stylesheet" href="style.css?v=20260824-project-refine">
 </head>
 <body class="overanim-page">
     <header class="lab-nav overanim-topbar">
@@ -26,7 +26,7 @@
                     <p class="section-kicker" data-oa-key="hero.kicker">KRAFTON Jungle Epic Project · DynaMax</p>
                     <h1>Dynamic<br><span>OverAnimation</span></h1>
                     <p class="overanim-hero-role" data-oa-key="hero.role">Team Lead · Motion Phase · Runtime Systems · GPU Deformation</p>
-                    <p class="overanim-hero-lede" data-oa-key="hero.lede">I implemented the analyzer, runtime arbitration, render-thread handoff, and RDG compute path that turn pose-derived motion evidence and gameplay requests into authorable deformation.</p>
+                    <p class="overanim-hero-lede" data-oa-key="hero.lede">I implemented the analyzer, runtime arbitration, render-thread handoff, and RDG compute path that turn pose-derived motion signals and gameplay requests into authorable deformation.</p>
 
                     <div class="overanim-hero-actions">
                         <a class="btn btn--primary overanim-cta" href="https://www.fab.com/listings/8d23f843-b47c-4280-aa0a-d86cb49d77af" target="_blank" rel="noopener noreferrer" data-oa-key="links.fabHref" data-oa-attr="href">
@@ -133,20 +133,20 @@
                     </article>
 
                     <article class="overanim-panel">
-                        <p class="overanim-panel-label" data-oa-key="contribution.evidenceLabel">Key Perforce change history</p>
+                        <p class="overanim-panel-label" data-oa-key="contribution.evidenceLabel">Implementation progression</p>
                         <ol class="overanim-cl-list">
-                            <li><strong>CL 170</strong><span data-oa-key="contribution.cl170">First implementation of the Motion Phase Analyzer cpp/header on the personal branch</span></li>
-                            <li><strong>CL 181</strong><span data-oa-key="contribution.cl181">Integrated the Motion Phase Analyzer into main</span></li>
-                            <li><strong>CL 186–272</strong><span data-oa-key="contribution.clPhaseFollowup">Expanded action boundaries, tempo, signals, Region ownership, routing, and preview stability</span></li>
-                            <li><strong>CL 78</strong><span data-oa-key="contribution.cl78">Response arbitration and Squash &amp; Stretch across runtime, shader, and editor</span></li>
-                            <li><strong>CL 118</strong><span data-oa-key="contribution.cl118">Runtime snapshots, contracts, composition, timing, and tests</span></li>
-                            <li><strong>CL 135</strong><span data-oa-key="contribution.cl135">Native GPU deformation passes and deterministic blending</span></li>
-                            <li><strong>CL 299</strong><span data-oa-key="contribution.cl299">Visual attachment following for deformed socket endpoints</span></li>
+                            <li><strong data-oa-key="contribution.step1">Analyzer</strong><span data-oa-key="contribution.cl170">First implementation of the Motion Phase Analyzer cpp/header on the personal branch</span></li>
+                            <li><strong data-oa-key="contribution.step2">Integration</strong><span data-oa-key="contribution.cl181">Integrated the Motion Phase Analyzer into main</span></li>
+                            <li><strong data-oa-key="contribution.step3">Stability</strong><span data-oa-key="contribution.clPhaseFollowup">Expanded action boundaries, tempo, signals, Region ownership, routing, and preview stability</span></li>
+                            <li><strong data-oa-key="contribution.step4">Runtime</strong><span data-oa-key="contribution.cl78">Response arbitration and Squash &amp; Stretch across runtime, shader, and editor</span></li>
+                            <li><strong data-oa-key="contribution.step5">Thread boundary</strong><span data-oa-key="contribution.cl118">Runtime snapshots, contracts, composition, timing, and tests</span></li>
+                            <li><strong data-oa-key="contribution.step6">GPU output</strong><span data-oa-key="contribution.cl135">Native GPU deformation passes and deterministic blending</span></li>
+                            <li><strong data-oa-key="contribution.step7">Attachments</strong><span data-oa-key="contribution.cl299">Visual attachment following for deformed socket endpoints</span></li>
                         </ol>
                     </article>
                 </div>
 
-                <p class="overanim-evidence-note" data-oa-key="contribution.note">Product direction follows the project's member-tagged planning records. Submitted Perforce authorship, descriptions, changed files, and line annotations define my implementation scope.</p>
+                <p class="overanim-evidence-note" data-oa-key="contribution.note">As team lead, I coordinated the contract between the analyzer, the shared Proxy and Vertex Factory foundation, the runtime response path, and the editor workflow.</p>
             </div>
         </section>
 
@@ -157,7 +157,7 @@
                     <div>
                         <p class="section-kicker" data-oa-key="analyzer.kicker">Core system · Motion timing</p>
                         <h2 data-oa-key="analyzer.title">Convert final-pose motion into six-stage timing signals</h2>
-                        <p data-oa-key="analyzer.lede">The Motion Phase Analyzer samples the final evaluated pose by Region and derives linear, tip, angular, acceleration, and Chain-extension evidence. Temporal confirmation, cycle history, and Region ownership turn that evidence into Phase, strength, direction, and cycle data for Response Rules.</p>
+                        <p data-oa-key="analyzer.lede">The Motion Phase Analyzer samples the final evaluated pose by Region and derives linear, tip, angular, acceleration, and Chain-extension signals. Temporal confirmation, cycle history, and Region ownership turn those signals into Phase, strength, direction, and cycle data for Response Rules.</p>
                     </div>
                 </header>
 
@@ -175,7 +175,7 @@
                 <div class="overanim-analyzer-flow" aria-label="Motion Phase Analyzer runtime flow" data-oa-key="analyzer.flowAria" data-oa-attr="aria-label">
                     <div><small data-oa-key="analyzer.flow1Label">Pose input</small><strong data-oa-key="analyzer.flow1">Final Pose Snapshot</strong></div>
                     <i aria-hidden="true">→</i>
-                    <div><small data-oa-key="analyzer.flow2Label">Region sampling</small><strong data-oa-key="analyzer.flow2">Motion evidence</strong></div>
+                    <div><small data-oa-key="analyzer.flow2Label">Region sampling</small><strong data-oa-key="analyzer.flow2">Motion signals</strong></div>
                     <i aria-hidden="true">→</i>
                     <div><small data-oa-key="analyzer.flow3Label">Time stability</small><strong data-oa-key="analyzer.flow3">Trend · confirmation</strong></div>
                     <i aria-hidden="true">→</i>
@@ -197,7 +197,7 @@
 
                 <div class="overanim-analyzer-grid">
                     <article class="overanim-panel">
-                        <p class="overanim-panel-label" data-oa-key="analyzer.inputLabel">01 · Input evidence</p>
+                        <p class="overanim-panel-label" data-oa-key="analyzer.inputLabel">01 · Motion input</p>
                         <h3 data-oa-key="analyzer.inputTitle">Measure articulation without Actor travel</h3>
                         <p data-oa-key="analyzer.inputBody">The default Skeleton-root-relative mode removes Actor movement and extracted root motion while preserving shoulder, limb, and spine articulation. Full Final Pose mode remains available when whole-body travel should drive the cycle.</p>
                     </article>
@@ -222,7 +222,7 @@
                         <h3 data-oa-key="analyzer.authoringTitle">Start from a preset, then tune the asset</h3>
                         <p data-oa-key="analyzer.authoringBody">Conservative, Balanced, and Sensitive presets set the Entry, Preparation, Action, and Settle thresholds together. Editing a threshold classifies the setting as Custom, and every change is committed to the active Deformer Asset.</p>
                         <dl>
-                            <div><dt>Conservative</dt><dd data-oa-key="analyzer.preset1">Requires stronger evidence before opening an automatic cycle.</dd></div>
+                            <div><dt>Conservative</dt><dd data-oa-key="analyzer.preset1">Requires a stronger sustained signal before opening an automatic cycle.</dd></div>
                             <div><dt>Balanced</dt><dd data-oa-key="analyzer.preset2">Starting point for authored attacks and general character motion.</dd></div>
                             <div><dt>Sensitive</dt><dd data-oa-key="analyzer.preset3">Detects smaller or slower motion with lower thresholds.</dd></div>
                             <div><dt>Custom</dt><dd data-oa-key="analyzer.preset4">Preserves manually tuned thresholds in the asset.</dd></div>
@@ -237,7 +237,7 @@
                         <dl>
                             <div><dt data-oa-key="logic.problem">Problem</dt><dd data-oa-key="analyzer.troubleProblem">A high-energy sample could cross the Action threshold on its first frame and create a deformation peak before preparation was established.</dd></div>
                             <div><dt data-oa-key="logic.cause">Cause</dt><dd data-oa-key="analyzer.troubleCause">A raw threshold decision had no temporal boundary between an Action candidate and a committed deformation peak.</dd></div>
-                            <div><dt data-oa-key="logic.change">Change</dt><dd data-oa-key="analyzer.troubleChange">The first sample opens a zero-strength Anticipation boundary. Action is committed only when the next sample confirms the evidence.</dd></div>
+                            <div><dt data-oa-key="logic.change">Change</dt><dd data-oa-key="analyzer.troubleChange">The first sample opens a zero-strength Anticipation boundary. Action is committed only when the next sample confirms continued motion.</dd></div>
                             <div><dt data-oa-key="logic.result">Result</dt><dd data-oa-key="analyzer.troubleResult">The deterministic fixture keeps the 16 ms sample in Anticipation and commits Action at 32 ms.</dd></div>
                         </dl>
                     </div>
@@ -266,7 +266,7 @@ TestEqual(TEXT("Confirmed Action"),
                 </article>
 
                 <article class="overanim-panel overanim-runtime-trace-panel">
-                    <p class="overanim-panel-label" data-oa-key="analyzer.runtimeLabel">Runtime evidence · Same Action/Cycle</p>
+                    <p class="overanim-panel-label" data-oa-key="analyzer.runtimeLabel">Runtime trace · Same Action/Cycle</p>
                     <h3 data-oa-key="analyzer.runtimeTitle">Trace the stage transitions and module release in one captured sequence</h3>
                     <p data-oa-key="analyzer.runtimeBody">The diagnostic log records OA_AttackCombo_AutoRegions, Region LeftArmAction, Action 6, and Cycle 3 from Anticipation through final module release.</p>
                     <div class="overanim-phase-trace overanim-phase-trace--runtime" aria-label="Runtime Motion Phase transition trace" data-oa-key="analyzer.runtimeTraceAria" data-oa-attr="aria-label">
@@ -288,7 +288,7 @@ TestEqual(TEXT("Confirmed Action"),
                     <div>
                         <p class="section-kicker" data-oa-key="architecture.kicker">Program architecture</p>
                         <h2 data-oa-key="architecture.title">From final-pose snapshot to vertex output</h2>
-                        <p data-oa-key="architecture.lede">The Game Thread snapshots the final evaluated pose and derives normalized motion evidence. Authored phase curves or markers take precedence over automatic phase analysis; explicit effect requests join pose-driven responses at deterministic slot arbitration. Resolved value-copy work then crosses to ordered RDG passes on the Render Thread.</p>
+                        <p data-oa-key="architecture.lede">The Game Thread snapshots the final evaluated pose and derives normalized motion signals. Authored phase curves or markers take precedence over automatic phase analysis; explicit effect requests join pose-driven responses at deterministic slot arbitration. Resolved value-copy work then crosses to ordered RDG passes on the Render Thread.</p>
                     </div>
                 </header>
 
@@ -333,7 +333,7 @@ TestEqual(TEXT("Confirmed Action"),
                     <div>
                         <p class="section-kicker" data-oa-key="logic.kicker">Core logic and troubleshooting</p>
                         <h2 data-oa-key="logic.title">Stability across time, Regions, and threads</h2>
-                        <p data-oa-key="logic.lede">The core challenge was keeping timing, ownership, and render consumption deterministic while animation evidence changed every frame.</p>
+                        <p data-oa-key="logic.lede">The core challenge was keeping timing, ownership, and render consumption deterministic while animation signals changed every frame.</p>
                     </div>
                 </header>
 
@@ -343,14 +343,14 @@ TestEqual(TEXT("Confirmed Action"),
                             <p class="overanim-panel-label" data-oa-key="logic.case1Label">Case 01 · Pose timeline</p>
                             <h3 data-oa-key="logic.case1Title">Recover from hitches without replaying stale poses</h3>
                             <dl>
-                                <div><dt data-oa-key="logic.problem">Problem</dt><dd data-oa-key="logic.case1Problem">After a frame hitch, fixed-step catch-up could replay old component-space poses as current motion evidence.</dd></div>
+                                <div><dt data-oa-key="logic.problem">Problem</dt><dd data-oa-key="logic.case1Problem">After a frame hitch, fixed-step catch-up could replay old component-space poses as current motion.</dd></div>
                                 <div><dt data-oa-key="logic.cause">Cause</dt><dd data-oa-key="logic.case1Cause">A bounded accumulator still needed a rule that compared the pose timestamp with the time at which it was consumed.</dd></div>
                                 <div><dt data-oa-key="logic.change">Change</dt><dd data-oa-key="logic.case1Change">Capped accumulated time and substeps, then reset stale, discontinuous, or teleported pose sources before rebuilding the sampling timeline.</dd></div>
                                 <div><dt data-oa-key="logic.result">Result</dt><dd data-oa-key="logic.case1Result">Current-frame signals resume from the current pose instead of a delayed backlog; pose-gap and hitch recovery are covered by regression tests.</dd></div>
                             </dl>
                         </div>
                         <div class="overanim-code-card">
-                            <div><span>OverAnimSimulationTypes.h</span><span>CL 109 · H4XX0rBunny</span></div>
+                            <div><span>OverAnimSimulationTypes.h</span><span data-oa-key="logic.case1CodeLabel">Pose lifetime guard</span></div>
                             <pre><code>const double SampleAgeSeconds =
     ConsumerTimeSeconds - SampleTimeSeconds;
 const double MaximumAgeSeconds =
@@ -369,12 +369,12 @@ return SampleAgeSeconds &gt;
                             <dl>
                                 <div><dt data-oa-key="logic.problem">Problem</dt><dd data-oa-key="logic.case2Problem">Regions with similar scores could exchange ownership on adjacent frames.</dd></div>
                                 <div><dt data-oa-key="logic.cause">Cause</dt><dd data-oa-key="logic.case2Cause">Selecting only the current maximum provided no hysteresis.</dd></div>
-                                <div><dt data-oa-key="logic.change">Change</dt><dd data-oa-key="logic.case2Change">Kept the active Region unless a challenger exceeded both the relative and absolute switching margin; phase evidence then confirms the candidate.</dd></div>
+                                <div><dt data-oa-key="logic.change">Change</dt><dd data-oa-key="logic.case2Change">Kept the active Region unless a challenger exceeded both the relative and absolute switching margin; the following phase signal then confirms the candidate.</dd></div>
                                 <div><dt data-oa-key="logic.result">Result</dt><dd data-oa-key="logic.case2Result">Small score changes preserve the active owner while decisive counter-motion can still take priority.</dd></div>
                             </dl>
                         </div>
                         <div class="overanim-code-card">
-                            <div><span>OverAnimMotionPhaseAnalyzer.cpp</span><span>CL 257 · H4XX0rBunny</span></div>
+                            <div><span>OverAnimMotionPhaseAnalyzer.cpp</span><span data-oa-key="logic.case2CodeLabel">Region switching guard</span></div>
                             <pre><code>constexpr float ChallengerRelativeAdvantage = 0.15f;
 constexpr float ChallengerAbsoluteAdvantage = 0.02f;
 const float RequiredChallengerScore = ActiveScore +
@@ -402,7 +402,7 @@ if (!bCounterMotionPriority &amp;&amp;
                             </dl>
                         </div>
                         <div class="overanim-code-card">
-                            <div><span>OverAnimDeformerTaskWorker.cpp</span><span>CL 203 · H4XX0rBunny</span></div>
+                            <div><span>OverAnimDeformerTaskWorker.cpp</span><span data-oa-key="logic.case3CodeLabel">Queued-work cancellation</span></div>
                             <pre><code>for (int32 Index = WorkItems.Num() - 1; Index &gt;= 0; --Index)
 {
     if (WorkItems[Index].ComponentId != ComponentId)
@@ -430,7 +430,7 @@ if (!bCounterMotionPriority &amp;&amp;
                             </dl>
                         </div>
                         <div class="overanim-code-card">
-                            <div><span>OverAnimComponent.cpp</span><span>CL 299 · H4XX0rBunny</span></div>
+                            <div><span>OverAnimComponent.cpp</span><span data-oa-key="logic.case4CodeLabel">Attachment offset update</span></div>
                             <pre><code>FVisualAttachmentState&amp; State =
     VisualAttachmentStates.FindOrAdd(Entry.Key);
 const FVector BaseLocation =
@@ -463,7 +463,7 @@ State.AppliedOffsetWS = NewOffsetWS;</code></pre>
                             </dl>
                         </div>
                         <div class="overanim-code-card">
-                            <div><span>OverAnimEffectRequestTypes.cpp</span><span>CL 90–103 · H4XX0rBunny</span></div>
+                            <div><span>OverAnimEffectRequestTypes.cpp</span><span data-oa-key="logic.case5CodeLabel">Deterministic arbitration</span></div>
                             <pre><code>FOverAnimEffectRequest&amp; ExistingRequest =
     OutResolvedRequests[*ExistingIndex];
 const bool bHasHigherPriority =
@@ -494,7 +494,7 @@ if (bHasHigherPriority ||
                             </dl>
                         </div>
                         <div class="overanim-code-card">
-                            <div><span>OverAnimComponent.cpp</span><span>CL 97 · H4XX0rBunny</span></div>
+                            <div><span>OverAnimComponent.cpp</span><span data-oa-key="logic.case6CodeLabel">Impact deduplication</span></div>
                             <pre><code>const bool bSameSource =
     Entry.SourceComponent.Get() == SourceComponent;
 const bool bSameRoute =
@@ -520,16 +520,15 @@ if (bSameSource &amp;&amp; bSameRoute &amp;&amp; bNearbyContact &amp;&amp;
                                 <div><dt data-oa-key="logic.problem">Problem</dt><dd data-oa-key="logic.case7Problem">The Region Blend global compute shader was not valid in the DX12 / SM6 validation path.</dd></div>
                                 <div><dt data-oa-key="logic.cause">Cause</dt><dd data-oa-key="logic.case7Cause">The shader source began with parameter declarations without importing Unreal's platform root definitions.</dd></div>
                                 <div><dt data-oa-key="logic.change">Change</dt><dd data-oa-key="logic.case7Change">Added the engine Platform include at the shader entry file, leaving the existing FRegionBlendCS registration and RDG dispatch path intact.</dd></div>
-                                <div><dt data-oa-key="logic.result">Result</dt><dd data-oa-key="logic.case7Result">The preserved validation log records FRegionBlendCS compiling under forced DX12 / SM6 and the validation process exiting successfully.</dd></div>
+                                <div><dt data-oa-key="logic.result">Result</dt><dd data-oa-key="logic.case7Result">FRegionBlendCS compiles under DX12 / SM6 and continues through the existing RDG dispatch path.</dd></div>
                             </dl>
                         </div>
                         <div class="overanim-code-card">
-                            <div><span>RegionBlendShader.usf</span><span>CL 90 · H4XX0rBunny</span></div>
+                            <div><span>RegionBlendShader.usf</span><span data-oa-key="logic.case7CodeLabel">Platform shader include</span></div>
                             <pre><code>#include "/Engine/Public/Platform.ush"</code></pre>
                         </div>
                     </article>
                 </div>
-                <p class="overanim-evidence-note" data-oa-key="logic.evidenceNote">Code excerpts come from submitted Perforce depot revisions, with line-level authorship mapped through <code>p4 annotate -c -u</code>.</p>
             </div>
         </section>
 
@@ -538,7 +537,7 @@ if (bSameSource &amp;&amp; bSameRoute &amp;&amp; bNearbyContact &amp;&amp;
                 <header class="overanim-section-heading">
                     <span>06</span>
                     <div>
-                        <p class="section-kicker" data-oa-key="validation.kicker">Execution evidence</p>
+                        <p class="section-kicker" data-oa-key="validation.kicker">Runtime result</p>
                         <h2 data-oa-key="validation.title">Configured Asset Editor and automated validation</h2>
                         <p data-oa-key="validation.lede">The phase frames explain the authored deformation, while the Asset Editor captures show the visible silhouette change from the base motion preview to the OverAnimation result.</p>
                     </div>
@@ -592,11 +591,11 @@ if (bSameSource &amp;&amp; bSameRoute &amp;&amp; bNearbyContact &amp;&amp;
                 <div class="overanim-validation-grid">
                     <article class="overanim-validation-result">
                         <span>Editor</span>
-                        <div><strong data-oa-key="validation.testTitle">Asset authoring and Result preview</strong><p data-oa-key="validation.testBody">Configured the preview mesh, animation, Bone Groups, Module Stack, and Response Rules, then inspected the deformation in Result mode.</p></div>
+                        <div><strong data-oa-key="validation.testTitle">Author and inspect the result in one editor</strong><p data-oa-key="validation.testBody">Configure the preview mesh, animation, Bone Groups, Module Stack, and Response Rules, then verify the authored deformation directly in Result mode.</p></div>
                     </article>
                     <article class="overanim-panel">
-                        <p class="overanim-panel-label" data-oa-key="validation.boundaryLabel">Runtime regression</p>
-                        <p data-oa-key="validation.boundaryBody">Targeted Editor and Runtime automation checks cover Motion Phase routing, response arbitration, pose recovery, and deformer teardown.</p>
+                        <p class="overanim-panel-label" data-oa-key="validation.boundaryLabel">Runtime regression coverage</p>
+                        <p data-oa-key="validation.boundaryBody">Editor and Runtime automation repeatedly exercises phase routing, response selection, pose recovery, and deformer shutdown.</p>
                     </article>
                 </div>
             </div>
@@ -647,8 +646,8 @@ if (bSameSource &amp;&amp; bSameRoute &amp;&amp; bNearbyContact &amp;&amp;
         </div>
     </footer>
 
-    <script src="locale.js"></script>
-    <script src="overanimation.ko.js?v=20260823-contribution-copy-v2"></script>
+    <script src="locale.js?v=20260824-project-record"></script>
+    <script src="overanimation.ko.js?v=20260824-project-refine"></script>
     <script src="overanimation-localize.js"></script>
     <script src="detail-shell.js"></script>
 </body>
