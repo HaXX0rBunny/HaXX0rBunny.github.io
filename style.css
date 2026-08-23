@@ -5427,3 +5427,907 @@ html {
     .header-with-links h3 {
         margin: 0;
     }
+
+/* Dynamic OverAnimation featured project */
+.project-card--featured {
+    border-color: rgba(var(--color-primary-rgb), 0.42);
+    background:
+        radial-gradient(circle at 12% 0%, rgba(var(--color-primary-rgb), 0.12), transparent 34%),
+        linear-gradient(180deg, rgba(var(--color-primary-rgb), 0.035), var(--color-surface) 24%);
+}
+
+.project-card--featured::before {
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-primary), #9d76ff 58%, transparent 92%);
+}
+
+@media (min-width: 1000px) {
+    .project-card--featured {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: minmax(0, 1.15fr) minmax(390px, 0.85fr);
+    }
+
+    .project-card--featured .project-video {
+        min-height: 540px;
+        padding-top: 0;
+        background: #07090d;
+    }
+
+    .project-card--featured .project-cover-image {
+        object-fit: contain;
+    }
+
+    .project-card--featured .project-overview {
+        min-height: 0;
+    }
+}
+
+/* Dynamic OverAnimation detail page */
+.overanim-page {
+    --oa-accent: 96, 210, 230;
+    --oa-violet: 157, 118, 255;
+    min-width: 0;
+    background:
+        radial-gradient(circle at 86% 4%, rgba(var(--oa-violet), 0.1), transparent 23rem),
+        var(--color-background);
+    color: var(--color-text);
+}
+
+[data-color-scheme="dark"] .overanim-page {
+    --color-text-secondary: rgba(222, 232, 234, 0.72);
+}
+
+.overanim-page .container {
+    width: min(100% - 40px, 1240px);
+}
+
+.overanim-topbar {
+    background: rgba(var(--color-background-rgb), 0.88);
+    border-bottom: 1px solid var(--color-card-border);
+    backdrop-filter: blur(18px);
+}
+
+.overanim-hero {
+    padding: clamp(64px, 8vw, 112px) 0 clamp(54px, 7vw, 88px);
+    overflow: hidden;
+    position: relative;
+}
+
+.overanim-hero::before {
+    content: '';
+    position: absolute;
+    top: -20%;
+    right: -12%;
+    width: 54vw;
+    height: 54vw;
+    max-width: 780px;
+    max-height: 780px;
+    background: radial-gradient(circle, rgba(var(--oa-accent), 0.14), transparent 66%);
+    pointer-events: none;
+}
+
+.overanim-hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.92fr) minmax(440px, 1.08fr);
+    gap: clamp(38px, 6vw, 88px);
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+.overanim-hero-copy h1 {
+    margin: 0;
+    color: var(--color-text);
+    font-size: clamp(3.6rem, 5.25vw, 6.65rem);
+    line-height: 0.86;
+    letter-spacing: -0.075em;
+}
+
+.overanim-hero-copy {
+    min-width: 0;
+}
+
+.overanim-hero-copy h1 span {
+    color: transparent;
+    background: linear-gradient(110deg, rgb(var(--oa-accent)), rgb(var(--oa-violet)) 70%);
+    background-clip: text;
+    -webkit-background-clip: text;
+}
+
+.overanim-hero-role {
+    margin: 28px 0 0;
+    color: var(--color-text);
+    font-family: var(--font-family-mono);
+    font-size: clamp(0.84rem, 0.35vw + 0.77rem, 1rem);
+    font-weight: var(--font-weight-semibold);
+    line-height: 1.55;
+}
+
+.overanim-hero-lede {
+    max-width: 690px;
+    margin: 18px 0 0;
+    color: var(--color-text-secondary);
+    font-size: clamp(1rem, 0.45vw + 0.9rem, 1.22rem);
+    line-height: 1.72;
+}
+
+.overanim-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 28px;
+}
+
+.overanim-cta {
+    min-height: 48px;
+    padding: 12px 18px;
+    gap: 14px;
+    border-radius: 10px;
+}
+
+.overanim-hero-facts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0;
+    margin: 34px 0 0;
+    border-top: 1px solid var(--color-card-border);
+    border-left: 1px solid var(--color-card-border);
+}
+
+.overanim-hero-facts div {
+    min-width: 0;
+    padding: 17px 18px;
+    border-right: 1px solid var(--color-card-border);
+    border-bottom: 1px solid var(--color-card-border);
+}
+
+.overanim-hero-facts dt,
+.overanim-hero-facts dd {
+    margin: 0;
+}
+
+.overanim-hero-facts dt {
+    color: var(--color-text-secondary);
+    font-size: 0.78rem;
+    line-height: 1.4;
+}
+
+.overanim-hero-facts dd {
+    margin-top: 6px;
+    color: var(--color-text);
+    font-size: clamp(0.9rem, 0.25vw + 0.84rem, 1.02rem);
+    font-weight: var(--font-weight-semibold);
+    line-height: 1.4;
+}
+
+.overanim-hero-visual {
+    margin: 0;
+    overflow: hidden;
+    background: #07090d;
+    border: 1px solid rgba(var(--oa-accent), 0.24);
+    border-radius: 22px;
+    box-shadow: 0 28px 80px rgba(0, 0, 0, 0.26);
+    transform: perspective(1200px) rotateY(-2deg);
+}
+
+.overanim-hero-visual img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1.94 / 1;
+    object-fit: cover;
+}
+
+.overanim-hero-visual figcaption {
+    display: flex;
+    justify-content: space-between;
+    gap: 28px;
+    padding: 18px 20px;
+    color: #e9f7fa;
+    border-top: 1px solid rgba(255, 255, 255, 0.11);
+}
+
+.overanim-hero-visual figcaption strong {
+    flex: 0 0 auto;
+    font-size: 0.88rem;
+}
+
+.overanim-hero-visual figcaption span {
+    max-width: 390px;
+    color: rgba(233, 247, 250, 0.64);
+    font-size: 0.86rem;
+    line-height: 1.45;
+    text-align: right;
+}
+
+.overanim-section-nav {
+    position: sticky;
+    top: 62px;
+    z-index: 20;
+    background: rgba(var(--color-background-rgb), 0.88);
+    border-top: 1px solid var(--color-card-border);
+    border-bottom: 1px solid var(--color-card-border);
+    backdrop-filter: blur(18px);
+}
+
+.overanim-section-nav .container {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.overanim-section-nav .container::-webkit-scrollbar {
+    display: none;
+}
+
+.overanim-section-nav a {
+    flex: 0 0 auto;
+    padding: 18px 14px;
+    color: var(--color-text-secondary);
+    font-size: 0.83rem;
+    font-weight: var(--font-weight-semibold);
+    text-decoration: none;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: color var(--duration-fast) var(--ease-standard), border-color var(--duration-fast) var(--ease-standard);
+}
+
+.overanim-section-nav a:hover,
+.overanim-section-nav a:focus-visible {
+    color: var(--color-text);
+    border-color: rgb(var(--oa-accent));
+}
+
+.overanim-section {
+    scroll-margin-top: 124px;
+    padding: clamp(76px, 9vw, 126px) 0;
+}
+
+.overanim-section--surface {
+    background:
+        radial-gradient(circle at 92% 12%, rgba(var(--oa-violet), 0.07), transparent 26rem),
+        rgba(var(--color-surface-rgb), 0.4);
+    border-top: 1px solid var(--color-card-border);
+    border-bottom: 1px solid var(--color-card-border);
+}
+
+.overanim-section-heading {
+    display: grid;
+    grid-template-columns: 52px minmax(0, 790px);
+    gap: clamp(18px, 3vw, 36px);
+    margin-bottom: clamp(38px, 5vw, 64px);
+}
+
+.overanim-section-heading > span {
+    padding-top: 8px;
+    color: rgb(var(--oa-accent));
+    font-family: var(--font-family-mono);
+    font-size: 0.75rem;
+    font-weight: var(--font-weight-bold);
+    letter-spacing: 0.12em;
+}
+
+.overanim-section-heading h2 {
+    margin: 0;
+    color: var(--color-text);
+    font-size: clamp(2.1rem, 4vw, 4rem);
+    line-height: 1.02;
+    letter-spacing: -0.045em;
+}
+
+.overanim-section-heading > div > p:last-child {
+    max-width: 760px;
+    margin: 18px 0 0;
+    color: var(--color-text-secondary);
+    font-size: clamp(1rem, 0.35vw + 0.92rem, 1.16rem);
+    line-height: 1.75;
+}
+
+.overanim-workflow {
+    display: grid;
+    grid-template-columns: repeat(7, auto);
+    align-items: stretch;
+    gap: 12px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+}
+
+.overanim-workflow > div {
+    min-width: 210px;
+    padding: 22px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-card-border);
+    border-radius: 14px;
+}
+
+.overanim-workflow > i,
+.overanim-architecture-flow > i {
+    display: grid;
+    place-items: center;
+    color: rgb(var(--oa-accent));
+    font-style: normal;
+}
+
+.overanim-workflow span {
+    display: block;
+    margin-bottom: 20px;
+    color: rgb(var(--oa-accent));
+    font-family: var(--font-family-mono);
+    font-size: 0.72rem;
+}
+
+.overanim-workflow strong {
+    display: block;
+    font-size: 1rem;
+}
+
+.overanim-workflow p {
+    margin: 8px 0 0;
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.overanim-split,
+.overanim-contribution-grid,
+.overanim-validation-grid,
+.overanim-product-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.overanim-overview-split {
+    margin-top: 22px;
+}
+
+.overanim-panel {
+    min-width: 0;
+    padding: clamp(24px, 3vw, 36px);
+    background: var(--color-surface);
+    border: 1px solid var(--color-card-border);
+    border-radius: 16px;
+}
+
+.overanim-panel--accent {
+    background:
+        linear-gradient(145deg, rgba(var(--oa-accent), 0.09), rgba(var(--oa-violet), 0.05)),
+        var(--color-surface);
+    border-color: rgba(var(--oa-accent), 0.28);
+}
+
+.overanim-panel-label {
+    margin: 0 0 18px;
+    color: rgb(var(--oa-accent));
+    font-family: var(--font-family-mono);
+    font-size: 0.73rem;
+    font-weight: var(--font-weight-bold);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.overanim-panel h3 {
+    margin: 0;
+    color: var(--color-text);
+    font-size: clamp(1.25rem, 1vw + 1rem, 1.68rem);
+    line-height: 1.28;
+    letter-spacing: -0.025em;
+}
+
+.overanim-panel > p:last-child {
+    margin: 14px 0 0;
+    color: var(--color-text-secondary);
+    font-size: 0.98rem;
+    line-height: 1.7;
+}
+
+.overanim-clean-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.overanim-clean-list li {
+    padding: 12px 14px;
+    color: var(--color-text);
+    background: rgba(var(--color-background-rgb), 0.62);
+    border: 1px solid var(--color-card-border);
+    border-radius: 10px;
+    font-size: 0.9rem;
+}
+
+.overanim-responsibility-list,
+.overanim-cl-list {
+    display: grid;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.overanim-responsibility-list li,
+.overanim-cl-list li {
+    display: grid;
+    gap: 7px;
+    padding: 16px 0;
+    border-top: 1px solid var(--color-card-border);
+}
+
+.overanim-responsibility-list li:first-child,
+.overanim-cl-list li:first-child {
+    border-top: 0;
+    padding-top: 0;
+}
+
+.overanim-responsibility-list strong,
+.overanim-cl-list strong {
+    color: var(--color-text);
+    font-size: 0.98rem;
+}
+
+.overanim-responsibility-list span,
+.overanim-cl-list span {
+    color: var(--color-text-secondary);
+    font-size: 0.91rem;
+    line-height: 1.6;
+}
+
+.overanim-cl-list li {
+    grid-template-columns: 88px minmax(0, 1fr);
+    align-items: baseline;
+}
+
+.overanim-cl-list strong {
+    color: rgb(var(--oa-accent));
+    font-family: var(--font-family-mono);
+    font-size: 0.8rem;
+}
+
+.overanim-evidence-note {
+    margin: 18px 0 0;
+    padding-left: 18px;
+    color: var(--color-text-secondary);
+    border-left: 2px solid rgba(var(--oa-accent), 0.62);
+    font-size: 0.88rem;
+    line-height: 1.65;
+}
+
+.overanim-architecture-flow {
+    display: grid;
+    grid-template-columns: repeat(11, auto);
+    align-items: center;
+    gap: 10px;
+    overflow-x: auto;
+    padding: 22px;
+    background: rgba(var(--color-surface-rgb), 0.72);
+    border: 1px solid var(--color-card-border);
+    border-radius: 16px;
+}
+
+.overanim-architecture-flow > div {
+    display: grid;
+    align-content: center;
+    min-width: 150px;
+    min-height: 92px;
+    padding: 16px;
+    background: var(--color-background);
+    border: 1px solid var(--color-card-border);
+    border-radius: 11px;
+}
+
+.overanim-architecture-flow small {
+    color: rgb(var(--oa-accent));
+    font-family: var(--font-family-mono);
+    font-size: 0.68rem;
+}
+
+.overanim-architecture-flow strong {
+    margin-top: 8px;
+    color: var(--color-text);
+    font-size: 0.88rem;
+    line-height: 1.4;
+}
+
+.overanim-three-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    margin-top: 22px;
+}
+
+.overanim-case-stack {
+    display: grid;
+    gap: 22px;
+}
+
+.overanim-case {
+    display: grid;
+    grid-template-columns: minmax(0, 0.94fr) minmax(440px, 1.06fr);
+    gap: clamp(24px, 4vw, 52px);
+    padding: clamp(24px, 3.5vw, 44px);
+    background: var(--color-surface);
+    border: 1px solid var(--color-card-border);
+    border-radius: 18px;
+}
+
+.overanim-case-copy h3 {
+    margin: 0;
+    color: var(--color-text);
+    font-size: clamp(1.45rem, 1.5vw + 1.05rem, 2.1rem);
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+}
+
+.overanim-case-copy dl {
+    display: grid;
+    gap: 0;
+    margin: 24px 0 0;
+}
+
+.overanim-case-copy dl > div {
+    display: grid;
+    grid-template-columns: 58px minmax(0, 1fr);
+    gap: 14px;
+    padding: 13px 0;
+    border-top: 1px solid var(--color-card-border);
+}
+
+.overanim-case-copy dt,
+.overanim-case-copy dd {
+    margin: 0;
+}
+
+.overanim-case-copy dt {
+    color: rgb(var(--oa-accent));
+    font-family: var(--font-family-mono);
+    font-size: 0.72rem;
+    font-weight: var(--font-weight-bold);
+    line-height: 1.65;
+}
+
+.overanim-case-copy dd {
+    color: var(--color-text-secondary);
+    font-size: 0.91rem;
+    line-height: 1.65;
+}
+
+.overanim-code-card {
+    align-self: center;
+    min-width: 0;
+    overflow: hidden;
+    background: #0b0f14;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 13px;
+}
+
+.overanim-code-card > div {
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 13px 16px;
+    color: rgba(225, 243, 247, 0.6);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+    font-family: var(--font-family-mono);
+    font-size: 0.68rem;
+}
+
+.overanim-code-card pre {
+    margin: 0;
+    overflow: auto;
+    padding: clamp(18px, 2.4vw, 28px);
+    color: #d9f3f7;
+    font-family: var(--font-family-mono);
+    font-size: clamp(0.73rem, 0.3vw + 0.66rem, 0.86rem);
+    line-height: 1.72;
+    tab-size: 4;
+}
+
+.overanim-evidence-gallery {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.overanim-evidence-gallery figure,
+.overanim-product-visual {
+    margin: 0;
+    overflow: hidden;
+    background: var(--color-surface);
+    border: 1px solid var(--color-card-border);
+    border-radius: 16px;
+}
+
+.overanim-evidence-gallery img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: contain;
+    background: #101318;
+}
+
+.overanim-evidence-gallery figcaption {
+    display: grid;
+    gap: 6px;
+    padding: 18px 20px;
+}
+
+.overanim-evidence-gallery figcaption strong {
+    color: var(--color-text);
+    font-size: 0.97rem;
+}
+
+.overanim-evidence-gallery figcaption span,
+.overanim-product-visual figcaption {
+    color: var(--color-text-secondary);
+    font-size: 0.86rem;
+    line-height: 1.55;
+}
+
+.overanim-validation-grid {
+    margin-top: 22px;
+}
+
+.overanim-validation-result {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 24px;
+    align-items: center;
+    padding: clamp(24px, 3vw, 36px);
+    color: #ecfbfc;
+    background: linear-gradient(135deg, rgba(18, 92, 103, 0.96), rgba(58, 45, 116, 0.94));
+    border: 1px solid rgba(var(--oa-accent), 0.35);
+    border-radius: 16px;
+}
+
+.overanim-validation-result > span {
+    font-family: var(--font-family-mono);
+    font-size: clamp(2.2rem, 4vw, 4rem);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: -0.05em;
+    white-space: nowrap;
+}
+
+.overanim-validation-result strong {
+    display: block;
+    font-size: 1rem;
+}
+
+.overanim-validation-result p {
+    margin: 8px 0 0;
+    color: rgba(236, 251, 252, 0.72);
+    font-size: 0.88rem;
+    line-height: 1.58;
+}
+
+.overanim-product-grid {
+    align-items: center;
+}
+
+.overanim-product-visual {
+    display: grid;
+    grid-template-columns: minmax(180px, 0.7fr) minmax(0, 1.3fr);
+    align-items: center;
+    padding: 24px;
+}
+
+.overanim-product-visual img {
+    display: block;
+    width: min(100%, 300px);
+    max-height: 560px;
+    margin: 0 auto;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.overanim-product-visual figcaption {
+    padding: 24px;
+    font-size: 1rem;
+}
+
+.overanim-product-copy {
+    padding: clamp(4px, 2vw, 24px);
+}
+
+.overanim-spec-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin: 0;
+    border-top: 1px solid var(--color-card-border);
+    border-left: 1px solid var(--color-card-border);
+}
+
+.overanim-spec-list > div {
+    padding: 18px;
+    border-right: 1px solid var(--color-card-border);
+    border-bottom: 1px solid var(--color-card-border);
+}
+
+.overanim-spec-list dt,
+.overanim-spec-list dd {
+    margin: 0;
+}
+
+.overanim-spec-list dt {
+    color: var(--color-text-secondary);
+    font-size: 0.75rem;
+}
+
+.overanim-spec-list dd {
+    margin-top: 6px;
+    color: var(--color-text);
+    font-size: 0.94rem;
+    font-weight: var(--font-weight-semibold);
+}
+
+.overanim-product-copy > p {
+    margin: 22px 0 0;
+    color: var(--color-text-secondary);
+    font-size: 0.94rem;
+    line-height: 1.68;
+}
+
+.overanim-footer {
+    padding: 38px 0;
+    background: var(--color-surface);
+    border-top: 1px solid var(--color-card-border);
+}
+
+.overanim-footer .container,
+.overanim-footer .container > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+}
+
+.overanim-footer .container > div {
+    justify-content: flex-start;
+}
+
+.overanim-footer span,
+.overanim-footer a {
+    color: var(--color-text-secondary);
+    font-size: 0.84rem;
+    text-decoration: none;
+}
+
+.overanim-footer a:hover {
+    color: var(--color-text);
+}
+
+@media (max-width: 1040px) {
+    .overanim-hero-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .overanim-hero-copy {
+        max-width: 800px;
+    }
+
+    .overanim-hero-visual {
+        transform: none;
+    }
+
+    .overanim-case {
+        grid-template-columns: 1fr;
+    }
+
+    .overanim-three-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .overanim-product-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 760px) {
+    .overanim-page .container {
+        width: min(100% - 28px, 1240px);
+    }
+
+    .overanim-section-nav {
+        top: 96px;
+    }
+
+    .overanim-section {
+        scroll-margin-top: 156px;
+    }
+
+    .overanim-section-heading {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .overanim-section-heading > span {
+        padding-top: 0;
+    }
+
+    .overanim-split,
+    .overanim-contribution-grid,
+    .overanim-validation-grid,
+    .overanim-evidence-gallery {
+        grid-template-columns: 1fr;
+    }
+
+    .overanim-clean-list {
+        grid-template-columns: 1fr;
+    }
+
+    .overanim-validation-result {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .overanim-product-visual {
+        grid-template-columns: 1fr;
+    }
+
+    .overanim-product-visual figcaption {
+        padding: 18px 0 0;
+    }
+}
+
+@media (max-width: 560px) {
+    .overanim-hero {
+        padding-top: 46px;
+    }
+
+    .overanim-hero-copy h1 {
+        font-size: clamp(2.65rem, 11.5vw, 3rem);
+    }
+
+    .overanim-hero-facts,
+    .overanim-spec-list {
+        grid-template-columns: 1fr;
+    }
+
+    .overanim-hero-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    .overanim-cta {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .overanim-hero-visual figcaption {
+        display: grid;
+        gap: 6px;
+    }
+
+    .overanim-hero-visual figcaption span {
+        text-align: left;
+    }
+
+    .overanim-cl-list li {
+        grid-template-columns: 1fr;
+        gap: 5px;
+    }
+
+    .overanim-case {
+        padding: 20px;
+    }
+
+    .overanim-case-copy dl > div {
+        grid-template-columns: 1fr;
+        gap: 4px;
+    }
+
+    .overanim-code-card > div span:first-child {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .overanim-footer .container,
+    .overanim-footer .container > div {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}

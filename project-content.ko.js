@@ -308,5 +308,69 @@ window.PORTFOLIO_PROJECT_KO = {
             ]
         },
         "subtitle": "C++ 렌더링 및 엔진 개발"
+    },
+    "5": {
+        "team_label": "팀 제품 · 기여자 3명",
+        "scope_label": "Epic Project · Fab 제품",
+        "my_role": "Motion Phase · 런타임 시스템 · GPU 변형 프로그래머",
+        "subtitle": "실시간 애니메이션 과장 · GPU Mesh Deformer 플러그인",
+        "description": "애니메이션과 게임플레이 신호를 저작 가능한 실시간 메시 변형으로 연결하는 UE 5.8 플러그인입니다. Bone Group, Module Stack, Response Rule, 자동 6단계 Motion Analyzer가 안정된 변형 작업을 Render Thread와 RDG를 거쳐 GPU Mesh Deformer 출력으로 전달합니다.",
+        "coverAlt": "스타일화된 GPU 메시 변형 효과를 보여 주는 Dynamic OverAnimation 제품 이미지",
+        "coverLabel": "Fab 제품 · Epic Project",
+        "collaboration_details": {
+            "team_size": "메인 Perforce depot 제출 이력이 확인되는 기여자 3명",
+            "my_role": "Motion Phase · 런타임 시스템 · GPU 변형 프로그래머",
+            "team_roles": [
+                "Motion Phase 분석, 런타임 응답, GPU 변형 파이프라인, 에디터 저작 도구 (본인)",
+                "런타임, 에디터, 콘텐츠, 제품 출시 전반의 DynaMax 팀 기여"
+            ],
+            "collaboration_tools": ["Perforce", "Unreal Engine 5.8", "Visual Studio", "Fab"],
+            "team_dynamics": "메인 depot에는 기여자 3명의 제출 changelist 199건이 있으며, 이 중 H4XX0rBunny 제출은 81건입니다. 포트폴리오에서는 이 확인된 개인 범위와 팀 전체 제품 기능을 구분합니다."
+        },
+        "technical_challenges": [
+            "애니메이션 phase를 바꾸기 전에 노이즈가 섞인 모션 근거를 안정화",
+            "점수가 비슷한 Region이 프레임마다 owner를 교체하는 현상 방지",
+            "Game Thread의 변형 상태를 불변 snapshot으로 Render Thread에 전달",
+            "RDG에서 module pass와 vertex-factory 출력을 합성"
+        ],
+        "troubleshooting": {
+            "phase_stability": {
+                "title": "모션 노이즈로 잘못된 phase 전이가 발생",
+                "problem": "한 프레임의 급격한 값 변화가 phase를 뒤집거나 충분한 근거 없이 Anticipation을 시작할 수 있었습니다.",
+                "root_cause": "단순 에너지 임계값에는 추세 이력, 확인 시간, 취소 상태가 포함되지 않았습니다.",
+                "solution": "adaptive trend smoothing, evidence duration, phase별 guard, cycle history를 함께 적용했습니다.",
+                "result": "임계값 통과를 후보로만 취급하고 시간축 확인을 통과한 경우에만 실제 phase를 전환합니다."
+            },
+            "region_ownership": {
+                "title": "점수가 비슷한 Region 사이에서 owner가 흔들림",
+                "problem": "거의 같은 점수의 두 Region이 인접 프레임마다 owner를 교체할 수 있었습니다.",
+                "root_cause": "현재 최고점만 고르는 방식에는 hysteresis와 challenger 확인 과정이 없었습니다.",
+                "solution": "상대 15% 또는 절대 0.02의 우위를 요구하고 challenger가 안정될 때까지 기존 owner를 유지했습니다.",
+                "result": "작은 점수 변동만으로는 현재 Region owner가 바뀌지 않습니다."
+            },
+            "render_handoff": {
+                "title": "변경 가능한 gameplay state와 render 소비 시점이 어긋날 위험",
+                "problem": "변형 요청 생성 후 상태가 바뀌면 renderer가 다른 값을 읽을 가능성이 있었습니다.",
+                "root_cause": "Analyzer가 소유한 변경 가능한 상태와 비동기 render work의 수명이 달랐습니다.",
+                "solution": "value-copy snapshot을 scene 및 execution group 단위 work item으로 이동하고 MeshDeformer stage fence 이후 제출했습니다.",
+                "result": "Render work는 안정된 snapshot을 소비하고 다른 scene/group의 작업은 queue에 유지됩니다."
+            },
+            "visual_attachments": {
+                "title": "socket 부착 visual이 변형된 endpoint에서 분리됨",
+                "problem": "메시가 변형되어도 부착 visual은 변형 전 socket transform을 따라갔습니다.",
+                "root_cause": "skeletal socket transform에 변형으로 생긴 종속 visual offset이 포함되지 않았습니다.",
+                "solution": "변형 offset을 별도로 전달해 등록된 visual에 적용하고 누적 오차 없이 복원하며 physics 대상은 제외했습니다.",
+                "result": "부착 visual이 변형된 endpoint를 따라가면서 transform 오차가 누적되지 않습니다."
+            }
+        },
+        "development_timeline": {
+            "duration": "Epic Project · 2026",
+            "phases": [
+                { "phase": "Native 계약", "duration": "CL 47", "focus": "Bone Group, hierarchy 확장, LOD falloff, data-driven response" },
+                { "phase": "런타임 및 GPU 합성", "duration": "CL 78–135", "focus": "Response arbitration, Squash & Stretch, snapshot, RDG pass, normal/tangent" },
+                { "phase": "자동 Motion Phase", "duration": "CL 203–272", "focus": "Phase 안정화, Region owner, cycle timing, animation routing, 저작 UX" },
+                { "phase": "제품 통합", "duration": "CL 299–304", "focus": "변형 socket follower와 showcase asset 복구" }
+            ]
+        }
     }
 };

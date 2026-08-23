@@ -236,6 +236,82 @@ const projectsData = {
                 { "phase": "Final Game Jam", "duration": "Week 14", "focus": "Rendering, FBX, skeletal animation, physics, audio, tools, and gameplay integration" }
             ]
         }
+    },
+    "5": {
+        "title": "Dynamic OverAnimation",
+        "subtitle": "Real-time Animation Exaggeration · GPU Mesh Deformer Plug-in",
+        "project_type": "team",
+        "team_label": "Team Product · 3 Contributors",
+        "scope_label": "Epic Project · Fab Product",
+        "is_team_project": true,
+        "team_size": 3,
+        "my_role": "Motion Phase, Runtime Systems & GPU Deformation Programmer",
+        "technologies": ["Unreal Engine 5.8", "C++", "HLSL", "RDG", "Slate", "Perforce"],
+        "description": "A UE 5.8 plug-in that turns animation and gameplay signals into authorable real-time mesh deformation. Bone Groups, Module Stacks, Response Rules, and an automatic six-stage Motion Analyzer carry stable deformation work through the Render Thread and RDG into GPU Mesh Deformer output.",
+        "coverImage": "Assets/images/overanimation/dynamic-overanimation-hero.webp",
+        "coverAlt": "Dynamic OverAnimation product artwork showing a stylized GPU mesh deformation effect",
+        "coverLabel": "Fab product · Epic Project",
+        "detailPage": "overanimation.html",
+        "featured": true,
+        "links": {
+            "fab": "https://www.fab.com/listings/8d23f843-b47c-4280-aa0a-d86cb49d77af",
+            "documentation": "https://dynamaxgtl3rd.github.io/OverAnimDocs/"
+        },
+        "collaboration_details": {
+            "team_size": "3 contributors verified in the main Perforce depot",
+            "my_role": "Motion Phase, Runtime Systems & GPU Deformation Programmer",
+            "team_roles": [
+                "Motion phase analysis, runtime response, GPU deformation pipeline, and editor authoring tools (Me)",
+                "DynaMax team contributions across runtime, editor, content, and product delivery"
+            ],
+            "collaboration_tools": ["Perforce", "Unreal Engine 5.8", "Visual Studio", "Fab"],
+            "team_dynamics": "The main depot contains 199 submitted changelists from three contributors. H4XX0rBunny submitted 81 of those changelists; the portfolio separates this verified scope from the full team product."
+        },
+        "technical_challenges": [
+            "Stabilizing noisy motion evidence before changing animation phase",
+            "Preventing competing Regions from changing owner frame by frame",
+            "Carrying immutable deformation state from the Game Thread to the Render Thread",
+            "Composing module passes and vertex-factory outputs through RDG"
+        ],
+        "troubleshooting": {
+            "phase_stability": {
+                "title": "Motion noise caused false phase transitions",
+                "problem": "Single-frame spikes could flip the phase or start Anticipation without sustained motion evidence.",
+                "root_cause": "Raw energy thresholds did not encode trend history, confirmation duration, or cancellation state.",
+                "solution": "Combined adaptive trend smoothing, evidence duration, phase-local guards, and cycle history.",
+                "result": "The analyzer now treats threshold crossings as candidates and commits transitions only after temporal confirmation."
+            },
+            "region_ownership": {
+                "title": "Similar Region scores produced owner jitter",
+                "problem": "Two candidate Regions with nearly equal scores could exchange ownership across adjacent frames.",
+                "root_cause": "Selecting the current maximum had no hysteresis or pending-challenger confirmation.",
+                "solution": "Required a relative 15% or absolute 0.02 advantage and retained the active owner until the challenger became stable.",
+                "result": "Minor score changes no longer replace the current Region owner."
+            },
+            "render_handoff": {
+                "title": "Mutable gameplay state could drift from render consumption",
+                "problem": "The renderer could observe state that changed after a deformation request was created.",
+                "root_cause": "Analyzer-owned mutable state and asynchronous render work have different lifetimes.",
+                "solution": "Moved value-copy snapshots into scene- and execution-group-scoped work items, then submitted them after the MeshDeformer stage fence.",
+                "result": "Render work consumes a stable snapshot while unrelated scene or execution-group items remain queued."
+            },
+            "visual_attachments": {
+                "title": "Socket-attached visuals detached from deformed endpoints",
+                "problem": "Mesh deformation changed the visible endpoint while attached visual components still followed the undeformed socket transform.",
+                "root_cause": "Skeletal socket transforms did not include the dependent visual offset created by deformation.",
+                "solution": "Exported deformation offsets separately, applied them to registered visual attachments, restored without drift, and excluded physics-driven targets.",
+                "result": "Visual attachments follow deformed endpoints without accumulating transform error."
+            }
+        },
+        "development_timeline": {
+            "duration": "Epic Project · 2026",
+            "phases": [
+                { "phase": "Native contracts", "duration": "CL 47", "focus": "Bone Groups, hierarchy expansion, LOD falloff, and data-driven responses" },
+                { "phase": "Runtime & GPU composition", "duration": "CL 78–135", "focus": "Response arbitration, Squash & Stretch, snapshots, RDG passes, normals, and tangents" },
+                { "phase": "Automatic motion phases", "duration": "CL 203–272", "focus": "Phase stability, Region ownership, cycle timing, animation routing, and authoring UX" },
+                { "phase": "Product integration", "duration": "CL 299–304", "focus": "Deformed socket followers and restored showcase assets" }
+            ]
+        }
     }
 };
 
@@ -786,7 +862,9 @@ function initializeProjects() {
 
     projectsGrid.replaceChildren();
 
-    Object.entries(projectsData).forEach(([id, project]) => {
+    Object.entries(projectsData)
+        .sort(([, projectA], [, projectB]) => Number(Boolean(projectB.featured)) - Number(Boolean(projectA.featured)))
+        .forEach(([id, project]) => {
         const projectCard = createProjectCard(id, project);
         projectsGrid.appendChild(projectCard);
     });
@@ -796,6 +874,7 @@ function createProjectCard(id, project) {
     project = getLocalizedProject(id, project);
     const card = document.createElement('div');
     card.className = 'project-card';
+    if (project.featured) card.classList.add('project-card--featured');
     const dedicatedPageUrl = project.detailPage || (project.project_type === 'collection' ? project.links?.overview : null);
 
     // Projects with a dedicated information architecture bypass the generic modal.
