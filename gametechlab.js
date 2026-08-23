@@ -2274,9 +2274,9 @@ end`
             },
             {
                 caseId: 'scene-import-validation',
-                kicker: 'Case 02 attachment · editor process record',
-                title: 'The remaining captures document import placement and orientation checks.',
-                summary: 'These three editor views show the working process: assembling the initially scattered import, diagnosing the tilted Tokyo_Current scene, and checking upright geometry in Tokyo_Verify_Train.',
+                kicker: 'Case 02 attachment · import process and result',
+                title: 'The captures document import placement, orientation checks, and the successful result.',
+                summary: 'The sequence moves from the scattered import through structure-placement and orientation checks. The final Unreal Editor view shows the Tokyo level correctly assembled with the selected static mesh retaining Rotation 0° and Scale 1.0.',
                 tags: ['Process captures', 'Scene import', 'Transform verification'],
                 figures: [
                     {
@@ -2284,20 +2284,34 @@ end`
                         src: 'Assets/images/gametechlab/evidence/week14-level-placement-before-20260607.png',
                         alt: 'Week14 Tokyo import process with scene meshes scattered throughout the editor viewport before placement was completed',
                         caption: 'Imported modules and surfaces are still dispersed while the level layout is being assembled.',
-                        fit: 'contain'
+                        fit: 'wide'
                     },
                     {
-                        stage: 'Process 02 · orientation diagnosis',
+                        stage: 'Process 02 · structure placement check',
+                        src: 'Assets/images/gametechlab/evidence/week14-level-placement-progress-20260607.png',
+                        alt: 'Week14 editor view checking the placement and orientation of transit structures and building surfaces while assembling the Tokyo scene',
+                        caption: 'Transit modules and building surfaces are inspected at close range while their placement and orientation are being aligned.',
+                        fit: 'wide'
+                    },
+                    {
+                        stage: 'Process 03 · orientation diagnosis',
                         src: 'Assets/images/gametechlab/evidence/week14-tokyo-current-inspection.png',
                         alt: 'Custom engine editor showing the imported Tokyo scene tilted sideways during transform inspection',
                         caption: 'The tilted Tokyo_Current viewport records the orientation problem investigated during import validation.',
                         fit: 'wide'
                     },
                     {
-                        stage: 'Process 03 · orientation verification',
+                        stage: 'Process 04 · orientation verification',
                         src: 'Assets/images/gametechlab/evidence/week14-tokyo-verify-train.png',
                         alt: 'Custom engine editor showing an upright Tokyo street in the Tokyo Verify Train scene',
                         caption: 'The dedicated Tokyo_Verify_Train scene checks that imported street geometry is upright.',
+                        fit: 'wide'
+                    },
+                    {
+                        stage: 'Successful import result · Unreal Editor',
+                        src: 'Assets/images/gametechlab/evidence/week14-import-result-unreal-editor.png',
+                        alt: 'Unreal Editor showing the correctly assembled Tokyo level with upright buildings, roads, foliage, and a selected static mesh',
+                        caption: 'The Tokyo level is correctly assembled with upright buildings, roads, and foliage; the selected static mesh reports Rotation 0° and Scale 1.0.',
                         fit: 'wide'
                     }
                 ]

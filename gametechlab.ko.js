@@ -1368,9 +1368,9 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
                 ]
             },
             {
-                kicker: '사례 02 첨부 · 에디터 작업 과정',
-                title: '나머지 캡처는 Import 배치와 방향을 점검한 작업 과정입니다.',
-                summary: '흩어진 Import를 하나의 Level로 조립하고, 기울어진 Tokyo_Current에서 방향 문제를 진단한 뒤, Tokyo_Verify_Train에서 거리 구조가 바로 서는지 확인한 과정입니다.',
+                kicker: '사례 02 첨부 · Import 과정과 결과',
+                title: 'Import 배치와 방향을 점검한 과정과 정상 결과입니다.',
+                summary: '흩어진 Import를 하나의 Level로 조립하고 구조물 배치와 방향을 점검했습니다. 마지막 Unreal Editor 화면은 Tokyo 레벨이 정상 배치되고 선택한 Static Mesh의 Rotation 0°, Scale 1.0이 유지된 결과입니다.',
                 tags: ['작업 과정', 'Scene Import', 'Transform 검증'],
                 figures: [
                     {
@@ -1379,14 +1379,24 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
                         caption: 'Import된 건물 모듈과 표면을 하나의 레벨로 조립하는 중인 상태입니다.'
                     },
                     {
-                        stage: '과정 02 · 방향 문제 진단',
+                        stage: '과정 02 · 구조물 배치 점검',
+                        alt: 'Tokyo 씬 조립 중 교통 구조물과 건물 표면의 배치 및 방향을 확인한 Week14 에디터 화면',
+                        caption: '교통 모듈과 건물 표면을 가까이 확인하며 배치 위치와 방향을 점검한 상태입니다.'
+                    },
+                    {
+                        stage: '과정 03 · 방향 문제 진단',
                         alt: 'transform 검사 중 import된 Tokyo scene이 옆으로 기울어진 모습을 보여 주는 custom engine editor',
                         caption: '기울어진 Tokyo_Current viewport에서 import 방향 문제를 확인했습니다.'
                     },
                     {
-                        stage: '과정 03 · 방향 검증',
+                        stage: '과정 04 · 방향 검증',
                         alt: 'Tokyo Verify Train scene에서 바로 선 Tokyo 거리를 보여 주는 custom engine editor',
                         caption: '전용 Tokyo_Verify_Train scene에서 import된 거리 구조가 바로 서는지 확인했습니다.'
+                    },
+                    {
+                        stage: '정상 Import 결과 · Unreal Editor',
+                        alt: '건물과 도로, 식생이 올바른 방향으로 배치되고 Static Mesh가 선택된 Tokyo 레벨의 Unreal Editor 화면',
+                        caption: 'Tokyo 레벨의 건물·도로·식생이 올바른 방향으로 배치되고, 선택한 Static Mesh의 Rotation 0°, Scale 1.0을 확인했습니다.'
                     }
                 ]
             },
