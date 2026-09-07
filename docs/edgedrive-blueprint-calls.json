@@ -1,0 +1,399 @@
+{
+  "method": "Read-only extraction with UAssetAPI 1.1.0; function inventories are not execution traces. Original assets were not modified.",
+  "assets": [
+    {
+      "asset": "Content/TimeManipulate/TimeManipulater_BP.uasset",
+      "sha256": "5e2be3e36f2b639d6cd88c085bb6533d808cfebe4913276a3ca6a9e4d38d416c",
+      "recordedEngineVersion": {
+        "Major": 5,
+        "Minor": 4,
+        "Patch": 4
+      },
+      "compiledFunctionCalls": [
+        {
+          "exportIndex": 14,
+          "function": "CalculateAlphaUpdate",
+          "calls": [
+            "Divide_DoubleDouble",
+            "FClamp",
+            "GetFloatValue"
+          ]
+        },
+        {
+          "exportIndex": 15,
+          "function": "Clock Over",
+          "calls": [
+            "Timeline",
+            "Divide_DoubleDouble",
+            "SetGlobalTimeDilation",
+            "GetActorOfClass",
+            "TimeLineEmitter",
+            "Array_Length",
+            "Less_IntInt",
+            "Array_Get",
+            "Rain_Delation",
+            "Add_IntInt"
+          ]
+        },
+        {
+          "exportIndex": 16,
+          "function": "ClockUp",
+          "calls": [
+            "Timeline",
+            "SetGlobalTimeDilation",
+            "Divide_DoubleDouble",
+            "GetActorOfClass",
+            "TimeLineEmitter",
+            "Array_Length",
+            "Less_IntInt",
+            "Array_Get",
+            "Rain_Delation",
+            "Add_IntInt"
+          ]
+        },
+        {
+          "exportIndex": 17,
+          "function": "ExecuteUbergraph_TimeManipulater_BP",
+          "calls": [
+            "PlayTimeLineFunction",
+            "GetAllActorsOfClass",
+            "K2_SetTimer",
+            "PlaySound2D",
+            "Multiply_DoubleDouble",
+            "K2_SetTimerDelegate",
+            "GetPlayerCharacter",
+            "Time End",
+            "K2_ClearAndInvalidateTimerHandle",
+            "Greater_DoubleDouble",
+            "StopMovementImmediately",
+            "Delay",
+            "SetAbility",
+            "GreaterEqual_DoubleDouble",
+            "Subtract_DoubleDouble",
+            "GetRealTimeSeconds",
+            "StopTimeLineFunction",
+            "CalculateAlphaUpdate",
+            "OnTimelineTick__DelegateSignature",
+            "GetActorOfClass",
+            "GetMaxAbility"
+          ]
+        },
+        {
+          "exportIndex": 21,
+          "function": "PlayTimeLineFunction",
+          "calls": [
+            "OnTimelineStart__DelegateSignature",
+            "GetRealTimeSeconds",
+            "K2_ClearAndInvalidateTimerHandle"
+          ]
+        },
+        {
+          "exportIndex": 22,
+          "function": "ReceiveTick",
+          "calls": [
+            "ExecuteUbergraph_TimeManipulater_BP"
+          ]
+        },
+        {
+          "exportIndex": 23,
+          "function": "Reset Time",
+          "calls": [
+            "ExecuteUbergraph_TimeManipulater_BP"
+          ]
+        },
+        {
+          "exportIndex": 24,
+          "function": "StopTimeLineFunction",
+          "calls": [
+            "OnTimelineEnd__DelegateSignature",
+            "K2_ClearAndInvalidateTimerHandle"
+          ]
+        },
+        {
+          "exportIndex": 25,
+          "function": "Time End",
+          "calls": [
+            "ExecuteUbergraph_TimeManipulater_BP"
+          ]
+        },
+        {
+          "exportIndex": 26,
+          "function": "Time Event",
+          "calls": [
+            "ExecuteUbergraph_TimeManipulater_BP"
+          ]
+        },
+        {
+          "exportIndex": 27,
+          "function": "Timeline",
+          "calls": [
+            "Lerp"
+          ]
+        },
+        {
+          "exportIndex": 28,
+          "function": "Timer event",
+          "calls": [
+            "ExecuteUbergraph_TimeManipulater_BP"
+          ]
+        }
+      ],
+      "blueprintFunctionReferences": [
+        {
+          "exportIndex": 32,
+          "node": "K2Node_CallFunction_0",
+          "function": "FClamp"
+        },
+        {
+          "exportIndex": 33,
+          "node": "K2Node_CallFunction_2",
+          "function": "GetFloatValue"
+        },
+        {
+          "exportIndex": 34,
+          "node": "K2Node_CallFunction_0",
+          "function": "Rain_Delation"
+        },
+        {
+          "exportIndex": 35,
+          "node": "K2Node_CallFunction_1",
+          "function": "Timeline"
+        },
+        {
+          "exportIndex": 36,
+          "node": "K2Node_CallFunction_2",
+          "function": "SetGlobalTimeDilation"
+        },
+        {
+          "exportIndex": 37,
+          "node": "K2Node_CallFunction_3",
+          "function": "GetActorOfClass"
+        },
+        {
+          "exportIndex": 38,
+          "node": "K2Node_CallFunction_4",
+          "function": "TimeLineEmitter"
+        },
+        {
+          "exportIndex": 39,
+          "node": "K2Node_CallFunction_0",
+          "function": "Rain_Delation"
+        },
+        {
+          "exportIndex": 40,
+          "node": "K2Node_CallFunction_1",
+          "function": "TimeLineEmitter"
+        },
+        {
+          "exportIndex": 41,
+          "node": "K2Node_CallFunction_2",
+          "function": "SetGlobalTimeDilation"
+        },
+        {
+          "exportIndex": 42,
+          "node": "K2Node_CallFunction_23",
+          "function": "Timeline"
+        },
+        {
+          "exportIndex": 43,
+          "node": "K2Node_CallFunction_3",
+          "function": "GetActorOfClass"
+        },
+        {
+          "exportIndex": 44,
+          "node": "K2Node_CallFunction_1",
+          "function": "GetPlayerCharacter"
+        },
+        {
+          "exportIndex": 45,
+          "node": "K2Node_CallFunction_10",
+          "function": "Time End"
+        },
+        {
+          "exportIndex": 46,
+          "node": "K2Node_CallFunction_11",
+          "function": "PlayTimeLineFunction"
+        },
+        {
+          "exportIndex": 47,
+          "node": "K2Node_CallFunction_16",
+          "function": "Time End"
+        },
+        {
+          "exportIndex": 48,
+          "node": "K2Node_CallFunction_18",
+          "function": "K2_ClearAndInvalidateTimerHandle"
+        },
+        {
+          "exportIndex": 49,
+          "node": "K2Node_CallFunction_19",
+          "function": "GetRealTimeSeconds"
+        },
+        {
+          "exportIndex": 50,
+          "node": "K2Node_CallFunction_2",
+          "function": "GetAllActorsOfClass"
+        },
+        {
+          "exportIndex": 51,
+          "node": "K2Node_CallFunction_20",
+          "function": "StopTimeLineFunction"
+        },
+        {
+          "exportIndex": 52,
+          "node": "K2Node_CallFunction_21",
+          "function": "CalculateAlphaUpdate"
+        },
+        {
+          "exportIndex": 53,
+          "node": "K2Node_CallFunction_22",
+          "function": "GetActorOfClass"
+        },
+        {
+          "exportIndex": 54,
+          "node": "K2Node_CallFunction_23",
+          "function": "K2_ClearAndInvalidateTimerHandle"
+        },
+        {
+          "exportIndex": 55,
+          "node": "K2Node_CallFunction_3",
+          "function": "GetPlayerCharacter"
+        },
+        {
+          "exportIndex": 56,
+          "node": "K2Node_CallFunction_33",
+          "function": "K2_SetTimerDelegate"
+        },
+        {
+          "exportIndex": 57,
+          "node": "K2Node_CallFunction_37",
+          "function": "K2_SetTimer"
+        },
+        {
+          "exportIndex": 58,
+          "node": "K2Node_CallFunction_4",
+          "function": "StopMovementImmediately"
+        },
+        {
+          "exportIndex": 59,
+          "node": "K2Node_CallFunction_44",
+          "function": "PlayTimeLineFunction"
+        },
+        {
+          "exportIndex": 60,
+          "node": "K2Node_CallFunction_45",
+          "function": "K2_SetTimer"
+        },
+        {
+          "exportIndex": 61,
+          "node": "K2Node_CallFunction_46",
+          "function": "K2_ClearAndInvalidateTimerHandle"
+        },
+        {
+          "exportIndex": 62,
+          "node": "K2Node_CallFunction_5",
+          "function": "Delay"
+        },
+        {
+          "exportIndex": 63,
+          "node": "K2Node_CallFunction_6",
+          "function": "PlaySound2D"
+        },
+        {
+          "exportIndex": 64,
+          "node": "K2Node_CallFunction_7",
+          "function": "PlaySound2D"
+        },
+        {
+          "exportIndex": 65,
+          "node": "K2Node_CallFunction_9",
+          "function": "Time End"
+        },
+        {
+          "exportIndex": 66,
+          "node": "K2Node_CallFunction_0",
+          "function": "K2_ClearAndInvalidateTimerHandle"
+        },
+        {
+          "exportIndex": 67,
+          "node": "K2Node_CallFunction_16",
+          "function": "K2_ClearAndInvalidateTimerHandle"
+        },
+        {
+          "exportIndex": 68,
+          "node": "K2Node_CallFunction_2",
+          "function": "GetRealTimeSeconds"
+        },
+        {
+          "exportIndex": 69,
+          "node": "K2Node_CallFunction_0",
+          "function": "K2_ClearAndInvalidateTimerHandle"
+        },
+        {
+          "exportIndex": 70,
+          "node": "K2Node_CallFunction_16",
+          "function": "K2_ClearAndInvalidateTimerHandle"
+        },
+        {
+          "exportIndex": 71,
+          "node": "K2Node_CallFunction_1",
+          "function": "Lerp"
+        }
+      ]
+    },
+    {
+      "asset": "Content/Rain/Rain_BP.uasset",
+      "sha256": "35164ad2a2b7d6ac952d72fea4dcc28ad4c27196c696f2ea908a57c2491f7b3f",
+      "recordedEngineVersion": {
+        "Major": 5,
+        "Minor": 4,
+        "Patch": 4
+      },
+      "compiledFunctionCalls": [
+        {
+          "exportIndex": 5,
+          "function": "ExecuteUbergraph_Rain_BP",
+          "calls": [
+            "GetPlayerCharacter",
+            "VInterpTo",
+            "SetVariableVec3"
+          ]
+        },
+        {
+          "exportIndex": 6,
+          "function": "Rain_Delation",
+          "calls": [
+            "ExecuteUbergraph_Rain_BP"
+          ]
+        }
+      ],
+      "blueprintFunctionReferences": [
+        {
+          "exportIndex": 7,
+          "node": "K2Node_CallFunction_0",
+          "function": "SetVariableVec3"
+        },
+        {
+          "exportIndex": 8,
+          "node": "K2Node_CallFunction_10",
+          "function": "VInterpTo"
+        },
+        {
+          "exportIndex": 9,
+          "node": "K2Node_CallFunction_3",
+          "function": "SetVariableVec3"
+        },
+        {
+          "exportIndex": 10,
+          "node": "K2Node_CallFunction_6",
+          "function": "GetPlayerCharacter"
+        },
+        {
+          "exportIndex": 11,
+          "node": "K2Node_CallFunction_9",
+          "function": "VInterpTo"
+        }
+      ]
+    }
+  ]
+}

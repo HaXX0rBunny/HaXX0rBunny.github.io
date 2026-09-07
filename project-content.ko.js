@@ -1,70 +1,53 @@
 // Korean narrative overrides. English project data remains canonical in app.js.
 window.PORTFOLIO_PROJECT_KO = {
     "1": {
-        "team_label": "팀 프로젝트 · 4명",
-        "scope_label": "게임 프로젝트",
-        "my_role": "게임 디렉터 & 게임플레이 프로그래머",
-        "description": "베이오네타, 다크 소울, 페이퍼 마리오에서 영감을 받은 하이브리드 3D 액션 게임입니다. 디지펜 부산 아카데미 게임 졸업 프로젝트로, 언리얼 엔진 5의 최신 기능과 복합적인 게임플레이 시스템 구현 역량을 키운 프로젝트입니다.",
+        "team_label": "최종 3인 팀",
+        "scope_label": "게임플레이",
+        "my_role": "팀장 · 스테이지·캐릭터·시간 제어",
+        "description": "팀장을 맡아 스테이지와 플레이어 캐릭터, 시간 제어를 구현했습니다. Blueprint로 Motion Matching 기반 이동과 전투 동작을 연결하고, 시간 배율에 맞춰 비 파티클의 스케일을 조절했습니다.",
         "collaboration_details": {
-            "team_size": 4,
-            "my_role": "게임 디렉터 & 게임플레이 프로그래머",
+            "team_size": "4명으로 시작, 최종 3명",
+            "my_role": "팀장 · 스테이지·캐릭터·시간 제어",
             "team_roles": [
-                "게임 디렉터 & 게임플레이 프로그래머 (본인)",
-                "3D 아티스트 & 애니메이터",
-                "UI/UX 디자이너",
-                "사운드 디자이너 & 음악 편곡"
+                "본인: 팀장, 스테이지, 플레이어 캐릭터 전체, Time Dilation과 비 파티클 조절",
+                "팀원: VFX, SFX, UI",
+                "팀원: Enemy AI"
             ],
             "collaboration_tools": [
                 "Git",
                 "GitHub",
-                "Google Drive",
-                "Discord"
+                "Google Drive"
             ],
-            "team_dynamics": "아티스트·디자이너와 협업해 기술 구현과 게임 디자인 결정을 주도하고 일정 관리와 기능 우선순위를 조정했습니다."
+            "team_dynamics": "4명으로 시작한 프로젝트에서 한 명이 빠진 뒤 3명이 작업했습니다. 담당 기능을 구현하면서 작업 우선순위와 진행 상황을 조율했습니다. 프로젝트 파일명 변경으로 패키징이 중단됐을 때는 로그와 참조 경로를 추적해 복구했고, 이후 프로젝트 설정 파일의 Git 관리 규칙을 팀에 제안했습니다."
         },
         "technical_challenges": [
-            "복잡한 전투 상황에서의 프레임 드랍",
-            "다중 무기 시스템의 메모리 관리",
-            "모션 매칭 시스템에서 상태 동기화",
-            "50~60 FPS 목표를 위한 성능 최적화"
+            "스테이지를 제작하고, Blueprint로 Motion Matching 기반 플레이어 캐릭터의 이동과 전투 동작을 구현했습니다.",
+            "TimeManipulater_BP에서 SetGlobalTimeDilation을 이용한 시간 제어를 만들고, Tick에 의존하던 시간 진행 로직을 분리했습니다.",
+            "시간 제어를 Rain_BP의 Rain_Delation과 연결했습니다. VInterpTo로 보간한 값을 Niagara의 Max Scale Factor에 전달해 비 파티클의 스케일을 조절했습니다.",
+            "패키징 로그와 프로젝트 참조 경로를 추적해 팀 공용 빌드를 복구했습니다."
         ],
         "troubleshooting": {
-            "performance_issues": {
-                "problem": "다수의 적과 이펙트가 동시에 발생하는 복잡한 전투 구간에서 프레임이 급격히 저하됨",
-                "root_cause": "메인 스레드에서 드로우 호출량이 과다하고 전투 계산이 동기식으로 처리됨",
-                "solution": "이벤트 기반 전투 구조와 VFX 오브젝트 풀링을 적용",
-                "result": "CPU 사용량이 약 30% 감소하고 50~60 FPS가 안정적으로 확보됨",
-                "title": "복합 전투 구간의 성능 저하"
-            },
-            "memory_optimization": {
-                "problem": "무기 전환 시 메모리 누수 발생",
-                "root_cause": "무기 컴포넌트와 애니메이션 블루프린트 정리가 불완전했음",
-                "solution": "무기 컴포넌트 생명주기 관리 구조를 새로 설계",
-                "result": "Unreal Insights 기준 메모리 사용량이 28% 감소함",
-                "title": "무기 전환 과정의 메모리 누수"
+            "packaging_references": {
+                "title": "프로젝트 파일명 변경으로 중단된 패키징 복구",
+                "problem": "패키징이 실패해 팀이 함께 확인할 실행 빌드를 만들 수 없었습니다.",
+                "root_cause": "에디터 밖에서 .uproject 파일명을 바꾸면서 프로젝트 참조가 일치하지 않게 됐습니다.",
+                "solution": "빌드 로그와 참조 경로를 역추적해 파일명을 복구하고 영향을 받은 참조를 수정했습니다.",
+                "result": "패키징을 다시 진행할 수 있게 됐습니다. 같은 문제가 반복되지 않도록 프로젝트 설정 파일의 Git 관리 규칙을 팀에 제안했습니다."
             }
         },
-        "development_timeline": {
-            "duration": "2개월",
-            "phases": [
-                {
-                    "phase": "기획 준비",
-                    "duration": "2주",
-                    "focus": "컨셉 설계와 기술 기획"
-                },
-                {
-                    "phase": "핵심 개발",
-                    "duration": "1개월",
-                    "focus": "전투 시스템 및 핵심 메커니즘 구현"
-                },
-                {
-                    "phase": "폴리싱 & 최적화",
-                    "duration": "2주",
-                    "focus": "성능 튜닝과 버그 수정"
-                }
-            ]
-        },
-        "subtitle": "하이브리드 3D 액션 게임"
+        "development_timeline": null,
+        "subtitle": "3D 액션 게임 · 캐릭터 이동과 시간 제어",
+        "source_note": "GitHub의 main 브랜치에는 설정과 기본 모듈이, Sanghyeon 브랜치에는 일부 캐릭터·입력 에셋이 있습니다. 시간 제어와 비 파티클 Blueprint는 로컬 프로젝트에서 확인한 함수 호출을 구현 기록에 정리했습니다.",
+        "highlights": [
+            {
+                "label": "Blueprint 구현 기록",
+            "href": "https://github.com/HaXX0rBunny/HaXX0rBunny.github.io/blob/main/docs/edgedrive-blueprint.md"
+            },
+            {
+                "label": "공개 캐릭터·입력 에셋",
+            "href": "https://github.com/Team-Illegal-Design-Club/EdgeDrive/tree/Sanghyeon/Content"
+            }
+        ]
     },
     "2": {
         "team_label": "팀 프로젝트 · 2명",
@@ -141,7 +124,7 @@ window.PORTFOLIO_PROJECT_KO = {
         "team_label": "팀 프로젝트 · 4명",
         "scope_label": "게임 프로젝트",
         "my_role": "UI 시스템 & 게임플레이 연동 프로그래머",
-        "description": "상점/업그레이드 루프와 바람 및 중력 기반의 탄환 투사 탄막 전투를 결합한 4인 C++ 팀 프로젝트입니다. 저는 메뉴, 상점, 전투 HUD, 버튼 및 호버 상호작용, 아이템 툴팁, UI-전투 입력 경로를 구축하고 통합했습니다.",
+        "description": "상점/업그레이드 루프와 바람과 중력의 영향을 받는 포격 전투를 결합한 4인 C++ 팀 프로젝트입니다. 저는 메뉴, 상점, 전투 HUD, 버튼 및 호버 상호작용, 아이템 툴팁, UI-전투 입력 경로를 구축하고 통합했습니다.",
         "collaboration_details": {
             "team_size": 4,
             "my_role": "UI 시스템 & 게임플레이 연동 프로그래머",
@@ -190,11 +173,11 @@ window.PORTFOLIO_PROJECT_KO = {
     },
     "4": {
         "team_label": "팀 프로젝트 · 3~4명",
-        "scope_label": "주차별 과제",
+        "scope_label": "렌더링 · 독립 실행 빌드",
         "my_role": "렌더링 & 엔진 프로그래머",
-        "description": "KRAFTON Jungle Game Tech Lab 3rd 동안 기여한 프로젝트를 통합 정리한 기록입니다. 주차별 스냅샷은 3D 기초부터 에셋 임포트, 조명, 그림자, 물리, 애니메이션, 파티클, 최종 게임 통합까지의 커스텀 엔진 개발 흐름을 보여줍니다.",
+        "description": "C++과 DirectX 11로 개발한 자체 엔진입니다. 오브젝트 5만 개 장면의 임포스터 렌더링과 에디터 밖에서 게임을 실행하는 Build–Cook–Stage 파이프라인을 구현했습니다. 주차별로 비교 화면, 측정 조건, 구현 이력을 정리했습니다.",
         "coverAlt": "Game Tech Lab 과정에서 개발한 커스텀 C++ 엔진 파티클 에디터",
-        "coverLabel": "엔진 개발 아카이브",
+        "coverLabel": "C++ 자체 엔진",
         "collaboration_details": {
             "team_size": "주차별 3~4명",
             "my_role": "렌더링 & 엔진 프로그래머",
@@ -307,16 +290,26 @@ window.PORTFOLIO_PROJECT_KO = {
                 }
             ]
         },
-        "subtitle": "C++ 렌더링 및 엔진 개발"
+        "subtitle": "C++ 렌더링 및 엔진 개발",
+        "highlights": [
+            {
+                "label": "임포스터 비교 보기",
+                "href": "gametechlab.html#week05/evidence"
+            },
+            {
+                "label": "독립 실행 빌드 보기",
+                "href": "gametechlab.html#week09/evidence"
+            }
+        ]
     },
     "5": {
-        "team_label": "팀 제품 · 3인 팀",
-        "scope_label": "Epic Project · Fab 제품",
-        "my_role": "팀장 · Motion Phase · 런타임 시스템 · GPU 변형 프로그래머",
-        "subtitle": "실시간 애니메이션 과장 · GPU Mesh Deformer 플러그인",
-        "description": "기존 애니메이션에 재사용 가능한 카메라 대응 과장을 더하는 UE 5.8 플러그인입니다. 6단계 Motion Phase Analyzer가 최종 포즈의 Region 움직임을 안정된 타이밍·방향·강도 Signal로 변환하고, Response Rule이 선택적인 GPU 메시 변형을 실행합니다.",
+        "team_label": "3인 팀",
+        "scope_label": "Fab 출시",
+        "my_role": "팀장 · 동작 분석 · GPU 변형 · 편집 도구",
+        "subtitle": "애니메이션 과장 변형 플러그인",
+        "description": "기존 애니메이션에 과장된 움직임을 더하는 Unreal Engine 플러그인입니다. 팀장으로 동작 분석, 신호 안정화, GPU 변형, 편집 도구를 구현하고 팀원의 작업을 통합해 Fab에 출시했습니다.",
         "coverAlt": "스타일화된 GPU 메시 변형 효과를 보여 주는 Dynamic OverAnimation 제품 이미지",
-        "coverLabel": "Fab 제품 · Epic Project",
+        "coverLabel": "Dynamic OverAnimation",
         "collaboration_details": {
             "team_size": "DynaMax · 3인 팀",
             "my_role": "팀장 · Motion Phase · 런타임 시스템 · GPU 변형 프로그래머",
@@ -324,7 +317,12 @@ window.PORTFOLIO_PROJECT_KO = {
                 "제품 방향, 시스템 설계, Motion Phase 분석, 런타임 응답, GPU 변형 파이프라인, 에디터 저작 도구 (팀장 · 본인)",
                 "런타임, 에디터, 콘텐츠, 제품 출시 전반의 DynaMax 팀 기여"
             ],
-            "collaboration_tools": ["Perforce", "Unreal Engine 5.8", "Visual Studio", "Fab"],
+            "collaboration_tools": [
+                "Perforce",
+                "Unreal Engine 5.8",
+                "Visual Studio",
+                "Fab"
+            ],
             "team_dynamics": "DynaMax 3인 제품 팀의 팀장을 맡아 제품·시스템 방향을 정하고, 출시된 팀 플러그인에서 Motion Phase Analyzer, Runtime Response, Render/GPU, Editor 시스템을 구현했습니다."
         },
         "technical_challenges": [
@@ -367,10 +365,26 @@ window.PORTFOLIO_PROJECT_KO = {
         "development_timeline": {
             "duration": "Epic Project · 2026",
             "phases": [
-                { "phase": "Native 계약", "duration": "Bone Group 계약", "focus": "Bone Group, hierarchy 확장, LOD falloff, data-driven response" },
-                { "phase": "런타임 및 GPU 합성", "duration": "Snapshot·RDG 합성", "focus": "Response arbitration, Squash & Stretch, snapshot, RDG pass, normal/tangent" },
-                { "phase": "자동 Motion Phase", "duration": "Phase·Region 상태 기계", "focus": "Phase 안정화, Region owner, cycle timing, animation routing, 저작 UX" },
-                { "phase": "제품 통합", "duration": "Socket Follower 통합", "focus": "변형 socket follower와 showcase asset 복구" }
+                {
+                    "phase": "Native 계약",
+                    "duration": "Bone Group 계약",
+                    "focus": "Bone Group, hierarchy 확장, LOD falloff, data-driven response"
+                },
+                {
+                    "phase": "런타임 및 GPU 합성",
+                    "duration": "Snapshot·RDG 합성",
+                    "focus": "Response arbitration, Squash & Stretch, snapshot, RDG pass, normal/tangent"
+                },
+                {
+                    "phase": "자동 Motion Phase",
+                    "duration": "Phase·Region 상태 기계",
+                    "focus": "Phase 안정화, Region owner, cycle timing, animation routing, 저작 UX"
+                },
+                {
+                    "phase": "제품 통합",
+                    "duration": "Socket Follower 통합",
+                    "focus": "변형 socket follower와 showcase asset 복구"
+                }
             ]
         }
     }

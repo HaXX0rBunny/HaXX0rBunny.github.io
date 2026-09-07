@@ -7468,3 +7468,35 @@ body {
         gap: 0;
     }
 }
+
+/* Selected work, implementation context, and direct result navigation. */
+.hero-section { min-height: min(760px, 90svh); padding-block: 115px 70px; }
+.hero-contact { flex-wrap: wrap; }
+.hero-contact .contact-link--primary { background: var(--color-primary); color: var(--color-btn-primary-text); border-color: var(--color-primary); }
+.additional-projects-heading { margin: 64px 0 24px; }
+.additional-projects-heading h3 { font-size: 1.5rem; margin-bottom: 8px; }
+.additional-projects-heading p, .skill-experience, .project-source-note { color: var(--color-text-secondary); line-height: 1.8; }
+.project-source-note { padding: 14px 18px; border-left: 3px solid var(--color-primary); background: var(--color-secondary); margin: 20px 0; }
+.skill-experience { margin: 18px 0 12px; }
+.skill-project-link, .project-evidence-links a { color: var(--color-primary); text-underline-offset: 4px; }
+.project-evidence-links { display: flex; flex-wrap: wrap; gap: 12px 24px; padding: 0 0 20px; }
+.project-action:focus-visible, .lab-highlight:focus-visible, .skill-project-link:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 4px; }
+.tab-btn[hidden] { display: none; }
+.lab-highlights { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; padding-bottom: 50px; }
+.lab-highlight { display: block; padding: 28px; border: 1px solid var(--color-card-border); border-radius: 16px; background: var(--color-surface); color: var(--color-text); text-decoration: none; }
+.lab-highlight > span:first-child { font-size: .8rem; color: var(--color-primary); letter-spacing: .08em; }
+.lab-highlight h2 { font-size: 1.35rem; margin: 14px 0 20px; }
+.lab-highlight > strong { display: block; font-size: clamp(1.2rem, 2.4vw, 1.8rem); margin-bottom: 14px; }
+.lab-highlight p { color: var(--color-text-secondary); line-height: 1.75; }
+.lab-highlight .highlight-link { display: block; color: var(--color-primary); margin-top: 22px; }
+.lab-week-workspace { scroll-margin-top: 90px; }
+#result { scroll-margin-top: 120px; }
+@media (max-width: 700px) {
+    .hero-section { min-height: auto; padding-block: 120px 65px; }
+    .hero-contact { flex-direction: row; justify-content: center; gap: 12px; }
+    .hero-contact .contact-link { min-width: 0; }
+    .hero-contact .contact-link--primary { flex-basis: 100%; }
+    .lab-highlights { grid-template-columns: minmax(0, 1fr); }
+    .lab-detail-tabs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); overflow: visible; }
+    .lab-detail-tab { white-space: normal; text-align: center; padding: 14px 8px; }
+}

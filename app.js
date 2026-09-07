@@ -9,59 +9,66 @@ const icons = {
 const projectsData = {
     "1": {
         "title": "Edge Drive",
-        "subtitle": "Hybrid 3D Action Game",
+        "subtitle": "3D Action Game · Character Movement & Time Control",
         "project_type": "team",
         "is_team_project": true,
-        "team_size": 4,
-        "my_role": "Game Director & Gameplay Programmer",
-        "technologies": ["Unreal Engine 5.4", "C++", "Blueprint"],
-        "description": "A hybrid 3D action game inspired by Bayonetta, Dark Souls, and Paper Mario. As a DigiPen Busan Academy graduation project, this project enhanced my skills in implementing Unreal Engine 5's latest features and complex gameplay systems.",
+        "team_size": 3,
+        "my_role": "Team Lead · Stages, Character & Time Control",
+        "technologies": [
+            "Unreal Engine 5.4",
+            "Blueprint"
+        ],
+        "description": "I led the team and built the stages, player character, and time-control gameplay in Blueprint. I used Motion Matching for character movement and adjusted rain-particle scale as the time scale changed.",
         "videoUrl": "https://www.youtube.com/embed/264Wfi25UOU",
         "links": {
-            "github": "https://github.com/Team-Illegal-Design-Club/EdgeDrive", 
+            "github": "https://github.com/Team-Illegal-Design-Club/EdgeDrive",
             "youtube": "https://youtube.com/watch?v=264Wfi25UOU"
         },
         "collaboration_details": {
-            "team_size": 4,
-            "my_role": "Game Director & Gameplay Programmer",
+            "team_size": "Started with 4; completed with 3",
+            "my_role": "Team Lead · Stages, Character & Time Control",
             "team_roles": [
-                "Game Director & Gameplay Programmer (Me)",
-                "3D Artist & Animator",
-                "UI/UX Designer",
-                "Sound Designer & Music Composer"
+                "Me: team lead, stages, player character, Time Dilation, and rain-particle adjustments",
+                "Teammate: VFX, SFX, and UI",
+                "Teammate: enemy AI"
             ],
-            "collaboration_tools": ["Git", "Github", "Gdrive", "Discord"],
-            "team_dynamics": "Led technical implementation and game design decisions while coordinating with artists and designers. Managed project timeline and feature prioritization."
+            "collaboration_tools": [
+                "Git",
+                "GitHub",
+                "Google Drive"
+            ],
+            "team_dynamics": "The project began with four members and continued with three after one member left. I coordinated task priorities and progress alongside my implementation work. After resolving a packaging failure caused by a renamed project file, I proposed shared Git rules for project configuration changes."
         },
         "technical_challenges": [
-            "Frame drops during complex combat scenarios",
-            "Memory management with multiple weapon systems",
-            "State synchronization in motion matching system",
-            "Performance optimization for 50-60 FPS target"
+            "Built the stages and implemented player-character movement and combat in Blueprint using Motion Matching.",
+            "Implemented time controls in TimeManipulater_BP using SetGlobalTimeDilation and separated time progression from Tick-dependent updates.",
+            "Connected time controls to Rain_Delation in Rain_BP, interpolating the Niagara Max Scale Factor parameter with VInterpTo.",
+            "Traced packaging logs and project references to restore the shared build."
         ],
         "troubleshooting": {
-            "performance_issues": {
-                "problem": "Frame drops during complex combat scenarios with multiple enemies and effects",
-                "root_cause": "Excessive draw calls and synchronous combat calculations on main thread",
-                "solution": "Implemented event-driven combat system and object pooling for VFX",
-                "result": "Achieved 30% reduction in CPU usage and stable 50-60 FPS"
-            },
-            "memory_optimization": {
-                "problem": "Memory leaks in weapon switching system",
-                "root_cause": "Improper cleanup of weapon components and animation blueprints",
-                "solution": "Created structured weapon component lifecycle management",
-                "result": "28% reduction in memory usage using Unreal Insights profiling"
+            "packaging_references": {
+                "title": "Restoring a failed team build",
+                "problem": "Packaging failed and the team could no longer produce a shared build.",
+                "root_cause": "Renaming the .uproject file outside the editor left project references inconsistent.",
+                "solution": "Traced build logs and reference paths, restored the project filename, and corrected the affected references.",
+                "result": "Packaging resumed. I proposed shared Git rules for project configuration changes to help prevent the same problem."
             }
         },
-        "development_timeline": {
-            "duration": "2 months",
-            "phases": [
-                { "phase": "Pre-production", "duration": "2 weeks", "focus": "Concept design and technical planning" },
-                { "phase": "Core Development", "duration": "1 months", "focus": "Combat system and core mechanics" },
-                { "phase": "Polish & Optimization", "duration": "2 weeks", "focus": "Performance tuning and bug fixes" }
-            ]
-        },
-        "downloadLink": "https://drive.google.com/file/d/1XqZQiWAvwnG1kajS_e9Vc4t5MeMhALR_/view?usp=sharing"
+        "development_timeline": null,
+        "downloadLink": "https://drive.google.com/file/d/1XqZQiWAvwnG1kajS_e9Vc4t5MeMhALR_/view?usp=sharing",
+        "team_label": "3-person team at completion",
+        "scope_label": "Gameplay",
+        "source_note": "The main branch contains configuration and the base module. The Sanghyeon branch includes some character and input assets. Time-control and rain Blueprints were inspected in the local project; their relevant function calls are documented below.",
+        "highlights": [
+            {
+                "label": "Blueprint implementation notes",
+            "href": "https://github.com/HaXX0rBunny/HaXX0rBunny.github.io/blob/main/docs/edgedrive-blueprint.md"
+            },
+            {
+                "label": "Published character and input assets",
+            "href": "https://github.com/Team-Illegal-Design-Club/EdgeDrive/tree/Sanghyeon/Content"
+            }
+        ]
     },
     "2": {
         "title": "MegaRogue",
@@ -175,15 +182,21 @@ const projectsData = {
         "subtitle": "C++ Rendering & Engine Development",
         "project_type": "collection",
         "team_label": "Team Project · 3–4 Members",
-        "scope_label": "Weekly Projects",
+        "scope_label": "Rendering & Standalone Builds",
         "is_team_project": true,
         "team_size": "3–4",
         "my_role": "Rendering & Engine Programmer",
-        "technologies": ["C++", "DirectX 11", "HLSL", "ImGui", "FBX SDK"],
-        "description": "A curated record of the projects I contributed to throughout KRAFTON Jungle Game Tech Lab 3rd. The weekly snapshots trace custom engine development from 3D fundamentals through asset import, lighting, shadows, physics, animation, particles, and final game integration.",
+        "technologies": [
+            "C++",
+            "DirectX 11",
+            "HLSL",
+            "ImGui",
+            "FBX SDK"
+        ],
+        "description": "C++ and DirectX 11 engine work from Game Tech Lab. I built an octahedral impostor renderer for a 50,000-object scene and a Build–Cook–Stage pipeline that runs the game outside the editor. Comparison captures, test conditions, and implementation history are available by week.",
         "coverImage": "Assets/images/GameTechLab3rd-Engine-Editor.png",
         "coverAlt": "Custom C++ engine particle editor developed during Game Tech Lab",
-        "coverLabel": "Engine development archive",
+        "coverLabel": "Custom C++ Engine",
         "links": {
             "overview": "gametechlab.html"
         },
@@ -194,7 +207,12 @@ const projectsData = {
                 "Rendering and engine programming (Me)",
                 "Weekly graphics, engine, gameplay, and tool development teams"
             ],
-            "collaboration_tools": ["Git", "GitHub", "Visual Studio", "Discord"],
+            "collaboration_tools": [
+                "Git",
+                "GitHub",
+                "Visual Studio",
+                "Discord"
+            ],
             "team_dynamics": "Worked in changing weekly teams and integrated focused rendering or engine features into each shared codebase. The hub preserves the reviewable snapshots from Week01 through Week14."
         },
         "technical_challenges": [
@@ -220,37 +238,110 @@ const projectsData = {
         "development_timeline": {
             "duration": "Full program",
             "phases": [
-                { "phase": "1st Game Jam", "duration": "Week 01", "focus": "Jungle Brick Break, game loop, input, and collision foundations" },
-                { "phase": "Break Into 3D", "duration": "Week 02", "focus": "3D primitives, scene components, camera transforms, and sky sphere" },
-                { "phase": "Atlas · Billboard · Batch Line · Bounding Box", "duration": "Week 03", "focus": "Reusable rendering utilities and engine debugging features" },
-                { "phase": "OBJ Import", "duration": "Week 04", "focus": "OBJ/MTL import, UStaticMesh assets, registry lookup, and versioned .dasset cooking" },
-                { "phase": "2nd Game Jam · It's Pie Time", "duration": "Week 05", "focus": "Octahedral impostor baking and large-scene rendering optimization" },
-                { "phase": "Decal · Clearing the Fog", "duration": "Week 06", "focus": "Surface decals, volumetric fog, and atmospheric rendering" },
-                { "phase": "Let There Be Light", "duration": "Week 07", "focus": "Real-time lighting and material integration" },
-                { "phase": "Where There Is Light, There Is Also Shadow", "duration": "Week 08", "focus": "Light-space rendering and real-time shadow evaluation" },
-                { "phase": "3rd Game Jam · Light, Camera, Action!", "duration": "Week 09", "focus": "Standalone build, cook, stage, runtime loading, and verification" },
-                { "phase": "More Than Just Weight", "duration": "Week 10", "focus": "Mass, force, collision, and object response systems" },
-                { "phase": "Let's Go, Move!", "duration": "Week 11", "focus": "Movement, input, actor state, and animation updates" },
-                { "phase": "Dance of the Dust", "duration": "Week 12", "focus": "Particle editor, emitters, modules, curves, and runtime effects" },
-                { "phase": "Understanding Focus and Force in 3D World", "duration": "Week 13", "focus": "Two depth-of-field techniques and camera focus controls" },
-                { "phase": "Final Game Jam", "duration": "Week 14", "focus": "Rendering, FBX, skeletal animation, physics, audio, tools, and gameplay integration" }
+                {
+                    "phase": "1st Game Jam",
+                    "duration": "Week 01",
+                    "focus": "Jungle Brick Break, game loop, input, and collision foundations"
+                },
+                {
+                    "phase": "Break Into 3D",
+                    "duration": "Week 02",
+                    "focus": "3D primitives, scene components, camera transforms, and sky sphere"
+                },
+                {
+                    "phase": "Atlas · Billboard · Batch Line · Bounding Box",
+                    "duration": "Week 03",
+                    "focus": "Reusable rendering utilities and engine debugging features"
+                },
+                {
+                    "phase": "OBJ Import",
+                    "duration": "Week 04",
+                    "focus": "OBJ/MTL import, UStaticMesh assets, registry lookup, and versioned .dasset cooking"
+                },
+                {
+                    "phase": "2nd Game Jam · It's Pie Time",
+                    "duration": "Week 05",
+                    "focus": "Octahedral impostor baking and large-scene rendering optimization"
+                },
+                {
+                    "phase": "Decal · Clearing the Fog",
+                    "duration": "Week 06",
+                    "focus": "Surface decals, volumetric fog, and atmospheric rendering"
+                },
+                {
+                    "phase": "Let There Be Light",
+                    "duration": "Week 07",
+                    "focus": "Real-time lighting and material integration"
+                },
+                {
+                    "phase": "Where There Is Light, There Is Also Shadow",
+                    "duration": "Week 08",
+                    "focus": "Light-space rendering and real-time shadow evaluation"
+                },
+                {
+                    "phase": "3rd Game Jam · Light, Camera, Action!",
+                    "duration": "Week 09",
+                    "focus": "Standalone build, cook, stage, runtime loading, and verification"
+                },
+                {
+                    "phase": "More Than Just Weight",
+                    "duration": "Week 10",
+                    "focus": "Mass, force, collision, and object response systems"
+                },
+                {
+                    "phase": "Let's Go, Move!",
+                    "duration": "Week 11",
+                    "focus": "Movement, input, actor state, and animation updates"
+                },
+                {
+                    "phase": "Dance of the Dust",
+                    "duration": "Week 12",
+                    "focus": "Particle editor, emitters, modules, curves, and runtime effects"
+                },
+                {
+                    "phase": "Understanding Focus and Force in 3D World",
+                    "duration": "Week 13",
+                    "focus": "Two depth-of-field techniques and camera focus controls"
+                },
+                {
+                    "phase": "Final Game Jam",
+                    "duration": "Week 14",
+                    "focus": "Rendering, FBX, skeletal animation, physics, audio, tools, and gameplay integration"
+                }
             ]
-        }
+        },
+        "highlights": [
+            {
+                "label": "Impostor comparison",
+                "href": "gametechlab.html#week05/evidence"
+            },
+            {
+                "label": "Standalone build",
+                "href": "gametechlab.html#week09/evidence"
+            }
+        ]
     },
     "5": {
         "title": "Dynamic OverAnimation",
-        "subtitle": "Real-time Animation Exaggeration · GPU Mesh Deformer Plug-in",
+        "subtitle": "Animation Deformation Plug-in",
         "project_type": "team",
-        "team_label": "Team Product · 3-Person Team",
-        "scope_label": "Epic Project · Fab Product",
+        "team_label": "3-person team",
+        "scope_label": "Released on Fab",
         "is_team_project": true,
         "team_size": 3,
-        "my_role": "Team Lead · Motion Phase, Runtime Systems & GPU Deformation Programmer",
-        "technologies": ["Unreal Engine 5.8", "C++", "HLSL", "RDG", "Slate", "Perforce"],
-        "description": "A UE 5.8 plug-in that adds reusable, camera-aware exaggeration to existing animation. Its six-stage Motion Phase Analyzer converts final-pose Region motion into stable timing, direction, and strength signals; Response Rules then drive selective GPU mesh deformation.",
+        "my_role": "Team Lead · Animation Analysis, GPU & Editor",
+        "technologies": [
+            "Unreal Engine 5.8",
+            "C++",
+            "HLSL",
+            "RDG",
+            "Slate",
+            "Perforce"
+        ],
+        "description": "An Unreal Engine plug-in that adds exaggerated movement to existing animations. As team lead, I implemented motion analysis, signal stabilization, GPU deformation, and editor tools, then integrated the team’s work for release on Fab.",
         "coverImage": "Assets/images/overanimation/dynamic-overanimation-hero.webp",
         "coverAlt": "Dynamic OverAnimation product artwork showing a stylized GPU mesh deformation effect",
-        "coverLabel": "Fab product · Epic Project",
+        "coverLabel": "Dynamic OverAnimation",
         "detailPage": "overanimation.html",
         "featured": true,
         "links": {
@@ -264,7 +355,12 @@ const projectsData = {
                 "Product direction, system design, motion phase analysis, runtime response, GPU deformation pipeline, and editor authoring tools (Team Lead · Me)",
                 "DynaMax team contributions across runtime, editor, content, and product delivery"
             ],
-            "collaboration_tools": ["Perforce", "Unreal Engine 5.8", "Visual Studio", "Fab"],
+            "collaboration_tools": [
+                "Perforce",
+                "Unreal Engine 5.8",
+                "Visual Studio",
+                "Fab"
+            ],
             "team_dynamics": "I led the three-person DynaMax product team, set the product and system direction, and implemented the Motion Phase Analyzer, runtime response, render/GPU, and editor systems within the released team plug-in."
         },
         "technical_challenges": [
@@ -307,10 +403,26 @@ const projectsData = {
         "development_timeline": {
             "duration": "Epic Project · 2026",
             "phases": [
-                { "phase": "Native contracts", "duration": "Bone Group contracts", "focus": "Bone Groups, hierarchy expansion, LOD falloff, and data-driven responses" },
-                { "phase": "Runtime & GPU composition", "duration": "Snapshot & RDG composition", "focus": "Response arbitration, Squash & Stretch, snapshots, RDG passes, normals, and tangents" },
-                { "phase": "Automatic motion phases", "duration": "Phase & Region state machine", "focus": "Phase stability, Region ownership, cycle timing, animation routing, and authoring UX" },
-                { "phase": "Product integration", "duration": "Socket-follower integration", "focus": "Deformed socket followers and restored showcase assets" }
+                {
+                    "phase": "Native contracts",
+                    "duration": "Bone Group contracts",
+                    "focus": "Bone Groups, hierarchy expansion, LOD falloff, and data-driven responses"
+                },
+                {
+                    "phase": "Runtime & GPU composition",
+                    "duration": "Snapshot & RDG composition",
+                    "focus": "Response arbitration, Squash & Stretch, snapshots, RDG passes, normals, and tangents"
+                },
+                {
+                    "phase": "Automatic motion phases",
+                    "duration": "Phase & Region state machine",
+                    "focus": "Phase stability, Region ownership, cycle timing, animation routing, and authoring UX"
+                },
+                {
+                    "phase": "Product integration",
+                    "duration": "Socket-follower integration",
+                    "focus": "Deformed socket followers and restored showcase assets"
+                }
             ]
         }
     }
@@ -689,6 +801,13 @@ document.addEventListener('DOMContentLoaded', function () {
     initializeNavigation();
     initializeProjects();
     initializeModal();
+    const openLinkedProject = () => {
+        const match = location.hash.match(/^#project-(1|2)$/);
+        if (match) openProjectModal(match[1]);
+        else if (currentProjectId) closeProjectModal();
+    };
+    window.addEventListener('hashchange', openLinkedProject);
+    openLinkedProject();
     initializeScrollEffects();
     // Removed: initializeContactForm(); -> No form needed
     initializeTypingEffect();
@@ -861,14 +980,11 @@ function initializeProjects() {
     const projectsGrid = document.getElementById('projectsGrid');
     if (!projectsGrid) return;
 
+    const additionalGrid = document.getElementById('additionalProjectsGrid');
     projectsGrid.replaceChildren();
-
-    Object.entries(projectsData)
-        .sort(([, projectA], [, projectB]) => Number(Boolean(projectB.featured)) - Number(Boolean(projectA.featured)))
-        .forEach(([id, project]) => {
-        const projectCard = createProjectCard(id, project);
-        projectsGrid.appendChild(projectCard);
-    });
+    additionalGrid?.replaceChildren();
+    ['5', '4', '1'].forEach(id => projectsGrid.appendChild(createProjectCard(id, projectsData[id])));
+    ['2', '3'].forEach(id => (additionalGrid || projectsGrid).appendChild(createProjectCard(id, projectsData[id])));
 }
 
 function createProjectCard(id, project) {
@@ -970,13 +1086,26 @@ function createProjectCard(id, project) {
           </div>
 
           <div class="project-actions">
-              <button class="btn btn--primary project-detail-btn project-action">
+              <a href="${dedicatedPageUrl || `#project-${id}`}" class="btn btn--primary project-detail-btn project-action">
                   <span>${getPortfolioText('global.viewDetails', 'View Details')}</span>
-              </button>
+              </a>
               ${downloadBtn}
           </div>
       </div>
   `;
+
+    if (project.highlights?.length) {
+        const links = document.createElement('div');
+        links.className = 'project-evidence-links';
+        project.highlights.forEach(item => {
+            const link = document.createElement('a');
+            link.className = 'project-action';
+            link.href = item.href;
+            link.textContent = item.label + ' ↗';
+            links.appendChild(link);
+        });
+        card.querySelector('.project-actions').before(links);
+    }
 
     // 버튼 클릭 시 카드 클릭 전파 방지
     //card.querySelectorAll('.project-action').forEach(el => {
@@ -1053,6 +1182,9 @@ function openProjectModal(projectId, options = {}) {
     populateChallengesTab(project);
     populateTimelineTab(project);
 
+    const timelineButton = document.querySelector('[data-tab="timeline"]');
+    if (timelineButton) timelineButton.hidden = !project.development_timeline;
+
     // Show/hide collaboration tab based on project type
     const collaborationTab = document.getElementById('collaborationTab');
     if (collaborationTab) {
@@ -1066,7 +1198,8 @@ function openProjectModal(projectId, options = {}) {
     projectModal.classList.add('active');
     document.body.style.overflow = 'hidden';
 
-    switchTab(options.activeTab || 'overview');
+    switchTab(options.activeTab === 'timeline' && !project.development_timeline ? 'overview' : (options.activeTab || 'overview'));
+    history.replaceState(null, '', `#project-${projectId}`);
 }
 
 function closeProjectModal() {
@@ -1075,6 +1208,7 @@ function closeProjectModal() {
     }
     document.body.style.overflow = '';
     currentProjectId = null;
+    if (/^#project-/.test(location.hash)) history.replaceState(null, '', '#projects');
 
     // Stop video
     const modalVideo = document.getElementById('modalVideo');
@@ -1173,6 +1307,27 @@ function populateOverviewTab(project) {
     // Description
     if (modalDescription) {
         modalDescription.textContent = project.description;
+        document.getElementById('modalSourceNote')?.remove();
+        document.getElementById('modalEvidenceLinks')?.remove();
+        if (project.source_note) {
+            const note = document.createElement('p');
+            note.id = 'modalSourceNote';
+            note.className = 'project-source-note';
+            note.textContent = project.source_note;
+            modalDescription.after(note);
+        }
+        if (project.highlights?.length) {
+            const links = document.createElement('div');
+            links.id = 'modalEvidenceLinks';
+            links.className = 'project-evidence-links';
+            project.highlights.forEach(item => {
+                const link = document.createElement('a');
+                link.href = item.href;
+                link.textContent = item.label;
+                links.appendChild(link);
+            });
+            (document.getElementById('modalSourceNote') || modalDescription).after(links);
+        }
     }
 
     // Project type badge
@@ -1239,12 +1394,10 @@ function populateCollaborationTab(project) {
                 <p><strong>${getPortfolioText('global.myRole', 'My Role')}:</strong> ${project.collaboration_details.my_role}</p>
                 <p><strong>${getPortfolioText('global.teamDynamics', 'Team Dynamics')}:</strong> ${project.collaboration_details.team_dynamics}</p>
             </div>
-            <div class="team-roles">
+            ${project.collaboration_details.team_roles?.length ? `<div class="team-roles">
                 <h3>${getPortfolioText('global.teamComposition', 'Team Composition')}</h3>
-                <ul>
-                    ${project.collaboration_details.team_roles.map(role => `<li>${role}</li>`).join('')}
-                </ul>
-            </div>
+                <ul>${project.collaboration_details.team_roles.map(role => `<li>${role}</li>`).join('')}</ul>
+            </div>` : ''}
             <div class="collaboration-tools">
                 <h3>${getPortfolioText('global.collaborationTools', 'Collaboration Tools')}</h3>
                 <ul>
@@ -1317,6 +1470,10 @@ function populateTimelineTab(project) {
     const timelineContent = document.querySelector('#timelineTab .timeline-content');
     if (!timelineContent) return;
 
+    if (!project.development_timeline) {
+        timelineContent.replaceChildren();
+        return;
+    }
     const timelineItems = project.development_timeline.phases.map((phase, index) => {
         const marker = project.project_type === 'collection'
             ? String(index + 1).padStart(2, '0')
@@ -1433,4 +1590,3 @@ const debouncedScrollHandler = debounce(() => {
 }, 100);
 
 window.addEventListener('scroll', debouncedScrollHandler);
-

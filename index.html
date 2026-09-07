@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="HaXX0rBunny portfolio: C++ gameplay, real-time rendering, engine architecture, and Unreal Engine development." data-i18n-attr-content="index.pageDescription">
-    <title data-i18n="index.pageTitle">Game Developer Portfolio</title>
-    <link rel="stylesheet" href="style.css?v=20260824-week11-theme">
+    <title data-i18n="index.pageTitle">Cho Sanghyeon · C++ Game Programmer</title>
+    <link rel="stylesheet" href="style.css?v=20260907-portfolio-final">
 </head>
 <body>
     <!-- Loading Spinner -->
@@ -52,9 +52,10 @@
                 </h1>
                 <p class="hero-subtitle" data-i18n="index.ctaText">Game Developer</p>
                 <p class="hero-description" data-i18n="index.heroDescription">
-                    A systems-minded, performance-conscious developer who turns complex rendering problems into clear, reliable C++ solutions. My work spans engine architecture, real-time rendering, optimization, and Unreal Engine tools.
+                    I develop gameplay and engine features in C++ and Unreal Engine. My work includes custom-engine rendering optimization, standalone builds, and an animation deformation plug-in released by a three-person team on Fab.
                 </p>
                 <div class="hero-contact">
+                    <a href="#projects" class="contact-link contact-link--primary" data-i18n="index.viewProjects">View selected projects</a>
                     <a href="https://www.linkedin.com/in/haxxorbunny/" target="_blank" class="contact-link">
                         <span>LinkedIn</span>
                     </a>
@@ -81,8 +82,13 @@
                     </div>
                 </div>
                 <div class="projects-grid" id="projectsGrid">
-                    <!-- Projects will be dynamically inserted here -->
+                    <!-- Selected projects are inserted here. -->
                 </div>
+                <div class="additional-projects-heading">
+                    <h3 data-i18n="index.additionalProjects">Earlier Projects</h3>
+                    <p data-i18n="index.additionalLead">C gameplay foundations and C++ UI implementation.</p>
+                </div>
+                <div class="projects-grid" id="additionalProjectsGrid"></div>
             </div>
         </section>
 
@@ -103,41 +109,28 @@
                 </div>
                 <div class="skills-grid">
                     <div class="skill-category">
-                        <h3 data-i18n="index.programmingLanguages">Programming Languages</h3>
-                        <div class="tech-stack">
-                            <span class="tech-badge expert">C++</span>
-                            <span class="tech-badge advanced">C</span>
-                            <span class="tech-badge">C#</span>
-                            <span class="tech-badge">Python</span>
-                            <span class="tech-badge">JavaScript</span>
-                        </div>
+                        <h3 data-i18n="index.coreSkills">Primary development</h3>
+                        <div class="tech-stack"><span class="tech-badge">C++</span><span class="tech-badge">C</span><span class="tech-badge">Unreal Engine 5</span><span class="tech-badge">Blueprint</span></div>
+                        <p class="skill-experience" data-i18n="index.coreExperience">C++ gameplay, animation state machines, and Unreal Engine editor tools.</p>
+                        <a class="skill-project-link" href="overanimation.html#contribution" data-i18n="index.skillCoreLink">Plug-in implementation</a>
                     </div>
                     <div class="skill-category">
-                        <h3 data-i18n="index.gameEngines">Game Engines</h3>
-                        <div class="tech-stack">
-                            <span class="tech-badge expert">Unreal Engine 4/5</span>
-                            <span class="tech-badge advanced">Unity</span>
-                            <span class="tech-badge expert">Custom Engines</span>
-                        </div>
+                        <h3 data-i18n="index.renderSkills">Rendering and engines</h3>
+                        <div class="tech-stack"><span class="tech-badge">DirectX 11</span><span class="tech-badge">HLSL / USF</span><span class="tech-badge">OpenGL</span><span class="tech-badge">RDG</span></div>
+                        <p class="skill-experience" data-i18n="index.renderExperience">DirectX 11 impostor rendering, HLSL shaders, and a C++/OpenGL custom engine.</p>
+                        <a class="skill-project-link" href="gametechlab.html#week05/implementation" data-i18n="index.skillRenderLink">Rendering implementation</a>
                     </div>
                     <div class="skill-category">
-                        <h3 data-i18n="index.graphicsRendering">Graphics & Rendering</h3>
-                        <div class="tech-stack">
-                            <span class="tech-badge expert">OpenGL</span>
-                            <span class="tech-badge">DirectX</span>
-                            <span class="tech-badge">Vulkan</span>
-                            <span class="tech-badge advanced">Shader Programming</span>
-                        </div>
+                        <h3 data-i18n="index.toolSkills">Tools and collaboration</h3>
+                        <div class="tech-stack"><span class="tech-badge">Python</span><span class="tech-badge">Slate</span><span class="tech-badge">ImGui</span><span class="tech-badge">Git</span><span class="tech-badge">Perforce</span></div>
+                        <p class="skill-experience" data-i18n="index.toolExperience">Python data validation, build automation, and team source control.</p>
+                        <a class="skill-project-link" href="gametechlab.html#week09/implementation" data-i18n="index.skillToolsLink">Standalone build</a>
                     </div>
                     <div class="skill-category">
-                        <h3 data-i18n="index.developmentTools">Development Tools</h3>
-                        <div class="tech-stack">
-                            <span class="tech-badge expert">Git</span>
-                            <span class="tech-badge">Perforce</span>
-                            <span class="tech-badge expert">Visual Studio</span>
-                            <span class="tech-badge">Rider</span>
-                            <span class="tech-badge">Blender</span>
-                        </div>
+                        <h3 data-i18n="index.aiSkills">AI-assisted development</h3>
+                        <div class="tech-stack"></div>
+                        <p class="skill-experience" data-i18n="index.aiExperience">Used AI to build benchmark and build-automation tools. I found hardcoded paths that limited them to one environment and corrected the code.</p>
+                        <a class="skill-project-link" href="gametechlab.html#week09/evidence" data-i18n="index.skillAiLink">Build workflow</a>
                     </div>
                 </div>
 
@@ -283,7 +276,7 @@
                         <div class="tab-pane" id="technicalTab">
                             <div class="technical-content">
                                 <div class="project-detail-section">
-                                    <h3 data-i18n="global.challenge">Technical Challenges</h3>
+                                    <h3 data-i18n="modal.implementationTitle">Implementation</h3>
                                     <ul id="technicalChallenges"></ul>
                                 </div>
                             </div>
@@ -313,8 +306,8 @@
 
     <!-- YouTube API Script -->
     <script src="https://www.youtube.com/iframe_api"></script>
-    <script src="locale.js?v=20260824-project-refine"></script>
-    <script src="project-content.ko.js?v=20260824-motion-phase"></script>
-    <script src="app.js?v=20260824-motion-phase"></script>
+    <script src="locale.js?v=20260907-portfolio-final"></script>
+    <script src="project-content.ko.js?v=20260907-portfolio-final"></script>
+    <script src="app.js?v=20260907-portfolio-final"></script>
 </body>
 </html>

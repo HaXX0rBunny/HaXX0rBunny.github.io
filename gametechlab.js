@@ -3302,12 +3302,13 @@ function updateWeek(index, updateHash = true) {
     renderDetailPanel();
 
     if (updateHash) {
-        history.replaceState(null, '', `#week${labWeeks[index].week}`);
+        history.replaceState(null, '', `#week${labWeeks[index].week}/${labState.detailTab}`);
     }
 }
 
 function setDetailTab(tabName, shouldFocus = false) {
     labState.detailTab = tabName;
+    history.replaceState(null, '', `#week${labWeeks[labState.selectedWeek].week}/${tabName}`);
 
     labElements.detailTabs.forEach(button => {
         const isActive = button.dataset.detailTab === tabName;
@@ -3361,10 +3362,24 @@ function handleArrowNavigation(event, buttons, currentIndex, callback) {
 }
 
 function initializeLabExplorer() {
-    const hashMatch = window.location.hash.match(/^#week(0[1-9]|1[0-4])$/i);
-    if (hashMatch) {
-        labState.selectedWeek = Number(hashMatch[1]) - 1;
+    function applyWeekLink(scroll = false) {
+        const match = window.location.hash.match(/^#week(0[1-9]|1[0-4])(?:\/(role|implementation|evidence|troubleshooting))?$/i);
+        if (!match) return;
+        updateWeek(Number(match[1]) - 1, false);
+        setDetailTab(match[2]?.toLowerCase() || 'role');
+        setView('weeks');
+        if (scroll) document.querySelector('.lab-week-workspace').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
+    applyWeekLink();
+    window.addEventListener('hashchange', () => applyWeekLink(true));
+    if (location.hash.startsWith('#week')) requestAnimationFrame(() => applyWeekLink(true));
+    document.querySelectorAll('.lab-highlight').forEach(link => {
+        link.addEventListener('click', event => {
+            event.preventDefault();
+            if (location.hash !== link.hash) history.pushState(null, '', link.hash);
+            applyWeekLink(true);
+        });
+    });
 
     renderWeekSelector();
     renderWeekHeader();
