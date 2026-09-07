@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="An Unreal Engine 5.8 plug-in for reusable, camera-aware animation exaggeration through runtime response authoring and GPU mesh deformation." data-oa-key="meta.description" data-oa-attr="content">
     <title data-oa-key="meta.title">Dynamic OverAnimation · Unreal Engine GPU Mesh Deformation</title>
-    <link rel="stylesheet" href="style.css?v=20260824-week11-theme">
+    <link rel="stylesheet" href="style.css?v=20260907-portfolio-final">
 </head>
 <body class="overanim-page">
     <header class="lab-nav overanim-topbar">
@@ -25,10 +25,11 @@
                 <div class="overanim-hero-copy">
                     <p class="section-kicker" data-oa-key="hero.kicker">KRAFTON Jungle Epic Project · DynaMax</p>
                     <h1>Dynamic<br><span>OverAnimation</span></h1>
-                    <p class="overanim-hero-role" data-oa-key="hero.role">Team Lead · Motion Phase · Runtime Systems · GPU Deformation</p>
-                    <p class="overanim-hero-lede" data-oa-key="hero.lede">I implemented the analyzer, runtime arbitration, render-thread handoff, and RDG compute path that turn pose-derived motion signals and gameplay requests into authorable deformation.</p>
+                    <p class="overanim-hero-role" data-oa-key="hero.role">Team Lead · Animation Analysis, GPU & Editor</p>
+                    <p class="overanim-hero-lede" data-oa-key="hero.lede">A plug-in that adds exaggerated movement to existing animations. I led the three-person team and implemented motion analysis, stable runtime signals, GPU deformation, and editor tools for the Fab release.</p>
 
                     <div class="overanim-hero-actions">
+                        <a class="btn btn--primary overanim-cta" href="#result" data-oa-key="links.result">See the result</a>
                         <a class="btn btn--primary overanim-cta" href="https://www.fab.com/listings/8d23f843-b47c-4280-aa0a-d86cb49d77af" target="_blank" rel="noopener noreferrer" data-oa-key="links.fabHref" data-oa-attr="href">
                             <span data-oa-key="links.fab">View product on Fab</span><span aria-hidden="true">↗</span>
                         </a>
@@ -57,6 +58,7 @@
 
         <nav class="overanim-section-nav" aria-label="Project sections" data-oa-key="sectionNav.aria" data-oa-attr="aria-label">
             <div class="container">
+                <a href="#result" data-oa-key="sectionNav.result">Before &amp; after</a>
                 <a href="#overview" data-oa-key="sectionNav.overview">Overview</a>
                 <a href="#contribution" data-oa-key="sectionNav.contribution">My contribution</a>
                 <a href="#phase-analyzer" data-oa-key="sectionNav.analyzer">Phase Analyzer</a>
@@ -66,6 +68,28 @@
                 <a href="#product" data-oa-key="sectionNav.product">Product</a>
             </div>
         </nav>
+
+        <section class="overanim-section overanim-section--surface" id="result">
+            <div class="container">
+                <div class="overanim-validation-comparison">
+                    <header>
+                        <p class="overanim-panel-label" data-oa-key="validation.compareLabel">Phase-driven deformation</p>
+                        <h2 data-oa-key="validation.compareTitle">The same motion, with exaggeration applied</h2>
+                    </header>
+                    <div class="overanim-evidence-gallery">
+                        <figure>
+                            <img src="Assets/images/overanimation/motion-phase-original-grid.png" alt="Four original combat animation frames before OverAnimation deformation" loading="lazy" data-oa-key="validation.originalImageAlt" data-oa-attr="alt">
+                            <figcaption><strong data-oa-key="validation.originalTitle">Before</strong><span data-oa-key="validation.originalBody">Four poses from the original animation.</span></figcaption>
+                        </figure>
+                        <figure>
+                            <img src="Assets/images/overanimation/motion-phase-deformed-grid.png" alt="Four combat animation frames with phase-driven OverAnimation deformation" loading="lazy" data-oa-key="validation.resultImageAlt" data-oa-attr="alt">
+                            <figcaption><strong data-oa-key="validation.resultTitle">After</strong><span data-oa-key="validation.resultBody">The mesh stretches and deforms with the motion to emphasize the action.</span></figcaption>
+                        </figure>
+                    </div>
+                </div>
+
+            </div>
+        </section>
 
         <section class="overanim-section" id="overview">
             <div class="container">
@@ -545,23 +569,6 @@ if (bSameSource &amp;&amp; bSameRoute &amp;&amp; bNearbyContact &amp;&amp;
 
                 <div class="overanim-validation-comparison">
                     <header>
-                        <p class="overanim-panel-label" data-oa-key="validation.compareLabel">Phase-driven deformation</p>
-                        <h3 data-oa-key="validation.compareTitle">Original motion and authored result</h3>
-                    </header>
-                    <div class="overanim-evidence-gallery">
-                        <figure>
-                            <img src="Assets/images/overanimation/motion-phase-original-grid.png" alt="Four original combat animation frames before OverAnimation deformation" loading="lazy" data-oa-key="validation.originalImageAlt" data-oa-attr="alt">
-                            <figcaption><strong data-oa-key="validation.originalTitle">Original</strong><span data-oa-key="validation.originalBody">The source animation establishes the action poses used by the Analyzer and Response Rules.</span></figcaption>
-                        </figure>
-                        <figure>
-                            <img src="Assets/images/overanimation/motion-phase-deformed-grid.png" alt="Four combat animation frames with phase-driven OverAnimation deformation" loading="lazy" data-oa-key="validation.resultImageAlt" data-oa-attr="alt">
-                            <figcaption><strong data-oa-key="validation.resultTitle">Phase-driven result</strong><span data-oa-key="validation.resultBody">Authored deformation emphasizes the action direction and silhouette on the corresponding motion phases.</span></figcaption>
-                        </figure>
-                    </div>
-                </div>
-
-                <div class="overanim-validation-comparison">
-                    <header>
                         <p class="overanim-panel-label" data-oa-key="validation.previewCompareLabel">Asset Editor result preview</p>
                         <h3 data-oa-key="validation.previewCompareTitle">Visible change on the preview mesh</h3>
                     </header>
@@ -646,8 +653,8 @@ if (bSameSource &amp;&amp; bSameRoute &amp;&amp; bNearbyContact &amp;&amp;
         </div>
     </footer>
 
-    <script src="locale.js?v=20260824-project-record"></script>
-    <script src="overanimation.ko.js?v=20260824-project-refine"></script>
+    <script src="locale.js?v=20260907-portfolio-final"></script>
+    <script src="overanimation.ko.js?v=20260907-portfolio-final"></script>
     <script src="overanimation-localize.js"></script>
     <script src="detail-shell.js"></script>
 </body>
