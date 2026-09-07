@@ -10,15 +10,6 @@ C++ 게임플레이, 렌더링, 자체 엔진과 Unreal Engine 도구 개발 작
 - [GameTechLab3rd](https://haxx0rbunny.github.io/gametechlab.html): C++/DirectX 11 자체 엔진, 임포스터 최적화, 독립 실행 빌드
 - [Edge Drive](https://haxx0rbunny.github.io/index.html#project-1): 최종 3인 팀의 액션 게임, 스테이지·캐릭터·시간 제어
 
-## 로컬 확인
-
-별도 빌드 과정 없이 저장소 루트에서 정적 파일 서버를 실행합니다.
-
-```sh
-python -m http.server 8080 --bind 127.0.0.1
-```
-
-브라우저에서 `http://127.0.0.1:8080`을 엽니다. YouTube 영상과 외부 링크에는 인터넷 연결이 필요합니다.
 
 ## 콘텐츠 위치
 
