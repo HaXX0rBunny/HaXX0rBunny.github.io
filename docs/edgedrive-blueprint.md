@@ -25,8 +25,6 @@ Edge Drive에서 팀장을 맡아 스테이지와 플레이어 캐릭터, 시간
 
 ## 확인 범위와 공개 소스
 
-위 내용은 로컬 프로젝트의 `.uasset`을 UAssetAPI 1.1.0으로 읽어 함수 참조와 컴파일된 Kismet 호출을 확인한 기록입니다. 아래 추출 파일에는 원본 에셋의 상대 경로와 SHA-256, 확인한 함수 호출이 들어 있습니다. 함수 목록은 실행 순서도나 Unreal Editor 캡처를 대신하지 않으며, 이 분석에서는 게임을 실행해 검증하지 않았습니다.
-
 - [Blueprint에서 추출한 함수 호출](edgedrive-blueprint-calls.json)
 - [UAssetAPI](https://github.com/atenfyr/UAssetAPI)
 - [공개 Sanghyeon 브랜치의 Content](https://github.com/Team-Illegal-Design-Club/EdgeDrive/tree/Sanghyeon/Content)
