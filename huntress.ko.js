@@ -11,7 +11,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
         "selector": "meta[name=\"description\"]",
         "attribute": "content",
         "values": [
-            "Huntress 프로젝트 사례 연구: C++ UI 시스템, 게임플레이 통합, 아키텍처, Git 이력으로 확인한 트러블슈팅 근거."
+            "Huntress: C++ 메뉴·상점·전투 HUD 개발, 입력 처리와 UI 문제 해결 과정."
         ]
     },
     {
@@ -146,20 +146,20 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-media-caption p strong",
         "values": [
-            "실행 근거"
+            "플레이 영상"
         ]
     },
     {
         "selector": ".huntress-media-caption p span",
         "values": [
-            "기록된 게임플레이 데모에서 상점·전투·UI가 하나의 플레이 루프로 연결되는 과정을 확인할 수 있습니다."
+            "상점에서 아이템을 구매하고 전투에 사용하는 플레이 영상입니다."
         ]
     },
     {
         "selector": ".huntress-section-nav",
         "attribute": "aria-label",
         "values": [
-            "Huntress 프로젝트 사례 연구 목차"
+            "Huntress 프로젝트 목차"
         ]
     },
     {
@@ -171,7 +171,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-section-nav a:nth-child(2)",
         "values": [
-            "담당 기여"
+            "담당 업무"
         ]
     },
     {
@@ -189,7 +189,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-section-nav a:nth-child(5)",
         "values": [
-            "검증 자료"
+            "화면 및 소스"
         ]
     },
     {
@@ -286,13 +286,13 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-overview-grid > article:nth-child(3) h3",
         "values": [
-            "공유 실시간 루프"
+            "같은 업데이트 루프에서 실행되는 UI와 게임플레이"
         ]
     },
     {
         "selector": ".huntress-overview-grid > article:nth-child(3) p",
         "values": [
-            "UI와 게임플레이가 하나의 업데이트 루프에서 실행되므로 상태 조건, 입력 중재, 렌더 단계, 객체 수명을 명시적으로 관리해야 합니다."
+            "UI와 게임플레이가 같은 업데이트 루프에서 실행됩니다. 화면 상태에 따라 입력을 구분하고, 출력 순서와 객체 수명을 관리해야 했습니다."
         ]
     },
     {
@@ -305,7 +305,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-feature-figure figcaption span",
         "values": [
-            "저장소에 추적된 프로젝트 이미지"
+            "전투 튜토리얼"
         ]
     },
     {
@@ -317,7 +317,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-feature-figure figcaption p",
         "values": [
-            "저장소에 포함된 이 자료는 아이템 슬롯, 현재·이전 각도, 이동·출력 게이지, 양측 체력 바가 통합된 HUD 구성을 보여 줍니다."
+            "아이템 슬롯, 현재·이전 조준 각도, 이동·출력 게이지와 양측 체력 바를 배치한 HUD입니다."
         ]
     },
     {
@@ -329,13 +329,13 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": "#contribution .huntress-section-heading h2",
         "values": [
-            "UI 시스템 구현 범위"
+            "메뉴·상점·전투 UI 개발"
         ]
     },
     {
         "selector": "#contribution .huntress-section-heading > p",
         "values": [
-            "메뉴·상점·전투 HUD, 입력 라우팅, 그리기 순서, 아이템 정보 수명 주기를 대표 파일과 작성 Diff에 연결했습니다."
+            "UI 모듈을 구현하고 게임 상태와 연결했습니다. 입력 처리와 출력 순서를 조정하고, 아이템 정보 객체의 생성과 해제를 관리했습니다."
         ]
     },
     {
@@ -383,7 +383,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-metric-grid > article:nth-child(3) span",
         "values": [
-            "결정적 그리기 순서"
+            "월드·UI·텍스트 출력 순서"
         ]
     },
     {
@@ -401,7 +401,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-metric-grid > article:nth-child(4) span",
         "values": [
-            "화면 공간 라우팅"
+            "UI와 조준 입력 구분"
         ]
     },
     {
@@ -449,7 +449,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-check-list li:nth-child(6)",
         "values": [
-            "기능 브랜치와 직접 병합을 통해 협업했으며, 원본 해시는 <code>main</code>에서 계속 추적할 수 있습니다."
+            "기능별 브랜치에서 작업하고 병합하며 팀원의 코드와 통합했습니다."
         ]
     },
     {
@@ -491,31 +491,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-panel-note",
         "values": [
-            "소스 이력은 이 파일들을 아래 구현 사례와 작성 Diff에 연결합니다."
-        ]
-    },
-    {
-        "selector": ".huntress-history-strip > div:nth-child(1) span",
-        "values": [
-            "원본 저장소 <code>main</code>"
-        ]
-    },
-    {
-        "selector": ".huntress-history-strip > div:nth-child(2) span",
-        "values": [
-            "사용자 포크 <code>main</code>"
-        ]
-    },
-    {
-        "selector": ".huntress-history-strip > div:nth-child(3) span",
-        "values": [
-            "보존된 개인 브랜치"
-        ]
-    },
-    {
-        "selector": ".huntress-history-strip > a",
-        "values": [
-            "포크 열기"
+            "아래 문제 해결 사례에 수정 전후 코드와 해당 커밋을 연결했습니다."
         ]
     },
     {
@@ -533,7 +509,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": "#architecture .huntress-section-heading > p",
         "values": [
-            "인터페이스는 엔진 업데이트에 참여해 커서 조작을 도메인 이벤트로 변환하고, 전투 데이터를 관찰하며, 텍스트 피드백을 가리지 않도록 월드 렌더링 뒤에 출력됩니다."
+            "버튼 입력으로 게임 상태를 갱신하고, HUD는 전투 데이터를 읽어 표시합니다. 화면은 월드 그래픽, UI, 텍스트 순서로 출력합니다."
         ]
     },
     {
@@ -612,7 +588,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-challenge-grid > article:nth-child(1) h3",
         "values": [
-            "명시적인 인터페이스 레이어 순서"
+            "월드·UI·텍스트의 출력 순서"
         ]
     },
     {
@@ -654,7 +630,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-challenge-grid > article:nth-child(3) p",
         "values": [
-            "UI 콜백이 게임플레이 데이터를 별도로 소비하지 않고 전투 상태에 의도를 전달하도록 구성해 인벤토리, 효과, HUD 피드백이 하나의 경로를 따르도록 했습니다."
+            "UI 콜백에서 선택한 아이템을 전투 상태에 전달하도록 구성했습니다. 인벤토리 변경과 아이템 효과, HUD 갱신이 같은 흐름으로 처리됩니다."
         ]
     },
     {
@@ -672,7 +648,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-challenge-grid > article:nth-child(4) p",
         "values": [
-            "아이템 정보 객체의 시각 요소는 한 번의 호버 콜백보다 오래 유지되지만 UI 모듈보다는 먼저 종료되므로, 생성·사용·해제 구간을 명시해야 합니다."
+            "전투 툴팁 객체는 호버 콜백이 끝나도 유지하고, 전투 UI 모듈을 종료할 때 해제하도록 수명을 관리했습니다."
         ]
     },
     {
@@ -696,13 +672,13 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": "#troubleshooting .huntress-section-heading h2",
         "values": [
-            "코드·맥락·커밋으로 추적한 6가지 해결 과정"
+            "UI 개발 중 해결한 여섯 가지 문제"
         ]
     },
     {
         "selector": "#troubleshooting .huntress-section-heading > p",
         "values": [
-            "여섯 사례를 Parent/Fix 코드와 작성자 Commit으로 연결하고, 실행 자료는 통합 결과를 확인하는 근거로 배치했습니다."
+            "출력 순서, 버튼 클릭, HUD 입력과 툴팁 수명 문제를 수정했습니다. 각 사례에 원인과 수정 코드, 해당 커밋을 정리했습니다."
         ]
     },
     {
@@ -720,7 +696,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-trouble-card:nth-child(1) .huntress-case-facts > div:nth-child(1) p",
         "values": [
-            "월드 그래픽과 인터페이스 스프라이트의 순서를 독립적으로 제어할 수 없었고, 연속된 커밋에는 <code>Modify/Fix UI Draw sequence</code>가 명시되어 있습니다."
+            "월드 그래픽과 인터페이스 스프라이트의 출력 순서를 따로 제어할 수 없었습니다."
         ]
     },
     {
@@ -738,7 +714,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-trouble-card:nth-child(1) .huntress-case-facts > div:nth-child(4) p",
         "values": [
-            "코드에 World → Interface → Text 순서가 명시되어 UI가 World Rendering 뒤에서 일관되게 출력됩니다."
+            "월드 그래픽 다음에 UI를 그리고, 마지막에 텍스트를 출력하도록 순서를 정했습니다."
         ]
     },
     {
@@ -756,7 +732,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-trouble-card:nth-child(1) > footer > span",
         "values": [
-            "Git 이력 기반 수정 전·후 코드 비교"
+            "수정 전후 코드"
         ]
     },
     {
@@ -810,7 +786,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-trouble-card:nth-child(2) > footer > span",
         "values": [
-            "Git 이력 기반 수정 전·후 코드 비교"
+            "수정 전후 코드"
         ]
     },
     {
@@ -864,7 +840,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-trouble-card:nth-child(3) > footer > span",
         "values": [
-            "Git 이력 기반 수정 전·후 코드 비교"
+            "수정 전후 코드"
         ]
     },
     {
@@ -900,7 +876,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-trouble-card:nth-child(4) .huntress-case-facts > div:nth-child(4) p",
         "values": [
-            "적 게이지가 플레이어 기준 상대값이 아니라 적 자신의 체력 범위를 표현하게 되었습니다."
+            "적의 최대 체력을 기준으로 게이지의 크기와 위치를 계산하도록 수정했습니다."
         ]
     },
     {
@@ -918,7 +894,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-trouble-card:nth-child(4) > footer > span",
         "values": [
-            "Git 이력 기반 수정 전·후 코드 비교"
+            "수정 전후 코드"
         ]
     },
     {
@@ -936,7 +912,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-trouble-card:nth-child(5) .huntress-case-facts > div:nth-child(1) p",
         "values": [
-            "해당 커밋은 예외 처리 수정을 기록합니다. 게임이 상점 또는 전환 상태일 수 있는데도 바람, 각도, 게이지 업데이트가 실행되었습니다."
+            "게임이 상점이나 화면 전환 상태일 때도 바람, 각도, 게이지 업데이트가 실행될 수 있었습니다."
         ]
     },
     {
@@ -954,7 +930,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-trouble-card:nth-child(5) .huntress-case-facts > div:nth-child(4) p",
         "values": [
-            "전투 상태 게이트로 상점·전환 프레임이 전투 전용 <code>player</code>, <code>enemy</code>, <code>directionArrow</code>를 역참조하는 경로를 차단했습니다."
+            "상점과 화면 전환 중에는 해당 갱신 코드가 전투 전용 컴포넌트에 접근하지 않도록 했습니다."
         ]
     },
     {
@@ -972,7 +948,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-trouble-card:nth-child(5) > footer > span",
         "values": [
-            "Git 이력 기반 수정 전·후 코드 비교 · 부분적 안전성 개선"
+            "수정 전후 코드 · 전투 상태에 따른 HUD 갱신 제한"
         ]
     },
     {
@@ -990,7 +966,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-trouble-card:nth-child(6) .huntress-case-facts > div:nth-child(1) p",
         "values": [
-            "이전 리비전은 툴팁 포인터 4개를 null로 초기화한 직후 해당 포인터를 통해 <code>CreateItemInfo()</code>를 호출했습니다."
+            "툴팁 포인터 4개를 null로 초기화한 뒤, 객체를 할당하기 전에 <code>CreateItemInfo()</code>를 호출하고 있었습니다."
         ]
     },
     {
@@ -1026,25 +1002,25 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-trouble-card:nth-child(6) > footer > span",
         "values": [
-            "Git 이력 기반 수정 전·후 코드 비교"
+            "수정 전후 코드"
         ]
     },
     {
         "selector": "#evidence .huntress-section-heading .section-kicker",
         "values": [
-            "05 · 시각 자료 및 소스 근거"
+            "05 · 화면 및 소스"
         ]
     },
     {
         "selector": "#evidence .huntress-section-heading h2",
         "values": [
-            "저장소와 실행 자료로 연결한 구현 근거"
+            "UI 화면과 프로젝트 자료"
         ]
     },
     {
         "selector": "#evidence .huntress-section-heading > p",
         "values": [
-            "소스·Commit Hash·Tutorial Frame·Gameplay Video를 기능별 구현 근거로 연결했습니다."
+            "튜토리얼 화면에서 전투 HUD의 구성을 볼 수 있습니다. 소스 코드와 플레이 영상, Windows 설치 파일도 함께 제공합니다."
         ]
     },
     {
@@ -1063,7 +1039,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-visual-grid > figure:nth-child(1) figcaption span",
         "values": [
-            "저장소에 추적된 튜토리얼 프레임입니다."
+            "전투 UI를 안내하는 게임 내 튜토리얼 화면입니다."
         ]
     },
     {
@@ -1082,7 +1058,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-visual-grid > figure:nth-child(2) figcaption span",
         "values": [
-            "HP 바인딩 수정의 영향을 받는 게이지를 보여 주는 저장소 추적 프레임입니다."
+            "적 체력 게이지를 설명하는 튜토리얼 화면입니다."
         ]
     },
     {
@@ -1107,127 +1083,67 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-evidence-grid > article:nth-child(1) > span",
         "values": [
-            "검증됨"
+            "소스 코드"
         ]
     },
     {
         "selector": ".huntress-evidence-grid > article:nth-child(1) h3",
         "values": [
-            "소스 및 작성 이력"
+            "UI 구현 파일"
         ]
     },
     {
         "selector": ".huntress-evidence-grid > article:nth-child(1) li:nth-child(1)",
         "values": [
-            "사용자 포크와 원본 저장소 <code>main</code>이 <code>f64cd0f</code>를 공유합니다."
+            "<code>CombatUI.cpp</code>에서 전투 HUD와 툴팁을 갱신합니다."
         ]
     },
     {
         "selector": ".huntress-evidence-grid > article:nth-child(1) li:nth-child(2)",
         "values": [
-            "UI 시스템 구현 근거와 작성 Diff를 <code>main</code>에서 계속 추적할 수 있습니다."
+            "<code>StoreUI.cpp</code>에서 상점 구매와 아이템 선택을 처리합니다."
         ]
     },
     {
         "selector": ".huntress-evidence-grid > article:nth-child(1) li:nth-child(3)",
         "values": [
-            "개인 브랜치 <code>sanghyeon</code>이 사용자 포크에 보존되어 있습니다."
+            "개인 작업은 <code>sanghyeon</code> 브랜치와 연결된 커밋에서 볼 수 있습니다."
         ]
     },
     {
         "selector": ".huntress-evidence-grid > article:nth-child(1) li:nth-child(4)",
         "values": [
-            "대표 파일과 사례별 Diff가 UI 시스템 구현 범위를 뒷받침합니다."
+            "위의 수정 전후 코드에서 UI 동작을 어떻게 바꿨는지 설명했습니다."
         ]
     },
     {
         "selector": ".huntress-evidence-grid > article:nth-child(2) > span",
         "values": [
-            "검증됨"
+            "플레이 자료"
         ]
     },
     {
         "selector": ".huntress-evidence-grid > article:nth-child(2) h3",
         "values": [
-            "실행 및 시각 자료"
+            "영상·화면·설치 파일"
         ]
     },
     {
         "selector": ".huntress-evidence-grid > article:nth-child(2) li:nth-child(1)",
         "values": [
-            "공개 게임플레이 영상에서 통합된 게임 동작을 확인할 수 있습니다."
+            "플레이 영상에는 상점과 전투가 이어지는 과정이 담겨 있습니다."
         ]
     },
     {
         "selector": ".huntress-evidence-grid > article:nth-child(2) li:nth-child(2)",
         "values": [
-            "저장소에 추적된 튜토리얼 프레임에서 HUD, 조준 안내, 체력 표시를 확인할 수 있습니다."
+            "튜토리얼 화면에서 HUD, 조준 안내, 체력 바의 구성을 볼 수 있습니다."
         ]
     },
     {
         "selector": ".huntress-evidence-grid > article:nth-child(2) li:nth-child(3)",
         "values": [
-            "별도로 보존한 Windows 설치 파일이 이 포트폴리오에 연결되어 있습니다."
-        ]
-    },
-    {
-        "selector": ".huntress-evidence-grid > article:nth-child(3) > span",
-        "values": [
-            "근거 구성"
-        ]
-    },
-    {
-        "selector": ".huntress-evidence-grid > article:nth-child(3) h3",
-        "values": [
-            "Source · History · Runtime"
-        ]
-    },
-    {
-        "selector": ".huntress-evidence-grid > article:nth-child(3) li:nth-child(1)",
-        "values": [
-            "여섯 트러블슈팅 사례를 Parent/Fix 코드와 작성자 Commit으로 연결했습니다."
-        ]
-    },
-    {
-        "selector": ".huntress-evidence-grid > article:nth-child(3) li:nth-child(2)",
-        "values": [
-            "저장소의 Tutorial Frame과 Gameplay Video로 통합 결과를 확인합니다."
-        ]
-    },
-    {
-        "selector": ".huntress-evidence-grid > article:nth-child(3) li:nth-child(3)",
-        "values": [
-            "공개 Fork에 Source History와 개인 Branch를 보존했습니다."
-        ]
-    },
-    {
-        "selector": ".huntress-evidence-grid > article:nth-child(4) > span",
-        "values": [
-            "후속 리팩터링"
-        ]
-    },
-    {
-        "selector": ".huntress-evidence-grid > article:nth-child(4) h3",
-        "values": [
-            "상점 툴팁 콜백의 객체 수명"
-        ]
-    },
-    {
-        "selector": ".huntress-evidence-grid > article:nth-child(4) p",
-        "values": [
-            "<code>StoreUI::CreateStoreItem()</code>은 지역 <code>StoreItem</code>을 Vector 저장 전에 참조로 Capture합니다. 다음 리팩터링에서 먼저 저장한 뒤 안정적인 Index 또는 Value를 Capture하도록 변경합니다."
-        ]
-    },
-    {
-        "selector": ".huntress-repro-note > span",
-        "values": [
-            "동일 조건 전후 캡처 계획"
-        ]
-    },
-    {
-        "selector": ".huntress-repro-note > p",
-        "values": [
-            "부모 커밋과 수정 커밋을 각각 분리한 <code>worktree</code>에서 빌드하고, 동일한 저장 파일·레벨과 1600×900 뷰포트로 호버 상태의 스킬 클릭, HUD와 조준 입력 충돌, 서로 다른 플레이어·적 최대 HP, CombatUI 툴팁 초기화를 캡처합니다."
+            "페이지 상단의 프로젝트 링크에서 Windows 설치 파일을 받을 수 있습니다."
         ]
     },
     {

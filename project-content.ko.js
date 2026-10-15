@@ -4,7 +4,7 @@ window.PORTFOLIO_PROJECT_KO = {
         "team_label": "최종 3인 팀",
         "scope_label": "게임플레이",
         "my_role": "팀장 · 스테이지·캐릭터·시간 제어",
-        "description": "팀장을 맡아 스테이지와 플레이어 캐릭터, 시간 제어를 구현했습니다. Blueprint로 Motion Matching 기반 이동과 전투 동작을 연결하고, 시간 배율에 맞춰 비 파티클의 스케일을 조절했습니다.",
+        "description": "팀장을 맡아 스테이지와 플레이어 캐릭터, 시간 제어를 구현했습니다. 이동과 전투는 Blueprint로 구현하고, 이동 애니메이션에 Motion Matching을 적용했습니다. 시간 배율에 맞춰 비 파티클의 크기도 조절했습니다.",
         "collaboration_details": {
             "team_size": "4명으로 시작, 최종 3명",
             "my_role": "팀장 · 스테이지·캐릭터·시간 제어",
@@ -21,7 +21,7 @@ window.PORTFOLIO_PROJECT_KO = {
             "team_dynamics": "4명으로 시작한 프로젝트에서 한 명이 빠진 뒤 3명이 작업했습니다. 담당 기능을 구현하면서 작업 우선순위와 진행 상황을 조율했습니다. 프로젝트 파일명 변경으로 패키징이 중단됐을 때는 로그와 참조 경로를 추적해 복구했고, 이후 프로젝트 설정 파일의 Git 관리 규칙을 팀에 제안했습니다."
         },
         "technical_challenges": [
-            "스테이지를 제작하고, Blueprint로 Motion Matching 기반 플레이어 캐릭터의 이동과 전투 동작을 구현했습니다.",
+            "스테이지와 플레이어의 이동·전투를 Blueprint로 구현하고, 이동 애니메이션에 Motion Matching을 적용했습니다.",
             "TimeManipulater_BP에서 SetGlobalTimeDilation을 이용한 시간 제어를 만들고, Tick에 의존하던 시간 진행 로직을 분리했습니다.",
             "시간 제어를 Rain_BP의 Rain_Delation과 연결했습니다. VInterpTo로 보간한 값을 Niagara의 Max Scale Factor에 전달해 비 파티클의 스케일을 조절했습니다.",
             "패키징 로그와 프로젝트 참조 경로를 추적해 팀 공용 빌드를 복구했습니다."
@@ -37,10 +37,10 @@ window.PORTFOLIO_PROJECT_KO = {
         },
         "development_timeline": null,
         "subtitle": "3D 액션 게임 · 캐릭터 이동과 시간 제어",
-        "source_note": "GitHub의 main 브랜치에는 설정과 기본 모듈이, Sanghyeon 브랜치에는 일부 캐릭터·입력 에셋이 있습니다. 시간 제어와 비 파티클 Blueprint는 로컬 프로젝트에서 확인한 함수 호출을 구현 기록에 정리했습니다.",
+        "source_note": "공개 저장소에는 일부 에셋만 포함됩니다. 시간 제어와 비 파티클 소스는 미공개이며, 동작은 영상과 배포 빌드에서 볼 수 있습니다.",
         "highlights": [
             {
-                "label": "Blueprint 구현 기록",
+                "label": "시간 제어와 비 연출 구현",
             "href": "https://github.com/HaXX0rBunny/HaXX0rBunny.github.io/blob/main/docs/edgedrive-blueprint.md"
             },
             {
@@ -53,7 +53,7 @@ window.PORTFOLIO_PROJECT_KO = {
         "team_label": "팀 프로젝트 · 2명",
         "scope_label": "게임 프로젝트",
         "my_role": "게임플레이 & 시스템 프로그래머",
-        "description": "풀 기반 발사체와 데이터 기반 레벨 설계, 3개 보스 상태기계, 상태 기반 게임 자원 수명 관리를 중심으로 구성한 C 기반 2D 액션 프로토타입입니다. 공개 저장소는 원래의 APETI 이름을 유지하지만 배포 메뉴에서는 게임명이 MEGA ROGUE로 표시됩니다.",
+        "description": "C와 CProcessing으로 만든 2D 액션 게임입니다. 보스의 공격과 피격·사망 처리, 충돌 판정, 발사체 풀을 담당했습니다. 소스 저장소는 APETI라는 이름으로 공개되어 있습니다.",
         "collaboration_details": {
             "team_size": 2,
             "my_role": "게임플레이 & 시스템 프로그래머",
@@ -65,10 +65,10 @@ window.PORTFOLIO_PROJECT_KO = {
                 "Git",
                 "Visual Studio"
             ],
-            "team_dynamics": "공유 C 코드베이스에서 feature branch 기반으로 게임플레이, 보스, 에디터 통합, 상태 연결 파이프라인을 분리해 개발했습니다."
+            "team_dynamics": "기능별 Git 브랜치에서 게임플레이와 보스, 에디터를 나누어 작업하고 각 게임 상태에서 함께 동작하도록 연결했습니다."
         },
         "technical_challenges": [
-            "프레임레이트 변화에 따른 발사체 이동의 결정성 유지",
+            "프레임레이트에 따른 발사체 이동 오차 수정",
             "고정 용량 투사체 및 함정 풀의 재사용 구조 설계",
             "메뉴/게임/보스/클리어/게임 오버 상태 동기화",
             "텍스트 기반 .lvl 레벨 데이터의 직렬화 처리",
@@ -86,14 +86,14 @@ window.PORTFOLIO_PROJECT_KO = {
                 "problem": "순찰 적이 벽이나 플랫폼 가장자리에 먼저 스며든 후 방향 전환하는 버그",
                 "root_cause": "임시 이동 후 복구 없이 속도를 반전해 다음 프레임의 시작점이 충돌 지점이 됨",
                 "solution": "이동 전 위치를 저장했다가 충돌/낙하 조건에서 복구 후 방향 전환",
-                "result": "거부된 이동 값이 누적되어 다음 프레임을 오차시키던 문제가 제거됨",
+                "result": "충돌한 위치가 다음 프레임의 이동 기준으로 남지 않도록 수정",
                 "title": "순찰 적의 충돌 위치 누적"
             },
             "sound_lifetime": {
                 "problem": "상태 전환 시 플레이어/메뉴 오디오 핸들의 정리 경로가 중복되거나 누락됨",
                 "root_cause": "버튼 콜백, GameOver_exit, 상태 종료 함수로 정리 로직이 분산",
                 "solution": "게임/메뉴 종료 경로로 소유권을 통합하고 중복 콜백 정리를 제거",
-                "result": "자원 수명 주기가 상태 라이프사이클과 정렬되어 추적성이 개선됨",
+                "result": "게임 상태가 끝날 때 해당 사운드 자원을 한 곳에서 해제하도록 정리",
                 "title": "게임 상태 전환 시 사운드 수명 불일치"
             }
         },
@@ -124,7 +124,7 @@ window.PORTFOLIO_PROJECT_KO = {
         "team_label": "팀 프로젝트 · 4명",
         "scope_label": "게임 프로젝트",
         "my_role": "UI 시스템 & 게임플레이 연동 프로그래머",
-        "description": "상점/업그레이드 루프와 바람과 중력의 영향을 받는 포격 전투를 결합한 4인 C++ 팀 프로젝트입니다. 저는 메뉴, 상점, 전투 HUD, 버튼 및 호버 상호작용, 아이템 툴팁, UI-전투 입력 경로를 구축하고 통합했습니다.",
+        "description": "상점에서 장비를 준비하고 바람과 중력을 고려해 포격하는 4인 팀의 C++ 게임입니다. 메뉴와 상점, 전투 HUD를 구현하고 버튼·툴팁과 게임 상태를 연결했습니다. UI를 클릭할 때 전투 조작이 함께 실행되는 입력 충돌도 수정했습니다.",
         "collaboration_details": {
             "team_size": 4,
             "my_role": "UI 시스템 & 게임플레이 연동 프로그래머",
@@ -169,13 +169,13 @@ window.PORTFOLIO_PROJECT_KO = {
             ]
         },
         "downloadLabel": "Windows 실행 파일",
-        "subtitle": "2D 턴 기반 포병 전략 게임"
+        "subtitle": "2D 턴제 포격 게임"
     },
     "4": {
         "team_label": "팀 프로젝트 · 3~4명",
         "scope_label": "렌더링 · 독립 실행 빌드",
         "my_role": "렌더링 & 엔진 프로그래머",
-        "description": "C++과 DirectX 11로 개발한 자체 엔진입니다. 오브젝트 5만 개 장면의 임포스터 렌더링과 에디터 밖에서 게임을 실행하는 Build–Cook–Stage 파이프라인을 구현했습니다. 주차별로 비교 화면, 측정 조건, 구현 이력을 정리했습니다.",
+        "description": "C++과 DirectX 11로 자체 엔진을 개발했습니다. 오브젝트 5만 개 장면에 임포스터 렌더링을 적용하고, 에디터에서 만든 게임을 독립 실행 파일로 만드는 Build·Cook·Stage 과정을 구현했습니다.",
         "coverAlt": "Game Tech Lab 과정에서 개발한 커스텀 C++ 엔진 파티클 에디터",
         "coverLabel": "C++ 자체 엔진",
         "collaboration_details": {
@@ -191,7 +191,7 @@ window.PORTFOLIO_PROJECT_KO = {
                 "Visual Studio",
                 "Discord"
             ],
-            "team_dynamics": "매주 바뀌는 팀 구성에 맞춰 렌더링/엔진 기능을 통합했고, Week01~Week14의 검증 가능한 스냅샷을 보존했습니다."
+            "team_dynamics": "매주 팀 구성이 바뀌는 환경에서 담당한 렌더링·엔진 기능을 팀 공용 코드에 통합했습니다."
         },
         "technical_challenges": [
             "기본 3D 렌더링 기반 엔진을 에디터/런타임 시스템으로 확장",
@@ -202,21 +202,14 @@ window.PORTFOLIO_PROJECT_KO = {
         "troubleshooting": {
             "large_scene_rendering": {
                 "problem": "동일 메시를 대량 배치한 장면에서 전체 메시 렌더링을 계속 사용해 성능 병목이 급격히 증가",
-                "root_cause": "오브젝트 수 증가에 따라 객체별 지오메트리/드로우 오버헤드가 선형 이상으로 증가",
-                "solution": "방향 정보를 아틀라스로 베이크한 옥타헤드럴 임포스터 파이프라인을 도입해 원거리 오브젝트는 경량 프록시로 대체 렌더",
-                "result": "메쉬 렌더링 대비 임포스터 렌더링 비교 기반의 최적화 경로를 정립",
+                "root_cause": "오브젝트가 늘어날수록 정점 처리량과 개별 드로우 호출이 증가",
+                "solution": "메시를 방향별로 촬영해 Atlas를 만들고, 반복 오브젝트를 임포스터로 묶어 렌더링",
+                "result": "오브젝트 5만 개의 테스트 장면에서 Draw Call을 10,725회에서 2회로, 프레임 시간을 6.62ms에서 3.21ms로 단축",
                 "title": "대규모 반복 오브젝트 렌더링 병목"
-            },
-            "engine_integration": {
-                "problem": "주차별 엔진 브랜치가 렌더링 기능, 에셋 형식, 외부 런타임 의존성이 다르게 누적됨",
-                "root_cause": "각 과제가 서로 다른 서브시스템을 확장하면서 공유 기반 엔진이 동시에 분기됨",
-                "solution": "검증된 주차 스냅샷을 정렬해 구성하고 FBX SDK/ FMOD 등 필수 라이브러리 링크를 과제별로 정비",
-                "result": "14주 전개 과정이 한 허브에서 이어지는 검토 가능한 아카이브로 재구성됨",
-                "title": "주차별 엔진 의존성 통합"
             }
         },
         "development_timeline": {
-            "duration": "전체 과정",
+            "duration": "엔진 제작 과정 · 1~14주",
             "phases": [
                 {
                     "phase": "1주차: 게임잼",
@@ -246,7 +239,7 @@ window.PORTFOLIO_PROJECT_KO = {
                 {
                     "phase": "6주차: 데칼 · 안개 정리",
                     "duration": "Week 06",
-                    "focus": "디컬·표면 데칼, 볼류메트릭 안개, 환경 렌더링"
+                    "focus": "Height Fog와 Spotlight Decal, 뷰포트 Alpha 혼합"
                 },
                 {
                     "phase": "7주차: Let There Be Light",
@@ -266,12 +259,12 @@ window.PORTFOLIO_PROJECT_KO = {
                 {
                     "phase": "10주차: More Than Just Weight",
                     "duration": "Week 10",
-                    "focus": "질량·힘·충돌·반응 시스템"
+                    "focus": "스켈레탈 메시 임포트, 스키닝, Bone 피킹"
                 },
                 {
                     "phase": "11주차: Let's Go, Move!",
                     "duration": "Week 11",
-                    "focus": "이동, 입력, 액터 상태, 애니메이션 갱신"
+                    "focus": "FBX 애니메이션 임포트, Skeleton 매칭, 캐시와 재생"
                 },
                 {
                     "phase": "12주차: Dance of the Dust",
@@ -281,7 +274,7 @@ window.PORTFOLIO_PROJECT_KO = {
                 {
                     "phase": "13주차: Focus and Force",
                     "duration": "Week 13",
-                    "focus": "깊이 기반 2종류 뎁스오브필드와 카메라 포커스 제어"
+                    "focus": "Physics Asset Editor, 충돌 도형 편집, 피킹과 Gizmo"
                 },
                 {
                     "phase": "14주차: Final Game Jam",
@@ -314,8 +307,8 @@ window.PORTFOLIO_PROJECT_KO = {
             "team_size": "DynaMax · 3인 팀",
             "my_role": "팀장 · Motion Phase · 런타임 시스템 · GPU 변형 프로그래머",
             "team_roles": [
-                "제품 방향, 시스템 설계, Motion Phase 분석, 런타임 응답, GPU 변형 파이프라인, 에디터 저작 도구 (팀장 · 본인)",
-                "런타임, 에디터, 콘텐츠, 제품 출시 전반의 DynaMax 팀 기여"
+                "시스템 설계와 통합, 동작 분석, 런타임 응답, GPU 변형, 편집 도구 (팀장 · 본인)",
+                "Proxy·Vertex Factory 기반과 연계 모듈, 데모 콘텐츠 (팀원)"
             ],
             "collaboration_tools": [
                 "Perforce",
@@ -323,13 +316,13 @@ window.PORTFOLIO_PROJECT_KO = {
                 "Visual Studio",
                 "Fab"
             ],
-            "team_dynamics": "DynaMax 3인 제품 팀의 팀장을 맡아 제품·시스템 방향을 정하고, 출시된 팀 플러그인에서 Motion Phase Analyzer, Runtime Response, Render/GPU, Editor 시스템을 구현했습니다."
+            "team_dynamics": "DynaMax 3인 팀의 팀장으로 분석기와 렌더러 사이에 전달할 데이터, 갱신 시점과 통합 순서를 조율했습니다. Perforce로 변경 사항을 공유하고 자동화 테스트와 에디터 미리보기로 기능을 확인하며 출시를 준비했습니다."
         },
         "technical_challenges": [
-            "포즈 기반 자동 분석과 AnimNotify·Gameplay Event의 저작 의도를 분리한 뒤 결정적으로 중재",
-            "Region·Chain 변형 범위를 선택적으로 유지하면서 카메라 대응 실루엣 Guard 적용",
-            "애니메이션 Phase 전환 전 노이즈가 섞인 움직임 측정값과 Region Owner 경쟁을 안정화",
-            "Game Thread의 변형 상태를 불변 snapshot으로 Render Thread에 전달",
+            "포즈 분석 결과와 AnimNotify·Gameplay Event로 지정한 동작 사이의 우선순위 정의",
+            "Region·Chain별 변형 범위를 지정하고 카메라 방향에 따라 실루엣이 무너지지 않도록 제한",
+            "움직임 노이즈를 보정하고 비슷한 점수의 신체 영역 사이에서 판정이 반복적으로 바뀌는 문제 완화",
+            "Game Thread에서 확정한 변형 상태를 Snapshot에 복사해 Render Thread로 전달",
             "RDG에서 module pass와 vertex-factory 출력을 합성"
         ],
         "troubleshooting": {
@@ -338,36 +331,36 @@ window.PORTFOLIO_PROJECT_KO = {
                 "problem": "한 프레임의 급격한 값 변화만으로 움직임 추세가 형성되기 전에 Phase가 뒤집히거나 Anticipation이 시작될 수 있었습니다.",
                 "root_cause": "단순 에너지 임계값에는 추세 이력, 확인 시간, 취소 상태가 포함되지 않았습니다.",
                 "solution": "Adaptive Trend Smoothing, 확인 시간, Phase별 Guard, Cycle History를 함께 적용했습니다.",
-                "result": "결정적 테스트에서 16ms 고에너지 샘플은 강도 0의 Anticipation 경계에 유지되고, 32ms 확인 샘플에서 Action으로 전환됩니다."
+                "result": "자동화 테스트에서 16ms의 고에너지 샘플은 강도 0인 Anticipation 상태를 유지하고, 32ms 확인 샘플에서는 Action으로 전환했습니다."
             },
             "region_ownership": {
-                "title": "점수가 비슷한 Region 사이에서 owner가 흔들림",
+                "title": "비슷한 점수의 Region 사이에서 판정이 반복적으로 바뀌는 문제",
                 "problem": "거의 같은 점수의 두 Region이 인접 프레임마다 owner를 교체할 수 있었습니다.",
                 "root_cause": "현재 최고점만 고르는 방식에는 hysteresis와 challenger 확인 과정이 없었습니다.",
                 "solution": "상대 15% 또는 절대 0.02의 우위를 요구하고 challenger가 안정될 때까지 기존 owner를 유지했습니다.",
                 "result": "작은 점수 변동만으로는 현재 Region owner가 바뀌지 않습니다."
             },
             "render_handoff": {
-                "title": "변경 가능한 gameplay state와 render 소비 시점이 어긋날 위험",
+                "title": "게임 상태 변경과 렌더링 시점의 불일치",
                 "problem": "변형 요청 생성 후 상태가 바뀌면 renderer가 다른 값을 읽을 가능성이 있었습니다.",
                 "root_cause": "Analyzer가 소유한 변경 가능한 상태와 비동기 render work의 수명이 달랐습니다.",
-                "solution": "value-copy snapshot을 scene 및 execution group 단위 work item으로 이동하고 MeshDeformer stage fence 이후 제출했습니다.",
-                "result": "Render work는 안정된 snapshot을 소비하고 다른 scene/group의 작업은 queue에 유지됩니다."
+                "solution": "분석 결과를 Snapshot에 복사해 전달하고, 렌더링 코드가 분석기의 가변 상태를 직접 참조하지 않도록 했습니다.",
+                "result": "분석기가 다음 값을 계산하더라도 각 렌더링 작업은 전달받은 값을 사용합니다."
             },
             "visual_attachments": {
-                "title": "socket 부착 visual이 변형된 endpoint에서 분리됨",
-                "problem": "메시가 변형되어도 부착 visual은 변형 전 socket transform을 따라갔습니다.",
-                "root_cause": "skeletal socket transform에 변형으로 생긴 종속 visual offset이 포함되지 않았습니다.",
-                "solution": "변형 offset을 별도로 전달해 등록된 visual에 적용하고 누적 오차 없이 복원하며 physics 대상은 제외했습니다.",
-                "result": "부착 visual이 변형된 endpoint를 따라가면서 transform 오차가 누적되지 않습니다."
+                "title": "소켓에 부착한 시각 효과가 변형된 메시를 따라가지 못하는 문제",
+                "problem": "메시가 변형되어도 소켓에 부착한 시각 효과는 변형 전 위치를 따라갔습니다.",
+                "root_cause": "스켈레탈 소켓의 Transform에 메시 변형으로 생긴 위치 차이가 반영되지 않았습니다.",
+                "solution": "변형으로 생긴 위치 차이를 별도로 전달해 등록된 시각 효과에 적용하고, 복원 시 오차가 누적되지 않도록 했습니다. 물리로 제어하는 대상은 제외했습니다.",
+                "result": "부착한 시각 효과가 메시의 변형을 따라가며 Transform 오차가 누적되지 않습니다."
             }
         },
         "development_timeline": {
             "duration": "Epic Project · 2026",
             "phases": [
                 {
-                    "phase": "Native 계약",
-                    "duration": "Bone Group 계약",
+                    "phase": "Bone Group 구성",
+                    "duration": "Bone Group 데이터 구조",
                     "focus": "Bone Group, hierarchy 확장, LOD falloff, data-driven response"
                 },
                 {
@@ -378,12 +371,12 @@ window.PORTFOLIO_PROJECT_KO = {
                 {
                     "phase": "자동 Motion Phase",
                     "duration": "Phase·Region 상태 기계",
-                    "focus": "Phase 안정화, Region owner, cycle timing, animation routing, 저작 UX"
+                    "focus": "Phase 판정 안정화, Region 선택, 동작 타이밍과 편집 UI"
                 },
                 {
-                    "phase": "제품 통합",
+                    "phase": "플러그인 통합",
                     "duration": "Socket Follower 통합",
-                    "focus": "변형 socket follower와 showcase asset 복구"
+                    "focus": "Socket Follower와 데모 에셋 통합"
                 }
             ]
         }

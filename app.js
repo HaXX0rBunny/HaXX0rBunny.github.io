@@ -40,7 +40,7 @@ const projectsData = {
             "team_dynamics": "The project began with four members and continued with three after one member left. I coordinated task priorities and progress alongside my implementation work. After resolving a packaging failure caused by a renamed project file, I proposed shared Git rules for project configuration changes."
         },
         "technical_challenges": [
-            "Built the stages and implemented player-character movement and combat in Blueprint using Motion Matching.",
+            "Built the stages, player movement, and combat in Blueprint, with Motion Matching for movement animations.",
             "Implemented time controls in TimeManipulater_BP using SetGlobalTimeDilation and separated time progression from Tick-dependent updates.",
             "Connected time controls to Rain_Delation in Rain_BP, interpolating the Niagara Max Scale Factor parameter with VInterpTo.",
             "Traced packaging logs and project references to restore the shared build."
@@ -58,10 +58,10 @@ const projectsData = {
         "downloadLink": "https://drive.google.com/file/d/1XqZQiWAvwnG1kajS_e9Vc4t5MeMhALR_/view?usp=sharing",
         "team_label": "3-person team at completion",
         "scope_label": "Gameplay",
-        "source_note": "The main branch contains configuration and the base module. The Sanghyeon branch includes some character and input assets. Time-control and rain Blueprints were inspected in the local project; their relevant function calls are documented below.",
+        "source_note": "The public repository contains selected assets. The time-control and rain Blueprints are not public; their behavior is shown in the video and downloadable build.",
         "highlights": [
             {
-                "label": "Blueprint implementation notes",
+                "label": "Time control and rain effects",
             "href": "https://github.com/HaXX0rBunny/HaXX0rBunny.github.io/blob/main/docs/edgedrive-blueprint.md"
             },
             {
@@ -78,7 +78,7 @@ const projectsData = {
         "team_size": 2,
         "my_role": "Gameplay & Systems Programmer",
         "technologies": ["C", "CProcessing", "FMOD"],
-        "description": "A C-based 2D action prototype built around pooled projectiles, data-driven levels, three boss state machines, and explicit game-state resource lifetimes. The public repository retains the original APETI name while the shipped menu identifies the game as MEGA ROGUE.",
+        "description": "A 2D action game built with C and CProcessing. I worked on boss attacks, hit and death handling, collision detection, and a projectile pool. The source repository is named APETI.",
         "videoUrl": "https://www.youtube.com/embed/dd0ZqgdRN5Y",
         "links": {
             "github": "https://github.com/HaXX0rBunny/APETI"
@@ -94,7 +94,7 @@ const projectsData = {
             "team_dynamics": "Shared C codebase with feature branches for gameplay, bosses, editor integration, and final state wiring"
         },
         "technical_challenges": [
-            "Keeping projectile movement deterministic across frame rates",
+            "Fixing frame-rate-dependent projectile movement",
             "Reusing fixed-capacity projectile and hazard pools",
             "Coordinating menu, game, boss, clear, and game-over states",
             "Serializing editable level data into text-based .lvl files",
@@ -213,7 +213,7 @@ const projectsData = {
                 "Visual Studio",
                 "Discord"
             ],
-            "team_dynamics": "Worked in changing weekly teams and integrated focused rendering or engine features into each shared codebase. The hub preserves the reviewable snapshots from Week01 through Week14."
+            "team_dynamics": "Worked in changing weekly teams, integrating my rendering and engine features with each shared codebase."
         },
         "technical_challenges": [
             "Evolving custom C++ engines from basic 3D rendering into editor and runtime systems",
@@ -225,18 +225,12 @@ const projectsData = {
             "large_scene_rendering": {
                 "problem": "Rendering tens of thousands of repeated objects with full mesh geometry created a severe performance bottleneck.",
                 "root_cause": "Per-object geometry and draw overhead scaled poorly as the scene population increased.",
-                "solution": "Implemented an octahedral impostor pipeline that bakes directional appearance into atlases and renders distant objects as lightweight proxies.",
-                "result": "Established a practical comparison path between full-mesh and impostor rendering for the large-scene optimization challenge."
-            },
-            "engine_integration": {
-                "problem": "Weekly engine branches accumulated different render features, asset formats, and third-party runtime dependencies.",
-                "root_cause": "Each assignment extended a different subsystem while sharing a growing custom engine foundation.",
-                "solution": "Organized the verified snapshots by week and repaired build linkage for required libraries such as FBX SDK and FMOD where needed.",
-                "result": "Produced one reviewable hub that connects the program's weekly development progression."
+                "solution": "Baked the mesh from multiple directions into an atlas and rendered repeated objects together as instanced impostors.",
+                "result": "In the 50,000-object test scene, Draw Calls fell from 10,725 to 2 and frame time from 6.62 ms to 3.21 ms."
             }
         },
         "development_timeline": {
-            "duration": "Full program",
+            "duration": "Engine development · Weeks 1–14",
             "phases": [
                 {
                     "phase": "1st Game Jam",
@@ -266,7 +260,7 @@ const projectsData = {
                 {
                     "phase": "Decal · Clearing the Fog",
                     "duration": "Week 06",
-                    "focus": "Surface decals, volumetric fog, and atmospheric rendering"
+                    "focus": "Height fog, spotlight decals, and viewport alpha blending"
                 },
                 {
                     "phase": "Let There Be Light",
@@ -286,12 +280,12 @@ const projectsData = {
                 {
                     "phase": "More Than Just Weight",
                     "duration": "Week 10",
-                    "focus": "Mass, force, collision, and object response systems"
+                    "focus": "Skeletal mesh import, skinning, and bone picking"
                 },
                 {
                     "phase": "Let's Go, Move!",
                     "duration": "Week 11",
-                    "focus": "Movement, input, actor state, and animation updates"
+                    "focus": "FBX animation import, skeleton matching, caching, and playback"
                 },
                 {
                     "phase": "Dance of the Dust",
@@ -301,7 +295,7 @@ const projectsData = {
                 {
                     "phase": "Understanding Focus and Force in 3D World",
                     "duration": "Week 13",
-                    "focus": "Two depth-of-field techniques and camera focus controls"
+                    "focus": "Physics Asset Editor, collision shapes, picking, and gizmos"
                 },
                 {
                     "phase": "Final Game Jam",
@@ -353,7 +347,7 @@ const projectsData = {
             "my_role": "Team Lead · Motion Phase, Runtime Systems & GPU Deformation Programmer",
             "team_roles": [
                 "Product direction, system design, motion phase analysis, runtime response, GPU deformation pipeline, and editor authoring tools (Team Lead · Me)",
-                "DynaMax team contributions across runtime, editor, content, and product delivery"
+                "Teammates: Proxy and Vertex Factory foundation, related runtime and editor modules, and demo content"
             ],
             "collaboration_tools": [
                 "Perforce",
@@ -361,10 +355,10 @@ const projectsData = {
                 "Visual Studio",
                 "Fab"
             ],
-            "team_dynamics": "I led the three-person DynaMax product team, set the product and system direction, and implemented the Motion Phase Analyzer, runtime response, render/GPU, and editor systems within the released team plug-in."
+            "team_dynamics": "I led the three-person DynaMax team and agreed on the data passed between the analyzer and renderer, update timing, and integration order. We used Perforce to share changes and checked the combined features with automated tests and editor previews before release."
         },
         "technical_challenges": [
-            "Separating pose-derived automation from authored AnimNotify and Gameplay Event intent before deterministic arbitration",
+            "Setting priorities between pose analysis, AnimNotify, and Gameplay Event requests",
             "Keeping Region and Chain deformation selective while applying camera-aware silhouette guards",
             "Stabilizing noisy motion measurements and resolving competing Region ownership before changing animation phase",
             "Carrying immutable deformation state from the Game Thread to the Render Thread",
@@ -376,7 +370,7 @@ const projectsData = {
                 "problem": "Single-frame spikes could flip the phase or start Anticipation before a movement trend was established.",
                 "root_cause": "Raw energy thresholds did not encode trend history, confirmation duration, or cancellation state.",
                 "solution": "Combined adaptive trend smoothing, a confirmation window, phase-local guards, and cycle history.",
-                "result": "In the deterministic fixture, the 16 ms high-energy sample remains a zero-strength Anticipation boundary and the confirmed 32 ms sample commits Action."
+                "result": "Automated tests keep the 16 ms high-energy sample in Anticipation at zero strength and switch to Action after the 32 ms confirmation sample."
             },
             "region_ownership": {
                 "title": "Similar Region scores produced owner jitter",
@@ -389,8 +383,8 @@ const projectsData = {
                 "title": "Mutable gameplay state could drift from render consumption",
                 "problem": "The renderer could observe state that changed after a deformation request was created.",
                 "root_cause": "Analyzer-owned mutable state and asynchronous render work have different lifetimes.",
-                "solution": "Moved value-copy snapshots into scene- and execution-group-scoped work items, then submitted them after the MeshDeformer stage fence.",
-                "result": "Render work consumes a stable snapshot while unrelated scene or execution-group items remain queued."
+                "solution": "Copied the analysis result into a Snapshot so rendering code would not read the analyzer’s mutable state directly.",
+                "result": "Each render task uses the captured values even if the analyzer updates afterward."
             },
             "visual_attachments": {
                 "title": "Socket-attached visuals detached from deformed endpoints",
@@ -404,8 +398,8 @@ const projectsData = {
             "duration": "Epic Project · 2026",
             "phases": [
                 {
-                    "phase": "Native contracts",
-                    "duration": "Bone Group contracts",
+                    "phase": "Bone Group setup",
+                    "duration": "Bone Group data structure",
                     "focus": "Bone Groups, hierarchy expansion, LOD falloff, and data-driven responses"
                 },
                 {
@@ -421,7 +415,7 @@ const projectsData = {
                 {
                     "phase": "Product integration",
                     "duration": "Socket-follower integration",
-                    "focus": "Deformed socket followers and restored showcase assets"
+                    "focus": "Deformed socket followers and demo asset integration"
                 }
             ]
         }

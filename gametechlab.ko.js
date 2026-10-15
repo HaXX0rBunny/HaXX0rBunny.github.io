@@ -13,7 +13,7 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
         title: 'Jungle Brick Break',
         summary: '첫 번째 게임잼 프로젝트에서 수명 주기와 충돌 문제를 해결하며 벽돌, 스테이지, 입력, 이펙트, 점수, 렌더링의 핵심 시스템을 구축했습니다.',
         role: '게임플레이 및 시스템 프로그래머',
-        objective: '게임 오브젝트, 스테이지 진행, 입력, 충돌, 피드백, 점수 영속화를 하나의 안정적인 루프로 구성해 플레이 가능한 게임을 완성하는 것이 목표였습니다.',
+        objective: '게임 오브젝트와 스테이지 진행, 입력·충돌·피드백·점수 저장을 연결해 플레이 가능한 게임을 완성하는 것이 목표였습니다.',
         contributions: [
             '블록을 UGameObject 중심으로 리팩터링하고 사각형 렌더링을 추가했으며, 스테이지·블록 로직과 충돌 처리를 개선했습니다.',
             'Windows Runtime 게임패드 지원을 추가하고 게임패드·입력 처리를 캡슐화했습니다.',
@@ -26,10 +26,10 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
         ],
         flow: '게임패드 / 키보드 입력 → 스테이지와 오브젝트 갱신 → 충돌 / 피해 → 이펙트, 점수, 프레임 렌더링',
         results: [
-            '첫 번째 플레이 가능 게임잼 마일스톤을 완성했습니다.',
-            '이후 3D 엔진 작업을 위한 실용적인 기반을 마련했습니다.'
+            '첫 게임잼에서 플레이 가능한 벽돌 깨기 게임을 완성했습니다.',
+            '이후 3D 엔진 개발에 활용할 오브젝트와 입력 처리 구조를 마련했습니다.'
         ],
-        evidenceStatus: '구현 및 소스 이력',
+        evidenceStatus: '구현 내용',
         evidenceNote: '게임잼에서 UGameObject/UBlock 구조, 스테이지·충돌 루프, 게임패드 수명 주기, 파티클, 점수 피드백을 구현했습니다.',
         troubleshootingEvidence: [
             {
@@ -70,22 +70,22 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
                 symptom: '게임 씬을 해제하거나 재시작할 때 블록 오브젝트가 두 번 해제되어 heap 오류로 종료될 수 있었습니다.',
                 cause: '같은 블록 포인터를 UGameObjectList와 별도의 stageblocks 컬렉션이 모두 소유하는 것으로 취급했습니다. UGameObjectList가 이미 블록을 소멸시킨 뒤 UGameScene::Release()가 stageblocks를 순회하며 다시 delete했습니다.',
                 fix: 'UGameObjectList를 단일 소유자로 유지했습니다. 씬 해제 시 stageblocks는 비소유 조회 컬렉션으로서 clear만 수행하고 내부 포인터를 delete하지 않도록 변경했습니다.',
-                result: '씬 종료가 하나의 명시적인 소유권 경로를 따르며 중복 delete 연산을 피하게 됐습니다.',
+                result: '블록 해제를 UGameObjectList에서만 처리해 중복 해제를 막았습니다.',
                 code: { context: 'UGameScene::Release()' }
             },
             {
                 title: '마지막 목숨을 잃기 전에 최고 점수가 저장됨',
                 symptom: '목숨이 두 개 남은 상태에서 하나를 잃으면 아직 한 번의 기회가 남았는데도 최고 점수 파일이 갱신될 수 있었습니다.',
-                cause: 'SubHealth()가 체력을 감소시킨 뒤 감소량과 감소 후 체력 값을 비교했습니다. 목숨이 두 개에서 하나로 바뀌는 순간에도 조건이 충족되어 영속화가 너무 일찍 실행됐습니다.',
-                fix: '일반 체력 감소 함수에서 점수 영속화를 제거하고, 최종 game-over 분기에서만 HightScoreUpdate()를 호출했습니다.',
-                result: '일반적인 목숨 손실은 체력만 변경하고, 실제 game over에 도달했을 때 점수 파일을 갱신합니다.',
+                cause: 'SubHealth()가 체력을 감소시킨 뒤 감소량과 감소 후 체력 값을 비교했습니다. 목숨이 두 개에서 하나로 바뀌는 순간에도 조건을 충족해 점수가 너무 일찍 저장됐습니다.',
+                fix: '일반 체력 감소 함수에서 점수 저장을 제거하고, 게임 오버 분기에서만 HightScoreUpdate()를 호출했습니다.',
+                result: '목숨이 남아 있을 때는 체력만 변경하고, 게임 오버가 되면 점수 파일을 갱신합니다.',
                 code: { context: 'UGameScene::Update() game-over 분기' }
             },
             {
                 title: '발사체 열 조회가 스테이지 범위를 벗어남',
                 symptom: '발사체가 스테이지의 가로 범위를 벗어나면 위쪽 또는 아래쪽 순회 중 잘못된 stageblocks 인덱스가 계산될 수 있었습니다.',
                 cause: 'CurCol을 월드 X 좌표로 계산한 뒤 유효성을 먼저 확인하지 않고 CurRow × CurrentStageCol + CurCol 식에 사용했습니다.',
-                fix: '그리드 공간 offset을 수정하고, 계산된 열이 0보다 작거나 CurrentStageCol 이상이면 블록 배열을 인덱싱하기 전에 제외했습니다.',
+                fix: '그리드 좌표의 오프셋을 수정하고, 계산된 열이 0보다 작거나 CurrentStageCol 이상이면 블록 배열에 접근하기 전에 제외했습니다.',
                 result: '스테이지 밖 발사체는 블록 컬렉션 범위를 넘어 읽지 않고 순회를 건너뜁니다.',
                 code: { context: '위쪽/아래쪽 발사체 블록 순회' }
             }
@@ -99,57 +99,57 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
     },
     '02': {
         title: '3D 엔진 기반 구축',
-        summary: 'D3D11 프레임 파이프라인, CPU 측 MVP 변환, 에디터 UI, 향상된 입력·카메라 제어, SkySphere 렌더링 경로를 구축했습니다.',
+        summary: 'D3D11 렌더링과 CPU 측 MVP 변환을 구현하고, 에디터 UI와 입력·카메라 제어, SkySphere를 연결했습니다.',
         role: '렌더링 및 입력 시스템 프로그래머',
-        objective: 'Week01의 게임 루프에서 나아가 명시적인 그래픽 리소스, 카메라 수학, 입력 액션, 가시적인 3D 환경을 갖춘 재사용 가능한 3D 렌더러와 에디터를 만드는 것이 목표였습니다.',
+        objective: '1주차 게임 루프에 그래픽 리소스 관리와 카메라 변환, 입력 액션을 추가해 3D 장면을 그릴 수 있는 렌더러와 에디터를 만드는 것이 목표였습니다.',
         contributions: [
-            'D3D11 device, flip-discard swap chain, render-target/depth view, 프레임 clear/present 경로, shader, pipeline constant를 초기화했습니다.',
-            'CPU 측 MVP 수학, inverse/aspect 처리, ImGui console/property/stat 패널, 크기 변경에 안전한 perspective 동작을 구현했습니다.',
-            'Enhanced Input action/modifier/trigger와 분리된 editor camera pawn/controller를 구축하고, SkySphere 렌더링과 depth state를 구현했습니다.'
+            'D3D11 디바이스와 Flip-discard 스왑 체인, 렌더 타깃·깊이 뷰를 초기화했습니다. 프레임 Clear/Present, 셰이더, 파이프라인 상수 설정도 구현했습니다.',
+            'CPU에서 MVP 변환과 역행렬·화면 비율을 처리하고, ImGui 콘솔·속성·통계 패널을 구현했습니다. 창 크기가 바뀌어도 투영 비율을 유지하도록 했습니다.',
+            'Enhanced Input의 Action·Modifier·Trigger를 구현하고 에디터 카메라의 Pawn과 Controller를 분리했습니다. SkySphere 렌더링과 깊이 상태도 구현했습니다.'
         ],
         implementation: [
             'D3D11 디바이스와 스왑 체인, RTV/DSV, 셰이더 바인딩, 프레임 시작·종료, MVP 파이프라인',
-            'ImGui editor layout, viewport/client-size 보정, inverse matrix, perspective divide, aspect-ratio 유지',
+            'ImGui 에디터 배치, 뷰포트·창 크기 보정, 역행렬, 원근 나눗셈, 화면 비율 유지',
             'Enhanced Input의 Action·Modifier·Trigger, 에디터 카메라 컨트롤러, SkySphere 셰이더·깊이 상태'
         ],
-        flow: 'Input action → editor camera → world/view/projection constant → D3D11 draw → SkySphere와 editor viewport',
+        flow: '입력 Action → 에디터 카메라 → World/View/Projection 상수 → D3D11 렌더링 → SkySphere와 에디터 뷰포트',
         results: [
             '엔진의 초기 3D 렌더링 경로를 구축했습니다.',
-            'SkySphere 구현을 공개적으로 접근 가능한 branch에 보존했습니다.'
+            'SkySphere 구현 코드를 프로젝트 저장소에 공개했습니다.'
         ],
-        evidenceStatus: '구현 및 소스 이력',
+        evidenceStatus: '구현 내용',
         evidenceNote: 'Week02에서 D3D11 렌더러 기반, 입력과 에디터 카메라 흐름, SkySphere 렌더링 경로를 구현했습니다.',
         sourceLabel: 'Week02 작성 커밋 열기',
         troubleshooting: [
             {
-                title: '에디터 창 크기 변경 후 projection 왜곡',
-                symptom: '창 크기를 변경한 뒤 projection이 이전 client 크기를 계속 사용해 3D view가 늘어나 보였습니다.',
-                cause: 'resize 경로가 renderer resource는 다시 만들었지만 새로운 width-to-height ratio를 camera에 일관되게 전달하지 않았습니다. 최소화되거나 높이가 0인 client area에서는 잘못된 나눗셈이 발생할 위험도 있었습니다.',
-                fix: 'window resize callback을 renderer resizing에 연결하고, height가 양수일 때만 width / height로 aspect를 다시 계산해 새 client size를 camera projection state에 반영했습니다.',
-                result: '최소화된 창을 방어하는 경우를 포함해 resize event 전반에서 perspective 비율이 안정적으로 유지됩니다.',
+                title: '창 크기를 바꾸면 3D 화면이 늘어나는 문제',
+                symptom: '창 크기를 변경해도 투영 행렬이 이전 화면 비율을 사용해 3D 장면이 늘어나 보였습니다.',
+                cause: '창 크기가 바뀔 때 렌더링 리소스는 다시 생성했지만 카메라의 가로·세로 비율은 갱신하지 않았습니다. 창을 최소화해 높이가 0이 되면 비율 계산에도 문제가 생길 수 있었습니다.',
+                fix: '창 크기 변경 콜백을 렌더러와 연결하고, 높이가 양수일 때만 가로 / 세로 비율을 계산해 카메라 투영 행렬에 반영했습니다.',
+                result: '창 크기에 맞는 투영 비율을 유지하고, 최소화 시 0으로 나누는 문제도 막았습니다.',
                 code: { context: 'CEditorUI::SetupWindow() resize callback' }
             },
             {
-                title: 'SkySphere가 일반 opaque geometry와 함께 정렬됨',
-                symptom: 'SkySphere가 전경 draw와 경쟁하는 opaque 순서로 제출되어 전용 background pass처럼 동작하지 않을 수 있었습니다.',
-                cause: 'sphere는 far depth에 배치되고 전경 geometry 뒤에 제출되어야 하는데도 sky draw가 일반 opaque sort 경로를 공유했습니다.',
-                fix: 'z = w × 0.9999로 sky clip-space depth를 far plane 가까이에 고정하고 depth-write-disabled로 표시한 뒤, 해당 상태가 일반 opaque draw 뒤에 정렬되도록 했습니다.',
-                result: 'sky draw가 background 작업으로 정렬되고 vertex가 clip space의 먼 쪽 끝에 유지됩니다.'
+                title: 'SkySphere와 불투명 오브젝트의 렌더링 순서 충돌',
+                symptom: 'SkySphere가 일반 불투명 오브젝트와 함께 정렬돼 배경으로 처리되지 않을 수 있었습니다.',
+                cause: '하늘은 먼 깊이에 배치해 전경 오브젝트 뒤에 그려야 했지만, 일반 불투명 오브젝트와 같은 정렬 규칙을 사용했습니다.',
+                fix: '하늘의 클립 공간 깊이를 z = w × 0.9999로 설정해 원거리 평면 가까이에 고정했습니다. 깊이 쓰기를 끄고 일반 불투명 오브젝트 뒤에 그리도록 정렬했습니다.',
+                result: '하늘을 전경 뒤에 그리면서 정점을 클립 공간의 먼 쪽에 유지하도록 했습니다.'
             },
             {
-                title: 'sky depth write를 끄자 depth test도 함께 꺼짐',
-                symptom: 'opaque geometry 뒤에 정렬해도 sky가 기존 depth buffer를 검사하지 않아 전경 pixel 위를 덮을 수 있었습니다.',
-                cause: 'bDisableDepthTest와 bDisableDepthWrite가 모두 OverlayDepthState를 선택했고, 이 상태는 DepthEnable = FALSE 및 ALWAYS comparison을 사용했습니다.',
-                fix: '실제 overlay용 OverlayDepthState는 유지하면서, test 활성화·write 비활성화·LESS comparison을 사용하는 별도의 SkyDepthState를 추가했습니다.',
-                result: 'sky가 depth를 변경하거나 전경 geometry를 덮지 않으면서 아직 그려지지 않은 background pixel을 채울 수 있습니다.',
+                title: '하늘의 깊이 쓰기를 끄면 깊이 검사도 꺼지는 문제',
+                symptom: '하늘을 불투명 오브젝트 뒤에 그려도 기존 깊이 버퍼를 검사하지 않아 전경을 덮을 수 있었습니다.',
+                cause: 'bDisableDepthTest와 bDisableDepthWrite가 모두 OverlayDepthState를 선택했습니다. 이 상태는 DepthEnable = FALSE와 ALWAYS 비교를 사용해 깊이 검사를 수행하지 않았습니다.',
+                fix: '오버레이용 OverlayDepthState는 유지하고, 깊이 검사는 켜되 쓰기는 끄는 SkyDepthState를 추가해 LESS 비교를 적용했습니다.',
+                result: '하늘이 깊이 값을 바꾸거나 전경을 덮지 않고, 비어 있는 배경 영역에만 그려집니다.',
                 code: { context: 'CRenderer::ExecuteCommands()' }
             },
             {
-                title: 'sky gradient가 scale된 안쪽 방향 normal을 사용함',
-                symptom: 'sky와 ground 색상이 뒤바뀌어 보일 수 있었고 gradient interpolation factor가 의도한 범위를 벗어날 수 있었습니다.',
-                cause: 'pixel shader가 Input.Normal.z를 그대로 사용했지만, 보간된 normal은 sphere scale의 영향을 받고 안쪽을 향했습니다.',
-                fix: '보간된 normal을 normalize하고 Z component의 부호를 반전한 뒤 sky 또는 ground gradient branch를 선택했습니다.',
-                result: 'gradient가 unit-length factor를 사용하며, 안쪽을 향하는 상반구를 의도한 sky color에 매핑합니다.',
+                title: '하늘 그라데이션에 잘못된 노멀을 사용한 문제',
+                symptom: '하늘과 지면 색상이 뒤바뀌거나 그라데이션 보간 계수가 의도한 범위를 벗어날 수 있었습니다.',
+                cause: '픽셀 셰이더가 Input.Normal.z를 그대로 사용했습니다. 하지만 보간된 노멀은 구체의 스케일 영향을 받았고 안쪽을 향하고 있었습니다.',
+                fix: '보간된 노멀을 정규화하고 Z 성분의 부호를 반전한 뒤 하늘·지면 그라데이션을 선택했습니다.',
+                result: '정규화한 노멀로 보간 계수를 구하고, 구체의 상반구에 하늘 색상을 적용했습니다.',
                 code: { context: 'main()' }
             }
         ],
@@ -161,75 +161,75 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
         ]
     },
     '03': {
-        title: '에디터 및 Scene 인프라',
-        summary: 'FName, Outliner, show flag, visibility, UUID picking, scene serialization, world/level ownership, camera separation을 중심으로 엔진 기반 구조를 구축했습니다.',
+        title: '에디터와 Scene 관리',
+        summary: 'FName과 Outliner를 구현하고, Show Flag·가시성 제어와 UUID 기반 피킹을 추가했습니다. Scene 직렬화, World·Level 소유권, 카메라 관리 구조도 정리했습니다.',
         role: '엔진 및 에디터 프로그래머',
-        objective: '안정적인 naming, object visibility, selection, serialization, scene ownership, editor camera architecture를 마련해 주차별 렌더링 유틸리티를 지원하는 것이 목표였습니다.',
+        objective: '오브젝트의 이름·식별자·소유권을 관리하고, 에디터에서 선택·표시·저장할 수 있도록 공통 구조를 마련하는 것이 목표였습니다.',
         contributions: [
-            'FName/FNameTable과 Outliner를 구현하고 show flag, actor visibility, billboard visibility, selection/highlight 안전장치를 추가했습니다.',
-            'half-pixel NDC 보정과 scene reload 이후 billboard 동작을 포함한 UUID 관리 및 picking 수정을 적용했습니다.',
-            '직접적인 JSON actor serialization을 FArchive로 교체하고 scene을 World/PersistentLevel/StreamingLevel로 감쌌으며, camera 관리를 scene dependency에서 분리했습니다.'
+            'FName/FNameTable과 Outliner를 구현하고, Show Flag와 Actor·Billboard 표시 제어, 선택·하이라이트 시 유효성 검사를 추가했습니다.',
+            'UUID 관리와 피킹을 수정하고, 픽셀 중심에 맞춘 NDC 보정과 Scene 재로딩 후 Billboard 복원을 처리했습니다.',
+            'JSON을 직접 다루던 Actor 직렬화를 FArchive로 교체하고, Scene을 World/PersistentLevel/StreamingLevel 구조로 정리했습니다. 카메라 관리도 Scene에서 분리했습니다.'
         ],
         implementation: [
             'FName pool/table과 범용 UUID 관리',
             'Outliner, show flag, Actor·Billboard 가시성, 하이라이트, 피킹',
             'FArchive 객체 직렬화, World·Level 소유권, Renderer 컬렉션, 카메라 분리'
         ],
-        flow: 'World / level object → FName + UUID identity → Outliner visibility / picking → serialized scene과 renderer collection',
+        flow: 'World·Level 오브젝트 → FName·UUID 식별 → Outliner 표시·피킹 → Scene 직렬화와 렌더링 목록',
         results: [
-            '일회성 visual test가 아닌 재사용 가능한 renderer utility를 구축했습니다.',
-            '이후 scene과 rendering system을 검사할 수 있는 역량을 개선했습니다.'
+            '여러 Scene에서 재사용할 수 있는 렌더링 유틸리티를 구현했습니다.',
+            'Scene과 렌더링 상태를 에디터에서 확인할 수 있도록 했습니다.'
         ],
-        evidenceStatus: '구현 및 소스 이력',
+        evidenceStatus: '구현 내용',
         evidenceNote: 'Week03에서 Atlas, Billboard, Batch Line, Bounds, 이름·타입, Gizmo Guide, MetaObject 기능을 구현했습니다.',
         sourceLabel: 'Week03 작성 커밋 열기',
         troubleshooting: [
             {
-                title: 'scene reload 후 billboard component가 사라짐',
-                symptom: '저장 전에는 동작하던 actor billboard가 scene load 후 owner를 찾지 못해 editor visualization과 selection이 일관되지 않았습니다.',
-                cause: 'TObjectPtr가 actor의 load 이전 UUID를 cache했습니다. loader가 다른 serialized UUID를 복원하면서 component owner reference가 더 이상 존재하지 않는 identity를 가리키게 됐습니다.',
-                fix: 'component UUID를 저장·복원하고 UUID 복원 후 component owner를 다시 할당했습니다. pending kill 중 오래된 UUID-map entry를 제거하고 마지막 발급 UUID가 단조 증가하도록 했습니다.',
-                result: 'save/load 전반에서 actor/component identity가 일관되게 유지되고 editor billboard가 올바른 owner와 함께 다시 나타납니다.',
+                title: 'Scene 재로딩 후 Billboard가 사라지는 문제',
+                symptom: '저장 전에는 표시되던 Actor의 Billboard가 Scene을 불러온 뒤 소유자를 찾지 못해 에디터 표시와 선택이 어긋났습니다.',
+                cause: 'TObjectPtr가 로딩 전 Actor의 UUID를 캐시하고 있었습니다. 저장된 UUID를 복원한 뒤에도 컴포넌트의 소유자 참조는 이전 UUID를 가리켰습니다.',
+                fix: '컴포넌트의 UUID를 저장·복원하고, 복원 후 소유자를 다시 할당했습니다. 삭제 대기 중인 UUID 맵 항목을 제거하고 발급 UUID가 이전 값보다 커지도록 관리했습니다.',
+                result: '저장·로딩 후에도 Actor와 컴포넌트의 식별자가 유지되고, Billboard가 올바른 소유자에 연결됩니다.',
                 code: { context: 'UScene::LoadSceneFromFile()' },
                 commit: { label: '근거 연결' }
             },
             {
-                title: 'console-variable 열거 중 heap corruption',
-                symptom: '임시 aggregate array를 통해 등록된 이름을 열거할 때 잘못된 allocator header에 도달해 heap이 손상될 수 있었습니다.',
-                cause: '동작 중인 실패 경로가 allocator에 민감한 코드 사이에서 값을 중간 TArray로 복사했고, 해제됐거나 잘못된 header를 충분히 일찍 거르지 못했습니다.',
-                fix: '먼저 1d8996d에서 실패하는 GetAllNames 호출을 비활성화한 뒤, 631198a에서 aggregate-return 열거를 callback으로 교체하고 allocator-header guard를 추가했습니다.',
-                result: '두 커밋에 걸친 수정으로 위험한 임시 ownership transfer를 제거하고 deallocation bookkeeping 전에 잘못된 header를 거릅니다.',
+                title: '콘솔 변수 목록을 읽는 중 힙 손상',
+                symptom: '등록된 이름을 임시 배열에 모아 읽는 과정에서 잘못된 할당자 헤더에 접근해 힙이 손상될 수 있었습니다.',
+                cause: '값을 중간 TArray로 복사하는 과정에서 문제가 발생했고, 메모리를 해제하기 전에 잘못됐거나 이미 해제된 헤더를 걸러내지 못했습니다.',
+                fix: '먼저 1d8996d에서 오류가 발생한 GetAllNames 호출을 비활성화했습니다. 이후 631198a에서 배열 반환 방식을 콜백 순회로 교체하고 할당자 헤더 검사를 추가했습니다.',
+                result: '임시 배열로 소유권을 넘기는 과정을 없애고, 메모리 해제 정보를 갱신하기 전에 잘못된 헤더를 걸러내도록 했습니다.',
                 commit: { label: '수정 순서' }
             },
             {
-                title: 'editor billboard가 actor picking을 가로챔',
-                symptom: 'actor를 클릭하면 helper가 나타내는 actor 대신 UUID billboard helper가 선택될 수 있었습니다.',
-                cause: 'picking pass가 UUUIDBillboardComponent를 일반적인 선택 가능 scene geometry로 취급했습니다.',
-                fix: 'editor visualization은 유지하면서 UUID billboard component를 picking candidate 경로에서 제외했습니다.',
-                result: 'visual helper는 보이지만 selection은 의도한 scene actor로 결정됩니다.'
+                title: 'Actor 대신 에디터 Billboard가 선택되는 문제',
+                symptom: 'Actor를 클릭했을 때 해당 Actor 대신 표시용 UUID Billboard가 선택될 수 있었습니다.',
+                cause: '피킹 과정에서 UUUIDBillboardComponent를 일반 Scene 오브젝트처럼 선택 대상으로 처리했습니다.',
+                fix: '에디터 표시는 유지하면서 UUID Billboard 컴포넌트를 피킹 후보에서 제외했습니다.',
+                result: 'Billboard는 화면에 유지되고, 클릭 시 의도한 Actor가 선택됩니다.'
             },
             {
-                title: 'preview viewport가 조건 없이 선택됨',
-                symptom: '일반 scene world가 null일 수도 있는 preview viewport client를 전달받을 수 있었습니다.',
-                cause: '잘못 들어간 semicolon이 preview-world if 문을 종료해 뒤따르는 block이 조건과 관계없이 실행됐습니다.',
-                fix: 'semicolon을 제거하고 world type 및 client validity guard 안에서만 값을 할당했습니다.',
-                result: 'preview scene이고 사용 가능한 preview viewport client가 있을 때만 preview routing이 수행됩니다.',
+                title: '미리보기 뷰포트가 조건 없이 선택되는 문제',
+                symptom: '일반 Scene World에도 미리보기 뷰포트 클라이언트가 할당됐으며, 이 값이 null일 수도 있었습니다.',
+                cause: 'if 문 뒤에 잘못 넣은 세미콜론 때문에 미리보기 World인지 확인하는 조건과 관계없이 다음 블록이 실행됐습니다.',
+                fix: '세미콜론을 제거하고 World 타입과 클라이언트 유효성을 확인한 뒤에만 값을 할당했습니다.',
+                result: '미리보기 Scene이고 유효한 뷰포트 클라이언트가 있을 때만 연결하도록 수정했습니다.',
                 code: { context: 'SyncViewportClient()' }
             },
             {
-                title: 'picking ray가 pixel center를 빗나감',
-                symptom: 'picking ray에 일정한 half-pixel displacement가 생겨 세밀한 선택이 사용자가 클릭한 pixel과 어긋났습니다.',
-                cause: 'integer screen coordinate를 대응하는 pixel의 center가 아니라 pixel boundary로 정규화했습니다.',
-                fix: 'screen coordinate를 normalized device coordinate로 변환하기 전에 두 축 모두에 0.5-pixel offset을 추가했습니다.',
-                result: '각 integer screen position에서 선택한 pixel의 중앙을 지나는 ray를 생성합니다.',
+                title: '피킹 광선이 픽셀 중심을 벗어나는 문제',
+                symptom: '피킹 광선이 반 픽셀씩 어긋나 정밀하게 선택할 때 클릭한 위치와 결과가 달랐습니다.',
+                cause: '정수 화면 좌표를 변환할 때 픽셀 중심이 아닌 경계를 기준으로 정규화했습니다.',
+                fix: '화면 좌표를 NDC로 변환하기 전에 X·Y축에 각각 0.5픽셀 오프셋을 추가했습니다.',
+                result: '선택한 픽셀의 중심을 지나는 피킹 광선을 생성하도록 했습니다.',
                 code: { context: 'CPicker::ScreenToRay()' }
             },
             {
-                title: '같은 depth의 gizmo highlight가 거부됨',
-                symptom: 'hover 또는 highlight pass가 원본 gizmo와 정확히 같은 depth에 그려질 때 사라질 수 있었습니다.',
-                cause: 'depth-state 생성이 material이 요청한 comparison을 무시하고 LESS를 hardcode했습니다.',
-                fix: 'render-state option과 JSON parsing에 설정 가능한 DepthFunc를 추가하고 gizmo material이 LessEqual을 사용하도록 구성했습니다.',
-                result: 'depth test를 끄지 않아도 원본 gizmo depth와 같은 highlight fragment가 통과할 수 있습니다.',
+                title: 'Gizmo와 깊이가 같은 하이라이트가 사라지는 문제',
+                symptom: '마우스 오버·하이라이트를 원본 Gizmo와 같은 깊이에 그리면 표시되지 않을 수 있었습니다.',
+                cause: '깊이 상태를 생성할 때 Material의 비교 설정을 무시하고 LESS로 고정했습니다.',
+                fix: '렌더 상태 옵션과 JSON 파싱에 DepthFunc를 추가하고, Gizmo Material이 LessEqual을 사용하도록 설정했습니다.',
+                result: '깊이 검사를 유지하면서도 Gizmo와 깊이가 같은 하이라이트를 표시할 수 있게 됐습니다.',
                 code: { context: 'Render-state JSON parsing' }
             }
         ],
@@ -241,79 +241,78 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
         ]
     },
     '04': {
-        title: 'OBJ Asset Pipeline 및 Binary Cooking',
-        summary: 'OBJ/MTL parsing에서 UStaticMesh asset, registry 기반 lookup, editor 사용, versioned .dasset binary reload까지 이어지는 엔진 경로를 구축했습니다.',
+        title: 'OBJ Asset 로딩과 Binary Cooking',
+        summary: 'OBJ/MTL 파일을 UStaticMesh Asset으로 가져오고, Registry 조회와 에디터 사용, .dasset Binary 저장·로딩을 연결했습니다.',
         role: 'Asset Pipeline 및 Engine 프로그래머',
-        objective: '외부 OBJ 파일을 재사용 가능한 engine asset으로 전환하고, 변경되지 않은 text geometry를 매번 다시 parsing하지 않도록 하는 것이 목표였습니다.',
+        objective: '외부 OBJ 파일을 엔진 Asset으로 관리하고, 파일이 바뀌지 않았다면 Binary Cache를 재사용해 텍스트를 다시 파싱하지 않도록 하는 것이 목표였습니다.',
         contributions: [
-            'OBJ/MTL parsing을 FObjImporter로 분리하고 imported geometry를 FObjInfo, FStaticMeshRenderData, UStaticMesh로 표현했습니다.',
-            'TObjectIterator, FObjManager, FAssetManager/FAssetRegistry 연동, material section, texture-path resolution을 구현했습니다.',
-            'source timestamp 및 FNV-1a hash validation을 포함한 versioned .dasset cook/load를 구현하고 component, material, texture, UV-state serialization을 연결했습니다.',
-            '팀 구현: ObjViewerPanel과 multi-viewport SWindow 기반 · 개인 구현: OBJ/MTL Importer, UStaticMesh 연동, Binary Cooking, 직렬화'
+            'OBJ/MTL 파싱을 FObjImporter로 분리하고, 가져온 메시 데이터를 FObjInfo, FStaticMeshRenderData, UStaticMesh로 구성했습니다.',
+            'TObjectIterator, FObjManager, FAssetManager/FAssetRegistry 연동과 Material Section 구성을 구현하고, 텍스처 경로를 처리했습니다.',
+            '원본 수정 시각과 FNV-1a 해시, 포맷 버전을 확인하는 .dasset 저장·로딩을 구현했습니다. 컴포넌트와 Material·Texture·UV 상태의 직렬화도 연결했습니다.',
+            '팀 구현: ObjViewerPanel과 다중 뷰포트용 SWindow 기반 · 개인 구현: OBJ/MTL Importer, UStaticMesh 연동, Binary Cooking, 직렬화'
         ],
         implementation: [
             'OBJ/MTL 토큰 파싱, Material Section 분리, 인덱스 정점 구성, Static Mesh 경계 계산',
             'UStaticMesh 객체 소유권, TObjectIterator 순회, Asset Registry 조회, 런타임 Mesh·Texture 캐시',
             'FAssetCooker 바이너리 헤더·버전 관리·원본 검증, .dasset 저장·로드, 오래된 캐시 재생성',
-            'static-mesh picking과 mesh, material, texture, slot별 UV-scroll state의 scene serialization'
+            'Static Mesh 피킹, 메시·Material·Texture와 슬롯별 UV 스크롤 상태의 Scene 직렬화'
         ],
-        flow: 'OBJ + MTL → FObjInfo → indexed mesh build → UStaticMesh / asset registry → .dasset cook → 검증된 binary reload',
+        flow: 'OBJ + MTL → FObjInfo → 인덱스 메시 생성 → UStaticMesh·Asset Registry → .dasset 저장 → 유효성 확인 후 바이너리 로딩',
         results: [
-            '외부 geometry를 일회성 text input에서 engine이 관리하는 static-mesh asset workflow로 전환했습니다.',
-            '유효한 cooked data를 재사용하고 source content 또는 format version이 변경되면 recook하는 결정론적 binary reload 경로를 추가했습니다.',
-            '원본 commit hash를 유지한 Week04 commit graph와 upstream branch 16개를 보존했습니다.'
+            '외부 Geometry를 엔진에서 관리하고 재사용할 수 있는 Static Mesh Asset으로 전환했습니다.',
+            '유효한 Cook 데이터를 재사용하고, 원본이나 포맷 버전이 바뀌면 다시 Cook하도록 했습니다.',
         ],
-        evidenceStatus: 'OBJ Importer 구현 이력',
-        evidenceNote: '복구한 Week04 이력에서 OBJ/MTL Importer, UStaticMesh 통합, 버전형 .dasset Cook, 직렬화를 구현했습니다.',
-        sourceLabel: '보존된 Week04 source와 history 열기',
+        evidenceStatus: 'OBJ Importer와 Binary Asset',
+        evidenceNote: 'OBJ/MTL Importer, UStaticMesh 통합, 버전형 .dasset Cook, 직렬화를 구현했습니다.',
+        sourceLabel: 'Week04 소스 코드·변경 이력',
         troubleshooting: [
             {
-                title: '한글 등 non-ASCII asset path를 안정적으로 열지 못함',
-                symptom: 'project 또는 asset path에 한글이 포함되면 OBJ, MTL, texture, cooked-asset path를 열지 못할 수 있었습니다.',
-                cause: 'file access에서 UTF-8 string, std::filesystem narrow conversion, .string() 재구성을 혼용해 Windows path encoding을 일관되게 처리하지 못했습니다.',
-                fix: 'importer, cooker, property, primitive의 file-access 호출부를 기존 FPaths::ToWide UTF-8/UTF-16 helper로 이전하고, relative OBJ/MTL path를 narrow filesystem string으로 다시 변환하지 않고 구성했습니다.',
-                result: 'importer, cooker, property comparison, primitive loading이 normalized engine path를 유지하면서 Windows-native wide path를 file API에 전달합니다.',
+                title: '한글이 포함된 자산 경로를 열지 못하는 문제',
+                symptom: '프로젝트나 자산 경로에 한글이 포함되면 OBJ·MTL·텍스처·Cook 파일을 열지 못할 수 있었습니다.',
+                cause: '파일을 열 때 UTF-8 문자열, std::filesystem의 좁은 문자열 변환, .string() 재구성을 혼용해 Windows 경로 인코딩이 어긋났습니다.',
+                fix: 'Importer·Cooker·속성·Primitive의 파일 접근에 FPaths::ToWide를 사용해 UTF-8을 UTF-16으로 변환했습니다. OBJ/MTL 상대 경로는 좁은 문자열로 다시 변환하지 않도록 했습니다.',
+                result: '엔진 내부 경로 형식은 유지하면서, Import·Cook·속성 비교·Primitive 로딩 시 Windows 파일 API에 와이드 문자열 경로를 전달하도록 했습니다.',
                 code: { context: 'FObjImporter::ParseObj()' }
             },
             {
-                title: 'cold load에 검증된 OBJ parsing 대체 binary 경로가 없음',
-                symptom: 'runtime cache에 없는 mesh는 raw OBJ import를 거쳐야 했고, cooked representation이나 신뢰할 수 있는 stale-data check가 없었습니다.',
-                cause: 'raw vertex/index/section data와 source identity를 versioned binary asset format에 함께 저장하지 않았습니다.',
-                fix: 'FAssetCooker와 magic, format version, source timestamp, FNV-1a source hash를 담는 .dasset header를 추가했습니다. 변경되지 않은 source는 binary load를 사용하고 invalid data는 recook합니다.',
-                result: 'loader가 잘못됐거나 오래된 binary data를 거부하고, 검증된 cooked asset이 최신이면 OBJ parsing을 건너뜁니다.',
+                title: '캐시에 없는 메시를 매번 OBJ에서 다시 읽는 문제',
+                symptom: '런타임 캐시에 없는 메시는 매번 원본 OBJ를 읽어야 했습니다. 바이너리 저장 형식과 원본 변경 여부를 확인하는 절차가 없었습니다.',
+                cause: '정점·인덱스·Section 데이터와 원본 정보를 포맷 버전이 있는 바이너리 자산으로 저장하지 않았습니다.',
+                fix: 'FAssetCooker와 .dasset 헤더를 추가했습니다. 헤더에는 매직 값, 포맷 버전, 원본 수정 시각과 FNV-1a 해시를 저장해 원본이 같으면 바이너리를 읽고, 유효하지 않으면 다시 Cook합니다.',
+                result: '잘못됐거나 오래된 바이너리는 거르고, 유효한 최신 Cook 파일이 있으면 OBJ 파싱을 건너뛰도록 했습니다.',
                 code: { context: 'FAssetCooker::SaveCookedStaticMesh()' }
             },
             {
-                title: 'OBJ cooking이 face-corner vertex와 material search를 중복 수행함',
-                symptom: 'position, normal, UV가 같아도 parsing된 face corner마다 새 render vertex가 생성됐고, material lookup에 중복 nested loop가 있었습니다.',
-                cause: 'cooker가 indexed-vertex key 없이 vertex를 선형으로 추가하고 section마다 같은 material collection을 두 번 검색했습니다.',
-                fix: 'position, normal, UV에 대한 hash/equality key를 도입해 기존 index를 재사용하고, material resolution을 early exit가 있는 단일 loop로 줄였습니다.',
-                result: '동등한 face corner가 index를 공유하고, 각 section의 material lookup을 단일 순회로 줄였습니다.',
+                title: 'OBJ 변환 시 정점 생성과 Material 검색이 중복되는 문제',
+                symptom: '위치·노멀·UV가 같아도 면의 각 꼭짓점마다 렌더링 정점을 새로 생성했습니다. Material 검색에도 중복된 중첩 반복문이 있었습니다.',
+                cause: '기존 정점을 식별할 키 없이 정점을 계속 추가했고, Section마다 같은 Material 목록을 두 번 검색했습니다.',
+                fix: '위치·노멀·UV의 해시와 동등성 비교로 기존 정점 인덱스를 재사용했습니다. Material 검색은 일치하는 항목을 찾으면 종료하는 단일 반복문으로 줄였습니다.',
+                result: '같은 위치·노멀·UV를 가진 정점은 인덱스를 공유하고, Section별 Material 검색은 한 번의 순회로 처리합니다.',
                 code: { context: 'FObjImporter::Cook()' }
             },
             {
-                title: 'import된 UStaticMesh actor를 선택할 수 없음',
-                symptom: 'triangle picking은 legacy primitive 기반 component에서는 동작했지만 새 mesh-component 경로에 저장된 static mesh를 건너뛰었습니다.',
-                cause: 'picker가 UPrimitiveComponent::GetPrimitive()에서 legacy CPrimitiveBase instance를 얻은 경우에만 계속 진행했습니다.',
-                fix: 'legacy 경로를 유지하면서 component에서 직접 FMeshData를 가져오는 UMeshComponent fallback을 추가해 triangle intersection 전에 사용했습니다.',
-                result: 'legacy primitive와 imported UStaticMesh component가 같은 triangle-picking pass에 참여합니다.',
+                title: '가져온 UStaticMesh Actor가 선택되지 않는 문제',
+                symptom: '삼각형 피킹은 기존 Primitive 컴포넌트에서만 동작하고, 새 Mesh 컴포넌트에 저장된 Static Mesh는 건너뛰었습니다.',
+                cause: '피커가 UPrimitiveComponent::GetPrimitive()에서 CPrimitiveBase 인스턴스를 얻은 경우에만 검사를 진행했습니다.',
+                fix: '기존 경로를 유지하면서 UMeshComponent에서 FMeshData를 직접 가져오는 처리를 추가하고, 삼각형 교차 검사에 전달했습니다.',
+                result: '기존 Primitive와 가져온 UStaticMesh 모두 같은 삼각형 피킹 과정에서 선택할 수 있게 됐습니다.',
                 code: { context: 'FPicker::PickActor()' }
             },
             {
-                title: 'reload된 scene에서 mesh-component dependency와 UV state가 사라짐',
-                symptom: 'scene reload 시 actor가 component flag, material/texture dependency, slot별 UV-scroll 설정 없이 재구성될 수 있었습니다.',
-                cause: '초기 FArchive에 필요한 string-array 및 float/state 지원이 없었고, component class가 dependent asset property를 끝까지 serialize하지 않았습니다.',
-                fix: 'FArchive와 component Serialize 함수를 확장하고 mesh/material 생성 후 texture를 복원했으며, 각 slot의 UVEnabled와 UVSpeed 값을 저장했습니다.',
-                result: '저장된 scene이 static-mesh asset 관계를 재구성하고 dependency 순서에 따라 material, texture, UV-scroll state를 다시 적용합니다.',
+                title: 'Scene 재로딩 후 메시 자산 연결과 UV 설정이 사라지는 문제',
+                symptom: 'Scene을 다시 불러오면 컴포넌트 플래그, Material·Texture 연결, 슬롯별 UV 스크롤 설정이 복원되지 않을 수 있었습니다.',
+                cause: '초기 FArchive가 필요한 문자열 배열과 실수·상태 값을 지원하지 않았고, 컴포넌트도 연결된 자산의 속성을 모두 직렬화하지 않았습니다.',
+                fix: 'FArchive와 컴포넌트의 Serialize를 확장했습니다. 메시·Material 생성 후 텍스처를 복원하고, 슬롯별 UVEnabled와 UVSpeed 값도 저장했습니다.',
+                result: '저장된 Scene에서 Static Mesh의 자산 연결을 복원하고, 의존 순서에 맞춰 Material·Texture·UV 스크롤 설정을 다시 적용합니다.',
                 code: { context: 'UStaticMeshComponent::Serialize()' },
                 commit: { label: 'serialization 순서' }
             },
             {
-                title: 'texture SRV와 asset cache가 shutdown 후에도 GPU ownership을 유지함',
-                symptom: 'static-mesh texture 할당이 추가 COM reference를 만들었고, cache된 SRV와 mesh에는 명시적인 renderer-shutdown cleanup 경로가 없었습니다.',
-                cause: 'asset manager handoff와 component가 모두 texture ownership을 증가시켰으며, renderer teardown이 D3D11 device를 해제하기 전에 engine cache를 비우지 않았습니다.',
-                fix: '중복 component AddRef를 제거하고 cache된 SRV를 release하며 mesh/texture map을 비우는 FAssetManager::ClearCache를 추가했습니다. context와 device를 해제하기 전에 primitive/asset cache cleanup을 호출했습니다.',
-                result: 'COM reference 소유권과 cache teardown을 명시적으로 관리하고 renderer 종료 전에 GPU-facing cache를 해제합니다.',
+                title: '종료 후에도 텍스처 SRV와 자산 캐시가 남는 문제',
+                symptom: 'Static Mesh에 텍스처를 할당할 때 COM 참조가 중복 증가했고, 렌더러 종료 시 캐시된 SRV와 메시를 정리하는 코드가 없었습니다.',
+                cause: 'Asset Manager가 텍스처를 넘길 때와 컴포넌트가 받을 때 모두 참조 수를 늘렸습니다. 렌더러도 엔진 캐시를 비우기 전에 D3D11 디바이스를 해제했습니다.',
+                fix: '컴포넌트의 중복 AddRef를 제거했습니다. FAssetManager::ClearCache에서 SRV를 해제하고 메시·텍스처 맵을 비우도록 한 뒤, Context·Device 해제 전에 Primitive·Asset 캐시를 정리했습니다.',
+                result: 'COM 참조의 소유권을 정리하고, 렌더러 종료 전에 GPU 리소스를 가진 캐시를 해제하도록 했습니다.',
                 code: { context: 'FAssetManager::ClearCache()' }
             }
         ],
@@ -331,7 +330,7 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
     '05': {
         theme: "2차 게임잼 · It's Pie Time",
         title: 'Octahedral Impostor 최적화',
-        summary: '오브젝트 5만 개를 배치한 최적화 경합에서, 반복되는 메시 렌더링 비용을 줄이기 위해 Octahedral Impostor를 제안하고 팀 엔진에 통합했습니다.',
+        summary: '오브젝트 5만 개를 렌더링하는 최적화 과제에서 Octahedral Impostor를 제안하고 팀 엔진에 통합했습니다.',
         role: '렌더링 최적화 프로그래머',
         objective: '고밀도 장면에서 동일한 메시를 반복 제출하는 대신, 카메라 방향에 맞는 이미지 프록시를 재구성해 CPU·GPU 렌더링 비용을 줄이는 것이 목표였습니다.',
         contributions: [
@@ -346,17 +345,17 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
         ],
         flow: '고밀도 메시 장면 → transform·culling 최적화 → Octahedral Atlas bake → 카메라 방향별 프록시 렌더링',
         results: [
-            '고밀도 오브젝트 장면에 적용할 수 있는 렌더러 수준의 최적화 경로를 구축했습니다.',
-            '동일한 배치를 재현할 수 있는 오브젝트 5만 개와 6만 4천 개 장면을 구성했습니다.'
+            '팀 엔진에서 반복 오브젝트를 Impostor로 렌더링할 수 있도록 했습니다.',
+            '반복 측정에 사용할 5만 개·6만 4천 개 오브젝트 장면을 구성했습니다.'
         ],
-        evidenceStatus: '구현 및 소스 이력',
+        evidenceStatus: '구현 내용',
         evidenceNote: '서브메시 BVH, StructuredBuffer 인스턴싱, 계층 변환, Atlas Baker, 런타임 Impostor 경로를 구현하고 팀 게임잼 엔진에 통합했습니다.',
         sourceLabel: '통합된 게임잼 저장소 열기',
         troubleshootingEvidence: [
             {
-                kicker: '방향별 atlas bake 검증',
-                title: 'Bake Camera를 보정해 방향별 Atlas에 온전한 실루엣을 기록했습니다.',
-                summary: '초기 Atlas는 256개 칸 중 149개에서 메시가 가느다란 조각으로 잘렸습니다. Vertex로 Bounds를 다시 계산하고 여유 범위, 극지점 Camera Basis, Matrix Upload를 바로잡아 16 × 16 방향 전체를 완성했습니다.',
+                kicker: 'Atlas 생성 오류 수정',
+                title: '256개 방향에서 메시 전체가 보이도록 수정',
+                summary: '초기 Atlas는 256개 칸 중 149개에서 메시가 잘렸습니다. 정점 기준으로 경계 상자를 다시 계산하고 카메라 여유 범위·극점 기준축·행렬 업로드를 수정해 모든 방향에서 메시 전체가 나오도록 했습니다.',
                 figures: [
                     {
                         stage: '수정 전 · 잘린 방향 캡처',
@@ -370,14 +369,14 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
                     }
                 ],
                 facts: [
-                    { label: '유효 화면 비율 5% 미만', value: '149 / 256 → 0 / 256', detail: '수정 전 출력 → 최종 후속 출력' }
+                    { label: '유효 화면 비율 5% 미만', value: '149 / 256 → 0 / 256', detail: '수정 전 → 수정 후' }
                 ],
                 method: '2048 × 2048 Atlas를 256개 방향 Cell로 나누고, 각 Cell에서 검은색이 아닌 Pixel의 비율이 5% 미만이면 잘린 출력으로 분류했습니다.'
             },
             {
                 kicker: '오브젝트 5만 개 렌더링 비교',
-                title: '같은 오브젝트 5만 개 장면에서 Full Mesh와 Impostor 렌더링을 비교했습니다.',
-                summary: '동일 PC에서 두 렌더링 경로의 HUD를 기록했고, Impostor 경로는 4,481프레임 평균 Frame Time 로그를 함께 확보했습니다.',
+                title: 'Full Mesh와 Impostor 성능 비교',
+                summary: '같은 PC의 5만 개 오브젝트 장면에서 HUD 값을 비교했습니다. Impostor 평균 프레임 시간은 별도 로그로 측정했습니다.',
                 tags: null,
                 figures: [
                     {
@@ -397,56 +396,56 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
                     { label: 'Draw Call', value: '10,725 → 2', detail: 'Full Mesh → Impostor' }
                 ],
                 trace: { label: 'Impostor 경로 프레임 로그' },
-                method: 'Release x64, 1280 × 720, VSync 비활성화, Main Thread Affinity Bit 2 고정 조건으로 측정했습니다.',
+                method: 'Release x64, 1280 × 720, VSync 비활성화, Main Thread Affinity Bit 2 고정 조건으로 측정했습니다. Impostor 평균은 별도 로그의 4,481프레임을 기준으로 계산했습니다.',
                 hardwareLabel: '측정 PC'
             }
         ],
         troubleshooting: [
             {
-                title: '고밀도 scene의 picking 및 object별 submission 비용',
-                symptom: '오브젝트 50,000개 경합에서 mesh triangle 검사와 object별 draw data 갱신에 드는 CPU 작업이 크게 늘었습니다.',
-                cause: 'picking이 sub-mesh의 모든 triangle을 순회했고, 반복되는 object constant가 고밀도 scene에 확장되지 않는 object별 경로로 제출됐습니다.',
-                fix: '교차하지 않는 branch를 거르는 sub-mesh BVH를 구축하고, world/tint instance data를 instance index로 접근하는 StructuredBuffer로 이동했습니다.',
-                result: 'renderer가 계층적으로 candidate를 거르고 반복 instance data를 batch 처리해 object마다 전체 경로를 반복하지 않습니다.'
+                title: '오브젝트가 많을 때 증가하는 피킹·렌더링 제출 비용',
+                symptom: '오브젝트 50,000개 장면에서 메시 삼각형 검사와 오브젝트별 렌더링 데이터 갱신에 드는 CPU 작업이 크게 늘었습니다.',
+                cause: '피킹 시 서브메시의 모든 삼각형을 순회했습니다. 같은 형태의 오브젝트도 상수 데이터를 각각 제출해 오브젝트 수에 따라 CPU 작업이 늘었습니다.',
+                fix: '교차하지 않는 가지를 건너뛰도록 서브메시 BVH를 구축했습니다. 월드 변환·색상 데이터는 인스턴스 인덱스로 조회하는 StructuredBuffer로 옮겼습니다.',
+                result: 'BVH로 피킹 후보를 좁히고, 인스턴스 데이터를 묶어 처리하도록 했습니다.'
             },
             {
-                title: 'dirty transform 갱신 중 재귀 호출로 스택 오버플로 발생',
-                symptom: 'dirty 상태의 FSceneComponent 월드 transform을 갱신하는 과정에서 같은 함수가 반복 호출되어 스택 오버플로로 이어질 수 있었습니다.',
+                title: '변환 갱신 중 재귀 호출로 스택 오버플로 발생',
+                symptom: '변경된 FSceneComponent의 월드 변환을 갱신할 때 같은 함수가 반복 호출돼 스택 오버플로가 발생할 수 있었습니다.',
                 cause: 'UpdateComponentToWorld()가 같은 dirty 상태를 다시 확인하는 경로에 진입할 때까지 dirty flag가 남아 있어, 갱신 함수가 자기 자신을 다시 호출했습니다.',
                 fix: 'UpdateComponentToWorld() 진입 전에 bIsWorldTransformDirty를 먼저 해제하고, 연관된 AABB 갱신은 OnUpdateWorldTransform()에서 처리하도록 정리했습니다.',
-                result: 'transform 변경을 한 번만 계산한 뒤 완성된 월드 transform으로 bounds를 갱신하며, 갱신 경로에 재진입하지 않습니다.',
+                result: '변경된 변환을 한 번 계산한 뒤 그 값으로 경계 상자를 갱신해, 갱신 함수의 재진입을 막았습니다.',
                 code: { context: 'FSceneComponent::GetComponentToWorld()' }
             },
             {
-                title: 'bake camera와 bounds 오류로 방향별 atlas가 잘림',
+                title: '베이킹 카메라와 경계 상자 오류로 Atlas가 잘리는 문제',
                 symptom: 'ec931251의 albedo atlas는 256개 칸 중 149개에서 검은색이 아닌 픽셀의 비율이 5% 미만이었고, 사과 전체가 아니라 가느다란 일부만 담겼습니다.',
-                cause: '초기 bake 경로는 메시가 제공한 bounds, custom FMatrix::MakeLookAt, 직교 투영 행렬을 조합했으며, Octahedral 방향 전반에서 오브젝트 전체를 안정적으로 화면에 담지 못했습니다.',
-                fix: 'b3f0a6c에서 메시 vertex를 순회해 min/max bounds를 다시 계산하고, 가장 큰 half-extent에 20% 여유 범위를 적용했습니다. 극지점에서도 안정적인 up basis를 구성한 뒤 DirectXMath로 left-handed view와 직교 투영 행렬을 만들었습니다.',
+                cause: '메시의 경계 상자, 자체 FMatrix::MakeLookAt, 직교 투영 행렬을 조합한 초기 베이킹에서는 일부 방향에서 오브젝트 전체를 화면에 담지 못했습니다.',
+                fix: 'b3f0a6c에서 메시 정점을 순회해 최소·최대 경계를 다시 계산하고, 가장 큰 반길이에 20% 여유를 더했습니다. 극점에서도 사용할 수 있는 상향 기준축을 구성하고 DirectXMath로 왼손 좌표계 뷰·직교 투영 행렬을 만들었습니다.',
                 result: '수정된 Bake는 모든 방향 칸에 사과 전체 실루엣을 유지하며, 완성된 Atlas를 Runtime Impostor 경로에서 사용합니다.',
                 code: { context: 'Bake()의 vertex bounds 계산 및 CalculateCameraTransform()' }
             },
             {
-                title: 'SceneGraph가 maximum depth에서 object를 누락함',
-                symptom: '같은 octant에 있는 고밀도 object가 depth 8에 도달하면 picking candidate list에서 사라질 수 있었습니다.',
-                cause: 'terminal leaf가 PrimitiveIndex 하나만 저장했습니다. maximum depth에서 여러 index가 남아도 leaf가 전체 집합을 보존하지 못했습니다.',
-                fix: 'leaf가 남은 모든 primitive index를 저장하고 traversal 중 전체 collection을 방출하도록 변경했습니다.',
-                result: 'maximum-depth leaf에 배정된 모든 primitive가 picking pass에서 계속 사용됩니다.',
+                title: 'SceneGraph의 최대 깊이에서 오브젝트가 누락되는 문제',
+                symptom: '같은 옥탄트에 모인 오브젝트가 깊이 8에 도달하면 피킹 후보에서 빠질 수 있었습니다.',
+                cause: '마지막 리프가 PrimitiveIndex 하나만 저장해, 최대 깊이에 여러 인덱스가 남으면 일부를 누락했습니다.',
+                fix: '리프에 남은 Primitive 인덱스를 모두 저장하고, 순회할 때 전체 목록을 반환하도록 수정했습니다.',
+                result: '최대 깊이의 리프에 들어간 Primitive도 모두 피킹 후보에 포함됩니다.',
                 code: { context: 'terminal leaf 생성 및 traversal' }
             },
             {
-                title: 'GPU culling이 오브젝트 50,000개로 고정됨',
-                symptom: 'primitive가 50,000개를 넘는 scene은 고정된 instance 및 visibility resource capacity를 초과할 수 있었고 compute shader는 그보다 큰 index를 무시했습니다.',
-                cause: 'CPU buffer, SRV/UAV element count, staging storage, HLSL boundary check가 모두 literal 50000을 사용했습니다.',
-                fix: '확장 가능한 culling resource를 추가하고 고정된 scene limit 대신 실제 primitive count를 compute shader에 전달했습니다.',
-                result: 'culling resource가 필요한 object 수까지 확장되고 shader dispatch가 실제 scene primitive count에서 종료됩니다.',
+                title: 'GPU 컬링이 오브젝트 50,000개로 제한되는 문제',
+                symptom: 'Primitive가 50,000개를 넘으면 인스턴스·가시성 버퍼 용량을 초과할 수 있었고, Compute Shader는 그 이상의 인덱스를 무시했습니다.',
+                cause: 'CPU 버퍼, SRV/UAV 요소 수, Staging 저장 공간, HLSL 범위 검사가 모두 50000으로 고정돼 있었습니다.',
+                fix: '필요한 수에 맞춰 컬링 리소스를 확장하고, 실제 Primitive 수를 Compute Shader에 전달했습니다.',
+                result: '오브젝트 수에 맞춰 리소스를 확보하고, 실제 Primitive 수를 기준으로 셰이더 작업 범위를 제한합니다.',
                 code: { context: 'EnsureCullingBufferCapacity()' }
             },
             {
                 title: '레이어별 인스턴스 캐시가 공유 버퍼를 덮어씀',
-                symptom: '한 렌더 레이어의 캐시 오브젝트가 다른 레이어에 속한 transform이나 오브젝트 ID를 사용할 수 있었습니다.',
-                cause: '각 레이어가 같은 인스턴스 버퍼를 WRITE_DISCARD로 map한 뒤 offset 0부터 기록했습니다. 다음 레이어가 버퍼 내용을 교체해도 기존 batch offset은 그대로 남았습니다.',
-                fix: '한 번 map한 버퍼에 모든 레이어를 순서대로 재구성하고, 각 batch에 겹치지 않는 전역 offset을 할당했습니다.',
-                result: '각 batch가 공유 인스턴스 버퍼에서 자신에게 할당된 범위만 참조하게 되었습니다.',
+                symptom: '한 렌더 레이어의 캐시 오브젝트가 다른 레이어의 변환이나 오브젝트 ID를 사용할 수 있었습니다.',
+                cause: '각 레이어가 같은 인스턴스 버퍼를 WRITE_DISCARD로 매핑하고 오프셋 0부터 기록했습니다. 다음 레이어가 버퍼를 덮어써도 기존 배치의 오프셋은 그대로였습니다.',
+                fix: '버퍼를 한 번 매핑해 모든 레이어를 순서대로 기록하고, 배치마다 겹치지 않는 전역 오프셋을 할당했습니다.',
+                result: '각 배치가 공유 버퍼에서 자신에게 할당된 범위만 참조하도록 했습니다.',
                 code: { context: 'RebuildAllLayerInstanceBuffers()' }
             }
         ],
@@ -462,46 +461,46 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
     },
     '06': {
         title: 'Height Fog 및 Decal 렌더링',
-        summary: 'height/linear fog와 depth-reconstructed spotlight projection을 구현하면서 RGB contribution과 viewport render target의 alpha channel을 분리했습니다.',
+        summary: 'Height·Linear Fog와 깊이 기반 Spotlight 투영을 구현했습니다. RGB를 혼합하면서도 뷰포트 Render Target의 Alpha는 보존하도록 처리했습니다.',
         role: '대기 및 Decal 렌더링 프로그래머',
-        objective: 'viewport alpha, depth reconstruction, 주변 render sequence를 손상시키지 않으면서 공유 renderer에 제어 가능한 fog와 projected lighting을 추가하는 것이 목표였습니다.',
+        objective: '기존 렌더링 순서와 뷰포트 Alpha를 유지하면서, 조절 가능한 Fog와 투영 조명을 추가하는 것이 목표였습니다.',
         contributions: [
-            'fog shader/state 경로, 이동 가능한 FogActor, cutoff parameter, near/far 접근, color control, billboard representation을 구축했습니다.',
-            'scene-depth 생성을 fog renderer에서 분리하고 reverse-depth reconstruction을 사용하는 FScene collection과 연결했습니다.',
-            '가까운 fog pixel을 ImGui viewport에서 투명하게 만들던 alpha-blend equation을 진단하고 최종 linear-fog 경로를 복원했습니다.',
-            'alpha를 보존하는 blend state와 SpotLightDecal additive 경로를 구축하고, render output을 channel별로 확인해 decal artifact를 격리했습니다.'
+            'Fog 셰이더와 렌더 상태, 이동 가능한 FogActor를 구현했습니다. 안개 적용 거리와 색상, 카메라 Near/Far 값을 조절하고 Billboard로 위치를 표시하도록 했습니다.',
+            'Scene 깊이 생성을 Fog 렌더러에서 분리하고, 역방향 깊이 복원을 사용하는 FScene 수집 과정에 연결했습니다.',
+            '가까운 오브젝트가 ImGui 뷰포트에서 투명해지는 원인을 Alpha 혼합식에서 찾고, Linear Fog 렌더링을 수정했습니다.',
+            'Alpha를 보존하는 Blend State와 SpotLightDecal의 Additive 처리를 구현했습니다. 출력 채널을 나눠 확인하며 Decal의 표시 오류를 추적했습니다.'
         ],
         implementation: [
             'Height/Linear Fog 방정식, Cutoff 거리, 안개 색상, 카메라 Near/Far 파라미터',
             'FogActor, Scene 컬렉션, Billboard, 색상 선택기, 에디터 속성',
-            'scene-depth 분리, inverse view-projection reconstruction, reverse depth, render order, alpha blending',
-            'depth-reconstructed spotlight projection, additive RGB contribution, destination-alpha 보존'
+            'Scene 깊이 분리, 역 View-Projection을 이용한 위치 복원, 역방향 깊이, 렌더링 순서, Alpha 혼합',
+            '깊이로 복원한 위치에 Spotlight 투영, RGB Additive 혼합, 기존 Alpha 보존'
         ],
-        flow: 'Scene depth + camera + fog/decal parameter → world reconstruction → atmospheric 또는 additive contribution → alpha-safe editor viewport',
+        flow: 'Scene 깊이·카메라·Fog/Decal 설정 → 월드 위치 복원 → 안개·투영 조명 적용 → Alpha를 유지한 뷰포트 합성',
         results: [
-            'renderer의 범위를 opaque object drawing 너머로 확장했습니다.',
-            'fog와 decal color contribution이 ImGui가 사용하는 viewport alpha를 덮어쓰지 않도록 했습니다.',
-            'fog 중심 branch를 공개 구현 참고 자료로 보존했습니다.'
+            '기존 렌더러에 Fog와 Spotlight 투영 기능을 추가했습니다.',
+            'Fog와 Decal의 색상 혼합이 ImGui에서 사용하는 뷰포트 Alpha를 덮어쓰지 않도록 했습니다.',
+            'Fog 구현 코드를 프로젝트 브랜치에 공개했습니다.'
         ],
-        evidenceStatus: '구현 및 소스 이력',
+        evidenceStatus: '구현 내용',
         evidenceNote: '깊이 복원, 알파를 보존하는 Fog Blending, Spotlight Decal, 렌더 채널 수정을 구현해 Fog와 Decal Artifact를 해결했습니다.',
-        sourceLabel: 'fog feature branch 열기',
+        sourceLabel: 'Fog 구현 브랜치',
         troubleshootingEvidence: [
             {
-                kicker: '최초 fog 실패 · commit 이전 capture',
-                title: '첫 fog pass에서 geometry는 fog color로 포화됐지만 editor viewport 대부분은 검게 남았습니다.',
-                summary: '두 capture는 12.65초 간격으로 기록됐고, WIP full-screen fog 경로가 894b180에 처음 commit되기 32분 전입니다. cube color #8098B1은 설정된 default fog color 약 #8099B3와 거의 같지만, 주변 viewport는 #0F0F0F가 지배적입니다. commit 3f5241e는 alpha blending이 render-target alpha를 fogOpacity로 교체한 composition fault를 기록하고, ed1d815는 far/sky 경로의 finite-value guard를 추가합니다.',
-                tags: ['실제 defect capture', '초기 fog pass', 'Viewport Alpha 문제', 'Far-depth 방어'],
+                kicker: '초기 Fog 렌더링 문제',
+                title: '첫 Fog Pass에서 오브젝트는 Fog 색상으로 물들고 뷰포트 대부분은 검게 표시됐습니다.',
+                summary: 'Geometry에는 Fog 색상이 반영됐지만 에디터 뷰포트가 검게 표시됐습니다. Alpha Blending이 Render Target의 Alpha를 Fog Opacity로 덮어써 ImGui 배경이 드러난 것이 원인이었습니다. 기존 Scene Alpha를 보존하도록 Blend State를 수정하고, 원거리와 Sky 계산에서 비정상적인 수치가 나오지 않도록 처리했습니다.',
+                tags: ['Fog 렌더링 문제', '초기 fog pass', 'Viewport Alpha 문제', 'Far-depth 방어'],
                 figures: [
                     {
-                        stage: '멀리서 검은 viewport 상태 · 2026-04-12 00:53:07 KST',
-                        alt: 'editor grid는 보이지만 먼 viewport와 sky가 검게 나타나는 Week06 초기 fog 구현',
-                        caption: 'full-screen scene 영역이 horizon과 sky 방향으로 검고, grid는 이후 editor overlay로 계속 그려집니다.'
+                        stage: '원거리 뷰포트가 검게 표시된 화면',
+                        alt: '에디터 격자는 보이지만 먼 장면과 하늘이 검게 표시된 초기 Fog 화면',
+                        caption: '지평선과 하늘이 검게 표시됐습니다. 나중에 그리는 에디터 격자는 그대로 보입니다.'
                     },
                     {
-                        stage: 'Geometry 반영 확인 · 2026-04-12 00:53:20 KST',
-                        alt: '주변 viewport는 검은 상태로 남고 cube만 blue-gray로 물든 Week06 초기 fog 구현',
-                        caption: 'cube를 통해 fog color가 geometry에 도달했음을 알 수 있지만, 주변 scene에는 여전히 검은 failure state가 드러납니다.'
+                        stage: 'Geometry 반영 확인',
+                        alt: '주변 뷰포트는 검고 큐브에만 청회색 안개가 적용된 초기 Fog 화면',
+                        caption: '큐브에는 안개 색상이 적용됐지만 주변 장면은 여전히 검게 표시됐습니다.'
                     }
                 ],
                 facts: [
@@ -509,74 +508,74 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
                     { label: 'FogColor 전달', value: '#8098B1 ≈ #8099B3', detail: '렌더링된 Cube와 기본 FogColor 비교' },
                     { label: 'Alpha 수정', value: '3f5241e', detail: 'Destination Alpha를 보존하는 Fog RGB Blend' }
                 ],
-                trace: { label: '직접적인 alpha-composition 결함과 수정' },
-                method: '캡처는 검게 출력된 상태와 Geometry에 FogColor가 반영된 상태를 기록하고, 3f5241e와 ed1d815 diff는 Alpha Composition 및 수치 안정성 수정을 기록합니다.'
+                trace: { label: 'Alpha 혼합식 수정' },
+                method: 'Fog Pass에서 RGB를 혼합하되 Destination Alpha는 보존하고, 원거리와 Sky 계산에는 유한값 검사를 추가했습니다.'
             },
             {
-                kicker: '실제 fog-visibility 비교 · 로컬 capture',
-                title: '한 fog-active view에는 mesh가 남아 있지만 이후 cropped view에는 FogActor billboard만 보입니다.',
-                summary: '두 capture의 dominant fog color는 같습니다. 첫 화면에는 cube와 sphere가 보이고, 이후 cropped viewport에는 editor FogActor billboard만 남아 중간 Exponential Fog의 mesh-visible / mesh-absent 상태를 기록합니다.',
-                tags: ['실제 editor capture', 'Height Fog 적용', '가시성 변화', 'Week06'],
+                kicker: 'Fog 적용에 따른 가시성 변화',
+                title: 'Fog가 적용된 장면에서 메시가 가려지고 FogActor 아이콘만 남는 현상이 있었습니다.',
+                summary: 'Exponential Fog를 개발하는 과정에서 Scene Mesh가 가려지고 에디터의 FogActor Billboard만 남는 현상이 있었습니다. 두 화면은 Fog가 적용된 상태에서 메시의 가시성이 달라지는 모습을 보여 줍니다.',
+                tags: ['에디터 화면', 'Height Fog 적용', '가시성 변화', 'Week06'],
                 figures: [
                     {
-                        stage: 'Fog 적용 · mesh 보임 · 2026-04-15 20:35 KST',
+                        stage: 'Fog 적용 · mesh 보임',
                         alt: 'blue height fog가 적용된 상태에서 큰 cube와 sphere가 보이는 Week06 editor viewport',
-                        caption: 'fog가 scene color와 contrast를 약화하지만 cube와 sphere는 여전히 rendered viewport에 기여합니다.'
+                        caption: '안개로 장면의 색상과 대비가 약해졌지만 큐브와 구체는 보입니다.'
                     },
                     {
-                        stage: 'Fog 활성 · mesh 보이지 않음 · 2026-04-15 20:43 KST',
+                        stage: 'Fog 활성 · mesh 보이지 않음',
                         alt: 'scene mesh는 보이지 않고 fog actor icon만 남은 blue height fog 상태의 Week06 editor viewport',
-                        caption: 'cropped viewport에는 scene mesh가 보이지 않고 editor overlay인 FogActor billboard만 남습니다.'
+                        caption: '장면의 메시는 가려지고 에디터 표시용 FogActor Billboard만 남아 있습니다.'
                     }
                 ],
-                trace: { label: '가장 가까운 기존 visibility-to-opacity 구현' },
-                method: '두 캡처의 가시성 상태를 인접한 HeightFog Shader의 visibility-to-opacity 경로와 대조했습니다.'
+                trace: { label: 'HeightFog의 가시성·불투명도 계산' },
+                method: 'HeightFog는 거리에 따른 가시성을 불투명도로 변환하고, FogMaxOpacity로 최대값을 제한합니다.'
             },
             {
                 kicker: '지평선 Fog 경계 보정',
-                title: 'sky와 scene geometry가 서로 다른 fog evaluation을 따라 단단한 horizon 경계가 생겼습니다.',
-                summary: '세 editor capture는 최종 fog commit 직전에 height-fog profile을 조정한 과정을 기록합니다. 첫 두 화면은 파란 fog layer 위에 어두운 upper sky가 남아 뚜렷한 경계를 보이고, 세 번째 화면에서는 fog response가 sky까지 확장됩니다. 5ccad72 diff가 최종 방향 적분 Sky-path 수정을 기록합니다.',
-                tags: ['실제 editor capture', '지평선 경계', 'Sky Ray 보정', '5ccad72'],
+                title: '하늘과 Geometry의 Fog 계산 방식이 달라 지평선에 뚜렷한 경계가 생겼습니다.',
+                summary: '파란 Fog Layer 위로 어두운 하늘이 남아 지평선 경계가 뚜렷하게 보였습니다. Sky에서 상수 색상을 반환하던 코드를 바꾸고, 복원한 Sky Ray에도 Geometry와 같은 Fog 함수를 적용했습니다. 이미지는 조정 과정에서 하늘의 Fog 반응이 달라지는 모습입니다.',
+                tags: ['에디터 화면', '지평선 경계', 'Sky Ray 보정', '5ccad72'],
                 figures: [
                     {
-                        stage: '진단 01 · 2026-04-16 00:53:39 KST',
+                        stage: '진단 01',
                         alt: 'horizon에서 dark sky와 blue fog layer가 뚜렷하게 갈리는 Week06 height fog 진단',
-                        caption: '어두운 upper sky와 파란 fog가 적용된 scene·grid 사이에 선명한 수평 경계가 생겼습니다.'
+                        caption: '어두운 하늘과 파란 안개가 적용된 장면 사이에 수평 경계가 생겼습니다.'
                     },
                     {
-                        stage: '진단 02 · 2026-04-16 00:53:54 KST',
+                        stage: '진단 02',
                         alt: '조금 다른 시점에서도 dark sky와 blue fog layer의 단단한 경계가 나타나는 두 번째 Week06 height fog 화면',
-                        caption: '약간 다른 crop과 camera position에서도 같은 불연속이 남아 있습니다.'
+                        caption: '카메라 위치와 화면 범위를 바꿔도 같은 경계가 보입니다.'
                     },
                     {
-                        stage: '수정 후 후보 · working tree · 2026-04-16 00:54:19 KST',
-                        alt: 'grid horizon 위 sky까지 blue fog response가 확장된 Week06 working-tree fog 반복 작업',
-                        caption: '대체 response가 sky까지 도달해 검은 upper region을 제거합니다.'
+                        stage: 'Sky 반응 조정 과정',
+                        alt: 'Grid 지평선 위 하늘까지 파란 Fog가 적용된 Week06 조정 화면',
+                        caption: '하늘에도 Fog를 적용해 위쪽의 검은 영역을 없앴습니다.'
                     }
                 ],
                 facts: [
-                    { label: '최종 작성자 Commit', value: '5ccad72', detail: 'Sky 경로 수정' },
-                    { label: '기존 sky 경로', value: '상수 반환', detail: 'Depth = 1이면 world-space fog integration을 우회' },
-                    { label: '수정된 sky 경로', value: '방향 적분', detail: 'InvViewProj ray를 선택된 fog function으로 평가' }
+                    { label: '수정 커밋', value: '5ccad72', detail: 'Sky 경로 수정' },
+                    { label: '기존 sky 경로', value: '상수 반환', detail: 'Depth = 1이면 월드 공간의 Fog 적분을 건너뜀' },
+                    { label: '수정된 sky 경로', value: '방향 적분', detail: 'InvViewProj로 복원한 광선에 선택한 Fog 함수를 적용' }
                 ],
                 trace: { label: '5ccad72 전후의 sky 경로' },
-                method: '세 캡처는 Horizon Seam 진단 과정을 기록하고, 5ccad72의 Parent 및 Result Blob은 상수 반환에서 방향 적분으로 바뀐 Shader 경로를 기록합니다.'
+                method: 'InvViewProj로 Sky Ray를 복원하고, 선택된 Linear 또는 Exponential Fog 함수에 전달합니다.'
             },
             {
-                kicker: '사용자가 설명한 RGBA 분리 확인 · 실제 진단 capture',
-                title: 'channel별 검사로 검은 decal 바깥 영역의 원인을 render-target alpha로 격리했습니다.',
-                summary: '첫 capture는 projected response 주변의 검은 바깥 영역을, 두 번째는 channel isolation 중 사용한 넓은 red additive contribution을 기록합니다. R, G, B, A를 순서대로 검사해 Destination Alpha 오염으로 원인을 좁힌 뒤 Blend State 경로를 수정했습니다.',
-                tags: ['실제 editor capture', 'Alpha 오염', 'Blend State 수정', 'SpotLightDecal'],
+                kicker: 'Decal Alpha 디버깅',
+                title: '색상 채널을 나눠 확인하며 Decal 주변이 검게 보이는 원인을 Render Target의 Alpha에서 찾았습니다.',
+                summary: 'Decal 주변이 검게 표시되는 문제를 R·G·B·A 채널별로 확인했습니다. 두 번째 화면은 RGB 출력을 확인하기 위해 적색을 더한 상태입니다. 기존 Alpha가 바뀌는 것을 확인하고 Blend State를 수정했습니다.',
+                tags: ['에디터 화면', 'Alpha 오염', 'Blend State 수정', 'SpotLightDecal'],
                 figures: [
                     {
-                        stage: '검은 바깥 영역 증상 · 2026-04-16 02:40:47 KST',
+                        stage: '검은 바깥 영역 증상',
                         alt: 'test surface에서 흰 projected response 주변에 dark ring이 보이는 Week06 spotlight decal 진단',
-                        caption: 'projected response 주변의 어두운 영역을 계기로 render target의 color와 alpha channel을 분리해 검사했습니다.'
+                        caption: 'Decal 주변의 검은 영역을 확인하고 렌더 타깃의 색상과 Alpha를 나눠 검사했습니다.'
                     },
                     {
-                        stage: 'additive footprint 진단 · 2026-04-16 02:53:01 KST',
+                        stage: 'Additive 색상 범위 확인',
                         alt: 'floor 전반의 넓은 red additive contribution과 포화된 white cube가 보이는 Week06 spotlight decal 진단',
-                        caption: '지배적인 red footprint가 재구성된 plane과 cube surface에 걸친 projected RGB contribution을 드러냅니다.'
+                        caption: '적색으로 표시해 바닥과 큐브 표면에 투영되는 RGB 범위를 확인했습니다.'
                     }
                 ],
                 facts: [
@@ -585,7 +584,7 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
                     { label: '기록된 Git 상태', value: 'decfa685 이후', detail: '이 capture 사이와 이후에 추가 commit 없음' }
                 ],
                 trace: { label: 'RGB blending과 destination-alpha 보존 분리' },
-                method: 'Channel 분리 캡처와 Blend State 이력으로 RGB 기여와 Destination Alpha 보존을 구분했습니다. 개인 구현은 Alpha-preserving State와 SpotLightDecal Additive Path이며, Projection Decal Binding은 팀원 commit 2a066ce입니다.'
+                method: 'Alpha를 보존하는 Blend State와 SpotLightDecal의 Additive 경로를 구현했습니다. Projection Decal에 해당 Blend State를 연결하는 작업은 팀원이 담당했습니다.'
             }
         ],
         troubleshooting: [
@@ -614,11 +613,11 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
                 code: { context: 'PS() · cone-angle rejection' }
             },
             {
-                title: 'fog component 제거가 mesh visibility list까지 지움',
-                symptom: 'height-fog component를 삭제하거나 제거하면 관계없는 scene mesh도 함께 사라질 수 있었습니다.',
-                cause: 'FScene::RemoveFog()가 fog component를 지운 뒤 모든 render proxy에 속하는 scene-wide container인 SelectedProxies, NeverCullProxies, FreeSlots, VisibleProxies까지 clear했습니다.',
-                fix: 'RemoveFog()가 일치하는 UHeightFogComponent만 제거하도록 제한하고 global proxy bookkeeping array를 clear하지 않도록 했습니다.',
-                result: 'fog 제거 후에도 나머지 Scene Rendering에 필요한 Visibility Record가 유지됩니다.',
+                title: 'Fog 컴포넌트를 삭제하면 다른 메시도 사라지는 문제',
+                symptom: 'Height Fog 컴포넌트를 제거하면 관계없는 Scene 메시도 함께 사라질 수 있었습니다.',
+                cause: 'FScene::RemoveFog()가 Fog를 지운 뒤 전체 렌더 프록시 목록인 SelectedProxies, NeverCullProxies, FreeSlots, VisibleProxies까지 비웠습니다.',
+                fix: 'RemoveFog()에서 해당 UHeightFogComponent만 제거하고, 전체 프록시 관리 배열은 유지하도록 수정했습니다.',
+                result: 'Fog를 제거해도 나머지 메시를 렌더링하는 데 필요한 가시성 정보가 유지됩니다.',
                 code: { context: 'FScene::RemoveFog()' }
             },
             {
@@ -676,13 +675,13 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
     },
     '07': {
         title: 'Lighting 파이프라인',
-        summary: 'light component와 scene proxy 경로, forward-renderer light buffer, editor light actor, shader hot reload, 시간 기반 daylight system을 구축했습니다.',
+        summary: 'Light Component와 Scene Proxy를 Forward Renderer의 조명 버퍼에 연결했습니다. 에디터용 Light Actor, Shader Hot Reload, 시간에 따른 주광 변화도 구현했습니다.',
         role: '렌더링 프로그래머',
-        objective: 'light, material, scene data가 하나의 유지보수 가능한 real-time rendering 경로로 동작하도록 만드는 것이 목표였습니다.',
+        objective: '조명·Material·Scene 데이터를 실시간 렌더링에 연결하고, 에디터에서 조명과 Shader를 수정할 수 있도록 하는 것이 목표였습니다.',
         contributions: [
-            'LightComponentBase, LightSceneProxy, forward-renderer constant-buffer binding, light actor, billboard, ambient light, debug drawing을 구현했습니다.',
-            '공유 lighting function과 toon-lit 경로를 포함하는 shader hot reload를 추가하면서 render-state 및 GPU resource leak을 수정했습니다.',
-            'daylight orbit, 24-hour sunlight, altitude 기반 ambient color, sky clear color, 안전한 cached-light cleanup을 구축했습니다.'
+            'LightComponentBase와 LightSceneProxy를 Forward Renderer의 상수 버퍼에 연결했습니다. Light Actor, Billboard, 주변광과 디버그 표시도 구현했습니다.',
+            '공유 조명 함수와 Toon 셰이더의 Hot Reload를 추가하고, 렌더 상태와 GPU 리소스 누수를 수정했습니다.',
+            '태양 궤도와 24시간 주광 변화, 고도에 따른 주변광·하늘 색상을 구현했습니다. 캐시된 조명을 삭제할 때 남는 참조도 정리했습니다.'
         ],
         implementation: [
             'Light Component·Scene Proxy·Forward Renderer 버퍼 아키텍처',
@@ -691,10 +690,10 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
         ],
         flow: '에디터 Light Actor → Component·Scene Proxy → Forward Light Buffer → Material Lighting·Daylight 갱신',
         results: [
-            '다음 shadow 과제에 필요한 lighting layer를 구축했습니다.',
-            'lighting 동작을 독립적인 sample이 아닌 engine에 통합했습니다.'
+            '다음 그림자 과제에서 사용할 조명 시스템을 구현했습니다.',
+            '조명 기능을 엔진의 Scene과 렌더링 경로에 통합했습니다.'
         ],
-        evidenceStatus: '구현 및 소스 이력',
+        evidenceStatus: '구현 내용',
         evidenceNote: 'Light Component/Proxy 경계, Forward Buffer Binding, Shader Hot Reload, 주광 제어, Light Resource 정리를 구현했습니다.',
         troubleshooting: [
             {
@@ -706,11 +705,11 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
                 code: { context: 'FShader::Recompile()' }
             },
             {
-                title: 'daylight 또는 light actor 삭제 후 오래된 render state가 남음',
-                symptom: 'Daylight actor를 삭제해도 마지막 sky clear color가 남을 수 있었고, cache된 directional 또는 ambient light를 삭제하면 다음 update에서 오래된 component pointer를 역참조할 위험이 있었습니다.',
-                cause: 'Daylight가 global scene color를 기록했지만 destructor에서 복원하지 않았고, actor가 world에서 제거된 뒤에도 raw cached component pointer가 유효하다고 가정했습니다.',
-                fix: 'Daylight destructor에서 scene sky-color override를 clear하고 tick 및 property 기반 update 전에 cache된 sun·ambient component pointer를 무효화한 뒤 다시 구축했습니다.',
-                result: 'lighting actor를 제거하면 중립 scene state가 복원되고 daylight system이 소멸된 component를 가리키지 않습니다.'
+                title: 'Daylight·Light Actor 삭제 후 렌더 상태가 남는 문제',
+                symptom: 'Daylight Actor를 삭제해도 마지막 하늘 색상이 남았습니다. 캐시된 방향광·주변광을 삭제하면 다음 갱신에서 해제된 컴포넌트를 참조할 위험도 있었습니다.',
+                cause: 'Daylight가 바꾼 Scene 색상을 소멸자에서 복원하지 않았습니다. Actor를 World에서 제거한 뒤에도 캐시된 컴포넌트 포인터를 그대로 사용했습니다.',
+                fix: 'Daylight 소멸자에서 하늘 색상 재정의를 해제했습니다. Tick·속성 변경으로 갱신하기 전에 캐시된 태양광·주변광 참조를 비우고 다시 연결했습니다.',
+                result: '조명 Actor를 제거하면 기본 Scene 상태로 돌아가고, Daylight가 소멸한 컴포넌트를 참조하지 않도록 했습니다.'
             },
             {
                 title: '0인 light attenuation input이 shader에서 non-finite 값을 만듦',
@@ -748,13 +747,13 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
         week: '08',
         theme: 'Where There Is Light, There Is Also Shadow',
         title: '그림자 렌더링',
-        summary: '방향광·스포트라이트·포인트 라이트용 그림자 경로를 구현하고, shadow-depth 리소스, cube map, PCF/VSM 필터링, 컬링, mobility, cache-dirty 제어를 통합했습니다.',
+        summary: '방향광·스포트라이트·포인트 라이트의 그림자를 구현했습니다. 그림자 깊이 버퍼와 Cube Map, PCF/VSM 필터링을 연결하고, 컬링과 조명 이동에 따른 캐시 갱신을 처리했습니다.',
         role: '렌더링 프로그래머',
         objective: 'Week07 조명 경로를 확장해 장면 지오메트리가 실시간 그림자를 만들고 받을 수 있도록 하는 것이 목표였습니다.',
         contributions: [
-            '스포트라이트·방향광의 shadow depth 렌더링을 구성하고 D3D11 리소스 상태와 constant buffer 문제를 수정했으며, shadow-map 누수와 peter-panning을 해결했습니다.',
-            '포인트 라이트 cube shadow map, point-light shader, VSM/PCF 평가, cube-map descriptor 수정과 왜곡 보정을 구현했습니다.',
-            '그림자 후보 우선순위·컬링, mobility와 dirty flag, movable light 동작, 에디터 제어 기능을 구현했습니다.'
+            '스포트라이트·방향광의 그림자 깊이 렌더링을 구현했습니다. D3D11 리소스 상태와 상수 버퍼, Shadow Map 누수를 수정하고 그림자가 물체에서 떨어져 보이는 Peter-panning을 보정했습니다.',
+            '포인트 라이트의 Cube Shadow Map과 셰이더, VSM/PCF 필터를 구현했습니다. Cube Map 생성 설정과 샘플링 왜곡도 수정했습니다.',
+            '그림자 후보의 우선순위와 컬링을 적용하고, 조명의 Mobility·Dirty Flag로 이동 시 캐시를 갱신하도록 했습니다. 에디터에서 이를 조절하는 기능도 추가했습니다.'
         ],
         implementation: [
             '방향광·스포트라이트 shadow depth pass와 rasterizer bias 제어',
@@ -763,19 +762,19 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
         ],
         flow: '라이트별 후보 수집 → depth / cube shadow pass → PCF 또는 VSM 샘플링 → 캐시된 조명 결과',
         results: [
-            'Week07 조명 파이프라인에 공간적 접지감이 드러나는 그림자를 추가했습니다.',
-            '통합 프로젝트를 공개 저장소에 보존했습니다.'
+            'Week07 조명 파이프라인에 실시간 그림자를 추가했습니다.',
+            '통합 프로젝트를 저장소에 공개했습니다.'
         ],
-        evidenceStatus: '구현 및 소스 이력',
+        evidenceStatus: '구현 내용',
         evidenceNote: '방향광·Spotlight·Point Light Shadow Pass와 Cube Map, PCF/VSM Filtering, Culling, Cache 제어를 구현했습니다.',
         sourceLabel: 'Week08 작성 커밋 열기',
         troubleshooting: [
             {
-                title: 'Point-shadow cube SRV descriptor 손상',
-                symptom: '포인트 라이트 그림자 샘플링 결과가 유효하지 않거나 손상되었고, 잘못된 D3D11 view description이 만들어질 수 있었습니다.',
-                cause: 'texture가 D3D11_RESOURCE_MISC_TEXTURECUBE 없이 생성되었고, SRV 경로가 2D-array와 cube-array union field를 혼용했습니다. shader도 잘못 패킹된 parameter에서 cube index를 읽었습니다.',
-                fix: 'texture를 cube flag와 함께 만들고 Texture2DArray와 TextureCubeArray SRV를 각 descriptor field로 분리해 구성했으며, cube index를 Params0.w에 저장하고 같은 위치에서 읽도록 수정했습니다.',
-                result: 'face rendering과 cube sampling 모두에 유효한 리소스가 되었고, 각 포인트 라이트가 의도한 cube slice를 참조하게 되었습니다.',
+                title: '포인트 라이트 그림자용 Cube SRV 설정 오류',
+                symptom: '포인트 라이트의 그림자가 잘못 샘플링됐고, D3D11 뷰 설정도 유효하지 않을 수 있었습니다.',
+                cause: '텍스처 생성 시 D3D11_RESOURCE_MISC_TEXTURECUBE가 빠졌고, SRV 설정에서 2D Array와 Cube Array의 공용체 필드를 혼용했습니다. 셰이더도 잘못된 파라미터 위치에서 Cube 인덱스를 읽었습니다.',
+                fix: '텍스처에 Cube 플래그를 지정하고 Texture2DArray·TextureCubeArray SRV를 각 필드에 맞춰 구성했습니다. Cube 인덱스는 Params0.w에 저장하고 셰이더도 같은 위치에서 읽도록 수정했습니다.',
+                result: 'Cube 각 면의 렌더링과 샘플링에 맞는 리소스를 생성하고, 포인트 라이트마다 올바른 Cube Slice를 참조하도록 했습니다.',
                 code: { context: 'FShadowRenderFeature::EnsureShadowDepthArray()의 cube SRV 구성' }
             },
             {
@@ -793,11 +792,11 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
                 result: '포인트 라이트가 선택한 PCF filter를 사용하며, 이동하거나 편집한 라이트가 캐시된 shadow data를 명시적으로 무효화할 수 있게 되었습니다.'
             },
             {
-                title: 'Point-shadow 후보가 우선순위 정렬 전에 할당을 소비함',
-                symptom: '그림자를 만드는 포인트 라이트가 수집 단계와 정렬 단계에서 shadow record와 view를 각각 할당해 cube 예산을 잠식할 수 있었습니다.',
-                cause: '첫 pass가 각 shadow를 등록하면서 같은 라이트를 후보로도 넣었고, 두 번째 pass가 정렬 후 할당을 반복했습니다.',
-                fix: '수집 단계에서는 후보만 모으고 카메라 거리순으로 정렬한 뒤, 우선순위 pass에서 MaxPointShadowCubes 이내로 한 번만 할당하도록 변경했습니다.',
-                result: '우선순위가 결정된 뒤에만 shadow metadata와 cube view가 생성되며, 선택된 라이트는 한 번만 출력됩니다.',
+                title: '그림자 후보를 정렬하기 전에 Cube를 중복 할당하는 문제',
+                symptom: '그림자를 만드는 포인트 라이트가 수집 단계와 정렬 후에 각각 그림자 정보·뷰를 할당해, 제한된 Cube 용량을 중복 사용했습니다.',
+                cause: '처음 후보를 수집할 때 그림자를 등록했고, 후보 정렬 후 같은 라이트에 다시 할당했습니다.',
+                fix: '먼저 후보만 수집해 카메라 거리순으로 정렬하고, MaxPointShadowCubes 범위 안에서 한 번만 할당하도록 수정했습니다.',
+                result: '우선순위에 따라 선택한 라이트에만 그림자 정보와 Cube 뷰를 한 번씩 생성합니다.',
                 code: { context: 'Point-light 후보 수집' }
             },
             {
@@ -830,30 +829,30 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
         week: '09',
         theme: '3rd Game Jam · Light, Camera, Action!',
         title: 'Standalone Shipping 빌드',
-        summary: 'shipping/cooking 파이프라인을 구현하고 game framework, binary world serialization, PIE/offscreen rendering, camera effect, Lua routing, gamma correction을 연결했습니다.',
+        summary: 'Shipping·Cooking 파이프라인을 구현하고, 게임 프레임워크와 World 직렬화, PIE 렌더링, 카메라 효과, Lua 연동, Gamma 보정을 연결했습니다.',
         role: '빌드·런타임 통합 프로그래머',
-        objective: '패키징된 애플리케이션에 필요한 runtime asset을 포함해 팀 프로젝트가 에디터 밖에서 시작되도록 만드는 것이 목표였습니다.',
+        objective: '실행에 필요한 Asset을 패키지에 포함하고, 팀 게임이 에디터 밖에서도 시작되도록 만드는 것이 목표였습니다.',
         contributions: [
-            'GameModeBase/GameInstance, binary world serialization, enhanced-input 전환, project generation, shipping build, cooking, headless parser/builder를 구현했습니다.',
-            'PIE용 offscreen rendering과 input을 분리한 뒤 PlayerCameraManager, camera shake/effect, Lua camera modifier, actor camera calculation을 구현했습니다.',
-            'gamma correction 제어를 추가하고 post-process 순서, ABI 불일치, runtime asset root, crash/dangling reference, packaging script 문제를 수정했습니다.'
+            'GameModeBase/GameInstance와 World 바이너리 직렬화, Enhanced Input 전환을 구현했습니다. 프로젝트 생성부터 Shipping 빌드·Cooking까지 연결하고, 에디터 UI 없이 실행하는 파서·빌더도 만들었습니다.',
+            'PIE의 오프스크린 렌더링과 입력을 분리하고 PlayerCameraManager를 구현했습니다. 카메라 흔들림·효과, Lua 카메라 Modifier와 Actor의 카메라 계산을 연결했습니다.',
+            '감마 보정 제어를 추가하고 후처리 순서와 ABI 불일치를 수정했습니다. 런타임 자산 경로, 크래시·해제된 객체 참조, 패키징 스크립트 문제도 해결했습니다.'
         ],
         implementation: [
-            'Shipping target, 생성 프로젝트, cook/stage 구조, headless builder, batch packaging, mirrored asset',
+            'Shipping Target, 프로젝트 생성, Cook·Stage, Headless Builder, 배치 패키징, 자산 복사',
             'GameMode·GameInstance, World 바이너리 직렬화, PIE·Offscreen Buffer, Enhanced Input',
-            'Camera pipeline, Lua modifier, hit/vignette effect, gamma correction, render-pass 순서'
+            '카메라 처리, Lua Modifier, 피격·비네트 효과, 감마 보정, 렌더 패스 순서'
         ],
-        flow: 'Editor world → binary serialize / cook → mirrored asset stage → shipping executable → runtime camera 및 post-process 흐름',
+        flow: '에디터 World → 바이너리 직렬화·Cook → 자산 복사·Stage → Shipping 실행 파일 → 런타임 카메라·후처리',
         results: [
             'Windows에서 패키징 실행 파일을 직접 실행하고 START에서 Story Scene으로 진입했습니다.',
             'Cook된 Gameplay Level에서 Score, Distance, Log, Trace, Dump, Stability UI가 함께 동작했습니다.'
         ],
-        evidenceStatus: '구현 및 소스 이력',
+        evidenceStatus: '구현 내용',
         evidenceNote: 'Shipping/Cook/Stage 도구, 런타임 Camera·Post Process 연결, START에서 StoryScene으로 이어지는 실행 경로를 구현했습니다.',
         sourceLabel: 'Week09 작성 커밋 열기',
         troubleshootingEvidence: [
             {
-                kicker: '실제 Shipping runtime checkpoint',
+                kicker: 'Shipping 빌드 실행',
                 title: '패키징 실행 파일이 Main Menu에서 Story와 Gameplay까지 이어집니다.',
                 summary: 'Stage된 Build를 Visual Studio 없이 실행하고 START에서 Story Scene을 거쳐 Cook된 Runner Level을 로드했습니다. Gameplay HUD와 Crash Dump 저장 경로도 같은 실행 흐름 안에서 동작합니다.',
                 tags: ['실제 runtime 캡처', 'Shipping x64 빌드', 'Runtime 로그'],
@@ -861,12 +860,12 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
                     {
                         stage: 'Checkpoint 01 · 직접 실행',
                         alt: 'LunaticEngine standalone Shipping executable에서 Engine Dive main menu를 표시한 화면',
-                        caption: 'stage된 executable이 Visual Studio 외부에서 render path를 초기화하고 main menu를 표시했습니다.'
+                        caption: '패키징한 실행 파일을 Visual Studio 밖에서 실행해 렌더러 초기화와 메인 메뉴 표시를 확인했습니다.'
                     },
                     {
                         stage: 'Checkpoint 02 · START 전환',
                         alt: 'START 선택 후 loading 전환을 표시하는 LunaticEngine standalone executable',
-                        caption: 'START가 runtime을 loading 전환으로 이동시켰습니다.'
+                        caption: 'START를 선택하면 로딩 화면으로 전환합니다.'
                     },
                     {
                         stage: 'Checkpoint 03 · Story Scene',
@@ -881,7 +880,7 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
                     {
                         stage: 'Checkpoint 05 · Crash Dump',
                         alt: 'Crash Dump 파일 저장을 알리는 Windows Dialog와 Engine Dive Gameplay 화면',
-                        caption: 'Gameplay 상태 위에서 진단 경로가 패키징 Build의 Saves/Dump 폴더에 .dmp 파일을 저장합니다.'
+                        caption: '게임 실행 중 패키징 빌드의 Saves/Dump 폴더에 .dmp 파일을 저장합니다.'
                     }
                 ],
                 facts: [
@@ -889,16 +888,16 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
                     { label: 'Crash 출력', value: 'Saves/Dump/*.dmp', detail: 'Runtime 진단 경로' }
                 ],
                 trace: { label: 'Shipping 실행 로그' },
-                method: '패키징된 Engine Dive 실행 영상과 같은 Stage Build의 Shipping Log를 함께 정리했습니다.'
+                method: '패키징한 Engine Dive에서 메뉴의 START를 거쳐 StoryScene으로 진입하며, Scene 로딩과 초기화 과정은 Shipping Log에 기록합니다.'
             }
         ],
         troubleshooting: [
             {
-                title: 'Incremental-build ABI 불일치로 frame data 위치가 어긋남',
-                symptom: 'post-process setting을 추가한 뒤 render code가 FFrameContext field를 잘못된 offset에서 읽어, object file에 따라 주소 의존적인 오류가 발생했습니다.',
-                cause: '큰 FPostProcessSettings member를 FFrameContext 중간에 삽입했습니다. 이전 C++ struct layout으로 incremental compile된 translation unit에서는 뒤의 모든 member offset이 달라졌습니다.',
-                fix: '새 post-process settings member를 FFrameContext 끝으로 옮기고, material parameter를 중앙 camera/post-process 구조를 통해 전달했습니다.',
-                result: '새 post-process data를 draw-command 생성에 제공하면서도 기존 앞쪽 field offset은 incremental object 사이에서 안정적으로 유지됩니다.'
+                title: '증분 빌드에서 구조체 레이아웃이 달라지는 문제',
+                symptom: '후처리 설정을 추가한 뒤 렌더링 코드가 FFrameContext 필드를 잘못된 오프셋에서 읽었습니다. 이전 빌드의 오브젝트 파일이 섞이면 참조 주소가 어긋났습니다.',
+                cause: 'FFrameContext 중간에 큰 FPostProcessSettings 멤버를 추가해 뒤쪽 멤버의 위치가 모두 바뀌었습니다. 이전 구조체 레이아웃으로 컴파일된 파일은 변경된 위치를 반영하지 못했습니다.',
+                fix: '새 후처리 설정 멤버를 FFrameContext 끝으로 옮기고, Material 파라미터를 공통 카메라·후처리 구조를 통해 전달했습니다.',
+                result: '기존 앞쪽 필드의 오프셋을 유지하면서, Draw Command 생성에 새 후처리 데이터를 전달하도록 수정했습니다.'
             },
             {
                 title: 'Screen text가 사라지고 vignette가 검은 gamma 결과를 만듦',
@@ -909,11 +908,11 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
                 code: { context: 'FDrawCommand::ComputeSortKey()의 render-pass bit packing' }
             },
             {
-                title: 'Shipping stage가 runtime asset을 누락하고 서로 다른 root를 사용함',
-                symptom: 'standalone executable이 실행되더라도 scene, dialogue/scenario data 또는 mesh source/cache 파일이 stage directory에 없어 이후 단계에서 실패할 수 있었습니다.',
-                cause: 'batch pipeline은 선택한 root를 ShippingBuild에 직접 복사했지만 cooked scene은 별도 directory에 있어 source와 cooked asset hierarchy가 서로 달랐습니다.',
-                fix: 'mirrored source asset과 cooked scene을 포함한 하나의 Saved/Cooked/Shipping asset root를 만들고 이를 stage했습니다. project에서 executable 이름을 가져오고 required-file 및 source-or-cache mesh 검사도 추가했습니다.',
-                result: 'runtime dependency가 누락되면 packaging이 조기에 실패하며, runtime lookup rule과 같은 asset hierarchy를 가진 stage를 생성합니다.',
+                title: '패키징 시 자산이 누락되거나 경로가 달라지는 문제',
+                symptom: '독립 실행 파일은 시작돼도 패키징 폴더에 Scene·대화·시나리오·메시 원본 또는 캐시가 없어 이후 로딩이 실패할 수 있었습니다.',
+                cause: '배치 스크립트는 선택한 원본 폴더를 ShippingBuild로 복사했지만, Cook된 Scene은 다른 폴더에 있어 자산의 디렉터리 구조가 맞지 않았습니다.',
+                fix: 'Saved/Cooked/Shipping에 원본 자산 복사본과 Cook된 Scene을 모아 패키징했습니다. 실행 파일 이름은 프로젝트에서 읽고, 필수 파일과 메시의 원본·캐시 존재 여부도 검사했습니다.',
+                result: '필수 자산이 없으면 패키징 단계에서 오류를 알리고, 런타임의 경로 탐색 규칙에 맞는 폴더 구조로 결과물을 생성합니다.',
                 code: { context: 'cooked asset root 생성 및 검증' }
             },
             {
@@ -933,11 +932,11 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
                 code: { context: 'FTickManager::ResolveTickFunction()의 수명 재검증' }
             },
             {
-                title: 'Post-process copy가 shader resource로 아직 바인딩된 texture를 재사용함',
-                symptom: 'copy destination이 이전 pass의 shader read에 남아 있을 때 gamma, FXAA 또는 후속 post-process 출력이 유효하지 않을 수 있었습니다.',
-                cause: 'BeginPass()가 system SRV slot을 비우기 전에 scene-color 또는 depth copy에 CopyResource()를 호출했습니다.',
-                fix: '각 copy 전에 system texture binding을 해제하고 새 pass에 최신 scene-color 또는 stencil resource를 바인딩했습니다.',
-                result: '수정된 pass는 copy destination을 pipeline input으로 동시에 유지하지 않습니다.',
+                title: '후처리 복사 대상이 셰이더 입력에도 남아 있는 문제',
+                symptom: '복사 대상 텍스처가 이전 패스의 셰이더 입력에 바인딩된 채 남아 감마·FXAA 등 후처리 결과가 잘못 나올 수 있었습니다.',
+                cause: 'BeginPass()가 시스템 SRV 슬롯을 비우기 전에 Scene Color·Depth 복사를 위해 CopyResource()를 호출했습니다.',
+                fix: '복사 전에 시스템 텍스처 바인딩을 해제하고, 새 패스에는 최신 Scene Color·Stencil 리소스를 연결했습니다.',
+                result: '복사 대상 텍스처를 파이프라인 입력으로 동시에 사용하는 충돌을 막았습니다.',
                 code: { context: 'BeginPass()의 scene-color copy 전 SRV 해제' }
             }
         ],
@@ -954,13 +953,13 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
         week: '10',
         theme: 'More Than Just Weight',
         title: 'Skeletal Mesh·Skinning 파이프라인',
-        summary: 'skeletal-mesh component와 scene proxy, CPU skinning, FBX bind-pose 보정, bone 시각화·picking, morph-target update를 구현했습니다.',
+        summary: 'Skeletal Mesh Component와 Scene Proxy, CPU Skinning을 구현했습니다. FBX Bind Pose를 보정하고 Bone 시각화·피킹과 Morph Target 갱신을 추가했습니다.',
         role: 'Skeletal Rendering 프로그래머',
-        objective: 'viewer에 머물던 skeletal data를 렌더링·선택·동적 업데이트가 가능한 engine component로 전환하는 것이 목표였습니다.',
+        objective: '뷰어의 Skeletal 데이터를 엔진 Component로 옮겨 렌더링하고, Bone 선택과 동적 갱신까지 지원하는 것이 목표였습니다.',
         contributions: [
-            'USkeletalMeshComponent와 scene proxy, FSkeletalMesh wrapper, 초기 object CPU-skinning 경로를 만들었습니다.',
-            'rigid-bind와 비계층 bone 처리, dynamic mesh update, bounds, show flag, bounding-box picking을 추가했습니다.',
-            'FBX cluster bind-pose 정렬을 보정하고 rasterized bone drawing, bone picking, morph target, texture-SRV 복구를 추가했습니다.'
+            'USkeletalMeshComponent와 Scene Proxy, FSkeletalMesh 래퍼를 만들고 CPU Skinning을 연결했습니다.',
+            'Rigid Bind와 비계층 Bone 처리, 동적 메시·경계 상자 갱신, Show Flag와 경계 상자 피킹을 추가했습니다.',
+            'FBX Cluster의 Bind Pose 정렬을 보정했습니다. Bone 래스터화·피킹과 Morph Target, 텍스처 SRV 복구도 구현했습니다.'
         ],
         implementation: [
             'Skeletal Mesh Component, Scene Proxy, FSkeletalMesh 리소스, CPU Skinning',
@@ -969,27 +968,27 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
         ],
         flow: 'FBX Skeletal 데이터 → Bind Pose·Skin Weight 구성 → Component·Scene Proxy 전달 → Skinned Vertex·Bone Tool 갱신',
         results: [
-            'import된 skeletal asset에 필요한 component와 renderer 경로를 구축했습니다.',
-            'Blender/FBX bind data가 일치하지 않을 때 발생하던 90도 bind-pose offset을 해결했습니다.'
+            '가져온 Skeletal Asset을 컴포넌트와 렌더러에 연결했습니다.',
+            'Blender/FBX의 Bind 데이터 불일치로 자세가 90도 돌아가는 문제를 해결했습니다.'
         ],
-        evidenceStatus: '구현 및 소스 이력',
-        evidenceNote: 'Week09 엔진 기반 위에 Week10 Skeletal Import와 Rendering 기능을 추가했습니다.',
+        evidenceStatus: '구현 내용',
+        evidenceNote: 'Week09 엔진에 Skeletal Import와 Rendering을 추가하고, Bind Pose 보정, Bone Picking, Morph Target을 구현했습니다.',
         sourceLabel: 'Week10 작성 커밋 열기',
         troubleshooting: [
             {
-                title: 'Blender FBX skeleton이 90도 bind offset으로 import됨',
-                symptom: '일부 Blender/FBX 6.x skeletal mesh에서 bone과 skinned vertex가 mesh 기준으로 약 90도 회전해 렌더링되었습니다.',
-                cause: 'importer가 skin cluster의 Transform 및 TransformLink matrix와 불일치하는 경우에도 scene BindPose mesh data를 신뢰했습니다. 두 cluster matrix가 skin deformation의 mesh와 연결 bone bind transform을 나타내는 기준입니다.',
-                fix: 'reference mesh bind matrix를 구할 때 cluster Transform/TransformLink를 우선하고 Blender armature-root 제거를 처리했으며, stale .skm cache가 다시 생성되도록 skeletal bake version을 올렸습니다.',
-                result: 'import된 reference skeleton과 skinning matrix가 불일치한 scene bind pose를 따르지 않고 source mesh와 정렬됩니다.',
+                title: 'Blender FBX의 Skeleton이 90도 돌아가는 문제',
+                symptom: '일부 Blender/FBX 6.x Skeletal Mesh에서 Bone과 스키닝 정점이 메시 기준으로 약 90도 돌아가 표시됐습니다.',
+                cause: 'Importer가 Skin Cluster의 Transform·TransformLink 행렬과 값이 달라도 Scene의 BindPose 데이터를 사용했습니다. 실제 스키닝에 필요한 메시·Bone의 바인드 변환은 두 Cluster 행렬을 기준으로 해야 했습니다.',
+                fix: '메시의 바인드 행렬을 구할 때 Cluster의 Transform/TransformLink를 우선했습니다. Blender Armature Root 제거를 처리하고, 기존 .skm 캐시가 재생성되도록 Skeletal Bake 버전을 올렸습니다.',
+                result: '가져온 Reference Skeleton과 스키닝 행렬이 원본 메시의 바인드 자세에 맞도록 수정했습니다.',
                 code: { context: 'FFbxSkeletonImporter::TryGetFirstMeshBindMatrix()의 cluster bind transform 해석' }
             },
             {
-                title: 'Bone picking이 화면에 그린 armature와 일치하지 않음',
-                symptom: '가느다란 부분이나 joint를 선택하기 어려웠고, preview gizmo rotation이 선택한 bone의 렌더링된 world orientation과 다를 수 있었습니다.',
-                cause: 'picking이 실제 solid armature triangle 대신 distance-to-segment/radius 근사를 사용했고, rotation 합성도 engine의 row-vector BoneComponent × MeshWorld 규약을 따르지 않았습니다.',
-                fix: 'armature rendering에 사용한 동일한 body·joint triangle을 ray test하고 BoneComponentTransform.ToMatrix() × MeshWorldMatrix에서 no-scale world quaternion을 추출했습니다.',
-                result: 'joint를 포함한 보이는 bone geometry에 대해 클릭이 해석되며, gizmo가 선택 bone의 화면상 world transform을 따릅니다.'
+                title: 'Bone 피킹과 화면에 그린 Armature가 어긋나는 문제',
+                symptom: '가느다란 부분과 관절을 선택하기 어려웠고, 미리보기 Gizmo의 회전이 선택한 Bone의 월드 방향과 달라질 수 있었습니다.',
+                cause: '피킹에 실제 Armature 삼각형 대신 선분 거리·반지름 근사를 사용했습니다. 회전 합성도 엔진의 행벡터 규약인 BoneComponent × MeshWorld와 달랐습니다.',
+                fix: 'Armature에 그린 몸체·관절 삼각형으로 광선 검사를 수행했습니다. BoneComponentTransform.ToMatrix() × MeshWorldMatrix에서 스케일을 제외한 월드 쿼터니언을 구했습니다.',
+                result: '화면에 보이는 Bone과 관절을 클릭으로 선택하고, Gizmo도 선택한 Bone의 월드 변환을 따르도록 했습니다.'
             },
             {
                 title: '로드된 material에 texture SRV가 누락된 상태로 남음',
@@ -999,19 +998,19 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
                 result: 'reload 또는 device-resource 재구축 뒤에도 material이 부분 초기화된 cache entry를 유지하지 않고 texture binding을 복구합니다.'
             },
             {
-                title: 'CPU skinning이 vertex loop 안에서 mesh를 upload함',
-                symptom: '한 번의 skeletal update가 CPU vertex 계산이 끝나기도 전에 immediate context를 반복 획득하고 GPU buffer를 생성하거나 갱신했습니다.',
-                cause: 'vertex-buffer update와 MeshBuffer 생성 block이 LOD vertex loop 내부에 있었습니다.',
-                fix: '전체 skinned vertex array 계산을 먼저 마친 뒤 context를 한 번만 얻고, loop 밖에서 GPU buffer를 한 번 생성하거나 갱신했습니다.',
-                result: 'FSkeletalMeshObjectCPU::Update()가 호출당 한 번의 upload 경로로 완성된 CPU 결과를 전송합니다.',
+                title: 'CPU Skinning이 정점마다 메시를 업로드하는 문제',
+                symptom: '한 번의 Skeletal 갱신에서 정점 계산이 끝나기 전에 Immediate Context를 반복해서 얻고 GPU 버퍼를 생성·갱신했습니다.',
+                cause: '정점 버퍼 갱신과 MeshBuffer 생성 코드가 LOD 정점 반복문 안에 있었습니다.',
+                fix: '스키닝 정점을 모두 계산한 뒤 Context를 한 번만 얻고, 반복문 밖에서 GPU 버퍼를 한 번 생성·갱신하도록 옮겼습니다.',
+                result: 'FSkeletalMeshObjectCPU::Update() 호출당 완성된 정점 배열을 한 번만 업로드합니다.',
                 code: { context: 'FSkeletalMeshObjectCPU::Update()의 loop 이후 GPU upload' }
             },
             {
-                title: 'Morph 변경 시 CPU skinning이 갱신되지 않고 progressive shape를 무시함',
-                symptom: 'morph weight를 바꿔도 CPU buffer가 즉시 재구축되지 않았고, 중간 weight가 progressive shape threshold를 따르지 않고 항상 마지막 FBX shape를 스케일했습니다.',
-                cause: 'SetMorphTarget()과 ClearMorphTargets()는 data를 dirty로만 표시했고, ApplyMorphTargets()는 FullWeight를 무시한 채 항상 Shapes.back()을 선택했습니다.',
-                fix: 'weight setter에서 UpdateSkinnedMeshObject()를 호출하고, 선언된 FullWeight 범위에 따라 인접한 shape-delta set을 보간했습니다.',
-                result: 'weight 변경이 렌더링된 CPU-skinned mesh에 반영되고 progressive FBX morph가 작성된 threshold를 따릅니다.',
+                title: 'Morph 가중치 변경이 반영되지 않고 중간 Shape가 생략되는 문제',
+                symptom: 'Morph 가중치를 바꿔도 CPU 버퍼가 바로 갱신되지 않았습니다. 중간 가중치에서도 단계별 Shape 기준을 무시하고 마지막 FBX Shape만 스케일했습니다.',
+                cause: 'SetMorphTarget()과 ClearMorphTargets()는 변경 표시만 남겼습니다. ApplyMorphTargets()는 FullWeight를 무시하고 항상 Shapes.back()을 선택했습니다.',
+                fix: '가중치를 바꿀 때 UpdateSkinnedMeshObject()를 호출하고, FullWeight 범위에 맞는 인접 Shape의 변형량을 보간했습니다.',
+                result: '가중치 변경이 CPU Skinning 결과에 반영되고, FBX에 정의된 단계별 Morph Shape를 사용하도록 했습니다.',
                 code: { context: 'ApplyMorphLODByWeight()의 progressive shape 보간' }
             },
             {
@@ -1036,34 +1035,34 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
         week: '11',
         theme: "Let's Go, Move!",
         title: 'FBX Animation 파이프라인',
-        summary: 'reference skeleton, FBX channel, binary cache validation, bone palette, editor tool, Lua 연동을 중심으로 animation-sequence import·asset pipeline을 구축했습니다.',
+        summary: 'FBX Animation Sequence를 Asset으로 가져와 에디터와 Lua에서 사용할 수 있도록 했습니다. Reference Skeleton 대응, Binary Cache 검증, Bone Palette 처리를 구현했습니다.',
         role: 'Animation Pipeline 프로그래머',
-        objective: 'skeletal mesh와 독립적으로 animation을 import하고 target skeleton 호환성을 검증하며, 안전하게 cache한 뒤 editor와 runtime system에 제공하는 것이 목표였습니다.',
+        objective: '애니메이션을 Skeletal Mesh와 별도로 가져오고 대상 Skeleton과의 호환성을 검사해, 에디터와 런타임에서 재사용하는 것이 목표였습니다.',
         contributions: [
-            'mesh bone을 reference skeleton으로 refactor하고 transform utility와 binary serialization을 포함한 FBX animation sequence loading을 구현했습니다.',
-            'cache source/skeleton/version 검증, bone-match 진단, authored channel sampling, resource 정리를 추가했습니다.',
-            'viewer에서 저장하고 editor에 표시하며 component에서 참조·package하고 Lua에 노출할 수 있는 section bone palette와 animation-sequence asset을 도입했습니다.'
+            '메시의 Bone을 Reference Skeleton으로 분리하고, 변환 유틸리티와 바이너리 직렬화를 포함한 FBX Animation Sequence 로딩을 구현했습니다.',
+            '캐시의 원본·Skeleton·버전을 검사하고 Bone 대응 결과를 기록했습니다. 원본에 작성된 채널의 샘플링과 리소스 해제도 추가했습니다.',
+            'Section별 Bone Palette와 Animation Sequence Asset을 도입했습니다. 뷰어 저장, 에디터 표시, 컴포넌트 참조·패키징, Lua 호출을 같은 Asset에 연결했습니다.'
         ],
         implementation: [
             'Reference skeleton과 FFbxAnimSequenceImporter',
-            'FBX channel sampling, cache identity/version 검증, target-skeleton binding',
+            'FBX 채널 샘플링, 캐시 식별 정보·버전 검사, 대상 Skeleton 연결',
             'Section별 Bone Palette, Animation Asset Descriptor, 에디터 Viewer, Component 참조, 패키징, Lua API'
         ],
-        flow: 'FBX animation stack → skeleton-matched track → 검증된 binary cache → animation asset → component / GPU bone palette',
+        flow: 'FBX Animation Stack → Skeleton에 맞는 트랙 → 바이너리 캐시 검사 → Animation Asset → 컴포넌트·GPU Bone Palette',
         results: [
-            '재사용 가능한 animation asset을 skeletal-mesh import에서 분리하고 명시적인 호환성 검사를 추가했습니다.',
-            'import와 cache부터 editor inspection, packaging, Lua, component playback까지 같은 asset을 연결했습니다.'
+            'Animation Asset을 Skeletal Mesh Import에서 분리하고 대상 Skeleton과의 호환성 검사를 추가했습니다.',
+            '하나의 Asset을 Import·캐시·에디터 확인·패키징과 Lua·컴포넌트 재생에 사용하도록 연결했습니다.'
         ],
-        evidenceStatus: '구현 및 소스 이력',
+        evidenceStatus: '구현 내용',
         evidenceNote: 'Reference Skeleton 처리, Animation Import와 Cache Validation, Editor·Package·Lua 통합을 구현했습니다.',
         sourceLabel: 'Week11 작성 커밋 열기',
         troubleshooting: [
             {
-                title: '중복된 FBX bone name이 animation을 잘못된 node에 bind함',
-                symptom: 'FBX에 같은 bone name을 가진 node가 여러 개 있으면 animation track이 관계없는 node에 bind될 수 있었습니다.',
-                cause: 'importer가 name당 node 하나만 저장해 뒤의 duplicate가 앞의 entry를 덮어썼고, name-only lookup은 target skeleton의 parent hierarchy를 고려하지 않았습니다.',
-                fix: 'name별 모든 candidate node를 저장하고 target bone의 parent부터 재귀적으로 해석한 뒤 해당 parent의 descendant 후보를 우선했습니다. duplicate path와 hierarchy mismatch도 log에 남겼습니다.',
-                result: 'track binding이 reference-skeleton hierarchy를 따르며, 모호한 파일은 마지막 duplicate를 조용히 고르는 대신 진단 가능한 정보를 제공합니다.',
+                title: '중복된 Bone 이름 때문에 애니메이션이 다른 노드에 연결되는 문제',
+                symptom: 'FBX에 같은 Bone 이름을 가진 노드가 여러 개 있으면 애니메이션 트랙이 다른 노드에 연결될 수 있었습니다.',
+                cause: 'Importer가 이름당 노드 하나만 저장해 중복 이름이 앞의 항목을 덮어썼습니다. 이름만으로 검색해 대상 Skeleton의 부모 계층도 고려하지 못했습니다.',
+                fix: '이름별 후보를 모두 저장하고 대상 Bone의 부모부터 재귀적으로 찾았습니다. 해당 부모의 하위 노드를 우선 선택하고, 중복 경로와 계층 불일치는 로그에 남겼습니다.',
+                result: 'Reference Skeleton의 계층에 맞춰 트랙을 연결하고, 후보가 모호한 경우에는 로그로 확인할 수 있도록 했습니다.',
                 code: { context: 'ResolveBoneNodeForSkeleton()의 hierarchy 기반 candidate 선택' }
             },
             {
@@ -1081,11 +1080,11 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
                 result: 'loader는 source animation과 target reference skeleton이 모두 일치할 때만 cached track을 받습니다.'
             },
             {
-                title: 'Mirrored FBX transform이 triangle winding을 뒤집음',
-                symptom: 'negative-determinant node 또는 bind transform을 가진 mesh가 뒤집혀 보이거나 back-face culling에서 face가 사라질 수 있었습니다.',
-                cause: 'control point에는 global·geometric transform을 적용했지만, transform이 handedness를 바꾸는 경우에도 triangle index를 항상 I0, I1, I2로 저장했습니다.',
-                fix: 'upper 3 × 3 determinant가 음수인지 감지해 I1과 I2를 교환하고 stale cache 무효화를 위해 static·skeletal binary version을 올렸습니다.',
-                result: 'static, skinned, rigid-attached mesh가 변환된 coordinate system과 일치하는 winding을 저장합니다.',
+                title: '반전된 FBX 변환에서 삼각형의 앞뒤가 바뀌는 문제',
+                symptom: '노드·바인드 변환의 행렬식이 음수인 메시는 뒤집혀 보이거나 뒷면 컬링으로 면이 사라질 수 있었습니다.',
+                cause: 'Control Point에 Global·Geometric 변환을 적용하면서도, 좌표계 방향이 바뀌는 경우에 삼각형 인덱스를 I0, I1, I2 순서로 유지했습니다.',
+                fix: '행렬의 상단 3 × 3 행렬식이 음수면 I1과 I2를 교환했습니다. 이전 캐시를 사용하지 않도록 Static·Skeletal 바이너리 버전도 올렸습니다.',
+                result: 'Static·Skinned·Rigid-attached Mesh가 변환된 좌표계에 맞는 삼각형 정점 순서를 사용하도록 했습니다.',
                 code: { context: 'AppendTriangleIndices() / ProcessSkeletalMesh()의 handedness 보정' }
             },
             {
@@ -1118,13 +1117,13 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
         week: '12',
         theme: 'Dance of the Dust',
         title: 'Particle Runtime·Editor 시스템',
-        summary: 'editor와 render pass에서 사용하는 particle 기반 구조, runtime emitter API, asset workflow, LOD compilation, renderer property, event dispatch를 구축했습니다.',
+        summary: '파티클의 에디터·런타임 구조를 설계하고 Emitter API, Asset 편집, LOD 컴파일, Renderer 설정, 이벤트 전달을 구현했습니다.',
         role: 'Particle System·Tool 프로그래머',
-        objective: 'asset으로 작성하고 runtime용으로 compile하며 전용 pass에서 렌더링할 수 있고, emitter 내부 상태를 노출하지 않고 확장 가능한 particle architecture를 만드는 것이 목표였습니다.',
+        objective: '파티클을 Asset으로 편집하고 런타임용으로 컴파일해 전용 Pass에서 그리는 구조가 목표였습니다. Emitter 내부 상태는 API를 통해 다루도록 했습니다.',
         contributions: [
-            'base particle system, module, emitter instance, component integration, event를 구현하고 module 실행 순서를 문서화했습니다.',
-            'emitter state를 runtime access API 뒤로 캡슐화하고 asset persistence, deep-copy ownership, cache 관리, actor 배치를 추가했습니다.',
-            'compiled LOD data와 renderer-property abstraction을 도입하고 editor validation, smoke-test rendering, runtime event dispatch를 연결했습니다.'
+            '파티클 시스템과 Module·Emitter Instance·Event를 구현해 컴포넌트에 연결하고, Module 실행 순서를 문서로 정리했습니다.',
+            'Emitter 내부 상태는 런타임 API로 접근하도록 캡슐화했습니다. 자산 저장, 깊은 복사와 소유권 처리, 캐시 관리, Actor 배치도 추가했습니다.',
+            '컴파일된 LOD 데이터와 Renderer Property를 도입하고, 에디터 검사와 렌더링 동작 테스트, 런타임 이벤트 전달을 연결했습니다.'
         ],
         implementation: [
             'ParticleSystem·ParticleEmitterInstance, Module·Component·Event 구조, Dynamic Render Data',
@@ -1133,10 +1132,10 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
         ],
         flow: 'Particle Asset → Compiled LOD·Renderer Property 구성 → Emitter 시뮬레이션 → Render Pass·Runtime Event 처리',
         results: [
-            'base runtime부터 authoring, placement, validation, rendering까지 이어지는 particle system을 구축했습니다.',
-            'editor-facing data와 compiled runtime binding을 분리하고 legacy TypeData ownership을 제거했습니다.'
+            '파티클의 실행 구조와 편집·배치·검사·렌더링을 연결했습니다.',
+            '에디터 데이터와 컴파일된 런타임 데이터를 분리하고, 기존 TypeData 소유권 구조를 정리했습니다.'
         ],
-        evidenceStatus: '구현 및 소스 이력',
+        evidenceStatus: '구현 내용',
         evidenceNote: 'Particle Runtime·Editor Architecture, Compile된 LOD Binding, Deep Copy와 Cache Ownership, Event Dispatch를 구현했습니다.',
         sourceLabel: 'Week12 작성 커밋 열기',
         troubleshooting: [
@@ -1148,11 +1147,11 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
                 result: '각 particle asset이 resource-cache lifetime 또는 명시적인 temporary-editor lifetime 중 하나를 따라 duplicate object와 shared asset 오파괴를 모두 방지합니다.'
             },
             {
-                title: '편집 후 runtime emitter가 stale compiled LOD pointer를 유지함',
-                symptom: 'particle editor에서 module, renderer type, LOD data를 바꿔도 preview와 배치된 component에 안정적으로 반영되지 않았고, 기존 emitter instance가 이전 compiled data를 참조할 수 있었습니다.',
-                cause: 'CacheEmitterModuleInfo가 CompiledLODData를 재구축했지만 runtime emitter instance는 이전 compilation의 pointer와 payload 가정을 유지했습니다.',
-                fix: 'CompiledRevision을 추가하고 payload size/stride/render mode 호환성을 검증했으며, contract가 바뀌면 호환 LOD를 다시 bind하거나 emitter instance를 재생성하도록 RefreshTemplateRuntime을 구현했습니다.',
-                result: 'runtime instance가 유효하지 않은 compiled binding에 남지 않으면서 editor 변경이 preview와 world component에 전달됩니다.',
+                title: '편집 후 Emitter가 이전 LOD 데이터를 참조하는 문제',
+                symptom: '파티클 에디터에서 Module·렌더러 타입·LOD를 바꿔도 미리보기와 배치된 컴포넌트에 반영되지 않았습니다. 기존 Emitter가 이전 컴파일 데이터를 참조할 수도 있었습니다.',
+                cause: 'CacheEmitterModuleInfo가 CompiledLODData를 다시 만들었지만, 런타임 Emitter는 이전 포인터와 Payload 구조를 사용했습니다.',
+                fix: 'CompiledRevision으로 변경을 구분하고 Payload 크기·Stride·렌더 모드의 호환성을 검사했습니다. RefreshTemplateRuntime에서 호환되는 LOD를 다시 연결하거나 Emitter를 재생성하도록 했습니다.',
+                result: '에디터 변경을 미리보기와 World 컴포넌트에 반영하고, 런타임 인스턴스가 유효한 컴파일 데이터를 참조하도록 했습니다.',
                 code: { context: 'UParticleSystemComponent::RefreshTemplateRuntime()의 rebind/recreate 판정' }
             },
             {
@@ -1171,19 +1170,19 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
                 code: { context: 'UParticleLODLevel::PostDuplicate()의 child module deep copy' }
             },
             {
-                title: 'Particle template reference가 저장 가능한 asset reference가 아님',
-                symptom: '저장 후 load한 component가 path로 UParticleSystem template을 복원하지 못하거나, 같은 template pointer를 보유하면서 runtime emitter는 0개일 수 있었습니다.',
-                cause: 'particle asset에 normalized AssetPath와 resolver 지원이 없었고 Template이 asset reference로 표시되지 않았으며, instance가 비어도 SetTemplate()이 조기 반환했습니다.',
-                fix: 'asset path를 저장하고 ResourceManager로 particle reference를 해석하며 Template을 asset reference로 표시하고 emitter instance가 없으면 재구축했습니다.',
-                result: '저장된 component reference가 particle asset으로 해석되고 runtime emitter instance를 재구성합니다.',
+                title: '저장 후 파티클 Template을 복원하지 못하는 문제',
+                symptom: '컴포넌트를 다시 불러오면 경로로 UParticleSystem Template을 찾지 못하거나, Template 포인터가 있어도 런타임 Emitter는 생성되지 않을 수 있었습니다.',
+                cause: '파티클 자산에 정규화된 AssetPath와 경로 해석 기능이 없었고, Template도 자산 참조로 지정되지 않았습니다. SetTemplate()은 인스턴스가 없어도 기존 포인터가 같으면 반환했습니다.',
+                fix: '자산 경로를 저장하고 ResourceManager에서 파티클 참조를 복원했습니다. Template을 자산 참조로 지정하고, Emitter 인스턴스가 없으면 다시 생성했습니다.',
+                result: '저장된 컴포넌트가 파티클 자산을 다시 찾고 런타임 Emitter를 생성하도록 했습니다.',
                 code: { context: 'SetTemplate()의 누락된 emitter instance 재생성' }
             },
             {
-                title: 'Event dispatch가 event-producing module보다 먼저 실행될 수 있음',
-                symptom: '작성 순서에서 EventGenerator가 collision 또는 update module보다 앞서면 같은 frame의 event가 만들어지기 전에 queue를 비울 수 있었습니다.',
-                cause: 'CacheModuleLists()가 임의의 module order를 유지했지만 dispatcher인 EventGenerator는 producer 뒤에 실행되어야 합니다.',
-                fix: 'event-generator module을 별도로 수집해 다른 모든 update module 뒤에 추가했습니다.',
-                result: '모든 compiled LOD에서 event-producing update가 dispatch보다 먼저 완료됩니다.',
+                title: '이벤트 생성 전에 전달 과정이 실행되는 문제',
+                symptom: 'EventGenerator가 충돌·갱신 Module보다 먼저 배치되면, 해당 프레임의 이벤트를 생성하기 전에 큐를 비울 수 있었습니다.',
+                cause: 'CacheModuleLists()가 작성한 Module 순서를 그대로 사용했습니다. 이벤트를 전달하는 EventGenerator는 생성 Module 뒤에서 실행해야 했습니다.',
+                fix: 'EventGenerator Module을 따로 모아 다른 갱신 Module 뒤에 배치했습니다.',
+                result: '모든 컴파일된 LOD에서 이벤트를 생성한 뒤 전달하도록 실행 순서를 맞췄습니다.',
                 code: { context: 'UParticleLODLevel::CacheModuleLists()의 event module 후순위 배치' }
             }
         ],
@@ -1200,56 +1199,56 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
         week: '13',
         theme: 'Understanding Focus and Force in 3D World · Two DOF Techniques',
         title: 'Physics Asset Editor',
-        summary: 'skeletal mesh 주변 collision body를 생성·선택·검사·수정하는 physics-asset 편집 workflow를 구현했습니다.',
+        summary: 'Skeletal Mesh의 Collision Body를 생성하고, 뷰포트에서 선택·수정하는 Physics Asset 편집 도구를 구현했습니다.',
         role: 'Physics Tool 프로그래머',
-        objective: '생성된 skeletal collision body를 viewport selection, transform gizmo, node 관계, collision control, material profile을 갖춘 편집 가능한 asset으로 전환하는 것이 목표였습니다.',
+        objective: '생성된 Collision Body를 뷰포트와 Gizmo로 편집하고, 노드 관계·충돌 규칙·Material Profile까지 설정할 수 있도록 만드는 것이 목표였습니다.',
         contributions: [
-            'physics-asset editing API, viewport 기반 구조, picking, generation control, humanoid filtering을 추가했습니다.',
-            'viewport gizmo editing, view preset, node graph inspection, collision editing을 구현했습니다.',
-            'physical-material body profile을 추가하고 axis-mask, alpha, gizmo, shape-type 편집 동작을 수정했습니다.'
+            'Physics Asset 편집 API와 뷰포트 기반을 만들고, 피킹·Body 생성 제어·휴머노이드 필터링을 추가했습니다.',
+            '뷰포트 Gizmo 편집과 시점 프리셋, 노드 그래프 조회, 충돌 규칙 편집을 구현했습니다.',
+            'Physical Material 기반 Body Profile을 추가했습니다. 축 마스크와 Alpha, Gizmo, 충돌체 형상 편집 동작도 수정했습니다.'
         ],
         implementation: [
             'Physics body 생성과 skeletal-bone filtering',
             'Viewport 피킹, Transform Gizmo, View Preset, Shape 편집',
             'Node Graph, Collision 규칙, Physical Material 기반 Body Profile'
         ],
-        flow: 'Skeletal mesh → 생성된 physics body → viewport selection / gizmo edit → 저장된 physics asset',
+        flow: 'Skeletal Mesh → Physics Body 생성 → 뷰포트 선택·Gizmo 편집 → Physics Asset 저장',
         results: [
-            '읽기 전용 collision preview가 아닌 end-to-end physics-asset authoring workflow를 구현했습니다.',
-            'generation, inspection, transform editing, collision behavior, physical material을 하나의 tool로 연결했습니다.'
+            'Physics Asset을 생성하고 편집하는 기능을 하나의 도구로 구현했습니다.',
+            'Body 생성부터 Transform 편집, 충돌 동작과 Physical Material 설정까지 연결했습니다.'
         ],
-        evidenceStatus: '구현 및 소스 이력',
+        evidenceStatus: '구현 내용',
         evidenceNote: 'Physics Body 생성, Viewport Picking·Gizmo, Node·Collision·Material Profile 편집 흐름을 구현했습니다.',
         sourceLabel: 'Week13 작성 커밋 열기',
         troubleshootingEvidence: [
             {
                 kicker: 'Physics Preview 실행 데이터',
-                title: 'physics preview가 drawing에 사용한 생성 body 치수와 bone-space scale을 log로 남겼습니다.',
-                summary: 'Engine.log의 Radius·Length·Bone-space Scale 값을 Physics Preview의 Sphyl Body 생성 경로와 연결했습니다.',
-                tags: ['실제 runtime log', 'Physics Body 구성', '사례 01'],
+                title: 'Physics Preview의 Body 크기와 Bone Scale을 로그로 확인할 수 있도록 했습니다.',
+                summary: 'Physics Preview에서 생성된 Sphyl Body 6개를 반지름·길이·Bone Scale에 맞춰 그립니다. 크기 문제를 추적할 수 있도록 해당 값을 로그에도 남겼습니다.',
+                tags: ['실행 로그', 'Physics Body 구성', '사례 01'],
                 facts: [
                     { label: '기록된 body', value: '6개', detail: 'Pelvis 및 좌우 leg chain' },
                     { label: 'Shape 유형', value: 'Sphyl', detail: '저장된 radius와 length' },
                     { label: 'Bone Scale', value: '1.0000', detail: 'Uniform Scale' }
                 ],
-                trace: { label: '구현 후 draw trace' },
-                method: 'project runtime log의 physics-draw row를 generated Sphyl dimension 및 Bone Matrix Scale 경로와 대조했습니다.'
+                trace: { label: 'Physics Preview 출력 로그' },
+                method: '저장된 Sphyl 치수와 Bone Matrix Scale을 적용해 Preview의 Body 크기를 계산합니다.'
             }
         ],
         troubleshooting: [
             {
-                title: '생성 body가 일관되지 않은 좌표계를 사용하고 작은 bone influence를 버림',
-                symptom: 'physics body의 크기가 맞지 않거나 늘어날 수 있었고, 작은 bone이 걸러질 때 그 bone의 influenced vertex가 활용 가능한 parent body에 반영되지 않았습니다.',
-                cause: 'body 생성이 skeletal/global 가정과 bone별 point cloud를 혼용했고, 작은 candidate를 통합하기 전에 넓은 humanoid filter를 적용했습니다.',
-                fix: 'candidate vertex를 bone-local space에 유지하고 undersized point cloud를 parent local space로 변환·병합한 뒤 병합된 candidate를 측정했으며, 필요한 경우 구조적으로 필요한 parent body를 강제로 만들었습니다.',
-                result: '생성 shape가 skinned mesh volume을 더 잘 따르며 helper 또는 작은 bone도 사용하기 어려운 단독 body를 만들지 않고 geometry에 기여합니다.'
+                title: 'Body 생성 시 좌표계가 어긋나고 작은 Bone의 정점이 누락되는 문제',
+                symptom: 'Physics Body의 크기가 맞지 않거나 늘어났습니다. 작은 Bone을 제외하면 그 Bone에 연결된 정점도 부모 Body에 반영되지 않았습니다.',
+                cause: 'Body를 생성할 때 Skeleton 전체 좌표와 Bone별 정점군의 좌표를 혼용했습니다. 작은 후보를 부모에 합치기 전에 휴머노이드 필터로 제외하기도 했습니다.',
+                fix: '후보 정점을 Bone의 로컬 공간에서 관리했습니다. 작은 정점군은 부모의 로컬 공간으로 변환해 합친 뒤 크기를 계산하고, 구조상 필요한 부모 Body는 생성하도록 했습니다.',
+                result: '충돌체가 스키닝 메시의 부피에 더 가깝게 생성됩니다. Helper나 작은 Bone의 정점도 부모 Body에 포함됩니다.'
             },
             {
-                title: '일반 gizmo axis가 유효하지 않은 shape edit을 노출함',
-                symptom: 'sphere radius에 세 개의 독립 axis를 보이거나 capsule에 중복 radius axis를 표시하는 등, physics editor에 중복되거나 의미 없는 scale handle이 나타났습니다.',
-                cause: 'viewport가 선택한 physics shape의 자유도를 고려하지 않고 generic gizmo axis mask를 재사용했습니다.',
-                fix: 'shape-aware mask를 계산했습니다. sphere에는 사용 가능한 scalar axis 하나를, capsule에는 radius용 X와 length용 Z를 사용하고 현재 orthographic view가 해당 axis를 숨기면 fallback을 적용했습니다. 같은 경로에서 edit alpha도 수정했습니다.',
-                result: '표시된 handle이 선택 shape에서 실제로 수정 가능한 parameter에 대응하고 제한된 view에서도 조작 가능합니다.',
+                title: '충돌체 형상에 맞지 않는 Gizmo 축이 표시되는 문제',
+                symptom: '구의 반지름에 독립된 축 세 개를 표시하거나 캡슐의 반지름 축이 중복되는 등, 형상에 필요 없는 스케일 핸들이 나타났습니다.',
+                cause: '선택한 충돌체에서 편집할 수 있는 값을 고려하지 않고 공통 Gizmo 축 마스크를 사용했습니다.',
+                fix: '형상에 따라 축 마스크를 계산했습니다. 구는 축 하나, 캡슐은 반지름용 X와 길이용 Z를 사용하고, 직교 뷰에서 축이 가려지면 대체 축을 선택했습니다. 편집 표시의 Alpha도 수정했습니다.',
+                result: '선택한 충돌체에서 수정할 수 있는 값만 핸들로 표시하고, 제한된 시점에서도 조작할 수 있도록 했습니다.',
                 code: { context: 'FPhysicsAssetEditorViewportClient::ComputeGizmoAxisMask()의 shape별 axis 제한' }
             },
             {
@@ -1272,32 +1271,32 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
         sourceIndex: 13,
         week: '14',
         theme: 'Final Game Jam · The Stage Is Set. Let the Game Begin!',
-        title: 'Final Game 통합·Tool',
-        summary: 'Unreal에서 제작한 scene, decal, boss·score UI, game-flow 전환, loading, cutscene, audio를 최종 custom-engine game에 통합했습니다.',
+        title: '최종 게임 통합과 제작 도구',
+        summary: 'Unreal에서 제작한 Scene과 Decal을 자체 엔진으로 가져왔습니다. 보스·점수 UI와 Scene 전환, 로딩, Cutscene, Audio를 연결해 최종 게임을 완성했습니다.',
         role: 'Game Flow·Integration 프로그래머',
-        objective: '누적된 engine feature와 제작 content를 scene loading·countdown부터 combat UI, scoring, cutscene, ending credit까지 이어지는 일관된 playable flow로 완성하는 것이 목표였습니다.',
+        objective: '그동안 개발한 엔진과 콘텐츠를 연결해 Scene 로딩과 Countdown에서 전투·점수 집계·Cutscene·엔딩까지 이어지는 게임을 완성하는 것이 목표였습니다.',
         contributions: [
-            'boss UI flow를 추가하고 Unreal에서 제작한 Tokyo scene을 import했으며 custom engine용 decal export/import를 구현했습니다.',
-            'countdown, scoreboard, score 기록, combo UI, boss·mob HP bar, loading scene, ending credit을 연결했습니다.',
-            '2 page·5 cut reveal sequence를 구현하고 asynchronous scene readiness와 동기화했으며, retry skip 동작과 transition별 audio timing·volume을 조정했습니다.'
+            '보스전 UI를 연결하고 Unreal에서 제작한 Tokyo Scene을 가져왔습니다. 자체 엔진용 Decal Export/Import도 구현했습니다.',
+            '카운트다운과 점수판·기록 저장, 콤보 UI, 보스·일반 적 HP 바, 로딩 화면과 엔딩 크레딧을 연결했습니다.',
+            '2페이지·5컷으로 구성한 전환 연출을 구현하고 비동기 Scene 로딩과 시점을 맞췄습니다. 재시작 시 연출 건너뛰기와 전환별 오디오 타이밍·음량도 조정했습니다.'
         ],
         implementation: [
             'Unreal Scene·Decal Exporter/Importer 파이프라인',
             'Lua/RmlUi 기반 게임 흐름, 점수판, 콤보, Boss·Mob HP, 카운트다운, 로딩, 크레딧',
             '5컷 Page/Reveal 상태, 비동기 Load Barrier, Retry 상태 영속화, FMOD Audio Cue'
         ],
-        flow: 'Unreal 제작 scene/UI asset → custom import 및 runtime binding → game flow + scoring → cutscene / audio / ending',
+        flow: 'Unreal Scene·UI 자산 → 자체 Import·런타임 연결 → 게임 진행·점수 집계 → Cutscene·Audio·엔딩',
         results: [
-            'editor에서 제작한 content와 engine system을 최종 playable game sequence로 연결했습니다.',
-            'combat, scoring, scene change, retry, cutscene 전반에 걸쳐 사용자에게 보이는 flow와 feedback을 완성했습니다.'
+            '에디터에서 제작한 콘텐츠와 엔진 시스템을 연결해 플레이 가능한 게임으로 완성했습니다.',
+            '전투·점수·Scene 전환·재시작·Cutscene에 필요한 UI와 피드백을 구현했습니다.'
         ],
-        evidenceStatus: '구현 및 소스 이력',
+        evidenceStatus: '구현 내용',
         evidenceNote: 'Scene·Decal Import, Countdown·Scoreboard, 비동기 Load Barrier, Retry·Cutscene·Audio 흐름을 구현했습니다.',
         sourceLabel: 'Week14 작성 커밋 열기',
         troubleshootingEvidence: [
             {
                 title: 'Final Game Jam에서 메뉴부터 보스전과 엔딩 크레딧까지 완성했습니다.',
-                summary: 'Cyber Runner는 Custom Engine에서 Mode 선택, Film Countdown, 완성된 Tokyo Level의 Ascendant Boss 전투, HP·Core·Chain·Burst 피드백, 4인 팀 Ending Credits까지 하나의 플레이 흐름으로 이어집니다.',
+                summary: 'Cyber Runner는 자체 엔진으로 제작한 게임입니다. 모드 선택과 필름 카운트다운에서 Tokyo 레벨의 Ascendant 보스전, HP·Core·Chain·Burst 표시, 4인 팀의 엔딩 크레딧까지 이어집니다.',
                 figures: [
                     {
                         stage: 'Main Menu',
@@ -1312,40 +1311,40 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
                     {
                         stage: 'Boss Encounter',
                         alt: '완성된 Tokyo Level에서 Ascendant Boss와 마주한 Cyber Runner Player Character',
-                        caption: 'Import한 City Environment와 Boss Actor, Player HP, Boss Core, Chain, Burst UI가 Encounter 시작 화면에 함께 표시됩니다.'
+                        caption: '전투 시작 화면에 가져온 도시 배경과 보스, 플레이어 HP·Boss Core·Chain·Burst UI를 함께 표시합니다.'
                     },
                     {
                         stage: 'Combat Feedback',
                         alt: 'Attack Telegraph, Enemy, Chain Counter, HP, Core, Burst UI가 표시되는 Cyber Runner Boss Combat',
-                        caption: '전투 중 Attack Telegraph, Damage, Enemy Group, Chain, Boss Core, Player HP, Burst Charge가 실시간으로 갱신됩니다.'
+                        caption: '전투 중 공격 예고와 피해, 적 무리, Chain·Boss Core·플레이어 HP·Burst Charge 표시를 갱신합니다.'
                     },
                     {
                         stage: '4인 팀 Ending Credits',
                         alt: 'Team Member 04 조상현을 포함한 Cyber Runner Ending Credits',
-                        caption: 'Ending 흐름이 4인 팀 Credits까지 이어지고 Team Member 04로 조상현이 표시됩니다.'
+                        caption: '엔딩에서 4인 팀의 크레딧을 표시하며, 조상현은 Team Member 04로 기재돼 있습니다.'
                     }
                 ]
             },
             {
                 kicker: '필름 카운트다운 UI',
                 title: '게임 흐름에 맞는 다층 전환 화면으로 카운트다운을 완성했습니다.',
-                summary: 'RmlUi와 Lua로 PICTURE START Label, Sprocket, Ring, Crosshair, Countdown Number, Grain, Vignette, Sweep Animation을 구성했습니다. 아래 화면은 초기 구현, Layout 조정, 최종 인게임 결과 순서입니다.',
+                summary: 'RmlUi와 Lua로 필름 영사기 형태의 카운트다운을 만들었습니다. 숫자와 회전 부채꼴, 필름 구멍, 그레인·비네트 효과를 조합했습니다. 아래는 초기 구현부터 배치 조정을 거친 최종 화면입니다.',
                 tags: ['RmlUi + Lua', '필름 카운트다운', '런타임 UI'],
                 figures: [
                     {
-                        stage: '초기 Countdown 구현 · 2026-06-08 23:55 KST',
+                        stage: '초기 Countdown 구현',
                         alt: 'sepia film strip, sprocket hole, ring, crosshair, single sweep line, Picture Start label, 숫자 3이 표시된 Week14 초기 in-engine film countdown prototype',
                         caption: '첫 3→2→1 구현은 회전 Sweep Line과 초기 Film Frame 처리를 사용했습니다.'
                     },
                     {
-                        stage: 'Layout 분리 진단 · 2026-06-10 17:27 KST',
+                        stage: 'Layout 분리 진단',
                         alt: 'responsive outer circle, inner circle, crosshair guide만 표시한 Week14 film countdown UI layout 진단 화면',
-                        caption: '이후 진단 화면은 presentation layer에서 responsive center, outer·inner circle, crosshair를 분리해 보여 줍니다.'
+                        caption: '중심점과 안쪽·바깥쪽 원, 십자선을 따로 표시하며 화면 크기에 따른 배치를 조정했습니다.'
                     },
                     {
-                        stage: '최종 Runtime 상태 · 2026-06-10 17:38 KST',
+                        stage: '최종 Runtime 상태',
                         alt: 'sepia film gate, sprocket hole, grain, sweep arm, Picture Start label, 숫자 5가 표시된 Week14 완성 film countdown UI',
-                        caption: '개선된 출력은 digit 5에서 전체 presentation을 복원하고 filled sector, 이동 sprocket, grain, vignette, layered number 처리를 함께 보여 줍니다.'
+                        caption: '숫자 5부터 시작하는 최종 화면에 부채꼴 회전과 움직이는 필름 구멍, 그레인·비네트 효과를 적용했습니다.'
                     }
                 ],
                 facts: [
@@ -1358,7 +1357,7 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
             {
                 kicker: 'Week14 씬 배치 완료',
                 title: 'Tokyo 레벨의 씬 배치를 완료했습니다.',
-                summary: '이 가로형 에디터 화면이 작업자가 확인한 최종 배치 상태입니다. 건물 볼륨, 교통 구조물, 거리 규모 구조가 하나의 씬으로 조립되어 있으며, 다른 에디터 캡처는 아래 트러블슈팅 사례에서 작업 과정으로 분리했습니다.',
+                summary: '건물과 교통 구조물을 하나의 Scene에 배치해 Tokyo 레벨을 구성했습니다. 아래 트러블슈팅에는 Import 과정에서 배치와 방향을 바로잡은 내용을 정리했습니다.',
                 figures: [
                     {
                         stage: '씬 배치 완료',
@@ -1407,12 +1406,12 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
                 tags: ['Alpha Mask', 'Pre-depth', 'Decal Coverage'],
                 figures: [
                     {
-                        stage: 'Foliage 결함 · 2026-06-08 21:28 KST',
+                        stage: 'Foliage 결함',
                         alt: 'green leaf 주변에 옅은 card 배경이 보이는 masked foliage 수정 전 import된 Tokyo tree',
                         caption: '서로 교차하는 leaf card의 투명 부분이 깨끗한 foliage cutout으로 처리되지 않고 그대로 보입니다.'
                     },
                     {
-                        stage: 'Decal 결함 · 2026-06-09 02:20 KST',
+                        stage: 'Decal 결함',
                         alt: 'pink marking 주변에 사각형 배경이 보이는 grayscale coverage 수정 전 선택된 Tokyo ground decal',
                         caption: '분홍색 사각형 배경이 렌더링 결함이며 흰 Outline은 Editor Selection 표시입니다.'
                     }
@@ -1431,25 +1430,25 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
             },
             {
                 kicker: '비동기 Scene 전환',
-                title: 'transition은 cutscene 뒤에 대기했고 Tokyo_Current가 준비된 뒤에만 commit했습니다.',
-                summary: 'GameBuild Log에서 Cutscene 완료 → Wait → Scene Ready → Commit 순서로 전환이 진행됩니다.',
-                tags: ['실제 packaged 실행', '비동기 로딩', '사례 01'],
+                title: 'Cutscene 이후 로딩을 기다린 뒤 Tokyo_Current로 전환합니다.',
+                summary: 'Cutscene이 끝나도 Scene 로딩이 완료될 때까지 기다린 뒤 전환합니다. Tokyo_Current가 준비되기 전에 플레이가 시작되는 것을 막았습니다.',
+                tags: ['패키징 빌드', '비동기 로딩', '사례 01'],
                 facts: [
                     { label: 'Transition 순서', value: 'Wait → Ready → Commit', detail: 'Tokyo_Current Packaged 실행' }
                 ],
                 trace: { label: '수정 후 transition sequence' },
-                method: 'Packaged-run Log의 Wait → Ready → Commit 메시지를 a590136에서 도입한 State Transition과 대조했습니다.'
+                method: 'Wait → Ready → Commit 순서로 전환하며, 각 상태 변경을 패키징 빌드의 로그에 기록합니다.'
             },
             {
                 kicker: 'Clear Time 저장',
-                title: '완료된 run time이 clear-score storage와 scoreboard에 동일하게 기록되었습니다.',
-                summary: '실제 local save file 두 개가 같은 최종 write timestamp와 동일한 85.688초 결과를 보유합니다. 완료된 run 이후 사례 01에서 사용하는 persistence output을 직접 검증합니다.',
-                tags: ['실제 save file', '점수 영속화', '사례 01'],
+                title: '플레이 완료 시간을 Clear Score와 Scoreboard에 함께 저장했습니다.',
+                summary: '완료한 플레이의 85.688초 기록을 Clear Score 파일과 Scoreboard에 각각 저장했습니다. Scene이 전환된 뒤에도 같은 기록을 사용할 수 있습니다.',
+                tags: ['Clear Time 저장', '점수 저장', '사례 01'],
                 facts: [
                     { label: '저장된 값', value: '85.688 sec', detail: 'LastClearScore.txt = GameFlowScoreboard.tsv' }
                 ],
-                trace: { label: '일치하는 persisted value' },
-                method: '두 Save Output을 비교해 LastClearScore.txt = GameFlowScoreboard.tsv = 85.688 sec로 일치함을 확인했습니다.'
+                trace: { label: '저장된 Clear Time' },
+                method: '이번 플레이의 85.688초 기록이 LastClearScore.txt와 GameFlowScoreboard.tsv에 각각 저장됐습니다.'
             },
         ],
         troubleshooting: [
@@ -1492,27 +1491,27 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
                 code: { context: 'ApplyEnvironmentTransform()의 world-matrix decomposition' }
             },
             {
-                title: 'Grayscale decal texture를 alpha가 있는 RGBA로 처리함',
-                symptom: 'import된 Tokyo decal 주변에 의도한 도로·지면 marking 바깥의 사각형 배경이 보였고, 직접 texture parameter가 없는 decal chain은 초기에는 dependency texture 없이 도착할 수 있었습니다.',
-                cause: 'exporter가 처음에는 parent/material-function dependency 내부 texture를 놓쳤습니다. 이를 복구한 뒤에도 import된 base·mask PNG는 stored alpha가 없는 Gray8이었고, RGBA 변환 시 모든 pixel alpha가 255가 되어 .a sampling이 전체 projection을 opaque로 만들었습니다.',
-                fix: 'fdaa6f7에서 제한된 dependency texture를 복구하고, 0c5ae28에서 saturate(R+G+B)로 decal coverage를 만들고 별도 grayscale mask는 .r에서 읽었으며 projected UV를 decal Y/Z plane에 맞게 수정했습니다.',
-                result: '검은 background pixel은 coverage 0으로 clip되고 작성된 marking과 grayscale mask 값은 보존됩니다.',
+                title: 'Alpha가 없는 흑백 Decal 텍스처의 사각형 배경이 표시되는 문제',
+                symptom: '가져온 Tokyo Decal에서 도로·지면 표시 주변의 사각형 배경이 보였습니다. 텍스처를 직접 지정하지 않은 Decal은 부모 머티리얼의 텍스처를 누락하기도 했습니다.',
+                cause: 'Exporter가 부모 머티리얼과 Material Function 안의 텍스처를 놓쳤습니다. 이 경로를 수정한 뒤에도 Gray8 이미지를 RGBA로 변환하면 모든 Alpha가 255가 되어 배경까지 불투명하게 표시됐습니다.',
+                fix: '부모 머티리얼과 Material Function의 텍스처를 가져오도록 수정했습니다. Decal의 불투명도는 saturate(R+G+B), 별도 흑백 마스크는 .r에서 읽고 투영 UV를 Decal의 Y/Z 평면에 맞췄습니다.',
+                result: '검은 배경 픽셀은 제거하고, 원래의 지면 표시와 흑백 마스크 값을 유지합니다.',
                 code: { context: '0c5ae28^ → 0c5ae28에서 생성된 decal opacity 출력' }
             },
             {
-                title: 'Masked foliage가 leaf-card 전체 배경을 pre-depth에 기록함',
-                symptom: 'import된 tree crown에서 정상적인 녹색 잎 주변에 옅은 사각형 또는 다각형 card 배경이 보였고, 양면 shadow coverage가 일부 방향에서 사라질 수 있었습니다.',
-                cause: '생성된 surface shader는 leaf를 올바르게 alpha clip했지만 앞선 generic pre-depth submission은 material mask를 실행하지 않아 card silhouette 전체를 기록했습니다. shadow culling도 section material의 two-sided raster state를 무시했습니다.',
-                fix: 'generic pre-depth pass에서 opacity-masked section을 건너뛰어 alpha-tested surface pass가 visible coverage를 담당하게 하고, two-sided shadow material에는 SolidNoCull을 선택했으며 의도한 culling behavior로 directional caster submission을 복원했습니다.',
-                result: '투명한 leaf-card 영역이 같은 unmasked pre-depth coverage에 기여하지 않고 foliage shadow submission이 material별 two-sided state를 따릅니다.',
+                title: '나뭇잎의 투명 영역까지 깊이에 기록되는 문제',
+                symptom: '가져온 나무의 잎 주변에 사각형 배경이 보였고, 일부 방향에서는 양면 재질의 그림자가 사라질 수 있었습니다.',
+                cause: '표면 셰이더는 나뭇잎의 Alpha를 처리했지만, 앞선 Pre-depth Pass는 마스크 없이 카드 전체를 깊이에 기록했습니다. 그림자 컬링에서도 양면 재질 설정이 빠져 있었습니다.',
+                fix: '마스크 재질은 일반 Pre-depth Pass에서 제외하고 Alpha Test를 수행하는 표면 Pass에서 처리했습니다. 양면 재질의 그림자에는 SolidNoCull을 적용하고 방향광 그림자 제출 과정의 컬링도 수정했습니다.',
+                result: '나뭇잎 카드의 투명 영역이 깊이를 가리지 않으며, 그림자에도 재질의 양면 설정이 반영됩니다.',
                 code: { context: 'FDrawCommandBuilder::BuildCommandForProxy()의 opacity-mask pre-depth 제외' }
             },
             {
-                title: 'Film sweep가 RmlUi로 깔끔하게 표현 가능한 shape 범위를 넘음',
-                symptom: '초기 countdown 구현은 조명된 원형 sweep을 각각 회전한 사각형 element 24개로 근사해, coarse CSS-style primitive 모음에 시각 표현이 묶였습니다.',
-                cause: '사용 가능한 RmlUi 경로는 positioned box, image, transform을 지원했지만 film-leader wedge용 filled circular-sector primitive를 안정적으로 제공하지 않았습니다.',
-                fix: '투명 sector frame 33개를 생성해 겹친 RmlUi image로 배치하고 normalized sweep progress를 frame index로 변환해 선택 frame만 노출했습니다. Lua는 계속 digit, sprocket, grain, flash, timing을 제어했습니다.',
-                result: 'responsive central layout에 맞춰 크기를 조정하고 runtime widget에서 재현할 수 있는 결정적인 filled-sector animation을 구현했습니다.',
+                title: 'RmlUi에서 원형 카운트다운을 표현하기 어려웠던 문제',
+                symptom: '초기에는 사각형 요소 24개를 회전시켜 원형 카운트다운을 근사했지만, 부채꼴의 곡선을 표현하기 어려웠습니다.',
+                cause: '사용 중인 RmlUi 기능으로는 사각형과 이미지의 배치·회전은 가능했지만, 채워진 부채꼴을 직접 그리기 어려웠습니다.',
+                fix: '투명 배경의 부채꼴 이미지 33장을 만들고, 진행률에 맞는 한 장만 표시했습니다. 숫자와 필름 구멍, 그레인·섬광 효과의 타이밍은 Lua로 제어했습니다.',
+                result: '화면 크기에 맞춰 부채꼴 애니메이션의 크기와 위치를 조절하고, 진행률에 따라 표시할 프레임을 정했습니다.',
                 code: { context: 'updateSweepSector()의 raster sector frame 선택' }
             }
         ],
@@ -1541,129 +1540,129 @@ window.GAME_TECH_LAB_KO = {
 window.GAME_TECH_LAB_TROUBLESHOOTING_KO = {
     '02': {
         0: {
-            title: 'SkySphere의 배경 패스 순서·깊이 상태·노멀 규약 불일치',
-            symptom: 'SkySphere가 장면 geometry를 가리거나 depth write를 끄면 사라졌고, scale에 따라 gradient가 일그러졌습니다.',
-            cause: '일반 opaque mesh와 같은 순서로 정렬했고 depth-write option이 depth test까지 껐으며, shader가 scale이 반영된 안쪽 방향 normal을 사용했습니다.',
-            fix: 'Depth test는 유지하고 depth write만 끈 background geometry로 분리한 뒤 normalized world direction에서 gradient를 계산했습니다.',
-            result: 'SkySphere가 항상 장면 뒤에 남고 scale과 camera 변화에도 gradient가 안정적으로 유지됩니다.'
+            title: 'SkySphere의 렌더링 순서와 깊이·노멀 처리 오류',
+            symptom: 'SkySphere가 장면을 가리거나 깊이 쓰기를 끄면 사라졌고, 크기에 따라 그라데이션이 일그러졌습니다.',
+            cause: '일반 불투명 메시와 같은 순서로 정렬했고, 깊이 쓰기 옵션이 깊이 검사까지 껐습니다. 셰이더에는 크기 변환이 적용된 안쪽 방향 노멀이 전달됐습니다.',
+            fix: '깊이 검사는 유지하고 쓰기만 끈 배경용 메시로 분리했습니다. 그라데이션은 정규화된 월드 방향으로 계산하도록 바꿨습니다.',
+            result: 'SkySphere가 장면 뒤에 그려지고, 크기와 카메라가 바뀌어도 그라데이션을 유지합니다.'
         }
     },
     '03': {
         1: {
-            title: 'Picking ray와 동일 깊이 highlight의 pixel·depth 규칙 불일치',
-            symptom: 'Cursor가 얇은 geometry를 놓치고, 선택 gizmo가 base pass와 같은 depth에 있을 때 highlight가 사라졌습니다.',
-            cause: 'Ray는 pixel 모서리에서 시작했고 highlight pass는 strict less-than depth comparison을 사용했습니다.',
-            fix: 'Half-pixel offset으로 pixel center를 sampling하고 highlight pass가 동일 depth를 허용하도록 변경했습니다.',
-            result: 'Cursor에 보이는 geometry와 picking·selection feedback이 일치합니다.'
+            title: '피킹 좌표와 선택 하이라이트의 깊이 비교 오류',
+            symptom: '커서가 얇은 메시를 선택하지 못하고, Gizmo가 Base Pass와 같은 깊이에 있을 때 하이라이트가 사라졌습니다.',
+            cause: '피킹 Ray가 픽셀 모서리에서 시작했고, 하이라이트 Pass의 깊이 비교가 같은 깊이를 허용하지 않았습니다.',
+            fix: 'Half-pixel Offset으로 픽셀 중심을 사용하고, 하이라이트 Pass가 같은 깊이도 허용하도록 변경했습니다.',
+            result: '화면에 보이는 위치에서 메시를 선택하고 하이라이트를 표시합니다.'
         }
     },
     '04': {
         1: {
-            title: 'OBJ 입력 경로에 versioned binary cache와 indexed geometry build가 필요했음',
-            symptom: 'Cold load마다 text OBJ를 다시 parse했고 face-corner 확장 과정에서 vertex와 material search가 중복됐습니다.',
-            cause: '검증 가능한 binary format이 없었고 importer가 모든 corner를 다시 만들면서 material을 선형 탐색했습니다.',
-            fix: 'Version이 포함된 .dasset header와 binary reader/writer를 추가하고, indexed vertex를 deduplicate하면서 material name을 직접 mapping했습니다.',
-            result: 'Baked asset은 text parsing을 건너뛰고 imported mesh는 불필요한 vertex·material 작업을 줄입니다.'
+            title: 'OBJ 반복 파싱과 중복 정점·Material 탐색',
+            symptom: '처음 로드할 때마다 OBJ 텍스트를 다시 파싱했고, 면의 꼭짓점을 확장하면서 정점과 Material 탐색이 중복됐습니다.',
+            cause: '유효성을 검사할 Binary 포맷이 없었고, Importer가 모든 꼭짓점을 다시 만들면서 Material을 선형 탐색했습니다.',
+            fix: '버전 정보가 있는 .dasset 헤더와 바이너리 읽기·쓰기를 추가했습니다. 같은 정점은 인덱스를 공유하고, Material 검색은 한 번의 순회로 줄였습니다.',
+            result: '저장된 Binary Asset은 텍스트 파싱을 건너뛰고, 메시 생성 과정의 중복 작업도 줄였습니다.'
         },
         2: {
-            title: 'Static Mesh reload의 dependency 손실과 asset cache의 GPU ownership 잔존',
-            symptom: 'Scene reload 뒤 mesh·UV Scroll 상태가 사라질 수 있었고, shutdown 이후에도 SRV와 cached asset의 ownership이 남았습니다.',
-            cause: 'Serialized component가 모든 asset dependency를 복원하지 않았고 cache entry 삭제 전에 GPU reference를 명시적으로 해제하지 않았습니다.',
-            fix: 'Load 과정에서 mesh dependency와 UV state를 복원하고, 명시적인 teardown path에서 SRV와 asset cache를 정리했습니다.',
-            result: 'Static Mesh scene이 동일하게 reload되고 graphics resource가 shutdown 시점에 해제됩니다.'
+            title: 'Scene 재로드 후 메시 상태 손실과 GPU 리소스 누수',
+            symptom: 'Scene을 다시 불러오면 메시와 UV Scroll 상태가 사라질 수 있었고, 종료 후에도 SRV와 캐시된 Asset이 남았습니다.',
+            cause: '직렬화된 Component가 필요한 Asset을 모두 복원하지 않았고, 캐시 항목을 지우기 전에 GPU 참조를 해제하지 않았습니다.',
+            fix: '로드할 때 메시 의존성과 UV 상태를 복원하고, 종료 과정에서 SRV와 Asset Cache를 정리했습니다.',
+            result: 'Scene을 다시 불러와도 Static Mesh 상태를 유지하며, 종료 시 그래픽 리소스를 해제합니다.'
         }
     },
     '05': {
         0: {
             title: '고밀도 장면 검색의 확장성과 말단 노드 데이터 유실',
             symptom: '오브젝트 5만 개 배치에서 피킹 비용이 커졌고, SceneGraph가 최대 깊이에 도달하면 일부 오브젝트가 검색 결과에서 빠질 수 있었습니다.',
-            cause: '검색이 triangle과 오브젝트를 전수 검사하는 경로로 돌아갔고, 말단 leaf가 남은 오브젝트 전체를 보관하지 않았습니다.',
-            fix: '공간 broad phase로 검색 범위를 먼저 줄이고, 말단 leaf에 남은 오브젝트를 모두 저장했습니다.',
+            cause: '삼각형과 오브젝트를 전수 검사하는 검색 경로가 있었고, 말단 노드가 남은 오브젝트를 모두 보관하지 않았습니다.',
+            fix: '공간 분할의 Broad Phase로 검색 범위를 먼저 줄이고, 말단 노드에 남은 오브젝트를 모두 저장했습니다.',
             result: 'SceneGraph의 깊이 제한에서 오브젝트를 누락하지 않으면서 고밀도 장면의 상호작용 검색 비용을 줄였습니다.'
         }
     },
     '06': {
         0: {
-            title: 'Height Fog의 sky reconstruction 불일치와 far-depth 비정상 값',
-            symptom: 'Sky와 geometry 사이에 수평선 경계가 생겼고 먼 depth pixel이 불안정하거나 검게 변했습니다.',
-            cause: 'Sky는 상수 fog branch를 사용했고 homogeneous reconstruction은 잘못된 W로 나누거나 non-finite 값을 전달할 수 있었습니다.',
-            fix: 'InvViewProj로 sky ray를 복원해 geometry와 같은 fog function을 적용하고 W·ray·exponent·최종 출력을 검증했습니다.',
-            result: 'Sky와 geometry가 끊기지 않는 유한한 fog response를 공유합니다.'
+            title: '하늘과 Geometry 사이의 Fog 경계 및 원거리 수치 오류',
+            symptom: '하늘과 Geometry 사이에 수평 경계가 생겼고, 원거리 픽셀이 불안정하게 표시되거나 검게 변했습니다.',
+            cause: '하늘에는 상수 Fog 값을 사용했습니다. 동차 좌표 복원 과정에서는 유효하지 않은 W로 나누거나 무한대·NaN을 전달할 수 있었습니다.',
+            fix: 'InvViewProj로 Sky Ray를 복원해 Geometry와 같은 Fog 함수를 적용했습니다. W와 Ray, 지수 계산, 최종 출력의 유효성도 검사했습니다.',
+            result: '하늘과 Geometry에 Fog가 연속적으로 적용되고, 원거리 계산의 비정상 값이 화면으로 전달되지 않습니다.'
         },
         1: {
-            title: 'Fog·Decal blend가 destination alpha를 덮어 geometry를 투명하게 만듦',
-            symptom: 'Projected RGB는 정상인데 shared render target의 alpha가 오염되어 가까운 mesh가 editor에서 투명해졌습니다.',
-            cause: 'Blend state가 scene의 기존 alpha를 보존하지 않고 source opacity를 destination alpha에 기록했습니다.',
-            fix: 'Fog·Decal의 RGB contribution만 blend하고 destination alpha는 유지하도록 변경했습니다.',
-            result: 'Editor composition과 mesh opacity를 손상하지 않고 fog와 decal이 표시됩니다.'
+            title: 'Fog·Decal의 Alpha 혼합으로 메시가 투명해지는 문제',
+            symptom: '투영된 색상은 정상이지만, 공유 Render Target의 Alpha가 바뀌어 가까운 메시가 에디터에서 투명해졌습니다.',
+            cause: 'Blend State가 기존 Scene Alpha를 입력 불투명도로 덮어썼습니다.',
+            fix: 'Fog·Decal의 RGB만 혼합하고 Destination Alpha는 유지하도록 변경했습니다.',
+            result: '에디터 화면 합성과 메시의 불투명도를 유지하면서 Fog와 Decal을 표시합니다.'
         }
     },
     '07': {
         0: {
-            title: 'Shader reload의 cache invalidation과 GPU resource lifecycle 불일치',
-            symptom: 'Include shader 변경을 놓칠 수 있었고 cache teardown이 살아 있는 resource를 남긴 채 entry를 제거했습니다.',
-            cause: 'Dependency tracking과 cache invalidation이 불완전했고 entry 제거와 resource release가 연결되지 않았습니다.',
-            fix: 'Include dependency를 추적해 영향받은 variant를 rebuild하고 cache entry 삭제 전에 소유 GPU resource를 해제했습니다.',
-            result: 'Hot reload가 dependency 변경을 반영하고 shutdown이 shader resource를 확정적으로 정리합니다.'
+            title: 'Shader 변경 누락과 캐시 해제 시 GPU 리소스 누수',
+            symptom: 'Include Shader의 변경이 반영되지 않거나, 캐시 항목만 지우고 GPU 리소스가 남는 문제가 있었습니다.',
+            cause: '의존성 변경을 캐시에 충분히 반영하지 못했고, 항목 삭제와 리소스 해제가 연결되지 않았습니다.',
+            fix: 'Include 의존성을 추적해 영향받은 Shader Variant를 다시 빌드하고, 캐시 항목 삭제 전에 소유한 GPU 리소스를 해제했습니다.',
+            result: 'Hot Reload에 의존성 변경이 반영되며, 종료할 때 Shader 리소스를 정리합니다.'
         }
     },
     '08': {
         2: {
             title: 'Point Shadow PCF 우회와 Cube Face 경계 불연속',
-            symptom: 'Point Light가 요청된 filter path를 건너뛰었고 cube face를 넘는 sample에서 shadow seam이 나타났습니다.',
-            cause: 'Lighting path가 PCF를 우회했고 모든 tap이 중심 sample의 cube-face basis를 재사용했습니다.',
-            fix: 'Point Shadow를 PCF path로 연결하고 각 offset direction마다 cube face와 UV를 다시 계산했습니다.',
-            result: 'Cube-map face 경계를 넘어도 Point Shadow filtering이 연속적으로 유지됩니다.'
+            symptom: 'Point Light가 지정한 필터를 건너뛰었고, Cube Map 면 경계에서 그림자가 끊겼습니다.',
+            cause: '조명 경로가 PCF를 건너뛰었고, 필터 기준축이 Cube 면 경계에서 바뀌어 샘플 방향도 급격히 달라졌습니다.',
+            fix: 'Point Shadow를 PCF 경로에 연결했습니다. 빛에서 표면으로 향하는 방향을 기준으로 접선·종법선을 구하고, 그 평면에서 8-tap Poisson 샘플을 배치했습니다.',
+            result: 'Cube Map 면 경계에서도 그림자 필터링이 이어집니다.'
         }
     },
     '09': {
         2: {
-            title: '파괴된 Component가 Overlap·Tick Queue에 dangling reference로 남음',
-            symptom: 'Frame 도중 파괴된 component를 overlap peer나 queued tick function이 다시 참조할 수 있었습니다.',
-            cause: 'Raw-pointer collection이 owner보다 오래 남았고 teardown이 모든 양방향 관계를 해제하지 않았습니다.',
-            fix: 'Teardown에서 overlap peer를 상호 해제하고 queued tick 실행 전에 owner lifetime을 검증했습니다.',
-            result: '파괴된 object에 stale overlap 또는 tick callback이 전달되지 않습니다.'
+            title: '파괴된 Component가 Overlap·Tick Queue에 남는 문제',
+            symptom: '프레임 도중 파괴된 Component를 Overlap 상대나 대기 중인 Tick이 다시 참조할 수 있었습니다.',
+            cause: '포인터 목록이 소유 객체보다 오래 남았고, 해제 과정에서 양방향 참조를 모두 정리하지 않았습니다.',
+            fix: '해제 시 Overlap 양쪽의 참조를 정리하고, 대기 중인 Tick을 실행하기 전에 소유 객체의 수명을 검사했습니다.',
+            result: '파괴된 객체를 대상으로 Overlap이나 Tick Callback이 실행되지 않습니다.'
         }
     },
     '11': {
         1: {
-            title: 'FBX Animation cache key에 source stack과 target skeleton 식별자가 없었음',
-            symptom: '형식상 유효한 cache file이 다른 animation stack이나 다른 skeleton용 데이터를 반환할 수 있었습니다.',
-            cause: 'Cache contract가 stack identity와 안정적인 target-skeleton signature를 포함하지 않았습니다.',
-            fix: 'Source stack·importer version·skeleton identity를 검증 정보에 포함하고 일치하지 않는 cache entry를 거부했습니다.',
-            result: 'Clip과 target skeleton이 일치할 때만 cached animation을 재사용합니다.'
+            title: 'Animation Cache에서 Stack과 Skeleton을 구분하지 못하는 문제',
+            symptom: '포맷이 유효한 캐시라도 다른 Animation Stack이나 Skeleton의 데이터를 반환할 수 있었습니다.',
+            cause: '캐시를 식별하는 정보에 Stack과 대상 Skeleton이 포함되지 않았습니다.',
+            fix: '원본 Stack, Importer 버전, Skeleton 식별자를 검증 정보에 포함하고 일치하지 않는 캐시는 거부했습니다.',
+            result: 'Clip과 대상 Skeleton이 모두 일치할 때만 캐시된 애니메이션을 재사용합니다.'
         },
         3: {
-            title: 'FBX Track import의 parent-basis 변환과 누락 Scale Channel 합성',
-            symptom: 'Imported bone이 authored pose에서 벗어나고 scale curve가 없는 bone에 인공적인 scale animation이 생겼습니다.',
-            cause: 'Local transform이 서로 다른 parent basis를 사용했고 missing scale key를 animated value처럼 처리했습니다.',
-            fix: 'Parent와 child transform을 같은 runtime basis로 변환하고 authored scale channel이 없으면 identity scale을 유지했습니다.',
-            result: 'Runtime track이 인공적인 scale motion 없이 authored transform hierarchy를 보존합니다.'
+            title: 'FBX 좌표계 변환과 Scale Channel 처리 오류',
+            symptom: '가져온 Bone이 원본 Pose에서 벗어나고, Scale Curve가 없는 Bone에도 크기 변화가 생겼습니다.',
+            cause: 'Local Transform이 서로 다른 부모 좌표계를 사용했고, 누락된 Scale Key를 애니메이션 값처럼 처리했습니다.',
+            fix: '부모와 자식 Transform을 같은 런타임 좌표계로 변환하고, Scale Channel이 없으면 바인드 자세의 Scale을 유지했습니다.',
+            result: '원본 Transform 계층을 유지하며, 의도하지 않은 크기 변화가 생기지 않습니다.'
         }
     },
     '12': {
         0: {
-            title: 'Particle Asset의 editor cache·runtime data·복제 child graph 간 ownership 공유',
-            symptom: '한 particle asset의 edit·duplicate가 stale compiled pointer를 남기거나 shared child object를 통해 다른 asset에 영향을 줄 수 있었습니다.',
-            cause: 'Asset graph·editor cache·runtime representation의 ownership 경계가 겹쳤고 module을 shallow copy했습니다.',
-            fix: 'Asset이 deep-cloned child graph를 소유하고 runtime component는 별도로 compile된 LOD data를 사용하도록 분리했습니다.',
-            result: 'Duplicated asset이 독립적으로 동작하고 edit 이후 runtime pointer를 안전하게 갱신할 수 있습니다.'
+            title: 'Particle Asset 편집·복제 시 소유권이 겹치는 문제',
+            symptom: 'Asset을 편집하거나 복제하면 오래된 컴파일 데이터의 포인터가 남거나, 공유한 자식 객체를 통해 다른 Asset까지 바뀔 수 있었습니다.',
+            cause: 'Asset 구조와 에디터 캐시, 런타임 데이터의 소유권이 겹쳤고 Module을 얕은 복사했습니다.',
+            fix: 'Asset이 깊은 복사한 자식 구조를 소유하도록 하고, 런타임 Component는 별도로 컴파일된 LOD 데이터를 사용하도록 분리했습니다.',
+            result: '복제한 Asset이 독립적으로 동작하고, 편집 후 런타임 포인터를 갱신할 수 있습니다.'
         }
     },
     '14': {
         0: {
-            title: 'Async Scene Flow에 transition·persistence·retry 상태 분리가 필요했음',
-            symptom: '완료 점수가 사라지고 target scene 준비 전에 cutscene이 끝나거나 retry에서 최초 진입 연출이 다시 실행될 수 있었습니다.',
-            cause: 'Scene transition·persistence·readiness·첫 진입과 retry 동작을 하나의 transient flow에 결합했습니다.',
-            fix: 'Transition 전에 score를 저장하고 Wait → Ready → Commit 상태를 도입했으며 첫 진입과 retry path를 분기했습니다.',
-            result: 'Score가 scene 전환 뒤에도 유지되고 준비 완료 뒤에만 scene을 commit하며 retry는 onboarding 연출을 건너뜁니다.'
+            title: '비동기 Scene 전환에서 점수 저장과 재시작 처리가 섞이는 문제',
+            symptom: '완료 점수가 사라지거나, 다음 Scene이 준비되기 전에 Cutscene이 끝났습니다. 재시작할 때 첫 진입 연출이 반복되는 문제도 있었습니다.',
+            cause: 'Scene 전환과 점수 저장, 로딩 대기, 첫 진입·재시작을 한 흐름에서 처리했습니다.',
+            fix: '전환 전에 점수를 저장하고 Wait → Ready → Commit 상태를 도입했습니다. 첫 진입과 재시작은 별도로 분기했습니다.',
+            result: 'Scene 전환 후에도 점수를 유지하며, 로딩이 완료된 뒤에만 전환합니다. 재시작할 때는 처음의 도입 연출을 건너뜁니다.'
         },
         1: {
-            title: 'Unreal Scene Import의 centimeter scale과 orientation convention 혼용',
-            symptom: 'Blocking Volume matrix scale이 100배로 export됐고 environment·light actor가 잘못된 방향으로 배치됐습니다.',
-            cause: 'Scalar field는 meter인데 world matrix는 centimeter를 유지했고 imported actor type 전반에서 Unreal basis conversion이 불완전했습니다.',
-            fix: 'Export matrix를 meter로 통일하고 environment·light transform에 명시적인 basis·rotation conversion을 적용했습니다.',
-            result: 'Blocking Volume 11개의 matrix가 scalar scale과 일치하고 imported environment actor가 예상 orientation을 사용합니다.'
+            title: 'Unreal Scene을 가져올 때 크기 단위와 방향을 혼용한 문제',
+            symptom: 'Blocking Volume의 행렬 Scale이 100배로 내보내졌고, 환경·조명 Actor가 잘못된 방향으로 배치됐습니다.',
+            cause: 'Scale 값은 미터인데 World Matrix는 센티미터 단위를 유지했습니다. Actor를 가져올 때 Unreal 좌표계 변환도 일부 빠져 있었습니다.',
+            fix: '내보내는 행렬을 미터 단위로 통일하고, 환경·조명 Transform에 좌표계와 회전 변환을 적용했습니다.',
+            result: 'Blocking Volume 11개의 행렬과 Scale 값이 일치하고, 환경 Actor가 의도한 방향으로 배치됩니다.'
         }
     }
 };

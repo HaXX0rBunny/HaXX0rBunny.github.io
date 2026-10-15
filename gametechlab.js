@@ -22,8 +22,8 @@ const labWeeks = [
             'Completed the first playable game-jam milestone.',
             'Created a practical baseline for the following 3D engine work.'
         ],
-        evidenceStatus: 'Implementation and source history',
-        evidenceNote: 'The project history covers the UGameObject/UBlock structure, stage and collision loop, gamepad lifecycle, particles, and score feedback implemented for the game jam.',
+        evidenceStatus: 'Implemented systems',
+        evidenceNote: 'Implemented the UGameObject/UBlock structure, stage and collision loop, gamepad lifecycle, particles, and score feedback for the game jam.',
         troubleshootingEvidence: [
             {
                 placement: 'result',
@@ -160,10 +160,10 @@ if (CurCol < 0 || CurCol >= CurrentStageCol)
         technologies: ['C++', 'DirectX 11', 'ImGui', '3D Math', 'Enhanced Input'],
         results: [
             'Established the engine’s initial 3D rendering path.',
-            'Preserved the sky-sphere implementation in a publicly accessible branch.'
+            'Published the SkySphere implementation in the project repository.'
         ],
-        evidenceStatus: 'Implementation and source history',
-        evidenceNote: 'Implemented the D3D11 renderer foundation, input and editor-camera flow, and SkySphere rendering path recorded in the Week02 project history.',
+        evidenceStatus: 'Implemented systems',
+        evidenceNote: 'Implemented the D3D11 renderer foundation, input and editor-camera flow, and SkySphere rendering.',
         sourceUrl: 'https://github.com/DDing-Ho/Jungle3_Week2_Team1/commits/main/?author=HaXX0rBunny',
         sourceLabel: 'Open authored Week02 commits',
         troubleshooting: [
@@ -260,10 +260,10 @@ else
         flow: 'World / level objects → FName + UUID identity → Outliner visibility / picking → serialized scene and renderer collection',
         technologies: ['C++', 'ImGui', 'FName', 'FArchive', 'Outliner', 'Picking'],
         results: [
-            'Created reusable renderer utilities instead of one-off visual tests.',
+            'Created renderer utilities for use across scenes.',
             'Improved the ability to inspect later scene and rendering systems.'
         ],
-        evidenceStatus: 'Implementation and source history',
+        evidenceStatus: 'Implemented systems',
         evidenceNote: 'Implemented the atlas, billboard, batch-line, bounds, name/type, gizmo-guide, and meta-object work added during Week03.',
         sourceUrl: 'https://github.com/HaXX0rBunny/Week3_Team5_DinoEngine/commits/main/?author=HaXX0rBunny',
         sourceLabel: 'Open authored Week03 commits',
@@ -402,12 +402,11 @@ const float NdcY =
         results: [
             'Converted external geometry from a one-off text input into an engine-managed static-mesh asset workflow.',
             'Added a deterministic binary reload path that reuses valid cooked data and recooks when source content or the format version changes.',
-            'Preserved the original Week04 commit graph and all 16 upstream branches without rewriting commit hashes.'
         ],
-        evidenceStatus: 'OBJ importer implementation history',
-        evidenceNote: 'Implemented the OBJ/MTL importer, UStaticMesh integration, versioned .dasset cooking, and serialization in the recovered Week04 history.',
+        evidenceStatus: 'OBJ importer and binary assets',
+        evidenceNote: 'Implemented the OBJ/MTL importer, UStaticMesh integration, versioned .dasset cooking, and serialization.',
         sourceUrl: 'https://github.com/HaXX0rBunny/Week3_Team5_DinoEngine/tree/week04/main',
-        sourceLabel: 'Open preserved Week04 source and history',
+        sourceLabel: 'Open Week04 source',
         troubleshooting: [
             {
                 title: 'Korean and other non-ASCII asset paths failed to open reliably',
@@ -573,10 +572,10 @@ LoadedMeshes.clear();`
         flow: 'Dense mesh scene → optimized transforms / culling → octahedral atlas bake → view-direction proxy render',
         technologies: ['C++', 'HLSL', 'DirectX 11', 'Impostor', 'BVH', 'DOD'],
         results: [
-            'Applied a renderer-level optimization to the dense-object challenge.',
-            'Built deterministic 50,000- and 64,000-object workloads for repeatable comparison.'
+            'Integrated impostor rendering for repeated objects into the team engine.',
+            'Built repeatable 50,000- and 64,000-object scenes for testing.'
         ],
-        evidenceStatus: 'Implementation and source history',
+        evidenceStatus: 'Implemented systems',
         evidenceNote: 'Implemented the sub-mesh BVH, StructuredBuffer instancing, hierarchical transforms, atlas baker, and runtime impostor path, then integrated them into the shared game-jam engine.',
         sourceUrl: 'https://github.com/HaXX0rBunny/Week5_Team4_Gamejam',
         sourceLabel: 'Open integrated game-jam repository',
@@ -603,15 +602,15 @@ LoadedMeshes.clear();`
                     }
                 ],
                 facts: [
-                    { label: 'Sparse cells (<5%)', value: '149 / 256 → 0 / 256', detail: 'Failure blob → displayed descendant blob' }
+                    { label: 'Sparse cells (<5%)', value: '149 / 256 → 0 / 256', detail: 'Initial atlas → corrected atlas' }
                 ],
                 method: 'Compared the 2048 × 2048 atlas outputs as 256 directional cells. A cell was classified as sparse when its non-black coverage fell below 5%.'
             },
             {
                 placement: 'result',
-                kicker: 'Local runtime observation',
-                title: 'Full Mesh and Impostor rendering were compared with the same 50,000-object scene.',
-                summary: 'The HUD captures record Full Mesh and Impostor rendering on the same PC, and the Impostor CSV adds a 4,481-frame mean-frame-time sample.',
+                kicker: '50,000-object rendering comparison',
+                title: 'Full Mesh and Impostor performance',
+                summary: 'Compared HUD values in the same 50,000-object scene on one PC. The Impostor mean frame time was measured separately in a frame log.',
                 tags: ['Runtime HUD', '50,000 objects', 'Frame log'],
                 figures: [
                     {
@@ -836,29 +835,29 @@ GlobalOffset += InstanceCount;`
         results: [
             'Expanded the renderer beyond opaque object drawing.',
             'Kept fog and decal color contributions from overwriting the viewport alpha consumed by ImGui.',
-            'Preserved the fog-focused branch as a public implementation reference.'
+            'Published the fog implementation in the project branch.'
         ],
-        evidenceStatus: 'Implementation and source history',
+        evidenceStatus: 'Implemented systems',
         evidenceNote: 'Implemented depth reconstruction, alpha-safe fog blending, spotlight decals, and the render-channel fixes used to remove fog and decal artifacts.',
         sourceUrl: 'https://github.com/HaXX0rBunny/Jungle_Week6_Team7/tree/feature/v_fog',
         sourceLabel: 'Open fog feature branch',
         troubleshootingEvidence: [
             {
                 caseId: 'alpha-preservation',
-                kicker: 'Earliest fog failure · pre-commit captures',
+                kicker: 'Initial fog rendering issue',
                 title: 'The first fog pass saturated geometry to the fog color while most of the editor viewport remained black.',
-                summary: 'These captures were recorded 12.65 seconds apart, 32 minutes before 894b180 first committed the WIP full-screen fog path. The cube color is #8098B1—nearly identical to the configured default fog color of approximately #8099B3—while #0F0F0F dominates the surrounding viewport. Commit 3f5241e identifies the direct composition fault: ordinary alpha blending replaced render-target alpha with fogOpacity, so ImGui exposed its black background. Commit ed1d815 adds the finite far/sky guards used by the corrected path.',
-                tags: ['Actual defect captures', 'Initial fog pass', 'Viewport alpha', 'Far-depth guard'],
+                summary: 'Fog color reached the geometry, but the editor viewport remained black. Alpha blending replaced the render-target alpha with fog opacity, causing ImGui to expose its background. I changed the blend state to preserve scene alpha and added finite-value guards to the far-depth and sky paths.',
+                tags: ['Fog rendering issue', 'Initial fog pass', 'Viewport alpha', 'Far-depth guard'],
                 figures: [
                     {
-                        stage: 'Distant black-viewport state · 2026-04-12 00:53:07 KST',
+                        stage: 'Distant black-viewport state',
                         src: 'Assets/images/gametechlab/evidence/week06-initial-fog-black-distance-20260412.png',
                         alt: 'Week06 initial fog implementation showing a black distant viewport and sky while the editor grid remains visible',
                         caption: 'The full-screen scene region is black toward the horizon and sky; the grid still draws afterward as an editor overlay.',
                         fit: 'wide'
                     },
                     {
-                        stage: 'Geometry contribution · 2026-04-12 00:53:20 KST',
+                        stage: 'Geometry contribution',
                         src: 'Assets/images/gametechlab/evidence/week06-initial-fog-tinted-cube-20260412.png',
                         alt: 'Week06 initial fog implementation showing a cube tinted blue-gray while the surrounding viewport remains black',
                         caption: 'The cube demonstrates that fog color reaches geometry, while the surrounding scene still exposes the black failure state.',
@@ -884,24 +883,24 @@ Desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
 Desc.RenderTarget[0].SrcBlendAlpha  = D3D11_BLEND_ZERO;
 Desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ONE;`
                 },
-                method: 'The captures document the black failure state and FogColor reaching geometry; the 3f5241e and ed1d815 diffs identify the alpha-composition and finite-value corrections.'
+                method: 'The fog pass blends RGB while preserving destination alpha. The far-depth and sky calculations also guard against non-finite values.'
             },
             {
                 collapsed: true,
                 kicker: 'Fog actor visibility',
                 title: 'One fog-active view retains the meshes; the later cropped view contains only the FogActor billboard.',
-                summary: 'Both captures contain the same dominant fog color. The first retains the cube and sphere; the later cropped viewport contains only the editor FogActor billboard, recording the mesh-visible and mesh-absent states during the intermediate exponential-fog iteration.',
-                tags: ['Actual editor captures', 'Height fog', 'Visibility response', 'Week06'],
+                summary: 'During exponential-fog development, scene meshes became obscured while the editor FogActor billboard remained visible. The two views show the visibility difference under fog.',
+                tags: ['Editor captures', 'Height fog', 'Visibility response', 'Week06'],
                 figures: [
                     {
-                        stage: 'Fog applied · mesh visible · 2026-04-15 20:35 KST',
+                        stage: 'Fog applied · mesh visible',
                         src: 'Assets/images/gametechlab/evidence/week06-fog-mesh-visible-20260415.png',
                         alt: 'Week06 editor viewport with blue height fog applied while a large cube and a sphere remain visible',
                         caption: 'Fog changes the scene color and attenuates contrast, but the cube and sphere still contribute to the rendered viewport.',
                         fit: 'contain'
                     },
                     {
-                        stage: 'Fog active · mesh not visible · 2026-04-15 20:43 KST',
+                        stage: 'Fog active · mesh not visible',
                         src: 'Assets/images/gametechlab/evidence/week06-fog-active-fogactor-only-20260415.png',
                         alt: 'Week06 editor viewport filled by blue height fog with scene meshes no longer visible and only the fog actor icon remaining',
                         caption: 'The cropped viewport contains no scene mesh; the FogActor billboard remains as an editor overlay.',
@@ -909,7 +908,7 @@ Desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ONE;`
                     }
                 ],
                 trace: {
-                    label: 'Nearest known prior visibility-to-opacity implementation',
+                    label: 'HeightFog visibility-to-opacity calculation',
                     file: 'KraftonEngine/Shaders/HeightFog.hlsl · GetExponentialHeightFog()',
                     snippet: `fogIntegral = min(fogIntegral, 20.0);
 float visibility = exp(-fogIntegral);
@@ -918,39 +917,39 @@ visibility = max(visibility, 1.0 - FogMaxOpacity);
 float fogOpacity = saturate(1.0 - visibility);
 return float4(FogInscatteringColor.rgb, fogOpacity);`
                 },
-                method: 'Compared the two visibility states with the adjacent HeightFog shader history and its visibility-to-opacity path.'
+                method: 'HeightFog converts distance-based visibility into opacity and limits it with FogMaxOpacity.'
             },
             {
                 caseId: 'fog-horizon',
                 kicker: 'Horizon blending correction',
                 title: 'Sky and scene geometry followed different fog evaluations, leaving a hard horizon boundary.',
-                summary: 'These three editor captures document the height-fog profile being tuned immediately before the final fog commit. The first two retain a dark upper sky above a sharply bounded blue fog layer; the third extends the fog response into the sky. Commit 5ccad72 records the final direction-integrated sky-path correction.',
-                tags: ['Actual editor captures', 'Horizon seam', 'Sky ray', '5ccad72'],
+                summary: 'A dark sky above the blue fog layer created a visible horizon seam. I replaced the constant sky-color return with a reconstructed sky ray evaluated by the same fog function as scene geometry. The images show the sky response during tuning.',
+                tags: ['Editor captures', 'Horizon seam', 'Sky ray', '5ccad72'],
                 figures: [
                     {
-                        stage: 'Diagnostic 01 · 2026-04-16 00:53:39 KST',
+                        stage: 'Diagnostic 01',
                         src: 'Assets/images/gametechlab/evidence/week06-horizon-seam-before-005338.png',
                         alt: 'Week06 height fog diagnostic with a dark sky sharply separated from the blue fog layer at the horizon',
                         caption: 'A clear horizontal boundary separates the dark upper sky from the blue fogged scene and grid.',
                         fit: 'contain'
                     },
                     {
-                        stage: 'Diagnostic 02 · 2026-04-16 00:53:54 KST',
+                        stage: 'Diagnostic 02',
                         src: 'Assets/images/gametechlab/evidence/week06-horizon-seam-before-005354.png',
                         alt: 'Second Week06 height fog viewpoint showing the same hard transition between dark sky and blue fog layer',
                         caption: 'The same discontinuity remains from a slightly different crop and camera position.',
                         fit: 'contain'
                     },
                     {
-                        stage: 'After candidate · working tree · 2026-04-16 00:54:19 KST',
+                        stage: 'Sky response during tuning',
                         src: 'Assets/images/gametechlab/evidence/week06-horizon-seam-before-005419.png',
-                        alt: 'Week06 working-tree fog iteration with the blue fog response extending into the sky above the grid horizon',
+                        alt: 'Week06 fog tuning with blue fog extending into the sky above the grid horizon',
                         caption: 'The alternate response extends fog into the sky and removes the dark upper region.',
                         fit: 'contain'
                     }
                 ],
                 facts: [
-                    { label: 'Final authored commit', value: '5ccad72', detail: 'Sky-path correction' },
+                    { label: 'Fix commit', value: '5ccad72', detail: 'Sky-path correction' },
                     { label: 'Old sky path', value: 'Constant return', detail: 'Depth = 1 bypassed world-space fog integration' },
                     { label: 'Corrected sky path', value: 'Direction-integrated', detail: 'InvViewProj ray evaluated by the selected fog function' }
                 ],
@@ -969,24 +968,24 @@ float4 fogResult = bUseLinearFog
     ? GetLinearHeightFog(skyWorldPos)
     : GetExponentialHeightFog(skyWorldPos);`
                 },
-                method: 'The captures record the horizon-seam diagnosis; the parent/result blobs of 5ccad72 record the constant-return to direction-integrated shader change.'
+                method: 'The shader reconstructs a sky ray with InvViewProj and evaluates it through the selected linear or exponential fog function.'
             },
             {
                 caseId: 'alpha-preservation',
-                kicker: 'User-described RGBA isolation · actual diagnostic captures',
+                kicker: 'Decal alpha debugging',
                 title: 'Channel-by-channel inspection isolated render-target alpha as the source of the black decal exterior.',
                 summary: 'The first capture records the black exterior around the projected response; the second records the wide red additive contribution used during channel isolation. R, G, B, and A were inspected in sequence to isolate destination-alpha contamination, then the blend-state path was corrected.',
-                tags: ['Actual editor captures', 'Alpha contamination', 'Blend state', 'SpotLightDecal'],
+                tags: ['Editor captures', 'Alpha contamination', 'Blend state', 'SpotLightDecal'],
                 figures: [
                     {
-                        stage: 'Black exterior symptom · 2026-04-16 02:40:47 KST',
+                        stage: 'Black exterior symptom',
                         src: 'Assets/images/gametechlab/evidence/week06-decal-channel-debug-024047.png',
                         alt: 'Week06 spotlight decal diagnostic showing a white projected response surrounded by a dark ring on the test surface',
                         caption: 'The dark exterior around the projected response motivated isolating the render target’s color and alpha channels.',
                         fit: 'contain'
                     },
                     {
-                        stage: 'Additive footprint diagnostic · 2026-04-16 02:53:01 KST',
+                        stage: 'Additive footprint diagnostic',
                         src: 'Assets/images/gametechlab/evidence/week06-decal-channel-debug-025301.png',
                         alt: 'Week06 spotlight decal diagnostic showing a broad red additive contribution across the floor and a saturated white cube',
                         caption: 'The dominant red footprint exposes the projected RGB contribution across reconstructed planar and cube surfaces.',
@@ -1020,7 +1019,7 @@ S[(uint32)E::SpotLightDecal] = {
     ERasterizerState::SolidBackCull,
     D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST, false };`
                 },
-                method: 'Channel-isolation captures and authored blend-state history separate RGB contribution from destination-alpha preservation. Personal scope is the reusable keep-alpha state and SpotLightDecal additive path; teammate commit 2a066ce connects Projection Decal.'
+                method: 'I implemented the alpha-preserving blend state and SpotLightDecal additive path. A teammate connected the blend state to Projection Decal rendering.'
             }
         ],
         troubleshooting: [
@@ -1232,7 +1231,7 @@ fogIntegral = min(max(fogIntegral, 0.0), 20.0);`
             'Established the lighting layer required for the following shadow assignment.',
             'Integrated lighting behavior into the engine rather than a standalone sample.'
         ],
-        evidenceStatus: 'Implementation and source history',
+        evidenceStatus: 'Implemented systems',
         evidenceNote: 'Implemented the Light Component/Proxy boundary, forward-buffer binding, shader hot reload, daylight controls, and light-resource cleanup.',
         troubleshooting: [
             {
@@ -1332,9 +1331,9 @@ ShaderParameterLayout.clear();`
         technologies: ['C++', 'HLSL', 'Shadow Map', 'PCF', 'VSM', 'Cube Map'],
         results: [
             'Added visible spatial grounding to the Week07 lighting pipeline.',
-            'Preserved the integrated project in a public repository.'
+            'Published the integrated project in the repository.'
         ],
-        evidenceStatus: 'Implementation and source history',
+        evidenceStatus: 'Implemented systems',
         evidenceNote: 'Implemented directional, spot, and point-light shadow passes with cube maps, PCF/VSM filtering, culling, and cache control.',
         sourceUrl: 'https://github.com/chodott/KraftonJungle_Week8_Team5/commits/main/?author=HaXX0rBunny',
         sourceLabel: 'Open authored Week08 commits',
@@ -1468,7 +1467,7 @@ float3 bitangent = cross(L_norm, tangent);`
             'Launched the packaged executable directly from Windows and entered the story scene from START.',
             'Ran the cooked gameplay level with score, distance, logs, trace, dump, and stability feedback on screen.'
         ],
-        evidenceStatus: 'Implementation and source history',
+        evidenceStatus: 'Implemented systems',
         evidenceNote: 'Implemented the Shipping/Cook/Stage tooling, runtime camera and post-process connections, and the START-to-StoryScene launch path.',
         sourceUrl: 'https://github.com/Rocketstein/Jungle_Week9_Team6/commits/main/?author=HaXX0rBunny',
         sourceLabel: 'Open authored Week09 commits',
@@ -1478,7 +1477,7 @@ float3 bitangent = cross(L_norm, tangent);`
                 kicker: 'Packaged Shipping runtime flow',
                 title: 'The packaged executable runs from the main menu through story and gameplay.',
                 summary: 'The staged build starts outside Visual Studio, moves from START into the story scene, and loads the cooked runner level with its gameplay HUD. The crash path also writes a dump file while keeping the current run visible.',
-                tags: ['Actual runtime captures', 'Shipping x64', 'Runtime log'],
+                tags: ['Runtime captures', 'Shipping x64', 'Runtime log'],
                 figures: [
                     {
                         stage: 'Checkpoint 01 · Direct launch',
@@ -1524,7 +1523,7 @@ float3 bitangent = cross(L_norm, tangent);`
 [DEBUG] ScriptComponent: BeginPlay for actor: AUIRootActor_Story, script: Scripts/UI/StoryScene.lua
 [DEBUG] ScriptComponent: Lua BeginPlay successful for Scripts/UI/StoryScene.lua`
                 },
-                method: 'The runtime sequence is taken from the packaged Engine Dive capture and the matching Shipping log from the staged build.'
+                method: 'The packaged Engine Dive build runs from the menu through START to StoryScene. The Shipping log records scene loading and initialization.'
             }
         ],
         troubleshooting: [
@@ -1666,8 +1665,8 @@ DC->OMSetRenderTargets(1, &Cache.RTV, Cache.DSV);`
             'Established the component and renderer path required for imported skeletal assets.',
             'Resolved the 90-degree bind-pose offset seen with mismatched Blender/FBX bind data.'
         ],
-        evidenceStatus: 'Implementation and source history',
-        evidenceNote: 'The Week10 implementation covers skeletal import and rendering work added after the inherited Week09 engine baseline.',
+        evidenceStatus: 'Implemented systems',
+        evidenceNote: 'Added skeletal import and rendering to the Week09 engine, including bind-pose correction, bone picking, and morph targets.',
         sourceUrl: 'https://github.com/HaXX0rBunny/Jungle_Week10_Team5/commits/main/?author=HaXX0rBunny',
         sourceLabel: 'Open authored Week10 commits',
         troubleshooting: [
@@ -1801,7 +1800,7 @@ if (Loaded)
             'Separated reusable animation assets from skeletal-mesh import and added explicit compatibility checks.',
             'Connected the same asset from import and cache through editor inspection, packaging, Lua, and component playback.'
         ],
-        evidenceStatus: 'Implementation and source history',
+        evidenceStatus: 'Implemented systems',
         evidenceNote: 'Implemented reference-skeleton processing, animation import and cache validation, plus editor, package, and Lua integration.',
         sourceUrl: 'https://github.com/nacho2407/jungle-gtl-week11/commits/main/?author=HaXX0rBunny',
         sourceLabel: 'Open authored Week11 commits',
@@ -1933,7 +1932,7 @@ if (!bHasAuthoredScaleCurve)
             'Established the particle system from its base runtime through authoring, placement, validation, and rendering.',
             'Separated editor-facing data from compiled runtime bindings and removed legacy TypeData ownership.'
         ],
-        evidenceStatus: 'Implementation and source history',
+        evidenceStatus: 'Implemented systems',
         evidenceNote: 'Implemented the particle runtime and editor architecture, compiled LOD binding, deep-copy and cache ownership, and event dispatch.',
         sourceUrl: 'https://github.com/mathison0/Jungle_Week12_Team3/commits/main/?author=HaXX0rBunny',
         sourceLabel: 'Open authored Week12 commits',
@@ -2063,10 +2062,10 @@ for (UParticleModule* EventModule : DeferredEventModules)
         flow: 'Skeletal mesh → generated physics bodies → viewport selection / gizmo edit → saved physics asset',
         technologies: ['C++', 'Physics Asset', 'Editor Tools', 'Picking', 'Gizmo'],
         results: [
-            'Delivered an end-to-end physics-asset authoring workflow instead of a read-only collision preview.',
+            'Implemented physics-asset creation and editing in the same tool.',
             'Connected generation, inspection, transform editing, collision behavior, and physical materials in one tool.'
         ],
-        evidenceStatus: 'Implementation and source history',
+        evidenceStatus: 'Implemented systems',
         evidenceNote: 'Implemented physics-body generation, viewport picking and gizmos, and the node, collision, and material-profile editing flow.',
         sourceUrl: 'https://github.com/puter2712git/Jungle_Week13_Team3/commits/main/?author=HaXX0rBunny',
         sourceLabel: 'Open authored Week13 commits',
@@ -2075,22 +2074,22 @@ for (UParticleModule* EventModule : DeferredEventModules)
                 caseId: 'physics-body-generation',
                 kicker: 'Physics preview runtime data',
                 title: 'The physics preview logged the generated body dimensions and bone-space scale used for drawing.',
-                summary: 'The preserved Engine.log records the Radius, Length, and bone-space Scale used to draw six generated Sphyl bodies in the physics preview.',
-                tags: ['Actual runtime log', 'Physics bodies', 'Case 01'],
+                summary: 'The physics preview draws six generated Sphyl bodies using their radius, length, and bone-space scale. These values are also logged for size debugging.',
+                tags: ['Runtime log', 'Physics bodies', 'Case 01'],
                 facts: [
                     { label: 'Logged bodies', value: '6', detail: 'Pelvis and left/right leg chain' },
                     { label: 'Shape', value: 'Sphyl', detail: 'Stored radius and length' },
-                    { label: 'Bone scale', value: '1.0000', detail: 'Uniform in the preserved sample' }
+                    { label: 'Bone scale', value: '1.0000', detail: 'Uniform scale in this run' }
                 ],
                 trace: {
-                    label: 'Post-implementation draw trace',
+                    label: 'Physics preview draw log',
                     file: 'KraftonEngine/Saves/Logs/Engine.log',
                     snippet: `[PhysDraw] Bone=Bip001 Pelvis | stored sphyl(R,L)=(0.12,0.02,0.00) | BoneMatScale=(1.0000,1.0000,1.0000) avg=1.0000 | world~=stored*avg=0.12
 [PhysDraw] Bone=Bip001 L Thigh | stored sphyl(R,L)=(0.08,0.21,0.00) | BoneMatScale=(1.0000,1.0000,1.0000) avg=1.0000 | world~=stored*avg=0.08
 [PhysDraw] Bone=Bip001 L Calf | stored sphyl(R,L)=(0.06,0.25,0.00) | BoneMatScale=(1.0000,1.0000,1.0000) avg=1.0000 | world~=stored*avg=0.06
 [PhysDraw] Bone=Bip001 R Thigh | stored sphyl(R,L)=(0.08,0.21,0.00) | BoneMatScale=(1.0000,1.0000,1.0000) avg=1.0000 | world~=stored*avg=0.08`
                 },
-                method: 'Recovered the physics-draw rows from the project runtime log and matched their fields to the generated Sphyl dimensions and bone-matrix scale used by the preview draw path.'
+                method: 'The preview computes body size from the stored Sphyl dimensions and bone-matrix scale.'
             }
         ],
         troubleshooting: [
@@ -2165,7 +2164,7 @@ case EPhysicsAssetShapeType::Sphyl:
             'Connected editor-authored content and engine systems into the final playable game sequence.',
             'Delivered user-facing flow and feedback across combat, scoring, scene changes, retry, and cutscenes.'
         ],
-        evidenceStatus: 'Implementation and source history',
+        evidenceStatus: 'Implemented systems',
         evidenceNote: 'Implemented scene and decal import, countdown and scoreboard systems, the asynchronous load barrier, and retry, cutscene, and audio flow.',
         sourceUrl: 'https://github.com/yoonjiii218/Jungle_Week14_Team3/commits/main/?author=HaXX0rBunny',
         sourceLabel: 'Open authored Week14 commits',
@@ -2215,21 +2214,21 @@ case EPhysicsAssetShapeType::Sphyl:
                 tags: ['RmlUi + Lua', 'Film countdown', 'Runtime UI'],
                 figures: [
                     {
-                        stage: 'Initial countdown implementation · 2026-06-08 23:55 KST',
+                        stage: 'Initial countdown implementation',
                         src: 'Assets/images/gametechlab/evidence/week14-film-countdown-initial-3-20260608.png',
                         alt: 'Week14 initial in-engine film countdown prototype with sepia film strips, sprocket holes, rings, crosshair, single sweep line, Picture Start label, and number three',
                         caption: 'The first 3→2→1 implementation uses a rotating sweep line and the initial film-frame treatment.',
                         fit: 'wide'
                     },
                     {
-                        stage: 'Layout-isolation diagnostic · 2026-06-10 17:27 KST',
+                        stage: 'Layout-isolation diagnostic',
                         src: 'Assets/images/gametechlab/evidence/week14-film-countdown-layout-20260610.png',
                         alt: 'Week14 film countdown UI layout diagnostic showing only the responsive outer circle, inner circle, and crosshair guides',
                         caption: 'A later diagnostic isolates the responsive center, outer and inner circles, and crosshair from the presentation layers.',
                         fit: 'wide'
                     },
                     {
-                        stage: 'Final runtime state · 2026-06-10 17:38 KST',
+                        stage: 'Final runtime state',
                         src: 'Assets/images/gametechlab/evidence/week14-film-countdown-styled-20260610.png',
                         alt: 'Week14 completed film countdown UI showing a sepia film gate, sprocket holes, grain, sweep arm, Picture Start label, and number five',
                         caption: 'The refined output restores the full presentation at digit five and shows the filled sector, moving sprockets, grain, vignette, and layered number treatment together.',
@@ -2261,7 +2260,7 @@ end`
                 placement: 'result',
                 kicker: 'Completed Week14 scene placement',
                 title: 'The Tokyo level scene placement was completed.',
-                summary: 'This wide viewport is the final placement state confirmed by the author. Building volumes, transit geometry, and street-scale structures are assembled into the completed scene; the other editor captures are documented separately as process records.',
+                summary: 'Buildings, transit geometry, and streets are assembled into the Tokyo level. The troubleshooting section covers the placement and orientation fixes made during import.',
                 figures: [
                     {
                         stage: 'Completed scene placement',
@@ -2323,14 +2322,14 @@ end`
                 tags: ['Alpha mask', 'Pre-depth', 'Decal coverage'],
                 figures: [
                     {
-                        stage: 'Foliage defect · 2026-06-08 21:28 KST',
+                        stage: 'Foliage defect',
                         src: 'Assets/images/gametechlab/evidence/week14-foliage-background-before-20260608.png',
                         alt: 'Imported Tokyo tree before the masked foliage fix, with pale card backgrounds visible around green leaves',
                         caption: 'Transparent portions of the intersecting leaf cards remain visible instead of resolving to clean foliage cutouts.',
                         fit: 'contain'
                     },
                     {
-                        stage: 'Decal defect · 2026-06-09 02:20 KST',
+                        stage: 'Decal defect',
                         src: 'Assets/images/gametechlab/evidence/week14-decal-background-before-20260609.png',
                         alt: 'Selected Tokyo ground decal before the grayscale coverage fix, with a rectangular background visible around the pink marking',
                         caption: 'The pink rectangular background is the rendering defect; the white outline is the editor selection indicator.',
@@ -2377,8 +2376,8 @@ matrix = world_matrix_rows(transform, override_scale=scale)`
                 caseId: 'game-flow-state',
                 kicker: 'Async scene transition',
                 title: 'The transition waited after the cutscene, then committed only when Tokyo_Current became ready.',
-                summary: 'The preserved GameBuild log records the runtime sequence introduced by the wait-to-commit change: Cutscene complete → Wait → Scene ready → Commit.',
-                tags: ['Actual packaged run', 'Async loading', 'Case 01'],
+                summary: 'After the cutscene, the game waits for scene loading to finish before committing the transition. This keeps gameplay from starting before Tokyo_Current is ready.',
+                tags: ['Packaged build', 'Async loading', 'Case 01'],
                 facts: [
                     { label: 'Transition sequence', value: 'Wait → Ready → Commit', detail: 'Tokyo_Current packaged run' }
                 ],
@@ -2391,19 +2390,19 @@ matrix = world_matrix_rows(transform, override_scale=scale)`
 [GameFlow-Debug] Scene loading ready during wait. Committing transition now.
 [GameEngine] Async TransitionToScene committed: .../Tokyo_Current.Scene`
                 },
-                method: 'Read the packaged-run log chronologically and matched the Wait → Ready → Commit messages to the state transition introduced by a590136.'
+                method: 'The transition follows Wait → Ready → Commit, with each state change recorded in the packaged-build log.'
             },
             {
                 caseId: 'game-flow-state',
                 kicker: 'Clear-time persistence',
                 title: 'The completed run time was written consistently to both clear-score storage and the scoreboard.',
-                summary: 'Two actual local save files share the same final-write timestamp and contain the same 85.688-second result. This directly validates the persistence output used by Case 01 after a completed run.',
-                tags: ['Actual save files', 'Score persistence', 'Case 01'],
+                summary: 'The completed run took 85.688 seconds. Both the clear-score file and scoreboard store that result for use after the scene transition.',
+                tags: ['Clear-time storage', 'Score persistence', 'Case 01'],
                 facts: [
                     { label: 'Persisted value', value: '85.688 sec', detail: 'LastClearScore.txt = GameFlowScoreboard.tsv' }
                 ],
                 trace: {
-                    label: 'Matching persisted value',
+                    label: 'Saved clear-time result',
                     file: 'KraftonEngine/Saves/LastClearScore.txt + GameFlowScoreboard.tsv',
                     snippet: `LastClearScore.txt
 85.688
@@ -2413,7 +2412,7 @@ GameFlowScoreboard.tsv
 85.688
 ...`
                 },
-                method: 'Compared both save outputs and confirmed the same completed-run value: LastClearScore.txt = GameFlowScoreboard.tsv = 85.688 sec.'
+                method: 'LastClearScore.txt and GameFlowScoreboard.tsv each store 85.688 seconds for this run.'
             }
         ],
         troubleshooting: [
@@ -2540,7 +2539,7 @@ Result.Opacity = n_51 * n_37;`
                 symptom: 'The first countdown implementation approximated the illuminated circular sweep with 24 individually rotated rectangular elements, leaving the visual tied to a coarse collection of CSS-style primitives.',
                 cause: 'The available RmlUi path supported positioned boxes, images, and transforms, but did not provide a reliable filled circular-sector primitive for the film-leader wedge.',
                 fix: 'Generated 33 transparent sector frames, placed them as overlapping RmlUi images, converted normalized sweep progress to a frame index, and exposed only the selected frame while Lua continued to drive the digit, sprockets, grain, flash, and timing.',
-                result: 'The countdown gained a deterministic filled-sector animation that could be sized with the responsive central layout and reproduced by the runtime widget.',
+                result: 'The countdown selects a filled-sector frame from the sweep progress and scales it with the centered layout.',
                 code: {
                     file: 'KraftonEngine/Content/Script/GameFlow/GameFlowDirector.lua',
                     context: 'updateSweepSector()',
@@ -2576,7 +2575,7 @@ end`
     }
 ];
 
-// Keep the complete audit data above, but present only the cases that explain a
+// Retain the detailed cases above; show the cases that explain a
 // meaningful engineering decision. Closely related symptoms are merged into one
 // root-cause narrative so the troubleshooting tab reads as a technical record,
 // not as an unfiltered commit log.
@@ -2618,7 +2617,7 @@ const labTroubleshootingCuration = {
                 title: 'OBJ ingestion needed a versioned binary cache and indexed geometry build',
                 symptom: 'Cold loads repeatedly parsed text OBJ data while face-corner expansion duplicated vertices and material searches.',
                 cause: 'There was no validated binary format, and the importer rebuilt every corner while resolving materials linearly.',
-                fix: 'Add a versioned .dasset header and binary reader/writer, then deduplicate indexed vertices and map material names directly.',
+                fix: 'Add a versioned .dasset header and binary reader/writer, reuse indices for matching vertices, and reduce material searches to a single traversal.',
                 result: 'Baked assets can bypass text parsing and imported meshes avoid redundant vertex and material work.'
             }
         },
@@ -2630,7 +2629,7 @@ const labTroubleshootingCuration = {
                 symptom: 'Scene reloads could lose mesh and UV-scroll state, and shutdown left SRVs and cached assets owned past their intended lifetime.',
                 cause: 'Serialized components did not restore every asset dependency, while cache teardown erased entries without explicitly releasing GPU-facing references.',
                 fix: 'Restore mesh dependencies and UV state during load, then clear SRVs and asset caches through explicit teardown paths.',
-                result: 'Static-mesh scenes reload deterministically and release graphics resources on shutdown.'
+                result: 'Static-mesh scenes restore their saved state and release graphics resources on shutdown.'
             }
         }
     ],
@@ -2684,7 +2683,7 @@ const labTroubleshootingCuration = {
                 symptom: 'Changes in included shader files could be missed, and cache teardown discarded entries while owned resources were still live.',
                 cause: 'Dependency tracking and cache invalidation were incomplete, and resource release was not coupled to entry removal.',
                 fix: 'Track include dependencies, rebuild affected variants, and release owned GPU resources before cache entries are erased.',
-                result: 'Hot reload responds to dependency changes and shutdown releases shader resources deterministically.'
+                result: 'Hot reload responds to dependency changes, and shutdown releases the cached shader resources.'
             }
         },
         1
@@ -2698,8 +2697,8 @@ const labTroubleshootingCuration = {
             content: {
                 title: 'Point-shadow PCF was bypassed and discontinuous across cube-face boundaries',
                 symptom: 'Point lights skipped the requested filter path, and filtered shadows showed seams where samples crossed cube faces.',
-                cause: "The lighting path bypassed PCF and reused the center sample's cube-face basis for every tap.",
-                fix: 'Route point shadows through PCF and recompute cube face and UV coordinates for each offset direction.',
+                cause: "The lighting path bypassed PCF, and the filter basis changed abruptly at cube-face boundaries.",
+                fix: 'Route point shadows through PCF, derive a tangent and bitangent from the light-to-surface direction, and place eight Poisson samples in that plane.',
                 result: 'Point shadows receive consistent filtering across cube-map face boundaries.'
             }
         }
@@ -2742,7 +2741,7 @@ const labTroubleshootingCuration = {
                 title: 'FBX track import mixed parent-basis conversion and synthesized missing scale channels',
                 symptom: 'Imported bones could drift from the authored pose and bones without scale curves acquired artificial scale animation.',
                 cause: 'Local transforms used inconsistent parent bases, while missing scale keys were treated as animated values.',
-                fix: 'Convert parent and child transforms in the same runtime basis and preserve identity scale when no authored scale channel exists.',
+                fix: 'Convert parent and child transforms in the same runtime basis and preserve bind scale when no authored scale channel exists.',
                 result: 'Runtime tracks retain the authored transform hierarchy without synthetic scale motion.'
             }
         }
@@ -3093,7 +3092,7 @@ function evidencePanelMarkup(panel, { attached = false, result = false } = {}) {
 function troubleshootingEvidenceMarkup(panels, { attached = false, result = false } = {}) {
     if (!panels?.length) return '';
 
-    return `<div class="lab-runtime-evidence-list${attached ? ' is-attached' : ''}${result ? ' is-result' : ''}" aria-label="${escapeMarkup(getLabText('preservedEvidenceAria', 'Preserved runtime and visual evidence'))}">
+    return `<div class="lab-runtime-evidence-list${attached ? ' is-attached' : ''}${result ? ' is-result' : ''}" aria-label="${escapeMarkup(getLabText('preservedEvidenceAria', 'Implementation results and runtime captures'))}">
                 ${panels.map(panel => evidencePanelMarkup(panel, { attached, result })).join('')}
             </div>`;
 }
@@ -3267,7 +3266,7 @@ function renderDetailPanel() {
                     <span class="lab-detail-label">${getLabText('commitDerivedLabel', 'Curated engineering cases')}</span>
                     <strong>${troubleshootingCountLabel}</strong>
                 </div>
-                <p>${getLabText('troubleshootingIntro', 'Key cases verified through authored commits and code changes.')}</p>
+                <p>${getLabText('troubleshootingIntro', 'Problems, their causes, and the code changes used to resolve them.')}</p>
             </div>
             ${pending}
             ${cases}
