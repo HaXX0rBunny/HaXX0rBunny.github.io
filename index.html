@@ -1,24 +1,17 @@
 <!DOCTYPE html>
-<html lang="en" data-color-scheme="dark">
+<html lang="en" data-color-scheme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="HaXX0rBunny portfolio: C++ gameplay, real-time rendering, engine architecture, and Unreal Engine development." data-i18n-attr-content="index.pageDescription">
     <title data-i18n="index.pageTitle">Cho Sanghyeon · C++ Game Programmer</title>
-    <link rel="stylesheet" href="style.css?v=20261015-review2">
+    <link rel="stylesheet" href="style.css?v=20261016-design">
 </head>
 <body>
-    <!-- Loading Spinner -->
-    <div class="loading-spinner" id="loadingSpinner">
-        <div class="spinner"></div>
-    </div>
-
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
-            <div class="nav-logo">
-                <h3>CSH Portfolio</h3>
-            </div>
+            <a class="nav-logo" href="#hero" data-i18n="index.heroName">Cho Sanghyeon</a>
             <ul class="nav-menu" id="navMenu">
                 <li><a href="#hero" class="nav-link" data-i18n="index.navHome">Home</a></li>
                 <li><a href="#projects" class="nav-link" data-i18n="index.navProjects">Projects</a></li>
@@ -41,27 +34,19 @@
     <main class="main-content">
         <!-- Hero Section -->
         <section class="hero-section" id="hero">
-            <div class="hero-video-container">
-                <div id="hero-youtube-player" class="hero-video" data-video-id="264Wfi25UOU"></div>
-                <div class="hero-video-overlay"></div>
-                <div class="fallback-background"></div>
-            </div>
-            <div class="hero-content">
-                <h1 class="hero-name">
-                    <span id="typingText"></span><span id="typingCursor" class="typing-cursor">|</span>
-                </h1>
-                <p class="hero-subtitle" data-i18n="index.ctaText">Game Developer</p>
-                <p class="hero-description" data-i18n="index.heroDescription">
-                    I develop gameplay and engine features in C++ and Unreal Engine. My work includes custom-engine rendering optimization, standalone builds, and an animation deformation plug-in released by a three-person team on Fab.
-                </p>
-                <div class="hero-contact">
-                    <a href="#projects" class="contact-link contact-link--primary" data-i18n="index.viewProjects">View selected projects</a>
-                    <a href="https://www.linkedin.com/in/haxxorbunny/" target="_blank" class="contact-link">
-                        <span>LinkedIn</span>
-                    </a>
-                    <a href="https://github.com/HaXX0rBunny" target="_blank" class="contact-link">
-                        <span>GitHub</span>
-                    </a>
+            <div class="container hero-content">
+                <div class="hero-identity">
+                    <p class="hero-eyebrow">C++ / UNREAL ENGINE</p>
+                    <h1 class="hero-name" data-i18n="index.heroName">Cho Sanghyeon</h1>
+                    <p class="hero-subtitle" data-i18n="index.ctaText">Game Programmer</p>
+                </div>
+                <div class="hero-introduction">
+                    <p class="hero-description" data-i18n="index.heroDescription">I develop gameplay and engine features in C++ and Unreal Engine. My work includes custom-engine rendering optimization, standalone builds, and an animation deformation plug-in released by a three-person team on Fab.</p>
+                    <div class="hero-contact">
+                        <a href="#projects" class="contact-link contact-link--primary"><span data-i18n="index.viewProjects">View selected projects</span><span aria-hidden="true">↓</span></a>
+                        <a href="https://github.com/HaXX0rBunny" target="_blank" rel="noopener noreferrer" class="contact-link">GitHub ↗</a>
+                        <a href="https://www.linkedin.com/in/haxxorbunny/" target="_blank" rel="noopener noreferrer" class="contact-link">LinkedIn ↗</a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -70,15 +55,9 @@
         <section class="projects-section portfolio-chapter" id="projects" data-chapter="PROJECTS">
             <div class="container">
                 <div class="section-heading section-title-layout">
-                    <span class="section-number" aria-hidden="true">01</span>
                     <div class="section-heading-copy">
-                        <p class="section-kicker" data-i18n="index.selectedWork">Selected Work</p>
                         <h2 class="section-title" data-i18n="index.featuredProjects">Selected Projects</h2>
                         <p class="section-lead" data-i18n="index.featuredProjectsLead">Three projects covering a released plug-in, custom-engine development, and action gameplay.</p>
-                    </div>
-                    <div class="section-heading-aside" aria-label="Project scope">
-                        <span data-i18n="index.featuredProjectsAside1">3 Selected Projects</span>
-                        <span data-i18n="index.featuredProjectsAside2">Game · Engine · Tools</span>
                     </div>
                 </div>
                 <div class="projects-grid" id="projectsGrid">
@@ -96,15 +75,9 @@
         <section class="skills-section portfolio-chapter" id="skills" data-chapter="SKILLS">
             <div class="container">
                     <div class="section-heading section-title-layout">
-                        <span class="section-number" aria-hidden="true">02</span>
                         <div class="section-heading-copy">
-                        <p class="section-kicker" data-i18n="index.technicalProfile">Technical Profile</p>
                         <h2 class="section-title" data-i18n="index.skillsExpertise">Technical Experience</h2>
                         <p class="section-lead" data-i18n="index.skillsLead">The technologies below are connected to the work in these projects.</p>
-                    </div>
-                    <div class="section-heading-aside" aria-label="Technical scope">
-                        <span data-i18n="index.skillsSub1">Built and used in projects</span>
-                        <span data-i18n="index.skillsSub2">C++ · Rendering · Tools</span>
                     </div>
                 </div>
                 <div class="skills-grid">
@@ -137,9 +110,7 @@
                 <div class="education-section">
                     <div class="section-subheading section-title-layout">
                         <div class="section-subheading-title">
-                            <span class="section-number section-number--small" aria-hidden="true">03</span>
                             <div>
-                                <span class="section-kicker" data-i18n="index.background">Background</span>
                                 <h3 data-i18n="index.educationTraining">Education & Training</h3>
                             </div>
                         </div>
@@ -163,51 +134,15 @@
             </div>
         </section>
 
-        <!-- Contact Section -->
-        <section class="contact-section portfolio-chapter" id="contact" data-chapter="CONTACT">
-            <div class="container">
-                <div class="contact-shell">
-                    <div class="contact-copy">
-                        <div class="contact-title-layout">
-                            <div class="contact-heading-mark">
-                                <span class="section-number" aria-hidden="true">04</span>
-                                <p class="section-kicker" data-i18n="index.contact">Contact</p>
-                            </div>
-                            <h2 data-i18n="index.contactTitle">Contact</h2>
-                            <p class="contact-lead" data-i18n="index.contactLead">Open to C++ gameplay, rendering, and engine development opportunities.</p>
-                        </div>
-
-                        <div class="contact-facts">
-                            <div class="contact-fact">
-                                <span data-i18n="index.contactFocusLabel">Focus</span>
-                                <strong>C++ · Unreal Engine · Rendering</strong>
-                            </div>
-                            <div class="contact-fact">
-                                <span data-i18n="index.contactInterestsLabel">Interests</span>
-                                <strong>Engine Architecture · Optimization</strong>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="contact-panel">
-                        <p class="contact-panel-label" data-i18n="index.contactOnlineTitle">Find me online</p>
-                        <div class="contact-links">
-                            <a href="https://www.linkedin.com/in/haxxorbunny/" target="_blank" rel="noopener noreferrer" class="contact-link contact-channel">
-                                <span class="contact-channel-copy">
-                                    <strong>LinkedIn</strong>
-                                    <small data-i18n="index.contactSubLinkedin">Career and professional network</small>
-                                </span>
-                                <span class="contact-channel-action" data-i18n="index.contactButtonLinkedIn">View profile</span>
-                            </a>
-                            <a href="https://github.com/HaXX0rBunny" target="_blank" rel="noopener noreferrer" class="contact-link contact-channel">
-                                <span class="contact-channel-copy">
-                                    <strong>GitHub</strong>
-                                    <small data-i18n="index.contactSubGithub">Source code and project history</small>
-                                </span>
-                                <span class="contact-channel-action" data-i18n="index.contactButtonGithub">View repositories</span>
-                            </a>
-                        </div>
-                    </div>
+        <section class="contact-section" id="contact">
+            <div class="container contact-summary">
+                <div>
+                    <h2 data-i18n="index.contactTitle">Contact</h2>
+                    <p data-i18n="index.contactLead">Open to C++ gameplay, rendering, and engine development opportunities.</p>
+                </div>
+                <div class="contact-links">
+                    <a href="https://github.com/HaXX0rBunny" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+                    <a href="https://www.linkedin.com/in/haxxorbunny/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
                 </div>
             </div>
         </section>
@@ -222,7 +157,7 @@
     </footer>
 
     <!-- Project Modal -->
-    <div class="modal" id="projectModal">
+    <div class="modal" id="projectModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="modal-content">
             <div class="modal-header">
                 <div class="breadcrumb">
@@ -304,10 +239,8 @@
     <!-- Back to Top Button -->
     <button class="back-to-top" id="backToTop" data-i18n-attr-aria-label="index.contactBackToTop" aria-label="Back to top">↑</button>
 
-    <!-- YouTube API Script -->
-    <script src="https://www.youtube.com/iframe_api"></script>
-    <script src="locale.js?v=20261015-review2"></script>
+    <script src="locale.js?v=20261016-design"></script>
     <script src="project-content.ko.js?v=20261015-review2"></script>
-    <script src="app.js?v=20261015-review2"></script>
+    <script src="app.js?v=20261016-design"></script>
 </body>
 </html>

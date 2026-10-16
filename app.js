@@ -422,289 +422,14 @@ const projectsData = {
     }
 };
 
-// YouTube Player Class
-class YouTubeBackgroundPlayer {
-    constructor(containerId, videoId, options = {}) {
-        this.containerId = containerId;
-        this.videoId = videoId;
-        this.player = null;
-        this.apiLoaded = false;
-        this.retryCount = 0;
-        this.maxRetries = 3;
-        this.options = {
-            autoplay: 1,
-            mute: 1,
-            loop: 1,
-            controls: 0,
-            showinfo: 0,
-            rel: 0,
-            modestbranding: 1,
-            disablekb: 1,
-            iv_load_policy: 3,
-            ...options
-        };
-
-        this.init();
-    }
-
-    init() {
-        if (typeof YT !== 'undefined' && YT.Player) {
-            this.createPlayer();
-        } else {
-            this.loadYouTubeAPI();
-        }
-    }
-
-    loadYouTubeAPI() {
-        console.log('YouTube API 로드 시작');
-
-        // 글로벌 콜백 설정
-        window.onYouTubeIframeAPIReady = () => {
-            this.apiLoaded = true;
-            this.createPlayer();
-        };
-
-        if (!document.querySelector('script[src*="youtube.com/iframe_api"]')) {
-            const tag = document.createElement('script');
-            tag.src = 'https://www.youtube.com/iframe_api';
-            tag.async = true;
-            const firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-        }
-
-        // 타임아웃 설정
-        setTimeout(() => {
-            if (!this.apiLoaded && this.retryCount < this.maxRetries) {
-                console.warn('YouTube API 로드 타임아웃, 재시도 중...');
-                this.retryCount++;
-                this.handleError('API load timeout');
-            }
-        }, 10000);
-    }
-
-    createPlayer() {
-        const container = document.getElementById(this.containerId);
-        if (!container) {
-            console.error('플레이어 컨테이너를 찾을 수 없습니다:', this.containerId);
-            this.handleError('Container not found');
-            return;
-        }
-
-        container.classList.add('loading');
-
-        try {
-            this.player = new YT.Player(this.containerId, {
-                videoId: this.videoId,
-                playerVars: {
-                    ...this.options,
-                    playlist: this.videoId // 무한 루프를 위한 플레이리스트
-                },
-                events: {
-                    onReady: (event) => this.onPlayerReady(event),
-                    onStateChange: (event) => this.onPlayerStateChange(event),
-                    onError: (event) => this.onPlayerError(event)
-                }
-            });
-        } catch (error) {
-            console.error('플레이어 생성 중 오류:', error);
-            this.handleError('Player creation failed');
-        }
-    }
-
-    onPlayerReady(event) {
-        console.log('플레이어 준비 완료');
-
-        try {
-            // 음소거 및 자동 재생
-            event.target.mute();
-
-            // 화질 조정
-            this.adjustQualityForDevice();
-
-            try {
-                const playResult = event.target.playVideo();
-
-                // Promise 여부 확인 후 처리
-                if (playResult && typeof playResult.then === 'function') {
-                    playResult.then(() => {
-                        console.log('자동 재생 성공');
-                        this.onVideoLoaded();
-                    }).catch(error => {
-                        console.warn('자동 재생 실패:', error);
-                        this.setupUserInteractionPlay();
-                    });
-                } else {
-                    // Promise가 아닌 경우 직접 처리
-                    setTimeout(() => {
-                        this.onVideoLoaded();
-                    }, 1000);
-                }
-            } catch (playError) {
-                console.warn('재생 시도 중 오류:', playError);
-                this.setupUserInteractionPlay();
-            }
-
-        } catch (error) {
-            console.error('플레이어 준비 중 오류:', error);
-            this.handleError('Player ready error');
-        }
-    }
-
-    onPlayerStateChange(event) {
-        const states = {
-            [-1]: 'UNSTARTED', [0]: 'ENDED', [1]: 'PLAYING',
-            [2]: 'PAUSED', [3]: 'BUFFERING', [5]: 'CUED'
-        };
-
-        console.log('플레이어 상태:', states[event.data]);
-
-        switch (event.data) {
-            case YT.PlayerState.PLAYING:
-                this.onVideoLoaded();
-                break;
-            case YT.PlayerState.ENDED:
-                this.handleVideoEnd();
-                break;
-            case YT.PlayerState.PAUSED:
-                this.handleAutoPause();
-                break;
-        }
-    }
-
-    onPlayerError(event) {
-        const errorCodes = {
-            2: '잘못된 매개변수',
-            5: 'HTML5 플레이어 오류',
-            100: '비디오를 찾을 수 없음',
-            101: '임베드 불가 (소유자 설정)',
-            150: '임베드 불가 (소유자 설정)'
-        };
-
-        const errorMessage = errorCodes[event.data] || '알 수 없는 오류';
-        console.error('YouTube 플레이어 오류:', errorMessage);
-
-        this.handleError('Player error: ' + errorMessage);
-    }
-
-    onVideoLoaded() {
-        const container = document.getElementById(this.containerId);
-        if (container) {
-            container.classList.remove('loading');
-            container.classList.add('loaded');
-            console.log('비디오 로드 완료, 시각 효과 적용');
-        }
-    }
-
-    handleVideoEnd() {
-        // 루프 재생을 위한 추가 로직 (필요시)
-        if (this.player && typeof this.player.playVideo === 'function') {
-            this.player.playVideo();
-        }
-    }
-
-    handleAutoPause() {
-        // 자동 일시정지 처리 (필요시)
-        setTimeout(() => {
-            if (this.player && typeof this.player.playVideo === 'function') {
-                this.player.playVideo();
-            }
-        }, 1000);
-    }
-
-    adjustQualityForDevice() {
-        if (!this.player || typeof this.player.getAvailableQualityLevels !== 'function') return;
-
-        try {
-            const availableQualities = this.player.getAvailableQualityLevels();
-            const isMobile = window.innerWidth < 768;
-
-            if (isMobile && availableQualities.includes('medium')) {
-                this.player.setPlaybackQuality('medium');
-                console.log('모바일 최적화: 화질을 medium으로 설정');
-            } else if (availableQualities.includes('hd720')) {
-                this.player.setPlaybackQuality('hd720');
-                console.log('데스크톱 최적화: 화질을 HD720으로 설정');
-            }
-        } catch (error) {
-            console.warn('화질 조정 중 오류:', error);
-        }
-    }
-
-    setupUserInteractionPlay() {
-        console.log('사용자 상호작용 대기 중...');
-
-        // 사용자 알림 메시지
-        const notification = document.createElement('div');
-        notification.innerHTML = `
-        <div style="position: fixed; top: 80px; left: 50%; transform: translateX(-50%); 
-                    background: rgba(33, 128, 141, 0.9); color: white; padding: 10px 20px; 
-                    border-radius: 8px; z-index: 1001; font-size: 14px;">
-            Play background video
-        </div>
-    `;
-        document.body.appendChild(notification);
-
-        const playOnInteraction = () => {
-            if (this.player && typeof this.player.playVideo === 'function') {
-                this.player.mute();
-                this.player.playVideo();
-
-                // 알림 제거
-                if (notification) {
-                    document.body.removeChild(notification);
-                }
-
-                // 이벤트 리스너 제거
-                document.removeEventListener('click', playOnInteraction);
-                document.removeEventListener('touchstart', playOnInteraction);
-                document.removeEventListener('keydown', playOnInteraction);
-
-                console.log('사용자 상호작용 후 재생 시작');
-            }
-        };
-
-        // 다양한 상호작용 이벤트 등록
-        document.addEventListener('click', playOnInteraction, { once: true });
-        document.addEventListener('touchstart', playOnInteraction, { once: true });
-        document.addEventListener('keydown', playOnInteraction, { once: true });
-    }
-
-    handleError(errorType) {
-        console.error('YouTube 배경 비디오 오류:', errorType);
-
-        // Fallback 배경 활성화
-        const container = document.getElementById(this.containerId);
-        const fallback = document.querySelector('.fallback-background');
-
-        if (container) {
-            container.style.display = 'none';
-            container.classList.remove('loading');
-        }
-
-        if (fallback) {
-            fallback.classList.add('active');
-            console.log('Fallback 배경 활성화');
-        }
-
-        // 재시도 로직
-        if (this.retryCount < this.maxRetries) {
-            setTimeout(() => {
-                this.retryCount++;
-                console.log(`재시도 ${this.retryCount}/${this.maxRetries}`);
-                this.init();
-            }, 3000 * this.retryCount);
-        }
-    }
-}
-
 // Global variables
 const THEME_STORAGE_KEY = 'portfolio-theme-v2';
-let currentTheme = 'dark';
-let heroPlayer = null;
+let currentTheme = 'light';
 let currentProjectId = null;
+let modalTrigger = null;
 
 // DOM elements
-let themeToggle, languageToggle, navToggle, navMenu, backToTop, loadingSpinner, projectModal;
+let themeToggle, languageToggle, navToggle, navMenu, backToTop, projectModal;
 let modalClose, tabBtns, tabPanes;
 
 function getPortfolioText(key, fallback = '') {
@@ -788,7 +513,6 @@ function initializeLocaleFeatures() {
 
 // Initialize app
 document.addEventListener('DOMContentLoaded', function () {
-    console.log('Initializing portfolio...');
     initializeElements();
     initializeTheme();
     initializeLocaleFeatures();
@@ -803,14 +527,6 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('hashchange', openLinkedProject);
     openLinkedProject();
     initializeScrollEffects();
-    // Removed: initializeContactForm(); -> No form needed
-    initializeTypingEffect();
-
-    // Initialize hero video after a delay
-    setTimeout(() => {
-        initializeHeroVideo();
-        if (loadingSpinner) loadingSpinner.classList.remove('active');
-    }, 1000);
 });
 
 function initializeElements() {
@@ -819,7 +535,6 @@ function initializeElements() {
     navToggle = document.getElementById('navToggle');
     navMenu = document.getElementById('navMenu');
     backToTop = document.getElementById('backToTop');
-    loadingSpinner = document.getElementById('loadingSpinner');
     projectModal = document.getElementById('projectModal');
     modalClose = document.getElementById('modalClose');
     tabBtns = document.querySelectorAll('.tab-btn');
@@ -827,11 +542,11 @@ function initializeElements() {
 }
 
 function initializeTheme() {
-    // Keep an explicit user preference, otherwise start in dark mode.
-    let savedTheme = 'dark';
+    // Preserve an explicitly saved theme.
+    let savedTheme = 'light';
 
     try {
-        savedTheme = localStorage.getItem(THEME_STORAGE_KEY) || 'dark';
+        savedTheme = localStorage.getItem(THEME_STORAGE_KEY) || 'light';
     } catch (error) {
         console.warn('Could not read the saved theme preference.', error);
     }
@@ -888,7 +603,6 @@ function initializeNavigation() {
 
     // Update active navigation link on scroll
     updateActiveNavLink();
-    window.addEventListener('scroll', updateActiveNavLink);
 }
 
 function updateActiveNavLink() {
@@ -914,62 +628,6 @@ function updateActiveNavLink() {
     });
 }
 
-// Typing Effect for Hero Section
-function initializeTypingEffect() {
-    const typingText = document.getElementById('typingText');
-    const typingCursor = document.getElementById('typingCursor');
-
-    if (!typingText || !typingCursor) return;
-
-    const text = "Cho Sanghyeon";
-    let i = 0;
-
-    function typeWriter() {
-        if (i < text.length) {
-            typingText.textContent += text.charAt(i);
-            i++;
-            setTimeout(typeWriter, 100);
-        } else {
-            // 타이핑 완료 후 커서 깜빡임 중지
-            setTimeout(() => {
-                typingCursor.style.animation = 'none';
-                typingCursor.style.opacity = '0';
-            }, 2000);
-        }
-    }
-
-    // 1초 후 타이핑 시작
-    setTimeout(typeWriter, 1000);
-}
-
-function initializeHeroVideo() {
-    const videoContainer = document.getElementById('hero-youtube-player');
-    if (!videoContainer) {
-        console.warn('Hero video container not found');
-        return;
-    }
-
-    const videoId = videoContainer.dataset.videoId || '264Wfi25UOU';
-
-    try {
-        heroPlayer = new YouTubeBackgroundPlayer('hero-youtube-player', videoId, {
-            autoplay: 1,
-            mute: 1,
-            loop: 1,
-            controls: 0,
-            showinfo: 0,
-            rel: 0,
-            modestbranding: 1,
-            disablekb: 1,
-            iv_load_policy: 3
-        });
-
-        console.log('Hero video player 초기화 완료');
-    } catch (error) {
-        console.error('Hero video player 초기화 실패:', error);
-    }
-}
-
 function initializeProjects() {
     const projectsGrid = document.getElementById('projectsGrid');
     if (!projectsGrid) return;
@@ -983,143 +641,50 @@ function initializeProjects() {
 
 function createProjectCard(id, project) {
     project = getLocalizedProject(id, project);
-    const card = document.createElement('div');
+    const card = document.createElement('article');
     card.className = 'project-card';
-    if (project.featured) card.classList.add('project-card--featured');
-    const dedicatedPageUrl = project.detailPage || (project.project_type === 'collection' ? project.links?.overview : null);
-
-    // Projects with a dedicated information architecture bypass the generic modal.
-    card.addEventListener('click', (e) => {
-        if (!e.target.closest('.project-action')) {
-            e.preventDefault();
-            if (dedicatedPageUrl) {
-                window.location.href = dedicatedPageUrl;
-            } else {
-                openProjectModal(id);
-            }
-        }
-    });
-
+    const detailUrl = project.detailPage || (project.project_type === 'collection' ? project.links?.overview : null);
+    const href = detailUrl || `#project-${id}`;
     const typeText = project.team_label || project.type_label || (project.is_team_project
         ? `${getPortfolioText('index.team', 'Team')} · ${project.team_size}`
         : getPortfolioText('index.solo', 'Solo'));
-    const typeBadgeClass = project.is_team_project ? 'team' : 'solo';
-    const scopeBadge = project.scope_label
-        ? `<div class="project-scope-badge">${project.scope_label}</div>`
+    const coverImage = project.coverImage || (id === '1' ? 'Assets/images/edgedrive-gameplay.jpg' : null);
+    const detailLabel = getPortfolioText('global.viewDetails', 'View Details');
+    const media = coverImage
+        ? `<a href="${href}" class="project-media project-action project-detail-btn" aria-label="${project.title} · ${detailLabel}">
+             <img src="${coverImage}" alt="${project.coverAlt || project.title}" loading="lazy" width="1280" height="720">
+           </a>`
         : '';
-
-    const techBadges = project.technologies.map(tech => {
-        let badgeClass = 'tech-badge';
-        if (tech.includes('C++') || tech.includes('Unreal Engine')) badgeClass += ' expert';
-        else if (tech.includes('OpenGL') || tech.includes('C')) badgeClass += ' advanced';
-        return `<span class="${badgeClass}">${tech}</span>`;
-    }).join('');
-
-
-    const placeholderVideoText = getPortfolioText('global.placeholder.videoLabel', 'VIDEO');
-    const prepareDemoText = getPortfolioText('global.prepareDemoVideo', 'Prepare demo video');
-
-    const videoSection = project.coverImage
-        ? `<div class="project-video project-cover">
-           <img src="${project.coverImage}"
-                alt="${project.coverAlt || project.title}"
-                class="project-cover-image"
-                loading="lazy">
-           ${project.coverLabel ? `<span class="project-cover-label">${project.coverLabel}</span>` : ''}
-       </div>`
-        : project.videoUrl
-        ? `<div class="project-video">
-           <iframe src="${project.videoUrl}?modestbranding=1&rel=0"
-                   title="${project.title}"
-                   allowfullscreen
-                   loading="lazy"></iframe>
-       </div>`
-        : `<div class="project-video project-video--placeholder">
-           <div class="video-placeholder">
-               <div class="placeholder-icon">${placeholderVideoText}</div>
-               <div class="placeholder-text">
-                   <h4>${project.title}</h4>
-                   <p>${prepareDemoText}</p>
-               </div>
-           </div>
-       </div>`;
-
-
-    const downloadBtn = project.downloadLink
-        ? `<a href="${project.downloadLink}" target="_blank" class="btn btn--secondary download-btn project-action">
-           ${project.downloadLabel || getPortfolioText('global.downloadDemo', 'Download Demo')}
-       </a>`
+    const meta = [typeText, project.scope_label].filter(Boolean).join(' · ');
+    const download = project.downloadLink
+        ? `<a href="${project.downloadLink}" target="_blank" rel="noopener noreferrer" class="project-action download-btn">${project.downloadLabel || getPortfolioText('global.downloadDemo', 'Download Demo')} <span aria-hidden="true">↓</span></a>`
         : '';
-
+    const highlights = project.highlights?.length
+        ? `<div class="project-evidence-links">${project.highlights.map(item => `<a class="project-action" href="${item.href}">${item.label} <span aria-hidden="true">↗</span></a>`).join('')}</div>`
+        : '';
     card.innerHTML = `
-      ${videoSection}
-      
-      <div class="project-info">
-          <div class="project-header">
-              <span class="project-card-label">${getPortfolioText('global.project', 'Project')}</span>
-              <h3>${project.title}</h3>
-              <p class="project-subtitle">${project.subtitle}</p>
-              
-              <div class="project-type-indicator">
-                  <div class="project-type-badge ${typeBadgeClass}">
-                      <span>${typeText}</span>
-                  </div>
-                  ${scopeBadge}
-                  <div class="role-badge">${project.my_role}</div>
-              </div>
-          </div>
-
-          <div class="project-card-section project-overview">
-              <span class="project-card-label">${getPortfolioText('global.overview', 'Overview')}</span>
-              <p>${project.description}</p>
-          </div>
-
-          <div class="project-card-section project-stack-block">
-              <span class="project-card-label">${getPortfolioText('global.techStack', 'Tech Stack')}</span>
-              <div class="tech-stack">${techBadges}</div>
-          </div>
-
-          <div class="project-actions">
-              <a href="${dedicatedPageUrl || `#project-${id}`}" class="btn btn--primary project-detail-btn project-action">
-                  <span>${getPortfolioText('global.viewDetails', 'View Details')}</span>
-              </a>
-              ${downloadBtn}
-          </div>
-      </div>
-  `;
-
-    if (project.highlights?.length) {
-        const links = document.createElement('div');
-        links.className = 'project-evidence-links';
-        project.highlights.forEach(item => {
-            const link = document.createElement('a');
-            link.className = 'project-action';
-            link.href = item.href;
-            link.textContent = item.label + ' ↗';
-            links.appendChild(link);
+        ${media}
+        <div class="project-info">
+            <p class="project-meta-line">${meta}</p>
+            <h3><a href="${href}" class="project-action project-detail-btn">${project.title}</a></h3>
+            <p class="project-subtitle">${project.subtitle}</p>
+            <p class="project-role">${project.my_role}</p>
+            <p class="project-description">${project.description}</p>
+            <div class="tech-stack">${project.technologies.map(tech => `<span class="tech-badge">${tech}</span>`).join('')}</div>
+            ${highlights}
+            <div class="project-actions">
+                <a href="${href}" class="project-action project-detail-btn">${detailLabel} <span aria-hidden="true">↗</span></a>
+                ${download}
+            </div>
+        </div>`;
+    if (!detailUrl) {
+        card.querySelectorAll('.project-detail-btn').forEach(link => {
+            link.addEventListener('click', event => {
+                event.preventDefault();
+                openProjectModal(id);
+            });
         });
-        card.querySelector('.project-actions').before(links);
     }
-
-    // 버튼 클릭 시 카드 클릭 전파 방지
-    //card.querySelectorAll('.project-action').forEach(el => {
-    //    el.addEventListener('click', e => e.stopPropagation());
-    //});
-    card.querySelectorAll('.project-action').forEach(el => {
-        el.addEventListener('click', e => {
-            e.stopPropagation();
-
-            // Open a dedicated project page when available; otherwise use the shared modal.
-            if (el.classList.contains('project-detail-btn')) {
-                e.preventDefault();
-                if (dedicatedPageUrl) {
-                    window.location.href = dedicatedPageUrl;
-                } else {
-                    openProjectModal(id);
-                }
-            }
-        });
-    });
     return card;
 }
 
@@ -1139,8 +704,22 @@ function initializeModal() {
 
     // Close modal on Escape key
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && projectModal.classList.contains('active')) {
+        if (!projectModal.classList.contains('active')) return;
+        if (e.key === 'Escape') {
             closeProjectModal();
+        }
+        if (e.key === 'Tab') {
+            const controls = [...projectModal.querySelectorAll('a[href], button, iframe, [tabindex="0"]')]
+                .filter(element => element.getClientRects().length && !element.disabled);
+            const first = controls[0];
+            const last = controls[controls.length - 1];
+            if (e.shiftKey && document.activeElement === first) {
+                e.preventDefault();
+                last?.focus();
+            } else if (!e.shiftKey && document.activeElement === last) {
+                e.preventDefault();
+                first?.focus();
+            }
         }
     });
 
@@ -1154,7 +733,8 @@ function initializeModal() {
 }
 
 function openProjectModal(projectId, options = {}) {
-    console.log('Opening modal for project:', projectId);
+    const wasOpen = projectModal.classList.contains('active');
+    if (!wasOpen) modalTrigger = document.activeElement;
     currentProjectId = projectId;
     const project = getLocalizedProject(projectId);
 
@@ -1190,18 +770,23 @@ function openProjectModal(projectId, options = {}) {
 
     // Show modal
     projectModal.classList.add('active');
+    projectModal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
 
     switchTab(options.activeTab === 'timeline' && !project.development_timeline ? 'overview' : (options.activeTab || 'overview'));
     history.replaceState(null, '', `#project-${projectId}`);
+    if (!wasOpen) modalClose?.focus({ preventScroll: true });
 }
 
 function closeProjectModal() {
     if (projectModal) {
         projectModal.classList.remove('active');
+        projectModal.setAttribute('aria-hidden', 'true');
     }
     document.body.style.overflow = '';
     currentProjectId = null;
+    if (modalTrigger?.isConnected) modalTrigger.focus({ preventScroll: true });
+    modalTrigger = null;
     if (/^#project-/.test(location.hash)) history.replaceState(null, '', '#projects');
 
     // Stop video
@@ -1514,45 +1099,8 @@ function initializeScrollEffects() {
             }
         }
 
-        // Update navbar background on scroll
-        const navbar = document.getElementById('navbar');
-        if (navbar) {
-            if (window.scrollY > 100) {
-                navbar.style.background = `rgba(var(--color-surface-rgb), 0.95)`;
-            } else {
-                navbar.style.background = `rgba(var(--color-surface-rgb), 0.85)`;
-            }
-        }
     });
 }
-
-// Removed: initializeContactForm function
-
-// Intersection Observer for animations
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-        }
-    });
-}, observerOptions);
-
-// Observe elements for animation
-window.addEventListener('load', () => {
-    const animatedElements = document.querySelectorAll('.project-card, .skill-category, .education-card');
-    animatedElements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'all 0.6s ease-out';
-        observer.observe(el);
-    });
-});
 
 // Error handling for videos
 document.addEventListener('DOMContentLoaded', () => {

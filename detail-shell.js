@@ -29,9 +29,9 @@ function initializeDetailPageChrome() {
         }
     };
 
-    let savedTheme = 'dark';
+    let savedTheme = 'light';
     try {
-        savedTheme = localStorage.getItem(DETAIL_THEME_STORAGE_KEY) || 'dark';
+        savedTheme = localStorage.getItem(DETAIL_THEME_STORAGE_KEY) || 'light';
     } catch (error) {
         console.warn('Theme preference read failed:', error);
     }
