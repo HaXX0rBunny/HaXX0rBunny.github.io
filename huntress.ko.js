@@ -11,13 +11,13 @@ window.HUNTRESS_KO_TRANSLATIONS = [
         "selector": "meta[name=\"description\"]",
         "attribute": "content",
         "values": [
-            "Huntress: C++ 메뉴·상점·전투 HUD 개발, 입력 처리와 UI 문제 해결 과정."
+            "Huntress: C++ 메뉴, 상점, 전투 HUD 개발, 입력 처리와 UI 문제 해결 과정."
         ]
     },
     {
         "selector": "title",
         "values": [
-            "Huntress · C++ UI 시스템 및 게임플레이 통합"
+            "Huntress, C++ UI 시스템 및 게임플레이 통합"
         ]
     },
     {
@@ -35,7 +35,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-hero-copy .section-kicker",
         "values": [
-            "C++ 팀 프로젝트 · Alpha Engine"
+            "C++ 팀 프로젝트, Alpha Engine"
         ]
     },
     {
@@ -53,7 +53,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-hero-lede",
         "values": [
-            "상점·업그레이드 루프를 바람과 중력 기반 전투에 연결한 2D 턴제 포격 전략 게임입니다. 인터페이스 아키텍처, 메뉴와 상점 흐름, 전투 HUD, 버튼 상호작용, 아이템 툴팁, UI 입력과 전투 상태 사이의 연동을 담당했습니다."
+            "상점, 업그레이드 루프를 바람과 중력 기반 전투에 연결한 2D 턴제 포격 전략 게임입니다. 인터페이스 아키텍처, 메뉴와 상점 흐름, 전투 HUD, 버튼 상호작용, 아이템 툴팁, UI 입력과 전투 상태 사이의 연동을 담당했습니다."
         ]
     },
     {
@@ -114,7 +114,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-hero-facts > div:nth-child(3) dd",
         "values": [
-            "C++ · Alpha Engine · FMOD"
+            "C++, Alpha Engine, FMOD"
         ]
     },
     {
@@ -126,7 +126,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-hero-facts > div:nth-child(4) dd",
         "values": [
-            "UI 아키텍처 · 게임플레이 통합"
+            "UI 아키텍처, 게임플레이 통합"
         ]
     },
     {
@@ -195,7 +195,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": "#overview .huntress-section-heading .section-kicker",
         "values": [
-            "01 · 프로젝트 개요"
+            "01, 프로젝트 개요"
         ]
     },
     {
@@ -250,7 +250,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-flow strong:nth-of-type(4)",
         "values": [
-            "각도·출력 설정"
+            "각도, 출력 설정"
         ]
     },
     {
@@ -274,7 +274,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-overview-grid > article:nth-child(2) p",
         "values": [
-            "메뉴, 상점, 전투 HUD, ESC·조작 안내 오버레이, 버튼, 호버 동작, 툴팁, 아이템 선택 연동을 담당했습니다."
+            "메뉴, 상점, 전투 HUD, ESC, 조작 안내 오버레이, 버튼, 호버 동작, 툴팁, 아이템 선택 연동을 담당했습니다."
         ]
     },
     {
@@ -317,19 +317,19 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-feature-figure figcaption p",
         "values": [
-            "아이템 슬롯, 현재·이전 조준 각도, 이동·출력 게이지와 양측 체력 바를 배치한 HUD입니다."
+            "아이템 슬롯, 현재, 이전 조준 각도, 이동, 출력 게이지와 양측 체력 바를 배치한 HUD입니다."
         ]
     },
     {
         "selector": "#contribution .huntress-section-heading .section-kicker",
         "values": [
-            "02 · 역할 및 기여"
+            "02, 역할 및 기여"
         ]
     },
     {
         "selector": "#contribution .huntress-section-heading h2",
         "values": [
-            "메뉴·상점·전투 UI 개발"
+            "메뉴, 상점, 전투 UI 개발"
         ]
     },
     {
@@ -353,7 +353,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-metric-grid > article:nth-child(1) small",
         "values": [
-            "HP · 바람 · 각도 · 이동 · 출력 · 인벤토리"
+            "HP, 바람, 각도, 이동, 출력, 인벤토리"
         ]
     },
     {
@@ -371,7 +371,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-metric-grid > article:nth-child(2) small",
         "values": [
-            "버튼 · 골드 · 인벤토리 · 툴팁"
+            "버튼, 골드, 인벤토리, 툴팁"
         ]
     },
     {
@@ -383,7 +383,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-metric-grid > article:nth-child(3) span",
         "values": [
-            "월드·UI·텍스트 출력 순서"
+            "월드, UI, 텍스트 출력 순서"
         ]
     },
     {
@@ -407,7 +407,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-metric-grid > article:nth-child(4) small",
         "values": [
-            "HUD 상호작용 · 월드 조준 경계"
+            "HUD 상호작용, 월드 조준 경계"
         ]
     },
     {
@@ -437,7 +437,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-check-list li:nth-child(4)",
         "values": [
-            "HUD 값을 플레이어·적 HP, 바람, 각도, 이동량, 출력, 골드, 인벤토리 상태에 연동했습니다."
+            "HUD 값을 플레이어, 적 HP, 바람, 각도, 이동량, 출력, 골드, 인벤토리 상태에 연동했습니다."
         ]
     },
     {
@@ -467,7 +467,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-file-ownership > div:nth-child(2) strong",
         "values": [
-            "구매 · 인벤토리 · 툴팁 흐름"
+            "구매, 인벤토리, 툴팁 흐름"
         ]
     },
     {
@@ -497,13 +497,13 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": "#architecture .huntress-section-heading .section-kicker",
         "values": [
-            "03 · 아키텍처 및 기술적 과제"
+            "03, 아키텍처 및 기술적 과제"
         ]
     },
     {
         "selector": "#architecture .huntress-section-heading h2",
         "values": [
-            "상태·입력·인터페이스·렌더링의 책임 분리"
+            "상태, 입력, 인터페이스, 렌더링의 책임 분리"
         ]
     },
     {
@@ -528,7 +528,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-architecture-flow > div:nth-of-type(1) small",
         "values": [
-            "마우스 · 키보드"
+            "마우스, 키보드"
         ]
     },
     {
@@ -540,7 +540,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-architecture-flow > div:nth-of-type(2) small",
         "values": [
-            "히트 테스트 · 호버 · 클릭"
+            "히트 테스트, 호버, 클릭"
         ]
     },
     {
@@ -552,7 +552,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-architecture-flow > div:nth-of-type(3) small",
         "values": [
-            "StoreUI · CombatUI · 메뉴"
+            "StoreUI, CombatUI, 메뉴"
         ]
     },
     {
@@ -564,7 +564,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-architecture-flow > div:nth-of-type(4) small",
         "values": [
-            "Inventory · PlayerComp · CombatComp"
+            "Inventory, PlayerComp, CombatComp"
         ]
     },
     {
@@ -588,7 +588,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-challenge-grid > article:nth-child(1) h3",
         "values": [
-            "월드·UI·텍스트의 출력 순서"
+            "월드, UI, 텍스트의 출력 순서"
         ]
     },
     {
@@ -666,7 +666,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": "#troubleshooting .huntress-section-heading .section-kicker",
         "values": [
-            "04 · 트러블슈팅"
+            "04, 트러블슈팅"
         ]
     },
     {
@@ -708,7 +708,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-trouble-card:nth-child(1) .huntress-case-facts > div:nth-child(3) p",
         "values": [
-            "<code>InterfaceComponent</code>를 도입하고 UI·버튼 동작을 해당 레이어로 옮긴 뒤, 그래픽과 자막 사이에 인터페이스 매니저 업데이트를 추가했습니다."
+            "<code>InterfaceComponent</code>를 도입하고 UI, 버튼 동작을 해당 레이어로 옮긴 뒤, 그래픽과 자막 사이에 인터페이스 매니저 업데이트를 추가했습니다."
         ]
     },
     {
@@ -720,13 +720,13 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-trouble-card:nth-child(1) .huntress-code-compare > div:nth-child(1) > span",
         "values": [
-            "수정 전 · <code>fffb2b1</code>"
+            "수정 전, <code>fffb2b1</code>"
         ]
     },
     {
         "selector": ".huntress-trouble-card:nth-child(1) .huntress-code-compare > div:nth-child(2) > span",
         "values": [
-            "수정 후 · <code>3a05019</code>"
+            "수정 후, <code>3a05019</code>"
         ]
     },
     {
@@ -756,7 +756,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-trouble-card:nth-child(2) .huntress-case-facts > div:nth-child(2) p",
         "values": [
-            "히트 테스트가 알파 값이 정확히 <code>1.0</code>이 아닌 모든 요소를 비활성으로 처리해 숨김·비활성·호버 피드백 상태를 구분하지 못했습니다."
+            "히트 테스트가 알파 값이 정확히 <code>1.0</code>이 아닌 모든 요소를 비활성으로 처리해 숨김, 비활성, 호버 피드백 상태를 구분하지 못했습니다."
         ]
     },
     {
@@ -948,7 +948,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-trouble-card:nth-child(5) > footer > span",
         "values": [
-            "수정 전후 코드 · 전투 상태에 따른 HUD 갱신 제한"
+            "수정 전후 코드, 전투 상태에 따른 HUD 갱신 제한"
         ]
     },
     {
@@ -972,7 +972,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-trouble-card:nth-child(6) .huntress-case-facts > div:nth-child(2) p",
         "values": [
-            "툴팁 기능을 추가하면서 사용 지점은 생겼지만 그에 대응하는 할당·해제 구간이 없었습니다."
+            "툴팁 기능을 추가하면서 사용 지점은 생겼지만 그에 대응하는 할당, 해제 구간이 없었습니다."
         ]
     },
     {
@@ -984,19 +984,19 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-trouble-card:nth-child(6) .huntress-case-facts > div:nth-child(4) p",
         "values": [
-            "전투 툴팁 배열에 생성·사용·해제 수명 주기를 연결했습니다."
+            "전투 툴팁 배열에 생성, 사용, 해제 수명 주기를 연결했습니다."
         ]
     },
     {
         "selector": ".huntress-trouble-card:nth-child(6) .huntress-code-compare > div:nth-child(1) > span",
         "values": [
-            "수정 전 · <code>8713369</code>"
+            "수정 전, <code>8713369</code>"
         ]
     },
     {
         "selector": ".huntress-trouble-card:nth-child(6) .huntress-code-compare > div:nth-child(2) > span",
         "values": [
-            "수정 후 · <code>95d8772</code>"
+            "수정 후, <code>95d8772</code>"
         ]
     },
     {
@@ -1008,7 +1008,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": "#evidence .huntress-section-heading .section-kicker",
         "values": [
-            "05 · 화면 및 소스"
+            "05, 화면 및 소스"
         ]
     },
     {
@@ -1125,7 +1125,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-evidence-grid > article:nth-child(2) h3",
         "values": [
-            "영상·화면·설치 파일"
+            "영상, 화면, 설치 파일"
         ]
     },
     {
@@ -1149,7 +1149,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".site-footer-content > span",
         "values": [
-            "Huntress · C++ UI 시스템 및 게임플레이 통합"
+            "Huntress, C++ UI 시스템 및 게임플레이 통합"
         ]
     },
     {

@@ -242,7 +242,7 @@ else
     },
     {
         week: '03',
-        theme: 'Atlas · Billboard · Batch Line · Bounding Box',
+        theme: 'Atlas, Billboard, Batch Line, Bounding Box',
         title: 'Editor & Scene Infrastructure',
         summary: 'Built engine infrastructure around FName, the Outliner, show flags, visibility, UUID picking, scene serialization, world/level ownership, and camera separation.',
         role: 'Engine & Editor Programmer',
@@ -554,7 +554,7 @@ LoadedMeshes.clear();`
     },
     {
         week: '05',
-        theme: "2nd Game Jam · It's Pie Time",
+        theme: "2nd Game Jam, It's Pie Time",
         title: 'Octahedral Impostor Optimization',
         summary: 'Selected octahedral impostors for a 50,000-object optimization challenge and integrated the technique into the team engine.',
         role: 'Rendering Optimization Programmer',
@@ -587,14 +587,14 @@ LoadedMeshes.clear();`
                 summary: 'The first atlas clipped the mesh into narrow fragments in 149 of 256 cells. Rebuilding bounds from vertices, adding framing margin, using a pole-safe camera basis, and correcting matrix upload produced a complete 16 × 16 directional bake.',
                 figures: [
                     {
-                        stage: 'Before · clipped captures',
+                        stage: 'Before, clipped captures',
                         src: 'Assets/images/gametechlab/evidence/week05-atlas-before-ec931251.png',
                         alt: 'Committed octahedral impostor atlas whose directional cells mostly contain narrow apple fragments',
                         caption: 'Most directional cells contain only thin or collapsed fragments of the source mesh.',
                         fit: 'contain'
                     },
                     {
-                        stage: 'After · complete directional bake',
+                        stage: 'After, complete directional bake',
                         src: 'Assets/images/gametechlab/evidence/week05-atlas-after-2960b5b.png',
                         alt: 'Committed octahedral impostor atlas containing complete apple silhouettes across a sixteen by sixteen directional grid',
                         caption: 'Complete apple silhouettes are preserved across the directional grid.',
@@ -643,7 +643,7 @@ Resolution: 1280x720`
                 },
                 method: 'Release x64 at 1280 × 720 with VSync disabled and the main thread pinned to affinity bit 2.',
                 hardwareLabel: 'Capture PC',
-                hardware: 'Intel Core i7-14700 · NVIDIA GeForce RTX 5060 8 GB (driver 596.36) · 32 GB RAM · Windows 11'
+                hardware: 'Intel Core i7-14700, NVIDIA GeForce RTX 5060 8 GB (driver 596.36), 32 GB RAM, Windows 11'
             }
         ],
         troubleshooting: [
@@ -813,7 +813,7 @@ GlobalOffset += InstanceCount;`
     },
     {
         week: '06',
-        theme: 'Decal · P.S. I Love You — Clearing the Fog',
+        theme: 'Decal, P.S. I Love You — Clearing the Fog',
         title: 'Height Fog & Decal Rendering',
         summary: 'Implemented height/linear fog and depth-reconstructed spotlight projection while separating RGB contribution from the viewport render target’s alpha channel.',
         role: 'Atmospheric & Decal Rendering Programmer',
@@ -893,14 +893,14 @@ Desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ONE;`
                 tags: ['Editor captures', 'Height fog', 'Visibility response', 'Week06'],
                 figures: [
                     {
-                        stage: 'Fog applied · mesh visible',
+                        stage: 'Fog applied, mesh visible',
                         src: 'Assets/images/gametechlab/evidence/week06-fog-mesh-visible-20260415.png',
                         alt: 'Week06 editor viewport with blue height fog applied while a large cube and a sphere remain visible',
                         caption: 'Fog changes the scene color and attenuates contrast, but the cube and sphere still contribute to the rendered viewport.',
                         fit: 'contain'
                     },
                     {
-                        stage: 'Fog active · mesh not visible',
+                        stage: 'Fog active, mesh not visible',
                         src: 'Assets/images/gametechlab/evidence/week06-fog-active-fogactor-only-20260415.png',
                         alt: 'Week06 editor viewport filled by blue height fog with scene meshes no longer visible and only the fog actor icon remaining',
                         caption: 'The cropped viewport contains no scene mesh; the FogActor billboard remains as an editor overlay.',
@@ -909,7 +909,7 @@ Desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ONE;`
                 ],
                 trace: {
                     label: 'HeightFog visibility-to-opacity calculation',
-                    file: 'KraftonEngine/Shaders/HeightFog.hlsl · GetExponentialHeightFog()',
+                    file: 'KraftonEngine/Shaders/HeightFog.hlsl, GetExponentialHeightFog()',
                     snippet: `fogIntegral = min(fogIntegral, 20.0);
 float visibility = exp(-fogIntegral);
 visibility = max(visibility, 1.0 - FogMaxOpacity);
@@ -955,7 +955,7 @@ return float4(FogInscatteringColor.rgb, fogOpacity);`
                 ],
                 trace: {
                     label: 'Sky path before and after 5ccad72',
-                    file: 'KraftonEngine/Shaders/HeightFog.hlsl · PS()',
+                    file: 'KraftonEngine/Shaders/HeightFog.hlsl, PS()',
                     snippet: `// Before: sky and geometry used unrelated fog evaluations.
 if (depth >= 1.0)
     return float4(FogInscatteringColor.rgb, FogMaxOpacity);
@@ -993,7 +993,7 @@ float4 fogResult = bUseLinearFog
                     }
                 ],
                 facts: [
-                    { label: 'Dominant red frame', value: '#BF4040 · 64.619%', detail: 'Consistent with red additive contribution over #404040', hidden: true },
+                    { label: 'Dominant red frame', value: '#BF4040, 64.619%', detail: 'Consistent with red additive contribution over #404040', hidden: true },
                     { label: 'Saved PNG alpha', value: '255 everywhere', detail: 'Channel diagnosis uses the render-target path and the corresponding code diff', hidden: true },
                     { label: 'Recorded Git state', value: 'After decfa685', detail: 'No subsequent commit exists between or after these captures', hidden: true },
                     { label: 'Role split', value: 'Keep-alpha state + SpotLightDecal', detail: 'Projection Decal binding: teammate commit 2a066ce' }
@@ -1032,7 +1032,7 @@ S[(uint32)E::SpotLightDecal] = {
                 result: 'Sky and geometry now share the distance-, height-, and direction-aware fog evaluation, removing the code-path discontinuity at the horizon.',
                 code: {
                     file: 'KraftonEngine/Shaders/HeightFog.hlsl',
-                    context: 'PS() · depth >= 1.0 sky path',
+                    context: 'PS(), depth >= 1.0 sky path',
                     language: 'HLSL',
                     snippet: `float4 worldH = mul(ndc, InvViewProj);
 float3 worldDir = normalize(
@@ -1054,7 +1054,7 @@ float4 fogResult = bUseLinearFog
                 result: 'Fog and spotlight color can change RGB while preserving viewport alpha. Personal work covers the reusable keep-alpha state and SpotLightDecal additive path; teammate commit 2a066ce supplies the Projection Decal binding.',
                 code: {
                     file: 'KraftonEngine/Source/Engine/Render/Device/BlendStateManager.cpp',
-                    context: 'FBlendStateManager::Create() · alpha-preserving states',
+                    context: 'FBlendStateManager::Create(), alpha-preserving states',
                     language: 'C++',
                     snippet: `// RGB: SrcAlpha blend or additive accumulation.
 Desc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
@@ -1075,7 +1075,7 @@ Desc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;`
                 result: 'Interior spotlight pixels proceed to falloff, normal, and luminance evaluation while exterior pixels are rejected.',
                 code: {
                     file: 'KraftonEngine/Shaders/SpotLightDecal.hlsl',
-                    context: 'PS() · cone-angle rejection',
+                    context: 'PS(), cone-angle rejection',
                     language: 'HLSL',
                     snippet: `// Before: almost every nonzero difference is true.
 if (cosAngle - OuterConeAngleCos)
@@ -1446,7 +1446,7 @@ float3 bitangent = cross(L_norm, tangent);`
     },
     {
         week: '09',
-        theme: '3rd Game Jam · Light, Camera, Action!',
+        theme: '3rd Game Jam, Light, Camera, Action!',
         title: 'Standalone Shipping Build',
         summary: 'Implemented the shipping/cooking pipeline and also connected game framework, binary world serialization, PIE/offscreen rendering, camera effects, Lua routing, and gamma correction.',
         role: 'Build & Runtime Integration Programmer',
@@ -1480,32 +1480,32 @@ float3 bitangent = cross(L_norm, tangent);`
                 tags: ['Runtime captures', 'Shipping x64', 'Runtime log'],
                 figures: [
                     {
-                        stage: 'Checkpoint 01 · Direct launch',
+                        stage: 'Checkpoint 01, Direct launch',
                         src: 'Assets/images/gametechlab/evidence/week09-standalone-menu.png',
                         alt: 'LunaticEngine standalone Shipping executable displaying the Engine Dive main menu',
                         caption: 'The staged executable initialized its render path and presented the main menu outside Visual Studio.'
                     },
                     {
-                        stage: 'Checkpoint 02 · START transition',
+                        stage: 'Checkpoint 02, START transition',
                         src: 'Assets/images/gametechlab/evidence/week09-start-transition.png',
                         alt: 'LunaticEngine standalone executable displaying the loading transition after START was selected',
                         caption: 'START moved the runtime into its loading transition.',
                         fit: 'crop-ui'
                     },
                     {
-                        stage: 'Checkpoint 03 · Story scene',
+                        stage: 'Checkpoint 03, Story scene',
                         src: 'Assets/images/gametechlab/evidence/week09-story-scene.png',
                         alt: 'Engine Dive story scene running from the packaged executable with dialogue and diagnostic interface panels',
                         caption: 'The START path enters the cooked story scene and executes its Lua-driven dialogue flow.'
                     },
                     {
-                        stage: 'Checkpoint 04 · Cooked gameplay',
+                        stage: 'Checkpoint 04, Cooked gameplay',
                         src: 'Assets/images/gametechlab/evidence/week09-runner-gameplay.png',
                         alt: 'Engine Dive packaged runner level with the player ship, obstacle course, dialogue, and score telemetry',
                         caption: 'The runner level loads with player control, obstacles, collectibles, dialogue, and the score, distance, log, trace, dump, and stability HUD.'
                     },
                     {
-                        stage: 'Checkpoint 05 · Crash dump path',
+                        stage: 'Checkpoint 05, Crash dump path',
                         src: 'Assets/images/gametechlab/evidence/week09-crash-dump-gameplay.png',
                         alt: 'Engine Dive gameplay with a Windows dialog confirming that a crash dump file was saved',
                         caption: 'The diagnostic path saves a .dmp file under the packaged build while the gameplay state remains visible.'
@@ -2044,7 +2044,7 @@ for (UParticleModule* EventModule : DeferredEventModules)
     },
     {
         week: '13',
-        theme: 'Understanding Focus and Force in 3D World · Two DOF Techniques',
+        theme: 'Understanding Focus and Force in 3D World, Two DOF Techniques',
         title: 'Physics Asset Editor',
         summary: 'Implemented the physics-asset editing workflow used to generate, pick, inspect, and modify collision bodies around skeletal meshes.',
         role: 'Physics Tools Programmer',
@@ -2143,7 +2143,7 @@ case EPhysicsAssetShapeType::Sphyl:
     },
     {
         week: '14',
-        theme: 'Final Game Jam · The Stage Is Set. Let the Game Begin!',
+        theme: 'Final Game Jam, The Stage Is Set. Let the Game Begin!',
         title: 'Final Game Integration & Tools',
         summary: 'Integrated Unreal-authored scenes, decals, boss and score UI, game-flow transitions, loading, cutscenes, and audio into the final custom-engine game.',
         role: 'Game Flow & Integration Programmer',
@@ -2172,7 +2172,7 @@ case EPhysicsAssetShapeType::Sphyl:
             {
                 placement: 'result',
                 title: 'The final game jam connects menu, countdown, boss combat, HUD, and ending credits.',
-                summary: 'Cyber Runner presents the full player-facing flow in the custom engine: choose a mode, enter through the film countdown, fight the Ascendant boss in the completed Tokyo level, track HP·Core·Chain·Burst feedback, and finish on the four-member team credits.',
+                summary: 'Cyber Runner presents the full player-facing flow in the custom engine: choose a mode, enter through the film countdown, fight the Ascendant boss in the completed Tokyo level, track HP, Core, Chain, Burst feedback, and finish on the four-member team credits.',
                 figures: [
                     {
                         stage: 'Main menu',
@@ -2273,41 +2273,41 @@ end`
             },
             {
                 caseId: 'scene-import-validation',
-                kicker: 'Case 02 attachment · import process and result',
+                kicker: 'Case 02 attachment, import process and result',
                 title: 'The captures document import placement, orientation checks, and the successful result.',
                 summary: 'The sequence moves from the scattered import through structure-placement and orientation checks. The final Unreal Editor view shows the Tokyo level correctly assembled with the selected static mesh retaining Rotation 0° and Scale 1.0.',
                 tags: ['Process captures', 'Scene import', 'Transform verification'],
                 figures: [
                     {
-                        stage: 'Process 01 · scattered import',
+                        stage: 'Process 01, scattered import',
                         src: 'Assets/images/gametechlab/evidence/week14-level-placement-before-20260607.png',
                         alt: 'Week14 Tokyo import process with scene meshes scattered throughout the editor viewport before placement was completed',
                         caption: 'Imported modules and surfaces are still dispersed while the level layout is being assembled.',
                         fit: 'wide'
                     },
                     {
-                        stage: 'Process 02 · structure placement check',
+                        stage: 'Process 02, structure placement check',
                         src: 'Assets/images/gametechlab/evidence/week14-level-placement-progress-20260607.png',
                         alt: 'Week14 editor view checking the placement and orientation of transit structures and building surfaces while assembling the Tokyo scene',
                         caption: 'Transit modules and building surfaces are inspected at close range while their placement and orientation are being aligned.',
                         fit: 'wide'
                     },
                     {
-                        stage: 'Process 03 · orientation diagnosis',
+                        stage: 'Process 03, orientation diagnosis',
                         src: 'Assets/images/gametechlab/evidence/week14-tokyo-current-inspection.png',
                         alt: 'Custom engine editor showing the imported Tokyo scene tilted sideways during transform inspection',
                         caption: 'The tilted Tokyo_Current viewport records the orientation problem investigated during import validation.',
                         fit: 'wide'
                     },
                     {
-                        stage: 'Process 04 · orientation verification',
+                        stage: 'Process 04, orientation verification',
                         src: 'Assets/images/gametechlab/evidence/week14-tokyo-verify-train.png',
                         alt: 'Custom engine editor showing an upright Tokyo street in the Tokyo Verify Train scene',
                         caption: 'The dedicated Tokyo_Verify_Train scene checks that imported street geometry is upright.',
                         fit: 'wide'
                     },
                     {
-                        stage: 'Successful import result · Unreal Editor',
+                        stage: 'Successful import result, Unreal Editor',
                         src: 'Assets/images/gametechlab/evidence/week14-import-result-unreal-editor.png',
                         alt: 'Unreal Editor showing the correctly assembled Tokyo level with upright buildings, roads, foliage, and a selected static mesh',
                         caption: 'The Tokyo level is correctly assembled with upright buildings, roads, and foliage; the selected static mesh reports Rotation 0° and Scale 1.0.',
@@ -2937,7 +2937,7 @@ function codeContextLabel(context) {
 
 function compactEvidenceStage(stage) {
     return String(stage || '')
-        .replace(/\s*·\s*\d{4}-\d{2}-\d{2}(?:\s+\d{2}:\d{2}(?::\d{2})?)?(?:\s+[A-Z]{2,5})?/g, '')
+        .replace(/\s*, \s*\d{4}-\d{2}-\d{2}(?:\s+\d{2}:\d{2}(?::\d{2})?)?(?:\s+[A-Z]{2,5})?/g, '')
         .trim();
 }
 
@@ -2955,7 +2955,7 @@ function troubleCommitMarkup(commit) {
     const visibleHash = hashes[hashes.length - 1] || rawHash;
     const extraCount = Math.max(0, hashes.length - 1);
     const label = commit?.label || getLabText('evidenceCommit', 'Commit');
-    const title = escapeMarkup(`${label} · ${rawHash}`);
+    const title = escapeMarkup(`${label}, ${rawHash}`);
     const content = `<code>${escapeMarkup(visibleHash)}</code>${extraCount ? `<span>+${extraCount}</span>` : ''}`;
 
     return commit?.url
@@ -2972,7 +2972,7 @@ function codeSnippetMarkup(code) {
     const context = escapeMarkup(codeContextLabel(fullContext));
     const language = escapeMarkup(code.language);
     const snippet = escapeMarkup(code.snippet.trim());
-    const detailTitle = escapeMarkup([fullFile, fullContext].filter(Boolean).join(' · '));
+    const detailTitle = escapeMarkup([fullFile, fullContext].filter(Boolean).join(', '));
 
     const ariaLabel = escapeMarkup(formatLabText('representativeFixAria', 'Representative fix from {file}', { file: fullFile }));
 
@@ -3019,7 +3019,7 @@ function evidencePanelMarkup(panel, { attached = false, result = false } = {}) {
     const facts = visibleFacts.length
         ? `<div class="lab-runtime-evidence-facts has-${visibleFacts.length}-items">
                 ${visibleFacts.map(fact => {
-                    const factDetail = [fact.label, fact.value, fact.detail].filter(Boolean).join(' · ');
+                    const factDetail = [fact.label, fact.value, fact.detail].filter(Boolean).join(', ');
                     return `<article title="${escapeMarkup(factDetail)}">
                             <span>${escapeMarkup(fact.label)}</span>
                             <strong>${escapeMarkup(fact.value)}</strong>
@@ -3115,7 +3115,7 @@ function renderWeekSelector() {
 
 function renderWeekHeader() {
     const week = getLocalizedWeek(labState.selectedWeek);
-    labElements.weekEyebrow.textContent = `${getLabText('weekLabel', 'Week')} ${week.week} · ${week.theme}`;
+    labElements.weekEyebrow.textContent = `${getLabText('weekLabel', 'Week')} ${week.week}, ${week.theme}`;
     labElements.weekTitle.textContent = week.title;
     labElements.weekSummary.textContent = week.summary;
 }

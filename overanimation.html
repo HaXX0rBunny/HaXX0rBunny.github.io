@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="An Unreal Engine 5.8 plug-in that adds exaggeration to existing animations through motion analysis, camera-aware GPU mesh deformation, and effect authoring tools." data-oa-key="meta.description" data-oa-attr="content">
-    <title data-oa-key="meta.title">Dynamic OverAnimation · Unreal Engine GPU Mesh Deformation</title>
-    <link rel="stylesheet" href="style.css?v=20261016-layout2">
+    <title data-oa-key="meta.title">Dynamic OverAnimation, Unreal Engine GPU Mesh Deformation</title>
+    <link rel="stylesheet" href="style.css?v=20261016-layout4">
 </head>
 <body class="overanim-page">
     <header class="lab-nav overanim-topbar">
@@ -23,9 +23,9 @@
         <section class="overanim-hero">
             <div class="container overanim-hero-grid">
                 <div class="overanim-hero-copy">
-                    <p class="section-kicker" data-oa-key="hero.kicker">KRAFTON Jungle Epic Project · DynaMax</p>
+                    <p class="section-kicker" data-oa-key="hero.kicker">KRAFTON Jungle Epic Project, DynaMax</p>
                     <h1>Dynamic<br><span>OverAnimation</span></h1>
-                    <p class="overanim-hero-role" data-oa-key="hero.role">Team Lead · Animation Analysis, GPU & Editor</p>
+                    <p class="overanim-hero-role" data-oa-key="hero.role">Team Lead, Animation Analysis, GPU & Editor</p>
                     <p class="overanim-hero-lede" data-oa-key="hero.lede">A plug-in that adds exaggerated movement to existing animations. I led the three-person team and implemented motion analysis, stable runtime signals, GPU deformation, and editor tools for the Fab release.</p>
 
                     <div class="overanim-hero-actions">
@@ -39,10 +39,10 @@
                     </div>
 
                     <dl class="overanim-hero-facts">
-                        <div><dt data-oa-key="facts.teamLabel">Team</dt><dd data-oa-key="facts.teamValue">3-person team · Team Lead</dd></div>
-                        <div><dt data-oa-key="facts.productLabel">Product</dt><dd data-oa-key="facts.productValue">UE 5.8 · Win64</dd></div>
-                        <div><dt data-oa-key="facts.workLabel">My focus</dt><dd data-oa-key="facts.workValue">Direction · Analyzer · Runtime · GPU</dd></div>
-                        <div><dt data-oa-key="facts.testLabel">Verification</dt><dd data-oa-key="facts.testValue">Win64 build · automation</dd></div>
+                        <div><dt data-oa-key="facts.teamLabel">Team</dt><dd data-oa-key="facts.teamValue">3-person team, Team Lead</dd></div>
+                        <div><dt data-oa-key="facts.productLabel">Product</dt><dd data-oa-key="facts.productValue">UE 5.8, Win64</dd></div>
+                        <div><dt data-oa-key="facts.workLabel">My focus</dt><dd data-oa-key="facts.workValue">Direction, Analyzer, Runtime, GPU</dd></div>
+                        <div><dt data-oa-key="facts.testLabel">Verification</dt><dd data-oa-key="facts.testValue">Win64 build, automation</dd></div>
                     </dl>
                 </div>
 
@@ -179,7 +179,7 @@
                 <header class="overanim-section-heading">
                     <span>03</span>
                     <div>
-                        <p class="section-kicker" data-oa-key="analyzer.kicker">Core system · Motion timing</p>
+                        <p class="section-kicker" data-oa-key="analyzer.kicker">Core system, Motion timing</p>
                         <h2 data-oa-key="analyzer.title">Convert final-pose motion into six-stage timing signals</h2>
                         <p data-oa-key="analyzer.lede">The Motion Phase Analyzer samples the final evaluated pose by Region and derives linear, tip, angular, acceleration, and Chain-extension signals. Temporal confirmation, cycle history, and Region ownership turn those signals into Phase, strength, direction, and cycle data for Response Rules.</p>
                     </div>
@@ -201,13 +201,13 @@
                     <i aria-hidden="true">→</i>
                     <div><small data-oa-key="analyzer.flow2Label">Region sampling</small><strong data-oa-key="analyzer.flow2">Motion signals</strong></div>
                     <i aria-hidden="true">→</i>
-                    <div><small data-oa-key="analyzer.flow3Label">Time stability</small><strong data-oa-key="analyzer.flow3">Trend · confirmation</strong></div>
+                    <div><small data-oa-key="analyzer.flow3Label">Time stability</small><strong data-oa-key="analyzer.flow3">Trend, confirmation</strong></div>
                     <i aria-hidden="true">→</i>
-                    <div><small data-oa-key="analyzer.flow4Label">Cycle decision</small><strong data-oa-key="analyzer.flow4">Region owner · cycle</strong></div>
+                    <div><small data-oa-key="analyzer.flow4Label">Cycle decision</small><strong data-oa-key="analyzer.flow4">Region owner, cycle</strong></div>
                     <i aria-hidden="true">→</i>
                     <div><small data-oa-key="analyzer.flow5Label">Output data</small><strong>Motion.Region.Phase</strong></div>
                     <i aria-hidden="true">→</i>
-                    <div><small data-oa-key="analyzer.flow6Label">Effect selection</small><strong data-oa-key="analyzer.flow6">Response Rule · Module</strong></div>
+                    <div><small data-oa-key="analyzer.flow6Label">Effect selection</small><strong data-oa-key="analyzer.flow6">Response Rule, Module</strong></div>
                 </div>
 
                 <div class="overanim-phase-trace" aria-label="Six Motion Phase stages" data-oa-key="analyzer.phaseTraceAria" data-oa-attr="aria-label">
@@ -221,17 +221,17 @@
 
                 <div class="overanim-analyzer-grid">
                     <article class="overanim-panel">
-                        <p class="overanim-panel-label" data-oa-key="analyzer.inputLabel">01 · Motion input</p>
+                        <p class="overanim-panel-label" data-oa-key="analyzer.inputLabel">01, Motion input</p>
                         <h3 data-oa-key="analyzer.inputTitle">Measure articulation without Actor travel</h3>
                         <p data-oa-key="analyzer.inputBody">The default Skeleton-root-relative mode removes Actor movement and extracted root motion while preserving shoulder, limb, and spine articulation. Full Final Pose mode remains available when whole-body travel should drive the cycle.</p>
                     </article>
                     <article class="overanim-panel">
-                        <p class="overanim-panel-label" data-oa-key="analyzer.stabilityLabel">02 · Temporal stability</p>
+                        <p class="overanim-panel-label" data-oa-key="analyzer.stabilityLabel">02, Temporal stability</p>
                         <h3 data-oa-key="analyzer.stabilityTitle">Treat threshold crossings as candidates</h3>
                         <p data-oa-key="analyzer.stabilityBody">Adaptive Trend Smoothing filters the signal. Confirmation windows, minimum Stage duration, and Cycle history then check the transition so a single noisy frame does not trigger peak deformation.</p>
                     </article>
                     <article class="overanim-panel">
-                        <p class="overanim-panel-label" data-oa-key="analyzer.outputLabel">03 · Analysis output</p>
+                        <p class="overanim-panel-label" data-oa-key="analyzer.outputLabel">03, Analysis output</p>
                         <h3 data-oa-key="analyzer.outputTitle">Keep detection separate from presentation</h3>
                         <p data-oa-key="analyzer.outputBody">Response Rules map Phase, strength, direction, Region, and Cycle ID from the Analyzer to the ordered Module Stack. Effects can be adjusted without changing phase detection.</p>
                     </article>
@@ -256,7 +256,7 @@
 
                 <article class="overanim-case overanim-analyzer-case">
                     <div class="overanim-case-copy">
-                        <p class="overanim-panel-label" data-oa-key="analyzer.troubleLabel">Motion Phase troubleshooting · One-frame spike</p>
+                        <p class="overanim-panel-label" data-oa-key="analyzer.troubleLabel">Motion Phase troubleshooting, One-frame spike</p>
                         <h3 data-oa-key="analyzer.troubleTitle">Require temporal confirmation before Action</h3>
                         <dl>
                             <div><dt data-oa-key="logic.problem">Problem</dt><dd data-oa-key="analyzer.troubleProblem">High energy in the first frame could trigger Action and peak deformation before the preparation motion.</dd></div>
@@ -290,7 +290,7 @@ TestEqual(TEXT("Confirmed Action"),
                 </article>
 
                 <article class="overanim-panel overanim-runtime-trace-panel">
-                    <p class="overanim-panel-label" data-oa-key="analyzer.runtimeLabel">Runtime trace · Same Action/Cycle</p>
+                    <p class="overanim-panel-label" data-oa-key="analyzer.runtimeLabel">Runtime trace, Same Action/Cycle</p>
                     <h3 data-oa-key="analyzer.runtimeTitle">Phase transitions and Module release for one action</h3>
                     <p data-oa-key="analyzer.runtimeBody">This log follows Action 6, Cycle 3 in the LeftArmAction Region of OA_AttackCombo_AutoRegions, from Anticipation through the final Module release.</p>
                     <div class="overanim-phase-trace overanim-phase-trace--runtime" aria-label="Runtime Motion Phase transition trace" data-oa-key="analyzer.runtimeTraceAria" data-oa-attr="aria-label">
@@ -332,17 +332,17 @@ TestEqual(TEXT("Confirmed Action"),
 
                 <div class="overanim-three-grid">
                     <article class="overanim-panel">
-                        <p class="overanim-panel-label">01 · Runtime</p>
+                        <p class="overanim-panel-label">01, Runtime</p>
                         <h3 data-oa-key="architecture.runtimeTitle">Analysis and response</h3>
                         <p data-oa-key="architecture.runtimeBody">After animation evaluation, stores the required control-point component-space pose, component transform, sample time, serial, and continuity. It derives Region, tip, angular, and chain features, normalizes linear thresholds by Region scale, then resolves phase timing before Response Rules and Module weights.</p>
                     </article>
                     <article class="overanim-panel">
-                        <p class="overanim-panel-label">02 · Render / GPU</p>
+                        <p class="overanim-panel-label">02, Render / GPU</p>
                         <h3 data-oa-key="architecture.renderTitle">Ordered deformation</h3>
                         <p data-oa-key="architecture.renderBody">Resolved work moves to the Render Thread and is filtered by Scene and Execution Group. Compute passes execute in order at the MeshDeformer stage.</p>
                     </article>
                     <article class="overanim-panel">
-                        <p class="overanim-panel-label">03 · Editor</p>
+                        <p class="overanim-panel-label">03, Editor</p>
                         <h3 data-oa-key="architecture.editorTitle">Per-Asset effect settings</h3>
                         <p data-oa-key="architecture.editorBody">One Asset Editor provides Bone Group, Module Stack, and Response Rule settings alongside Preview Mode and diagnostics.</p>
                     </article>
@@ -364,7 +364,7 @@ TestEqual(TEXT("Confirmed Action"),
                 <div class="overanim-case-stack">
                     <article class="overanim-case">
                         <div class="overanim-case-copy">
-                            <p class="overanim-panel-label" data-oa-key="logic.case1Label">Case 01 · Pose timeline</p>
+                            <p class="overanim-panel-label" data-oa-key="logic.case1Label">Case 01, Pose timeline</p>
                             <h3 data-oa-key="logic.case1Title">Recover from hitches without replaying stale poses</h3>
                             <dl>
                                 <div><dt data-oa-key="logic.problem">Problem</dt><dd data-oa-key="logic.case1Problem">After a frame hitch, fixed-step catch-up could replay old component-space poses as current motion.</dd></div>
@@ -388,7 +388,7 @@ return SampleAgeSeconds &gt;
 
                     <article class="overanim-case">
                         <div class="overanim-case-copy">
-                            <p class="overanim-panel-label" data-oa-key="logic.case2Label">Case 02 · Region selection</p>
+                            <p class="overanim-panel-label" data-oa-key="logic.case2Label">Case 02, Region selection</p>
                             <h3 data-oa-key="logic.case2Title">Stop repeated Region owner switching</h3>
                             <dl>
                                 <div><dt data-oa-key="logic.problem">Problem</dt><dd data-oa-key="logic.case2Problem">Regions with similar scores could exchange ownership on adjacent frames.</dd></div>
@@ -416,7 +416,7 @@ if (!bCounterMotionPriority &amp;&amp;
 
                     <article class="overanim-case">
                         <div class="overanim-case-copy">
-                            <p class="overanim-panel-label" data-oa-key="logic.case3Label">Case 03 · Async teardown</p>
+                            <p class="overanim-panel-label" data-oa-key="logic.case3Label">Case 03, Async teardown</p>
                             <h3 data-oa-key="logic.case3Title">Cancel queued GPU work when its component is destroyed</h3>
                             <dl>
                                 <div><dt data-oa-key="logic.problem">Problem</dt><dd data-oa-key="logic.case3Problem">A component could be removed while its deformer work item was still waiting in the Render Thread queue.</dd></div>
@@ -444,7 +444,7 @@ if (!bCounterMotionPriority &amp;&amp;
 
                     <article class="overanim-case">
                         <div class="overanim-case-copy">
-                            <p class="overanim-panel-label" data-oa-key="logic.case4Label">Case 04 · Socket attachment</p>
+                            <p class="overanim-panel-label" data-oa-key="logic.case4Label">Case 04, Socket attachment</p>
                             <h3 data-oa-key="logic.case4Title">Keep visual attachments on deformed endpoints</h3>
                             <dl>
                                 <div><dt data-oa-key="logic.problem">Problem</dt><dd data-oa-key="logic.case4Problem">A socket-attached visual still followed the undeformed skeleton while Squash &amp; Stretch moved the visible endpoint.</dd></div>
@@ -477,7 +477,7 @@ State.AppliedOffsetWS = NewOffsetWS;</code></pre>
 
                     <article class="overanim-case">
                         <div class="overanim-case-copy">
-                            <p class="overanim-panel-label" data-oa-key="logic.case5Label">Case 05 · Response arbitration</p>
+                            <p class="overanim-panel-label" data-oa-key="logic.case5Label">Case 05, Response arbitration</p>
                             <h3 data-oa-key="logic.case5Title">Resolve competing effects in the same Slot</h3>
                             <dl>
                                 <div><dt data-oa-key="logic.problem">Problem</dt><dd data-oa-key="logic.case5Problem">Motion, impact, and gameplay rules could target the same response slot during one frame, making update order decide the visible deformation.</dd></div>
@@ -508,7 +508,7 @@ if (bHasHigherPriority ||
 
                     <article class="overanim-case">
                         <div class="overanim-case-copy">
-                            <p class="overanim-panel-label" data-oa-key="logic.case6Label">Case 06 · Collision signals</p>
+                            <p class="overanim-panel-label" data-oa-key="logic.case6Label">Case 06, Collision signals</p>
                             <h3 data-oa-key="logic.case6Title">Collapse repeated contact callbacks into one impact response</h3>
                             <dl>
                                 <div><dt data-oa-key="logic.problem">Problem</dt><dd data-oa-key="logic.case6Problem">One physical contact could produce several hit callbacks and stack the same deformation pulse.</dd></div>
@@ -538,7 +538,7 @@ if (bSameSource &amp;&amp; bSameRoute &amp;&amp; bNearbyContact &amp;&amp;
 
                     <article class="overanim-case">
                         <div class="overanim-case-copy">
-                            <p class="overanim-panel-label" data-oa-key="logic.case7Label">Case 07 · Global shader compile</p>
+                            <p class="overanim-panel-label" data-oa-key="logic.case7Label">Case 07, Global shader compile</p>
                             <h3 data-oa-key="logic.case7Title">Restore the missing platform root for the Region Blend shader</h3>
                             <dl>
                                 <div><dt data-oa-key="logic.problem">Problem</dt><dd data-oa-key="logic.case7Problem">The Region Blend global compute shader failed to compile under DX12 / SM6.</dd></div>
@@ -629,7 +629,7 @@ if (bSameSource &amp;&amp; bSameRoute &amp;&amp; bNearbyContact &amp;&amp;
                             <div><dt data-oa-key="product.engineLabel">Engine</dt><dd>Unreal Engine 5.8</dd></div>
                             <div><dt data-oa-key="product.platformLabel">Platform</dt><dd>Windows 64-bit</dd></div>
                             <div><dt data-oa-key="product.renderLabel">Rendering</dt><dd>SM5 GPU</dd></div>
-                            <div><dt data-oa-key="product.apiLabel">Integration</dt><dd>C++ · Blueprint</dd></div>
+                            <div><dt data-oa-key="product.apiLabel">Integration</dt><dd>C++, Blueprint</dd></div>
                         </dl>
                         <p data-oa-key="product.note">My work: Motion Phase Analyzer, runtime responses, GPU deformation, editor tools, and team integration.</p>
                         <div class="overanim-hero-actions">
@@ -648,13 +648,13 @@ if (bSameSource &amp;&amp; bSameRoute &amp;&amp; bNearbyContact &amp;&amp;
 
     <footer class="overanim-footer">
         <div class="container">
-            <div><strong>HaXX0rBunny</strong><span data-oa-key="footer.role">C++ · Rendering · Unreal Engine</span></div>
+            <div><strong>HaXX0rBunny</strong><span data-oa-key="footer.role">C++, Rendering, Unreal Engine</span></div>
             <a href="index.html#projects" data-oa-key="nav.back">Back to portfolio</a>
         </div>
     </footer>
 
-    <script src="locale.js?v=20261016-layout2"></script>
-    <script src="overanimation.ko.js?v=20261015-review2"></script>
+    <script src="locale.js?v=20261016-layout4"></script>
+    <script src="overanimation.ko.js?v=20261016-layout4"></script>
     <script src="overanimation-localize.js"></script>
     <script src="detail-shell.js"></script>
 </body>

@@ -3,11 +3,11 @@ window.PORTFOLIO_PROJECT_KO = {
     "1": {
         "team_label": "최종 3인 팀",
         "scope_label": "게임플레이",
-        "my_role": "팀장 · 스테이지·캐릭터·시간 제어",
+        "my_role": "팀장, 스테이지, 캐릭터, 시간 제어",
         "description": "팀장을 맡아 스테이지와 플레이어 캐릭터, 시간 제어를 구현했습니다. 이동과 전투는 Blueprint로 구현하고, 이동 애니메이션에 Motion Matching을 적용했습니다. 시간 배율에 맞춰 비 파티클의 크기도 조절했습니다.",
         "collaboration_details": {
             "team_size": "4명으로 시작, 최종 3명",
-            "my_role": "팀장 · 스테이지·캐릭터·시간 제어",
+            "my_role": "팀장, 스테이지, 캐릭터, 시간 제어",
             "team_roles": [
                 "본인: 팀장, 스테이지, 플레이어 캐릭터 전체, Time Dilation과 비 파티클 조절",
                 "팀원: VFX, SFX, UI",
@@ -21,7 +21,7 @@ window.PORTFOLIO_PROJECT_KO = {
             "team_dynamics": "4명으로 시작한 프로젝트에서 한 명이 빠진 뒤 3명이 작업했습니다. 담당 기능을 구현하면서 작업 우선순위와 진행 상황을 조율했습니다. 프로젝트 파일명 변경으로 패키징이 중단됐을 때는 로그와 참조 경로를 추적해 복구했고, 이후 프로젝트 설정 파일의 Git 관리 규칙을 팀에 제안했습니다."
         },
         "technical_challenges": [
-            "스테이지와 플레이어의 이동·전투를 Blueprint로 구현하고, 이동 애니메이션에 Motion Matching을 적용했습니다.",
+            "스테이지와 플레이어의 이동, 전투를 Blueprint로 구현하고, 이동 애니메이션에 Motion Matching을 적용했습니다.",
             "TimeManipulater_BP에서 SetGlobalTimeDilation을 이용한 시간 제어를 만들고, Tick에 의존하던 시간 진행 로직을 분리했습니다.",
             "시간 제어를 Rain_BP의 Rain_Delation과 연결했습니다. VInterpTo로 보간한 값을 Niagara의 Max Scale Factor에 전달해 비 파티클의 스케일을 조절했습니다.",
             "패키징 로그와 프로젝트 참조 경로를 추적해 팀 공용 빌드를 복구했습니다."
@@ -36,7 +36,7 @@ window.PORTFOLIO_PROJECT_KO = {
             }
         },
         "development_timeline": null,
-        "subtitle": "3D 액션 게임 · 캐릭터 이동과 시간 제어",
+        "subtitle": "3D 액션 게임, 캐릭터 이동과 시간 제어",
         "source_note": "공개 저장소에는 일부 에셋만 포함됩니다. 시간 제어와 비 파티클 소스는 미공개이며, 동작은 영상과 배포 빌드에서 볼 수 있습니다.",
         "highlights": [
             {
@@ -44,16 +44,16 @@ window.PORTFOLIO_PROJECT_KO = {
             "href": "https://github.com/HaXX0rBunny/HaXX0rBunny.github.io/blob/main/docs/edgedrive-blueprint.md"
             },
             {
-                "label": "공개 캐릭터·입력 에셋",
+                "label": "공개 캐릭터, 입력 에셋",
             "href": "https://github.com/Team-Illegal-Design-Club/EdgeDrive/tree/Sanghyeon/Content"
             }
         ]
     },
     "2": {
-        "team_label": "팀 프로젝트 · 2명",
+        "team_label": "팀 프로젝트, 2명",
         "scope_label": "게임 프로젝트",
         "my_role": "게임플레이 & 시스템 프로그래머",
-        "description": "C와 CProcessing으로 만든 2D 액션 게임입니다. 보스의 공격과 피격·사망 처리, 충돌 판정, 발사체 풀을 담당했습니다. 소스 저장소는 APETI라는 이름으로 공개되어 있습니다.",
+        "description": "C와 CProcessing으로 만든 2D 액션 게임입니다. 보스의 공격과 피격, 사망 처리, 충돌 판정, 발사체 풀을 담당했습니다. 소스 저장소는 APETI라는 이름으로 공개되어 있습니다.",
         "collaboration_details": {
             "team_size": 2,
             "my_role": "게임플레이 & 시스템 프로그래머",
@@ -72,7 +72,7 @@ window.PORTFOLIO_PROJECT_KO = {
             "고정 용량 투사체 및 함정 풀의 재사용 구조 설계",
             "메뉴/게임/보스/클리어/게임 오버 상태 동기화",
             "텍스트 기반 .lvl 레벨 데이터의 직렬화 처리",
-            "각 게임 상태의 초기화·종료 구간에 맞춘 사운드 핸들 수명 관리"
+            "각 게임 상태의 초기화, 종료 구간에 맞춘 사운드 핸들 수명 관리"
         ],
         "troubleshooting": {
             "projectile_timestep": {
@@ -103,7 +103,7 @@ window.PORTFOLIO_PROJECT_KO = {
                 {
                     "phase": "핵심 플레이어 로직",
                     "duration": "6/19–6/21",
-                    "focus": "플레이어·발사체 풀·적·충돌 처리 구성"
+                    "focus": "플레이어, 발사체 풀, 적, 충돌 처리 구성"
                 },
                 {
                     "phase": "보스 및 레벨 시스템",
@@ -118,13 +118,13 @@ window.PORTFOLIO_PROJECT_KO = {
             ]
         },
         "downloadLabel": "Windows 실행 파일",
-        "subtitle": "2D 액션 플랫포머 · 보스 러시 프로토타입"
+        "subtitle": "2D 액션 플랫포머, 보스 러시 프로토타입"
     },
     "3": {
-        "team_label": "팀 프로젝트 · 4명",
+        "team_label": "팀 프로젝트, 4명",
         "scope_label": "게임 프로젝트",
         "my_role": "UI 시스템 & 게임플레이 연동 프로그래머",
-        "description": "상점에서 장비를 준비하고 바람과 중력을 고려해 포격하는 4인 팀의 C++ 게임입니다. 메뉴와 상점, 전투 HUD를 구현하고 버튼·툴팁과 게임 상태를 연결했습니다. UI를 클릭할 때 전투 조작이 함께 실행되는 입력 충돌도 수정했습니다.",
+        "description": "상점에서 장비를 준비하고 바람과 중력을 고려해 포격하는 4인 팀의 C++ 게임입니다. 메뉴와 상점, 전투 HUD를 구현하고 버튼, 툴팁과 게임 상태를 연결했습니다. UI를 클릭할 때 전투 조작이 함께 실행되는 입력 충돌도 수정했습니다.",
         "collaboration_details": {
             "team_size": 4,
             "my_role": "UI 시스템 & 게임플레이 연동 프로그래머",
@@ -138,7 +138,7 @@ window.PORTFOLIO_PROJECT_KO = {
                 "Git 브랜치",
                 "Visual Studio 2022"
             ],
-            "team_dynamics": "공유 Alpha Engine 코드베이스에서 기능 브랜치로 협업하며 UI 아키텍처·게임플레이 연동·입력 라우팅을 담당했습니다."
+            "team_dynamics": "공유 Alpha Engine 코드베이스에서 기능 브랜치로 협업하며 UI 아키텍처, 게임플레이 연동, 입력 라우팅을 담당했습니다."
         },
         "technical_challenges": [
             "월드/인터페이스/텍스트 렌더링 순서 분리",
@@ -172,10 +172,10 @@ window.PORTFOLIO_PROJECT_KO = {
         "subtitle": "2D 턴제 포격 게임"
     },
     "4": {
-        "team_label": "팀 프로젝트 · 3~4명",
-        "scope_label": "렌더링 · 독립 실행 빌드",
+        "team_label": "팀 프로젝트, 3~4명",
+        "scope_label": "렌더링, 독립 실행 빌드",
         "my_role": "렌더링 & 엔진 프로그래머",
-        "description": "C++과 DirectX 11로 자체 엔진을 개발했습니다. 오브젝트 5만 개 장면에 임포스터 렌더링을 적용하고, 에디터에서 만든 게임을 독립 실행 파일로 만드는 Build·Cook·Stage 과정을 구현했습니다.",
+        "description": "C++과 DirectX 11로 자체 엔진을 개발했습니다. 오브젝트 5만 개 장면에 임포스터 렌더링을 적용하고, 에디터에서 만든 게임을 독립 실행 파일로 만드는 Build, Cook, Stage 과정을 구현했습니다.",
         "coverAlt": "Game Tech Lab 과정에서 개발한 커스텀 C++ 엔진 파티클 에디터",
         "coverLabel": "C++ 자체 엔진",
         "collaboration_details": {
@@ -183,7 +183,7 @@ window.PORTFOLIO_PROJECT_KO = {
             "my_role": "렌더링 & 엔진 프로그래머",
             "team_roles": [
                 "렌더링/엔진 프로그래밍 (본인)",
-                "매주 바뀌는 그래픽스·엔진·게임플레이·툴 개발 파트"
+                "매주 바뀌는 그래픽스, 엔진, 게임플레이, 툴 개발 파트"
             ],
             "collaboration_tools": [
                 "Git",
@@ -191,11 +191,11 @@ window.PORTFOLIO_PROJECT_KO = {
                 "Visual Studio",
                 "Discord"
             ],
-            "team_dynamics": "매주 팀 구성이 바뀌는 환경에서 담당한 렌더링·엔진 기능을 팀 공용 코드에 통합했습니다."
+            "team_dynamics": "매주 팀 구성이 바뀌는 환경에서 담당한 렌더링, 엔진 기능을 팀 공용 코드에 통합했습니다."
         },
         "technical_challenges": [
             "기본 3D 렌더링 기반 엔진을 에디터/런타임 시스템으로 확장",
-            "OBJ/FBX 에셋을 조명·그림자·물리·애니메이션·파티클 파이프라인과 통합",
+            "OBJ/FBX 에셋을 조명, 그림자, 물리, 애니메이션, 파티클 파이프라인과 통합",
             "옥타헤드럴 임포스터를 활용해 대규모 오브젝트 장면 성능 최적화",
             "주차별 코드베이스 변경과 외부 SDK 의존성 변화에도 빌드 가능한 구조 유지"
         ],
@@ -209,7 +209,7 @@ window.PORTFOLIO_PROJECT_KO = {
             }
         },
         "development_timeline": {
-            "duration": "엔진 제작 과정 · 1~14주",
+            "duration": "엔진 제작 과정, 1~14주",
             "phases": [
                 {
                     "phase": "1주차: 게임잼",
@@ -222,7 +222,7 @@ window.PORTFOLIO_PROJECT_KO = {
                     "focus": "3D 기본 도형, 씬 컴포넌트, 카메라 변환, 스카이 구 구축"
                 },
                 {
-                    "phase": "3주차: Atlas · Billboard · Batch Line · Bounding Box",
+                    "phase": "3주차: Atlas, Billboard, Batch Line, Bounding Box",
                     "duration": "Week 03",
                     "focus": "재사용 가능한 렌더링 유틸과 엔진 디버깅 기능"
                 },
@@ -237,7 +237,7 @@ window.PORTFOLIO_PROJECT_KO = {
                     "focus": "옥타헤드럴 임포스터 베이킹과 대규모 장면 최적화"
                 },
                 {
-                    "phase": "6주차: 데칼 · 안개 정리",
+                    "phase": "6주차: 데칼, 안개 정리",
                     "duration": "Week 06",
                     "focus": "Height Fog와 Spotlight Decal, 뷰포트 Alpha 혼합"
                 },
@@ -298,17 +298,17 @@ window.PORTFOLIO_PROJECT_KO = {
     "5": {
         "team_label": "3인 팀",
         "scope_label": "Fab 출시",
-        "my_role": "팀장 · 동작 분석 · GPU 변형 · 편집 도구",
+        "my_role": "팀장, 동작 분석, GPU 변형, 편집 도구",
         "subtitle": "애니메이션 과장 변형 플러그인",
         "description": "기존 애니메이션에 과장된 움직임을 더하는 Unreal Engine 플러그인입니다. 팀장으로 동작 분석, 신호 안정화, GPU 변형, 편집 도구를 구현하고 팀원의 작업을 통합해 Fab에 출시했습니다.",
         "coverAlt": "스타일화된 GPU 메시 변형 효과를 보여 주는 Dynamic OverAnimation 제품 이미지",
         "coverLabel": "Dynamic OverAnimation",
         "collaboration_details": {
-            "team_size": "DynaMax · 3인 팀",
-            "my_role": "팀장 · Motion Phase · 런타임 시스템 · GPU 변형 프로그래머",
+            "team_size": "DynaMax, 3인 팀",
+            "my_role": "팀장, Motion Phase, 런타임 시스템, GPU 변형 프로그래머",
             "team_roles": [
-                "시스템 설계와 통합, 동작 분석, 런타임 응답, GPU 변형, 편집 도구 (팀장 · 본인)",
-                "Proxy·Vertex Factory 기반과 연계 모듈, 데모 콘텐츠 (팀원)"
+                "시스템 설계와 통합, 동작 분석, 런타임 응답, GPU 변형, 편집 도구 (팀장, 본인)",
+                "Proxy, Vertex Factory 기반과 연계 모듈, 데모 콘텐츠 (팀원)"
             ],
             "collaboration_tools": [
                 "Perforce",
@@ -319,8 +319,8 @@ window.PORTFOLIO_PROJECT_KO = {
             "team_dynamics": "DynaMax 3인 팀의 팀장으로 분석기와 렌더러 사이에 전달할 데이터, 갱신 시점과 통합 순서를 조율했습니다. Perforce로 변경 사항을 공유하고 자동화 테스트와 에디터 미리보기로 기능을 확인하며 출시를 준비했습니다."
         },
         "technical_challenges": [
-            "포즈 분석 결과와 AnimNotify·Gameplay Event로 지정한 동작 사이의 우선순위 정의",
-            "Region·Chain별 변형 범위를 지정하고 카메라 방향에 따라 실루엣이 무너지지 않도록 제한",
+            "포즈 분석 결과와 AnimNotify, Gameplay Event로 지정한 동작 사이의 우선순위 정의",
+            "Region, Chain별 변형 범위를 지정하고 카메라 방향에 따라 실루엣이 무너지지 않도록 제한",
             "움직임 노이즈를 보정하고 비슷한 점수의 신체 영역 사이에서 판정이 반복적으로 바뀌는 문제 완화",
             "Game Thread에서 확정한 변형 상태를 Snapshot에 복사해 Render Thread로 전달",
             "RDG에서 module pass와 vertex-factory 출력을 합성"
@@ -356,7 +356,7 @@ window.PORTFOLIO_PROJECT_KO = {
             }
         },
         "development_timeline": {
-            "duration": "Epic Project · 2026",
+            "duration": "Epic Project, 2026",
             "phases": [
                 {
                     "phase": "Bone Group 구성",
@@ -365,12 +365,12 @@ window.PORTFOLIO_PROJECT_KO = {
                 },
                 {
                     "phase": "런타임 및 GPU 합성",
-                    "duration": "Snapshot·RDG 합성",
+                    "duration": "Snapshot, RDG 합성",
                     "focus": "Response arbitration, Squash & Stretch, snapshot, RDG pass, normal/tangent"
                 },
                 {
                     "phase": "자동 Motion Phase",
-                    "duration": "Phase·Region 상태 기계",
+                    "duration": "Phase, Region 상태 기계",
                     "focus": "Phase 판정 안정화, Region 선택, 동작 타이밍과 편집 UI"
                 },
                 {

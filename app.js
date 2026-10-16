@@ -9,11 +9,11 @@ const icons = {
 const projectsData = {
     "1": {
         "title": "Edge Drive",
-        "subtitle": "3D Action Game · Character Movement & Time Control",
+        "subtitle": "3D Action Game, Character Movement & Time Control",
         "project_type": "team",
         "is_team_project": true,
         "team_size": 3,
-        "my_role": "Team Lead · Stages, Character & Time Control",
+        "my_role": "Team Lead, Stages, Character & Time Control",
         "technologies": [
             "Unreal Engine 5.4",
             "Blueprint"
@@ -26,7 +26,7 @@ const projectsData = {
         },
         "collaboration_details": {
             "team_size": "Started with 4; completed with 3",
-            "my_role": "Team Lead · Stages, Character & Time Control",
+            "my_role": "Team Lead, Stages, Character & Time Control",
             "team_roles": [
                 "Me: team lead, stages, player character, Time Dilation, and rain-particle adjustments",
                 "Teammate: VFX, SFX, and UI",
@@ -72,7 +72,7 @@ const projectsData = {
     },
     "2": {
         "title": "MegaRogue",
-        "subtitle": "2D Action Platformer · Boss-Rush Prototype",
+        "subtitle": "2D Action Platformer, Boss-Rush Prototype",
         "project_type": "team",
         "is_team_project": true,
         "team_size": 2,
@@ -181,7 +181,7 @@ const projectsData = {
         "title": "GameTechLab3rd",
         "subtitle": "C++ Rendering & Engine Development",
         "project_type": "collection",
-        "team_label": "Team Project · 3–4 Members",
+        "team_label": "Team Project, 3–4 Members",
         "scope_label": "Rendering & Standalone Builds",
         "is_team_project": true,
         "team_size": "3–4",
@@ -230,7 +230,7 @@ const projectsData = {
             }
         },
         "development_timeline": {
-            "duration": "Engine development · Weeks 1–14",
+            "duration": "Engine development, Weeks 1–14",
             "phases": [
                 {
                     "phase": "1st Game Jam",
@@ -243,7 +243,7 @@ const projectsData = {
                     "focus": "3D primitives, scene components, camera transforms, and sky sphere"
                 },
                 {
-                    "phase": "Atlas · Billboard · Batch Line · Bounding Box",
+                    "phase": "Atlas, Billboard, Batch Line, Bounding Box",
                     "duration": "Week 03",
                     "focus": "Reusable rendering utilities and engine debugging features"
                 },
@@ -253,12 +253,12 @@ const projectsData = {
                     "focus": "OBJ/MTL import, UStaticMesh assets, registry lookup, and versioned .dasset cooking"
                 },
                 {
-                    "phase": "2nd Game Jam · It's Pie Time",
+                    "phase": "2nd Game Jam, It's Pie Time",
                     "duration": "Week 05",
                     "focus": "Octahedral impostor baking and large-scene rendering optimization"
                 },
                 {
-                    "phase": "Decal · Clearing the Fog",
+                    "phase": "Decal, Clearing the Fog",
                     "duration": "Week 06",
                     "focus": "Height fog, spotlight decals, and viewport alpha blending"
                 },
@@ -273,7 +273,7 @@ const projectsData = {
                     "focus": "Light-space rendering and real-time shadow evaluation"
                 },
                 {
-                    "phase": "3rd Game Jam · Light, Camera, Action!",
+                    "phase": "3rd Game Jam, Light, Camera, Action!",
                     "duration": "Week 09",
                     "focus": "Standalone build, cook, stage, runtime loading, and verification"
                 },
@@ -323,7 +323,7 @@ const projectsData = {
         "scope_label": "Released on Fab",
         "is_team_project": true,
         "team_size": 3,
-        "my_role": "Team Lead · Animation Analysis, GPU & Editor",
+        "my_role": "Team Lead, Animation Analysis, GPU & Editor",
         "technologies": [
             "Unreal Engine 5.8",
             "C++",
@@ -343,10 +343,10 @@ const projectsData = {
             "documentation": "https://dynamaxgtl3rd.github.io/OverAnimDocs/"
         },
         "collaboration_details": {
-            "team_size": "DynaMax · 3-person team",
-            "my_role": "Team Lead · Motion Phase, Runtime Systems & GPU Deformation Programmer",
+            "team_size": "DynaMax, 3-person team",
+            "my_role": "Team Lead, Motion Phase, Runtime Systems & GPU Deformation Programmer",
             "team_roles": [
-                "Product direction, system design, motion phase analysis, runtime response, GPU deformation pipeline, and editor authoring tools (Team Lead · Me)",
+                "Product direction, system design, motion phase analysis, runtime response, GPU deformation pipeline, and editor authoring tools (Team Lead, Me)",
                 "Teammates: Proxy and Vertex Factory foundation, related runtime and editor modules, and demo content"
             ],
             "collaboration_tools": [
@@ -395,7 +395,7 @@ const projectsData = {
             }
         },
         "development_timeline": {
-            "duration": "Epic Project · 2026",
+            "duration": "Epic Project, 2026",
             "phases": [
                 {
                     "phase": "Bone Group setup",
@@ -990,16 +990,18 @@ function createProjectCard(id, project) {
     const detailUrl = project.detailPage || (project.project_type === 'collection' ? project.links?.overview : null);
     const href = detailUrl || `#project-${id}`;
     const typeText = project.team_label || project.type_label || (project.is_team_project
-        ? `${getPortfolioText('index.team', 'Team')} · ${project.team_size}`
+        ? `${getPortfolioText('index.team', 'Team')}, ${project.team_size}`
         : getPortfolioText('index.solo', 'Solo'));
     const coverImage = project.coverImage || (id === '1' ? 'Assets/images/edgedrive-gameplay.jpg' : null);
     const detailLabel = getPortfolioText('global.viewDetails', 'View Details');
     const media = coverImage
-        ? `<a href="${href}" class="project-media project-action project-detail-btn" tabindex="-1" aria-label="${project.title} · ${detailLabel}">
+        ? `<a href="${href}" class="project-media project-action project-detail-btn" tabindex="-1" aria-label="${project.title}, ${detailLabel}">
              <img src="${coverImage}" alt="${project.coverAlt || project.title}" loading="lazy" width="1280" height="720">
            </a>`
-        : '';
-    const meta = [typeText, project.scope_label].filter(Boolean).join(' · ');
+        : project.videoUrl
+            ? `<div class="project-media project-media--video"><iframe src="${project.videoUrl}?rel=0" title="${project.title}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>`
+            : '';
+    const meta = [typeText, project.scope_label].filter(Boolean).join(', ');
     const download = project.downloadLink
         ? `<a href="${project.downloadLink}" target="_blank" rel="noopener noreferrer" class="project-action download-btn">${project.downloadLabel || getPortfolioText('global.downloadDemo', 'Download Demo')} <span aria-hidden="true">↓</span></a>`
         : '';
@@ -1256,7 +1258,7 @@ function populateOverviewTab(project) {
     // Project type badge
     if (projectTypeBadge) {
         const typeText = project.team_label || project.type_label || (project.is_team_project
-            ? `${getPortfolioText('index.team', 'Team')} · ${project.team_size}`
+            ? `${getPortfolioText('index.team', 'Team')}, ${project.team_size}`
             : getPortfolioText('index.solo', 'Solo'));
         const typeBadgeClass = project.is_team_project ? 'team' : 'solo';
         const scopeBadge = project.scope_label

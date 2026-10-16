@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Huntress: C++ menu, store and combat HUD development, input handling, and UI troubleshooting." data-huntress-meta="description">
-    <title data-huntress-meta="title">Huntress · C++ UI Systems & Gameplay Integration</title>
-    <link rel="stylesheet" href="style.css?v=20261016-layout2">
+    <title data-huntress-meta="title">Huntress, C++ UI Systems & Gameplay Integration</title>
+    <link rel="stylesheet" href="style.css?v=20261016-layout4">
 </head>
 <body class="lab-page huntress-page">
     <header class="lab-nav">
@@ -23,7 +23,7 @@
         <section class="huntress-hero" id="top">
             <div class="container huntress-hero-grid">
                 <div class="huntress-hero-copy">
-                    <p class="section-kicker">C++ Team Project · Alpha Engine</p>
+                    <p class="section-kicker">C++ Team Project, Alpha Engine</p>
                     <h1>Huntress</h1>
                     <p class="huntress-hero-role">UI Systems &amp; Gameplay Integration Programmer</p>
                     <p class="huntress-hero-lede">
@@ -47,11 +47,11 @@
                         </div>
                         <div>
                             <dt>Stack</dt>
-                            <dd>C++ · Alpha Engine · FMOD</dd>
+                            <dd>C++, Alpha Engine, FMOD</dd>
                         </div>
                         <div>
                             <dt>Implementation focus</dt>
-                            <dd>UI architecture · gameplay integration</dd>
+                            <dd>UI architecture, gameplay integration</dd>
                         </div>
                     </dl>
                 </div>
@@ -86,7 +86,7 @@
             <div class="container">
                 <header class="huntress-section-heading">
                     <div>
-                        <p class="section-kicker">01 · Project Overview</p>
+                        <p class="section-kicker">01, Project Overview</p>
                         <h2>One interface across two game loops</h2>
                     </div>
                     <p>The project alternates between purchasing upgrades and resolving turn-based projectile combat. The interface has to stay synchronized with inventory, player statistics, combat state, camera input, and render order.</p>
@@ -127,17 +127,17 @@
             <div class="container">
                 <header class="huntress-section-heading">
                     <div>
-                        <p class="section-kicker">02 · Role &amp; Contribution</p>
+                        <p class="section-kicker">02, Role &amp; Contribution</p>
                         <h2>Menu, store and combat UI development</h2>
                     </div>
                     <p>I built the UI modules and connected them to game state, including input handling, draw order and item-information lifetimes.</p>
                 </header>
 
                 <div class="huntress-metric-grid">
-                    <article><strong>Combat UI</strong><span>State-driven HUD</span><small>HP · wind · angle · power · inventory</small></article>
-                    <article><strong>Store UI</strong><span>Purchase and item flow</span><small>Buttons · gold · inventory · tooltips</small></article>
+                    <article><strong>Combat UI</strong><span>State-driven HUD</span><small>HP, wind, angle, power, inventory</small></article>
+                    <article><strong>Store UI</strong><span>Purchase and item flow</span><small>Buttons, gold, inventory, tooltips</small></article>
                     <article><strong>UI Layer</strong><span>World, UI and text layers</span><small>World → Interface → Text</small></article>
-                    <article><strong>Input</strong><span>Separate UI and aiming input</span><small>HUD interaction · world aiming boundary</small></article>
+                    <article><strong>Input</strong><span>Separate UI and aiming input</span><small>HUD interaction, world aiming boundary</small></article>
                 </div>
 
                 <div class="huntress-contribution-grid">
@@ -157,7 +157,7 @@
                         <span class="huntress-panel-label">Representative implementation files</span>
                         <div class="huntress-file-ownership">
                             <div><span>CombatUI.cpp</span><strong>HUD state binding</strong></div>
-                            <div><span>StoreUI.cpp</span><strong>Purchase · inventory · tooltip flow</strong></div>
+                            <div><span>StoreUI.cpp</span><strong>Purchase, inventory, tooltip flow</strong></div>
                             <div><span>EscMenu.cpp</span><strong>Pause and escape-state flow</strong></div>
                             <div><span>ControlUI.cpp</span><strong>Control-guide presentation</strong></div>
                             <div><span>ItemInfo.cpp</span><strong>Item-information lifetime</strong></div>
@@ -173,20 +173,20 @@
             <div class="container">
                 <header class="huntress-section-heading">
                     <div>
-                        <p class="section-kicker">03 · Architecture &amp; Technical Challenges</p>
+                        <p class="section-kicker">03, Architecture &amp; Technical Challenges</p>
                         <h2>State, input, interface, and rendering stay separate</h2>
                     </div>
                     <p>Button input updates the game state, and the HUD reads combat data. World graphics, UI and text render in that order.</p>
                 </header>
 
                 <div class="huntress-architecture-flow" aria-label="Huntress UI architecture flow">
-                    <div><span>01</span><strong>Input</strong><small>Mouse · keyboard</small></div>
+                    <div><span>01</span><strong>Input</strong><small>Mouse, keyboard</small></div>
                     <b>→</b>
-                    <div><span>02</span><strong>ButtonManager</strong><small>Hit test · hover · click</small></div>
+                    <div><span>02</span><strong>ButtonManager</strong><small>Hit test, hover, click</small></div>
                     <b>→</b>
-                    <div><span>03</span><strong>UI modules</strong><small>StoreUI · CombatUI · menus</small></div>
+                    <div><span>03</span><strong>UI modules</strong><small>StoreUI, CombatUI, menus</small></div>
                     <b>→</b>
-                    <div><span>04</span><strong>Game state</strong><small>Inventory · PlayerComp · CombatComp</small></div>
+                    <div><span>04</span><strong>Game state</strong><small>Inventory, PlayerComp, CombatComp</small></div>
                     <b>→</b>
                     <div><span>05</span><strong>Render phases</strong><small>World → interface → text</small></div>
                 </div>
@@ -231,7 +231,7 @@ SubtitleComp::Update();</code></pre>
             <div class="container">
                 <header class="huntress-section-heading">
                     <div>
-                        <p class="section-kicker">04 · Troubleshooting</p>
+                        <p class="section-kicker">04, Troubleshooting</p>
                         <h2>Six UI bugs and their fixes</h2>
                     </div>
                     <p>I fixed problems with draw order, button clicks, HUD input and tooltip lifetimes. Each case includes the cause, code change and commit.</p>
@@ -251,10 +251,10 @@ SubtitleComp::Update();</code></pre>
                             <div><span>Result</span><p>World graphics render first, followed by the interface and text.</p></div>
                         </div>
                         <div class="huntress-code-compare">
-                            <div><span>Before · <code>fffb2b1</code></span><pre tabindex="0"><code>currentLevel-&gt;Update();
+                            <div><span>Before, <code>fffb2b1</code></span><pre tabindex="0"><code>currentLevel-&gt;Update();
 ComponentManager&lt;GraphicComponent&gt;::GetInstance().Update();
 SubtitleComp::Update();</code></pre></div>
-                            <div class="is-after"><span>After · <code>3a05019</code></span><pre tabindex="0"><code>currentLevel-&gt;Update();
+                            <div class="is-after"><span>After, <code>3a05019</code></span><pre tabindex="0"><code>currentLevel-&gt;Update();
 ComponentManager&lt;GraphicComponent&gt;::GetInstance().Update();
 ComponentManager&lt;InterfaceComponent&gt;::GetInstance().Update();
 SubtitleComp::Update();</code></pre></div>
@@ -286,7 +286,7 @@ SubtitleComp::Update();</code></pre></div>
     return false;
 }</code></pre></div>
                         </div>
-                        <footer><code>AlphaEngine/Components/ButtonComp.cpp · IsClicked()</code><span>Code comparison</span></footer>
+                        <footer><code>AlphaEngine/Components/ButtonComp.cpp, IsClicked()</code><span>Code comparison</span></footer>
                     </article>
 
                     <article class="huntress-trouble-card">
@@ -314,7 +314,7 @@ SubtitleComp::Update();</code></pre></div>
         ToggleAimState();
 }</code></pre></div>
                         </div>
-                        <footer><code>AlphaEngine/Combat/Combat.cpp · CombatComp::Update()</code><span>Code comparison</span></footer>
+                        <footer><code>AlphaEngine/Combat/Combat.cpp, CombatComp::Update()</code><span>Code comparison</span></footer>
                     </article>
 
                     <article class="huntress-trouble-card">
@@ -338,7 +338,7 @@ SubtitleComp::Update();</code></pre></div>
     enemyData-&gt;maxLife;
 enemyHpComp-&gt;SetScale({80, 200 * ratio});</code></pre></div>
                         </div>
-                        <footer><code>AlphaEngine/UI/CombatUI.cpp · UpdateCombatUI()</code><span>Code comparison</span></footer>
+                        <footer><code>AlphaEngine/UI/CombatUI.cpp, UpdateCombatUI()</code><span>Code comparison</span></footer>
                     </article>
 
                     <article class="huntress-trouble-card">
@@ -364,7 +364,7 @@ UpdateCombatGauges();</code></pre></div>
     UpdateWindAndCombatGauges();
 }</code></pre></div>
                         </div>
-                        <footer><code>AlphaEngine/UI/CombatUI.cpp · UpdateCombatUI()</code><span>Code comparison · combat-state guard for HUD updates</span></footer>
+                        <footer><code>AlphaEngine/UI/CombatUI.cpp, UpdateCombatUI()</code><span>Code comparison, combat-state guard for HUD updates</span></footer>
                     </article>
 
                     <article class="huntress-trouble-card">
@@ -380,18 +380,18 @@ UpdateCombatGauges();</code></pre></div>
                             <div><span>Result</span><p>The combat tooltip array now has an explicit create/use/destroy lifetime pair.</p></div>
                         </div>
                         <div class="huntress-code-compare">
-                            <div><span>Before · <code>8713369</code></span><pre tabindex="0"><code>ItemInfo* iteminfo[4] = { nullptr };
+                            <div><span>Before, <code>8713369</code></span><pre tabindex="0"><code>ItemInfo* iteminfo[4] = { nullptr };
 
 iteminfo[0]-&gt;CreateItemInfo(
     "OrbitUI", "Assets/UI/OrbitInfo.png");</code></pre></div>
-                            <div class="is-after"><span>After · <code>95d8772</code></span><pre tabindex="0"><code>for (int i = 0; i &lt; 4; ++i)
+                            <div class="is-after"><span>After, <code>95d8772</code></span><pre tabindex="0"><code>for (int i = 0; i &lt; 4; ++i)
     iteminfo[i] = new ItemInfo();
 
 // ExitCombatUI
 for (int i = 0; i &lt; 4; ++i)
     delete iteminfo[i];</code></pre></div>
                         </div>
-                        <footer><code>AlphaEngine/UI/CombatUI.cpp · InitCombatUI()/ExitCombatUI()</code><span>Code comparison</span></footer>
+                        <footer><code>AlphaEngine/UI/CombatUI.cpp, InitCombatUI()/ExitCombatUI()</code><span>Code comparison</span></footer>
                     </article>
                 </div>
             </div>
@@ -401,7 +401,7 @@ for (int i = 0; i &lt; 4; ++i)
             <div class="container">
                 <header class="huntress-section-heading">
                     <div>
-                        <p class="section-kicker">05 · Screenshots &amp; Source</p>
+                        <p class="section-kicker">05, Screenshots &amp; Source</p>
                         <h2>UI screenshots and project files</h2>
                     </div>
                     <p>The tutorial screenshots show the combat HUD. Source code, a gameplay video and a Windows installer are also linked on this page.</p>
@@ -451,12 +451,12 @@ for (int i = 0; i &lt; 4; ++i)
     <footer class="site-footer">
         <div class="container site-footer-content">
             <strong>HaXX0rBunny</strong>
-            <span>Huntress · C++ UI Systems &amp; Gameplay Integration</span>
+            <span>Huntress, C++ UI Systems &amp; Gameplay Integration</span>
             <a href="index.html#projects">Portfolio</a>
         </div>
     </footer>
-    <script src="locale.js?v=20261016-layout2"></script>
-    <script src="huntress.ko.js?v=20261015-review2"></script>
+    <script src="locale.js?v=20261016-layout4"></script>
+    <script src="huntress.ko.js?v=20261016-layout4"></script>
     <script src="huntress-localize.js"></script>
     <script src="detail-shell.js"></script>
 </body>

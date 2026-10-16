@@ -8,7 +8,7 @@ C++ 게임플레이, 렌더링, 자체 엔진과 Unreal Engine 도구 개발 작
 
 - [Dynamic OverAnimation](https://haxx0rbunny.github.io/overanimation.html): 3인 팀으로 제작해 Fab에 출시한 애니메이션 변형 플러그인
 - [GameTechLab3rd](https://haxx0rbunny.github.io/gametechlab.html): C++/DirectX 11 자체 엔진, 임포스터 최적화, 독립 실행 빌드
-- [Edge Drive](https://haxx0rbunny.github.io/index.html#project-1): 최종 3인 팀의 액션 게임, 스테이지·캐릭터·시간 제어
+- [Edge Drive](https://haxx0rbunny.github.io/index.html#project-1): 최종 3인 팀의 액션 게임, 스테이지, 캐릭터, 시간 제어
 
 
 ## 콘텐츠 위치
