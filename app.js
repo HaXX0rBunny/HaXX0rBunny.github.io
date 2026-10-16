@@ -422,10 +422,286 @@ const projectsData = {
     }
 };
 
+// YouTube Player Class
+class YouTubeBackgroundPlayer {
+    constructor(containerId, videoId, options = {}) {
+        this.containerId = containerId;
+        this.videoId = videoId;
+        this.player = null;
+        this.apiLoaded = false;
+        this.retryCount = 0;
+        this.maxRetries = 3;
+        this.options = {
+            autoplay: 1,
+            mute: 1,
+            loop: 1,
+            controls: 0,
+            showinfo: 0,
+            rel: 0,
+            modestbranding: 1,
+            disablekb: 1,
+            iv_load_policy: 3,
+            ...options
+        };
+
+        this.init();
+    }
+
+    init() {
+        if (typeof YT !== 'undefined' && YT.Player) {
+            this.createPlayer();
+        } else {
+            this.loadYouTubeAPI();
+        }
+    }
+
+    loadYouTubeAPI() {
+        console.log('YouTube API 로드 시작');
+
+        // 글로벌 콜백 설정
+        window.onYouTubeIframeAPIReady = () => {
+            this.apiLoaded = true;
+            this.createPlayer();
+        };
+
+        if (!document.querySelector('script[src*="youtube.com/iframe_api"]')) {
+            const tag = document.createElement('script');
+            tag.src = 'https://www.youtube.com/iframe_api';
+            tag.async = true;
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        }
+
+        // 타임아웃 설정
+        setTimeout(() => {
+            if (!this.apiLoaded && this.retryCount < this.maxRetries) {
+                console.warn('YouTube API 로드 타임아웃, 재시도 중...');
+                this.retryCount++;
+                this.handleError('API load timeout');
+            }
+        }, 10000);
+    }
+
+    createPlayer() {
+        const container = document.getElementById(this.containerId);
+        if (!container) {
+            console.error('플레이어 컨테이너를 찾을 수 없습니다:', this.containerId);
+            this.handleError('Container not found');
+            return;
+        }
+
+        container.classList.add('loading');
+
+        try {
+            this.player = new YT.Player(this.containerId, {
+                videoId: this.videoId,
+                playerVars: {
+                    ...this.options,
+                    playlist: this.videoId // 무한 루프를 위한 플레이리스트
+                },
+                events: {
+                    onReady: (event) => this.onPlayerReady(event),
+                    onStateChange: (event) => this.onPlayerStateChange(event),
+                    onError: (event) => this.onPlayerError(event)
+                }
+            });
+        } catch (error) {
+            console.error('플레이어 생성 중 오류:', error);
+            this.handleError('Player creation failed');
+        }
+    }
+
+    onPlayerReady(event) {
+        console.log('플레이어 준비 완료');
+
+        try {
+            // 음소거 및 자동 재생
+            event.target.mute();
+
+            // 화질 조정
+            this.adjustQualityForDevice();
+
+            try {
+                const playResult = event.target.playVideo();
+
+                // Promise 여부 확인 후 처리
+                if (playResult && typeof playResult.then === 'function') {
+                    playResult.then(() => {
+                        console.log('자동 재생 성공');
+                        this.onVideoLoaded();
+                    }).catch(error => {
+                        console.warn('자동 재생 실패:', error);
+                        this.setupUserInteractionPlay();
+                    });
+                } else {
+                    // Promise가 아닌 경우 직접 처리
+                    setTimeout(() => {
+                        this.onVideoLoaded();
+                    }, 1000);
+                }
+            } catch (playError) {
+                console.warn('재생 시도 중 오류:', playError);
+                this.setupUserInteractionPlay();
+            }
+
+        } catch (error) {
+            console.error('플레이어 준비 중 오류:', error);
+            this.handleError('Player ready error');
+        }
+    }
+
+    onPlayerStateChange(event) {
+        const states = {
+            [-1]: 'UNSTARTED', [0]: 'ENDED', [1]: 'PLAYING',
+            [2]: 'PAUSED', [3]: 'BUFFERING', [5]: 'CUED'
+        };
+
+        console.log('플레이어 상태:', states[event.data]);
+
+        switch (event.data) {
+            case YT.PlayerState.PLAYING:
+                this.onVideoLoaded();
+                break;
+            case YT.PlayerState.ENDED:
+                this.handleVideoEnd();
+                break;
+            case YT.PlayerState.PAUSED:
+                this.handleAutoPause();
+                break;
+        }
+    }
+
+    onPlayerError(event) {
+        const errorCodes = {
+            2: '잘못된 매개변수',
+            5: 'HTML5 플레이어 오류',
+            100: '비디오를 찾을 수 없음',
+            101: '임베드 불가 (소유자 설정)',
+            150: '임베드 불가 (소유자 설정)'
+        };
+
+        const errorMessage = errorCodes[event.data] || '알 수 없는 오류';
+        console.error('YouTube 플레이어 오류:', errorMessage);
+
+        this.handleError('Player error: ' + errorMessage);
+    }
+
+    onVideoLoaded() {
+        const container = document.getElementById(this.containerId);
+        if (container) {
+            container.classList.remove('loading');
+            container.classList.add('loaded');
+            console.log('비디오 로드 완료, 시각 효과 적용');
+        }
+    }
+
+    handleVideoEnd() {
+        // 루프 재생을 위한 추가 로직 (필요시)
+        if (this.player && typeof this.player.playVideo === 'function') {
+            this.player.playVideo();
+        }
+    }
+
+    handleAutoPause() {
+        // 자동 일시정지 처리 (필요시)
+        setTimeout(() => {
+            if (this.player && typeof this.player.playVideo === 'function') {
+                this.player.playVideo();
+            }
+        }, 1000);
+    }
+
+    adjustQualityForDevice() {
+        if (!this.player || typeof this.player.getAvailableQualityLevels !== 'function') return;
+
+        try {
+            const availableQualities = this.player.getAvailableQualityLevels();
+            const isMobile = window.innerWidth < 768;
+
+            if (isMobile && availableQualities.includes('medium')) {
+                this.player.setPlaybackQuality('medium');
+                console.log('모바일 최적화: 화질을 medium으로 설정');
+            } else if (availableQualities.includes('hd720')) {
+                this.player.setPlaybackQuality('hd720');
+                console.log('데스크톱 최적화: 화질을 HD720으로 설정');
+            }
+        } catch (error) {
+            console.warn('화질 조정 중 오류:', error);
+        }
+    }
+
+    setupUserInteractionPlay() {
+        console.log('사용자 상호작용 대기 중...');
+
+        // 사용자 알림 메시지
+        const notification = document.createElement('div');
+        notification.innerHTML = `
+        <div style="position: fixed; top: 80px; left: 50%; transform: translateX(-50%);
+                    background: rgba(33, 128, 141, 0.9); color: white; padding: 10px 20px;
+                    border-radius: 8px; z-index: 1001; font-size: 14px;">
+            Play background video
+        </div>
+    `;
+        document.body.appendChild(notification);
+
+        const playOnInteraction = () => {
+            if (this.player && typeof this.player.playVideo === 'function') {
+                this.player.mute();
+                this.player.playVideo();
+
+                // 알림 제거
+                if (notification) {
+                    document.body.removeChild(notification);
+                }
+
+                // 이벤트 리스너 제거
+                document.removeEventListener('click', playOnInteraction);
+                document.removeEventListener('touchstart', playOnInteraction);
+                document.removeEventListener('keydown', playOnInteraction);
+
+                console.log('사용자 상호작용 후 재생 시작');
+            }
+        };
+
+        // 다양한 상호작용 이벤트 등록
+        document.addEventListener('click', playOnInteraction, { once: true });
+        document.addEventListener('touchstart', playOnInteraction, { once: true });
+        document.addEventListener('keydown', playOnInteraction, { once: true });
+    }
+
+    handleError(errorType) {
+        console.error('YouTube 배경 비디오 오류:', errorType);
+
+        // Fallback 배경 활성화
+        const container = document.getElementById(this.containerId);
+        const fallback = document.querySelector('.fallback-background');
+
+        if (container) {
+            container.style.display = 'none';
+            container.classList.remove('loading');
+        }
+
+        if (fallback) {
+            fallback.classList.add('active');
+            console.log('Fallback 배경 활성화');
+        }
+
+        // 재시도 로직
+        if (this.retryCount < this.maxRetries) {
+            setTimeout(() => {
+                this.retryCount++;
+                console.log(`재시도 ${this.retryCount}/${this.maxRetries}`);
+                this.init();
+            }, 3000 * this.retryCount);
+        }
+    }
+}
+
 // Global variables
 const THEME_STORAGE_KEY = 'portfolio-theme-v2';
 let currentTheme = 'light';
 let currentProjectId = null;
+let heroPlayer = null;
 let modalTrigger = null;
 
 // DOM elements
@@ -527,6 +803,8 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('hashchange', openLinkedProject);
     openLinkedProject();
     initializeScrollEffects();
+    initializeTypingEffect();
+    setTimeout(initializeHeroVideo, 1000);
 });
 
 function initializeElements() {
@@ -606,6 +884,9 @@ function initializeNavigation() {
 }
 
 function updateActiveNavLink() {
+    const navbar = document.getElementById('navbar');
+    const hero = document.getElementById('hero');
+    if (navbar && hero) navbar.classList.toggle('at-hero', hero.getBoundingClientRect().bottom > navbar.offsetHeight);
     const sections = ['hero', 'projects', 'skills', 'contact'];
     const navLinks = document.querySelectorAll('.nav-link');
 
@@ -628,6 +909,68 @@ function updateActiveNavLink() {
     });
 }
 
+// Typing Effect for Hero Section
+function initializeTypingEffect() {
+    const typingText = document.getElementById('typingText');
+    const typingCursor = document.getElementById('typingCursor');
+
+    if (!typingText || !typingCursor) return;
+
+    const text = "Cho Sanghyeon";
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        typingText.textContent = text;
+        typingCursor.hidden = true;
+        return;
+    }
+    let i = 0;
+
+    function typeWriter() {
+        if (i < text.length) {
+            typingText.textContent += text.charAt(i);
+            i++;
+            setTimeout(typeWriter, 100);
+        } else {
+            // 타이핑 완료 후 커서 깜빡임 중지
+            setTimeout(() => {
+                typingCursor.style.animation = 'none';
+                typingCursor.style.opacity = '0';
+            }, 2000);
+        }
+    }
+
+    // 1초 후 타이핑 시작
+    setTimeout(typeWriter, 1000);
+}
+
+function initializeHeroVideo() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const videoContainer = document.getElementById('hero-youtube-player');
+    if (!videoContainer) {
+        console.warn('Hero video container not found');
+        return;
+    }
+
+    const videoId = videoContainer.dataset.videoId || '264Wfi25UOU';
+
+    try {
+        heroPlayer = new YouTubeBackgroundPlayer('hero-youtube-player', videoId, {
+            autoplay: 1,
+            mute: 1,
+            loop: 1,
+            controls: 0,
+            showinfo: 0,
+            rel: 0,
+            modestbranding: 1,
+            disablekb: 1,
+            iv_load_policy: 3
+        });
+
+        console.log('Hero video player 초기화 완료');
+    } catch (error) {
+        console.error('Hero video player 초기화 실패:', error);
+    }
+}
+
 function initializeProjects() {
     const projectsGrid = document.getElementById('projectsGrid');
     if (!projectsGrid) return;
@@ -643,6 +986,7 @@ function createProjectCard(id, project) {
     project = getLocalizedProject(id, project);
     const card = document.createElement('article');
     card.className = 'project-card';
+    card.dataset.project = id;
     const detailUrl = project.detailPage || (project.project_type === 'collection' ? project.links?.overview : null);
     const href = detailUrl || `#project-${id}`;
     const typeText = project.team_label || project.type_label || (project.is_team_project
@@ -651,7 +995,7 @@ function createProjectCard(id, project) {
     const coverImage = project.coverImage || (id === '1' ? 'Assets/images/edgedrive-gameplay.jpg' : null);
     const detailLabel = getPortfolioText('global.viewDetails', 'View Details');
     const media = coverImage
-        ? `<a href="${href}" class="project-media project-action project-detail-btn" aria-label="${project.title} · ${detailLabel}">
+        ? `<a href="${href}" class="project-media project-action project-detail-btn" tabindex="-1" aria-label="${project.title} · ${detailLabel}">
              <img src="${coverImage}" alt="${project.coverAlt || project.title}" loading="lazy" width="1280" height="720">
            </a>`
         : '';
@@ -663,7 +1007,6 @@ function createProjectCard(id, project) {
         ? `<div class="project-evidence-links">${project.highlights.map(item => `<a class="project-action" href="${item.href}">${item.label} <span aria-hidden="true">↗</span></a>`).join('')}</div>`
         : '';
     card.innerHTML = `
-        ${media}
         <div class="project-info">
             <p class="project-meta-line">${meta}</p>
             <h3><a href="${href}" class="project-action project-detail-btn">${project.title}</a></h3>
@@ -677,6 +1020,7 @@ function createProjectCard(id, project) {
                 ${download}
             </div>
         </div>`;
+    card.insertAdjacentHTML(id === '4' ? 'beforeend' : 'afterbegin', media);
     if (!detailUrl) {
         card.querySelectorAll('.project-detail-btn').forEach(link => {
             link.addEventListener('click', event => {
@@ -839,8 +1183,8 @@ function populateOverviewTab(project) {
             `;
         } else if (project.videoUrl) {
             modalVideo.innerHTML = `
-                <iframe src="${project.videoUrl}?modestbranding=1&rel=0" 
-                        title="${project.title}" 
+                <iframe src="${project.videoUrl}?modestbranding=1&rel=0"
+                        title="${project.title}"
                         allowfullscreen>
                 </iframe>
             `;

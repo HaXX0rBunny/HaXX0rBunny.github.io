@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="HaXX0rBunny portfolio: C++ gameplay, real-time rendering, engine architecture, and Unreal Engine development." data-i18n-attr-content="index.pageDescription">
     <title data-i18n="index.pageTitle">Cho Sanghyeon · C++ Game Programmer</title>
-    <link rel="stylesheet" href="style.css?v=20261016-design">
+    <link rel="stylesheet" href="style.css?v=20261016-layout2">
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="navbar" id="navbar">
+    <nav class="navbar at-hero" id="navbar">
         <div class="nav-container">
-            <a class="nav-logo" href="#hero" data-i18n="index.heroName">Cho Sanghyeon</a>
+            <a class="nav-logo" href="#hero">CSH Portfolio</a>
             <ul class="nav-menu" id="navMenu">
                 <li><a href="#hero" class="nav-link" data-i18n="index.navHome">Home</a></li>
                 <li><a href="#projects" class="nav-link" data-i18n="index.navProjects">Projects</a></li>
@@ -34,19 +34,27 @@
     <main class="main-content">
         <!-- Hero Section -->
         <section class="hero-section" id="hero">
-            <div class="container hero-content">
-                <div class="hero-identity">
-                    <p class="hero-eyebrow">C++ / UNREAL ENGINE</p>
-                    <h1 class="hero-name" data-i18n="index.heroName">Cho Sanghyeon</h1>
-                    <p class="hero-subtitle" data-i18n="index.ctaText">Game Programmer</p>
-                </div>
-                <div class="hero-introduction">
-                    <p class="hero-description" data-i18n="index.heroDescription">I develop gameplay and engine features in C++ and Unreal Engine. My work includes custom-engine rendering optimization, standalone builds, and an animation deformation plug-in released by a three-person team on Fab.</p>
-                    <div class="hero-contact">
-                        <a href="#projects" class="contact-link contact-link--primary"><span data-i18n="index.viewProjects">View selected projects</span><span aria-hidden="true">↓</span></a>
-                        <a href="https://github.com/HaXX0rBunny" target="_blank" rel="noopener noreferrer" class="contact-link">GitHub ↗</a>
-                        <a href="https://www.linkedin.com/in/haxxorbunny/" target="_blank" rel="noopener noreferrer" class="contact-link">LinkedIn ↗</a>
-                    </div>
+            <div class="hero-video-container">
+                <div id="hero-youtube-player" class="hero-video" data-video-id="264Wfi25UOU"></div>
+                <div class="hero-video-overlay"></div>
+                <div class="fallback-background"></div>
+            </div>
+            <div class="hero-content">
+                <h1 class="hero-name" aria-label="Cho Sanghyeon">
+                    <span id="typingText" aria-hidden="true"></span><span id="typingCursor" class="typing-cursor" aria-hidden="true">|</span>
+                </h1>
+                <p class="hero-subtitle" data-i18n="index.ctaText">Game Developer</p>
+                <p class="hero-description" data-i18n="index.heroDescription">
+                    I develop gameplay and engine features in C++ and Unreal Engine. My work includes custom-engine rendering optimization, standalone builds, and an animation deformation plug-in released by a three-person team on Fab.
+                </p>
+                <div class="hero-contact">
+                    <a href="#projects" class="contact-link contact-link--primary" data-i18n="index.viewProjects">View selected projects</a>
+                    <a href="https://www.linkedin.com/in/haxxorbunny/" target="_blank" rel="noopener noreferrer" class="contact-link">
+                        <span>LinkedIn</span>
+                    </a>
+                    <a href="https://github.com/HaXX0rBunny" target="_blank" rel="noopener noreferrer" class="contact-link">
+                        <span>GitHub</span>
+                    </a>
                 </div>
             </div>
         </section>
@@ -239,8 +247,8 @@
     <!-- Back to Top Button -->
     <button class="back-to-top" id="backToTop" data-i18n-attr-aria-label="index.contactBackToTop" aria-label="Back to top">↑</button>
 
-    <script src="locale.js?v=20261016-design"></script>
+    <script src="locale.js?v=20261016-layout2"></script>
     <script src="project-content.ko.js?v=20261015-review2"></script>
-    <script src="app.js?v=20261016-design"></script>
+    <script src="app.js?v=20261016-layout2"></script>
 </body>
 </html>
