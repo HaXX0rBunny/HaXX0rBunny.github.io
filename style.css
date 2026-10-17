@@ -7699,3 +7699,104 @@ pre:focus-visible { outline: 2px solid #91a9ff; outline-offset: 3px; }
  .hero-contact .contact-link { padding: 12px 14px; font-size: 13px; }
  .hero-section::after { height: 6px; }
 }
+
+/* Colors sampled from the supplied Soulworker slides. */
+:root, [data-color-scheme="light"] {
+ --color-background: #f8fffc; --color-surface: #ffffff;
+ --color-text: #393547; --color-text-secondary: #686477;
+ --color-primary: #237478; --color-primary-hover: #19595e; --color-primary-active: #19595e;
+ --color-primary-rgb: 35,116,120; --color-btn-primary-text: #ffffff;
+ --color-secondary: #e2f6f3; --color-secondary-hover: #ccece8;
+ --color-card-border: #d7e5e2; --color-border: #bccfca;
+ --color-surface-rgb: 255,255,255; --color-background-rgb: 248,255,252;
+ --color-focus-ring: rgba(35,116,120,.35);
+ --slide-accent: #60d4d3; --slide-ink: #393547;
+}
+[data-color-scheme="dark"] {
+ --color-background: #403b52; --color-surface: #4b465e;
+ --color-text: #f8fffc; --color-text-secondary: #d0cddc;
+ --color-primary: #60d4d3; --color-primary-hover: #a6e7e6; --color-primary-active: #a6e7e6;
+ --color-primary-rgb: 96,212,211; --color-btn-primary-text: #302c40;
+ --color-secondary: #504d64; --color-secondary-hover: #5c586f;
+ --color-card-border: #686278; --color-border: #7c758e;
+ --color-surface-rgb: 75,70,94; --color-background-rgb: 64,59,82;
+ --slide-accent: #60d4d3; --slide-ink: #302c40;
+}
+.hero-section, .navbar.at-hero {
+ --color-primary: #60d4d3; --color-primary-hover: #a6e7e6;
+ --color-text: #f8fffc; --color-text-secondary: #dedbe8;
+ --color-surface: #4b465e; --color-btn-primary-text: #302c40;
+}
+.hero-section { background: #4b465e; }
+.hero-name, .hero-subtitle { color: #f8fffc; }
+.hero-description { color: #dedbe8; }
+.hero-content::before { border-color: rgba(166,231,230,.2); }
+.hero-content::after { border-color: rgba(166,231,230,.1); }
+.hero-video-overlay, [data-color-scheme="dark"] .hero-video-overlay { background: linear-gradient(180deg,rgba(75,70,94,.38),rgba(75,70,94,.92)); }
+.hero-section::after { background: linear-gradient(90deg,#a6e7e6,#60d4d3); }
+.navbar.at-hero { background: rgba(75,70,94,.95); border-bottom-color: #686278; }
+.navbar.at-hero .nav-logo, .navbar.at-hero .nav-link { color: #f8fffc; }
+.navbar.at-hero .nav-link.active { color: #a6e7e6; }
+.hero-contact .contact-link { background: rgba(64,59,82,.75); border-color: #8a829b; color: #f8fffc; }
+.hero-contact .contact-link--primary { background: #60d4d3; border-color: #60d4d3; color: #302c40; }
+.hero-contact .contact-link:hover { background: #5b556e; border-color: #a6e7e6; color: #f8fffc; }
+.hero-contact .contact-link--primary:hover { background: #a6e7e6; color: #302c40; }
+.typing-cursor { color: #60d4d3; }
+.slide-number, .overanim-section-heading > span { background: var(--slide-accent); color: var(--slide-ink); }
+#projects { border-bottom-color: var(--slide-accent); }
+#skills .skill-category { border-top-color: var(--slide-accent); }
+#projectsGrid .project-info::before { background: var(--slide-accent); }
+.contact-section { background: #4b465e; border-bottom-color: #60d4d3; }
+.contact-section .slide-number { background: #60d4d3; color: #302c40; }
+.contact-section .contact-links .contact-link { border-color: #a39db4; color: #f8fffc; }
+.contact-section .contact-links .contact-link:hover { background: #5b556e; border-color: #60d4d3; }
+.lab-page pre, .huntress-page pre, .overanim-page pre,
+.huntress-architecture-code, .huntress-code-compare, .overanim-code-card { background: #302c40; color: #f1eff8; }
+.huntress-architecture-code header, .overanim-code-card > div { background: #403b52; }
+pre:focus-visible { outline-color: #60d4d3; }
+
+/* Secondary slide colors distinguish frames, tables and process markers. */
+:root, [data-color-scheme="light"] {
+ --slide-pale: #d7f5f4; --slide-row: #f0f9f5;
+ --slide-track: #d5e5df; --slide-footer: #508a97;
+ --slide-frame: #a6e7e6; --slide-cover-start: #b3fbe5;
+}
+[data-color-scheme="dark"] {
+ --slide-pale: #4b5364; --slide-row: #454156;
+ --slide-track: #686b78; --slide-footer: #508a97;
+ --slide-frame: #6b929c; --slide-cover-start: #b3fbe5;
+}
+.hero-section::after { background: linear-gradient(90deg,var(--slide-cover-start),#60d4d3,var(--slide-footer)); }
+.hero-content::before { border-color: rgba(179,251,229,.24); }
+.hero-content::after { border-color: rgba(166,231,230,.13); }
+#projectsGrid .project-media { box-shadow: 10px 10px 0 var(--slide-pale); border-color: var(--slide-track); }
+#projectsGrid .project-media:hover { box-shadow: 13px 13px 0 var(--slide-frame); }
+#additionalProjectsGrid .project-card { box-shadow: 5px 5px 0 var(--slide-pale); }
+.project-role { background: var(--slide-row); border-left: 3px solid var(--slide-frame); }
+.tech-badge, .tech-badge.expert, .tech-badge.advanced { background: var(--slide-pale); color: var(--color-text); border-color: transparent; }
+#projects { border-bottom-color: var(--slide-frame); }
+.additional-projects-heading { border-left-color: var(--slide-footer); }
+#skills .skill-category { background: var(--slide-row); }
+#skills .skill-category:nth-child(2) { border-top-color: var(--slide-footer); }
+#skills .skill-category:nth-child(3) { border-top-color: var(--slide-frame); }
+#skills .skill-category:nth-child(4) { border-top-color: var(--slide-track); }
+.education-card { border-top-color: var(--slide-footer); }
+.education-entry { position: relative; padding-left: 52px; }
+.education-entry::before { content: ''; position: absolute; left: 23px; top: 29px; width: 12px; height: 12px; border: 3px solid var(--slide-accent); border-radius: 50%; background: var(--color-surface); }
+.education-entry:nth-child(odd) { background: var(--slide-row); }
+.education-entry:nth-child(even) { background: var(--color-background); }
+.contact-section { border-bottom-color: var(--slide-footer); }
+.overanim-hero-visual, .lab-hero-visual, .huntress-hero-media { box-shadow: 9px 9px 0 var(--slide-pale); }
+.overanim-workflow > div, .overanim-architecture-flow > div { border-color: var(--slide-track); border-top-color: var(--slide-accent); background: var(--slide-row); }
+.overanim-phase-trace article { border-top-color: var(--slide-frame); }
+.overanim-section-heading, .huntress-section-heading { border-bottom-color: var(--slide-track); }
+.overanim-extra > summary { color: var(--color-primary); }
+@media (max-width: 700px) {
+ #projectsGrid .project-media, .overanim-hero-visual, .lab-hero-visual, .huntress-hero-media { box-shadow: 5px 5px 0 var(--slide-pale); }
+ .education-entry { padding-left: 46px; }
+ .education-entry::before { left: 19px; }
+}
+
+.navbar.at-hero .nav-menu { background: transparent; }
+.navbar.at-hero .theme-toggle { background: rgba(64,59,82,.65); color: #f8fffc; border-color: #8a829b; }
+.navbar.at-hero .nav-link.active::after { background: #60d4d3; }
