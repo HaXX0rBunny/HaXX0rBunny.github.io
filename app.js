@@ -803,6 +803,7 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('hashchange', openLinkedProject);
     openLinkedProject();
     initializeScrollEffects();
+    initializeTypingEffect();
     setTimeout(initializeHeroVideo, 1000);
 });
 
@@ -906,6 +907,22 @@ function updateActiveNavLink() {
             link.classList.add('active');
         }
     });
+}
+
+function initializeTypingEffect() {
+    const name = document.getElementById('typingText');
+    const cursor = document.getElementById('typingCursor');
+    if (!name || !cursor || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const text = name.textContent;
+    name.textContent = '';
+    cursor.hidden = false;
+    let index = 0;
+    const type = () => {
+        name.textContent = text.slice(0, ++index);
+        if (index < text.length) setTimeout(type, 85);
+        else setTimeout(() => { cursor.hidden = true; }, 1800);
+    };
+    setTimeout(type, 350);
 }
 
 function initializeHeroVideo() {

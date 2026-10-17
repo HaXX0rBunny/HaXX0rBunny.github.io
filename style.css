@@ -7520,26 +7520,22 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--color-primary);
 
 .overanim-responsibility-list > li { padding-top: 20px; }
 
-/* Introduce the developer alongside a shipped project. */
-.hero-section { min-height: 720px; padding: 130px 0 94px; }
-.hero-content { position: relative; display: grid; grid-template-columns: minmax(0,.9fr) minmax(0,1.1fr); align-items: center; gap: 64px; max-width: 1224px; padding: 0 32px; text-align: left; }
+/* A quiet, full-screen introduction over the project footage. */
+.hero-section { min-height: 92svh; padding: 144px 0 100px; }
+.hero-content { position: relative; display: block; max-width: 1000px; padding: 0 32px; text-align: center; }
 .hero-content::before, .hero-content::after { display: none; }
-.hero-eyebrow { margin: 0 0 28px; font-size: 11px; letter-spacing: .16em; color: #b9c9ed; }
-.hero-name { margin-bottom: 14px; font-size: clamp(48px,5.5vw,76px); font-weight: 600; letter-spacing: -.045em; }
-.hero-subtitle { font-size: 19px; font-weight: 400; color: #cad7f2; }
-.hero-description { margin: 24px 0 30px; max-width: 470px; font-size: 16px; line-height: 1.85; color: #d3dcef; word-break: keep-all; }
-.hero-contact { justify-content: flex-start; gap: 10px; }
-.hero-contact .contact-link { padding: 12px 16px; border-radius: 4px; font-size: 13px; }
-.hero-feature { display: block; min-width: 0; color: #eef3ff; text-decoration: none; border: 1px solid rgba(198,214,255,.25); border-radius: 6px; overflow: hidden; background: #182236; box-shadow: 0 24px 64px rgba(0,0,0,.2); transition: transform .2s, border-color .2s; }
-.hero-feature:hover { transform: translateY(-4px); border-color: #a4b9ff; }
-.hero-feature:focus-visible { outline: 3px solid #b5c6ff; outline-offset: 6px; }
-.hero-feature img { display: block; width: 100%; height: auto; }
-.hero-feature-caption { display: flex; align-items: center; justify-content: space-between; padding: 20px 24px; gap: 16px; }
-.hero-feature-caption div { display: grid; gap: 8px; }
-.hero-feature-caption span { color: #bdcceb; font-size: 12px; }
-.hero-feature-caption strong { font-size: 19px; font-weight: 500; }
-.hero-feature-caption .hero-feature-arrow { font-size: 25px; }
-.hero-video.loaded, [data-color-scheme="dark"] .hero-video.loaded { opacity: .16; }
+.hero-eyebrow { margin: 0 0 32px; font-size: 11px; letter-spacing: .22em; color: #bacbec; }
+.hero-name { margin: 0 0 22px; min-height: 1.2em; font-size: clamp(42px,6.5vw,88px); font-weight: 600; line-height: 1.2; letter-spacing: -.045em; }
+.typing-cursor { display: inline-block; margin-left: 6px; font-weight: 300; color: #a9bcff; animation: hero-caret 1s step-end infinite; }
+.typing-cursor[hidden] { display: none; }
+.hero-subtitle { margin: 0; font-size: 20px; font-weight: 400; letter-spacing: .04em; color: #cad7f2; }
+.hero-description { margin: 30px auto 34px; max-width: 610px; font-size: 16px; line-height: 1.9; color: #d3dcef; word-break: keep-all; }
+.hero-contact { justify-content: center; gap: 12px; }
+.hero-contact .contact-link { padding: 13px 20px; border-radius: 4px; font-size: 13px; }
+.hero-video.loaded, [data-color-scheme="dark"] .hero-video.loaded { opacity: .4; filter: saturate(.65) brightness(.8); }
+.hero-video-overlay, [data-color-scheme="dark"] .hero-video-overlay { background: linear-gradient(180deg,rgba(14,24,43,.45),rgba(14,24,43,.6) 55%,#1b263d); }
+.hero-section::after { height: 3px; background: linear-gradient(90deg,#1b263d,#9bb1f6,#1b263d); }
+@keyframes hero-caret { 50% { opacity: 0; } }
 /* Code keeps its original spacing and scrolls without breaking identifiers. */
 .lab-page pre, .huntress-page pre, .overanim-page pre { font-family: Consolas, 'Cascadia Code', monospace; font-size: 13px; line-height: 1.8; tab-size: 4; white-space: pre; overflow: auto; overscroll-behavior-x: contain; border-radius: 5px; scrollbar-width: thin; scrollbar-color: #617394 #1b263d; }
 .lab-page pre code, .huntress-page pre code, .overanim-page pre code { font-family: inherit; font-size: inherit; white-space: inherit; }
@@ -7552,20 +7548,16 @@ pre:focus-visible { outline: 2px solid #91a9ff; outline-offset: 3px; }
 .overanim-code-card > div { align-items: baseline; gap: 8px 16px; }
 .overanim-code-card > div span:first-child { overflow-wrap: anywhere; }
 @media (max-width: 900px) {
- .hero-section { min-height: auto; padding: 112px 0 64px; }
- .hero-content { grid-template-columns: minmax(0,1fr); gap: 40px; max-width: 720px; }
- .hero-description { max-width: 580px; }
- .hero-feature { max-width: 600px; }
+ .hero-section { min-height: 84svh; padding: 130px 0 88px; }
 }
 @media (max-width: 560px) {
- .hero-content { padding: 0 24px; gap: 32px; }
- .hero-eyebrow { font-size: 10px; margin-bottom: 24px; }
- .hero-name { font-size: 48px; }
- .hero-subtitle { font-size: 17px; }
- .hero-description { font-size: 15px; line-height: 1.8; margin: 20px 0 24px; }
+ .hero-section { min-height: 88svh; padding: 124px 0 72px; }
+ .hero-content { padding: 0 24px; }
+ .hero-eyebrow { font-size: 10px; letter-spacing: .16em; margin-bottom: 28px; }
+ .hero-name { font-size: clamp(32px,8.4vw,46px); white-space: nowrap; }
+ .hero-subtitle { font-size: 16px; }
+ .hero-description { font-size: 15px; line-height: 1.85; margin: 26px auto 30px; }
  .hero-contact .contact-link--primary { flex-basis: auto; }
- .hero-contact .contact-link { padding: 11px 12px; }
- .hero-feature-caption { padding: 16px; }
- .hero-feature-caption strong { font-size: 17px; }
+ .hero-contact .contact-link { padding: 12px 13px; }
 }
-@media (prefers-reduced-motion: reduce) { .hero-feature { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .typing-cursor { animation: none; } }
