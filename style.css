@@ -7800,3 +7800,26 @@ pre:focus-visible { outline-color: #60d4d3; }
 .navbar.at-hero .nav-menu { background: transparent; }
 .navbar.at-hero .theme-toggle { background: rgba(64,59,82,.65); color: #f8fffc; border-color: #8a829b; }
 .navbar.at-hero .nav-link.active::after { background: #60d4d3; }
+
+/* Give skill descriptions and tags room to read without empty placeholder rows. */
+#skills .skills-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 20px; }
+#skills .skill-category, #skills .skill-category:nth-child(n) { padding: 26px 28px; }
+#skills .skill-category h3 { min-height: 0; margin: 0 0 18px; font-size: 19px; }
+#skills .skill-category .tech-stack { min-height: 0; align-items: center; gap: 8px; }
+#skills .tech-badge { display: inline-flex; align-items: center; flex: 0 0 auto; padding: 5px 9px; line-height: 1.4; border-radius: 3px; white-space: nowrap; }
+#skills .skill-experience { flex: 1; margin: 18px 0 22px; max-width: 56ch; font-size: 14px; line-height: 1.85; }
+#skills .skill-project-link { align-self: flex-start; margin-top: auto; padding-block: 3px; }
+@media (max-width: 600px) {
+ #skills .skills-grid { grid-template-columns: minmax(0,1fr); gap: 16px; }
+ #skills .skill-category, #skills .skill-category:nth-child(n) { padding: 22px; }
+ #skills .skill-category h3 { font-size: 18px; }
+}
+
+.tech-stack { align-items: flex-start; gap: 8px; }
+.tech-badge, .tech-badge.expert, .tech-badge.advanced {
+ display: inline-flex; align-items: center; justify-content: center;
+ flex: 0 0 auto; align-self: flex-start; padding: 5px 9px;
+ min-height: 28px; font-size: 12px; line-height: 1.4;
+ border-radius: 3px; white-space: nowrap;
+}
+.tech-badge:hover { background: var(--slide-pale); color: var(--color-text); }
