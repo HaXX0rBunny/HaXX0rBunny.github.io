@@ -7498,3 +7498,24 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--color-primary);
     .huntress-section-heading::before { width: 42px; height: 42px; font-size: 12px; }
     .lab-section-heading h2, .huntress-section-heading h2, .overanim-section-heading h2 { font-size: 25px; }
 }
+
+/* Keep the overview readable before the detailed development notes. */
+.overanim-contribution-grid { grid-template-columns: minmax(0, 1fr); }
+.overanim-responsibility-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 32px; }
+.overanim-workflow { grid-template-columns: repeat(4, minmax(0, 1fr)); overflow: visible; }
+.overanim-workflow > div { min-width: 0; }
+.overanim-workflow > i { display: none; }
+.overanim-extra > summary { cursor: pointer; font-weight: 600; padding: 4px 0; }
+.overanim-extra[open] > summary { margin-bottom: 24px; }
+.overanim-extra > summary:focus-visible { outline: 2px solid #4263d4; outline-offset: 6px; }
+.overanim-page .overanim-product-grid { grid-template-columns: minmax(0, 1fr); }
+@media (max-width: 900px) {
+ .overanim-workflow, .overanim-architecture-flow { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); overflow: visible; }
+ .overanim-architecture-flow > div { min-width: 0; }
+ .overanim-architecture-flow > i { display: none; }
+}
+@media (max-width: 560px) {
+ .overanim-responsibility-list, .overanim-workflow, .overanim-architecture-flow { grid-template-columns: minmax(0, 1fr); }
+}
+
+.overanim-responsibility-list > li { padding-top: 20px; }

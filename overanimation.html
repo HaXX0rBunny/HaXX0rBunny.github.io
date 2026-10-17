@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="An Unreal Engine 5.8 plug-in that adds exaggeration to existing animations through motion analysis, camera-aware GPU mesh deformation, and effect authoring tools." data-oa-key="meta.description" data-oa-attr="content">
     <title data-oa-key="meta.title">Dynamic OverAnimation, Unreal Engine GPU Mesh Deformation</title>
-    <link rel="stylesheet" href="style.css?v=20261017-polish1">
+    <link rel="stylesheet" href="style.css?v=20261017-edit1">
 </head>
 <body class="overanim-page">
     <header class="lab-nav overanim-topbar">
@@ -25,7 +25,6 @@
                 <div class="overanim-hero-copy">
                     <p class="section-kicker" data-oa-key="hero.kicker">KRAFTON Jungle Epic Project, DynaMax</p>
                     <h1>Dynamic<br><span>OverAnimation</span></h1>
-                    <p class="overanim-hero-role" data-oa-key="hero.role">Team Lead, Animation Analysis, GPU & Editor</p>
                     <p class="overanim-hero-lede" data-oa-key="hero.lede">A plug-in that adds exaggerated movement to existing animations. I led the three-person team and implemented motion analysis, stable runtime signals, GPU deformation, and editor tools for the Fab release.</p>
 
                     <div class="overanim-hero-actions">
@@ -41,7 +40,7 @@
                     <dl class="overanim-hero-facts">
                         <div><dt data-oa-key="facts.teamLabel">Team</dt><dd data-oa-key="facts.teamValue">3-person team, Team Lead</dd></div>
                         <div><dt data-oa-key="facts.productLabel">Product</dt><dd data-oa-key="facts.productValue">UE 5.8, Win64</dd></div>
-                        <div><dt data-oa-key="facts.workLabel">My focus</dt><dd data-oa-key="facts.workValue">Direction, Analyzer, Runtime, GPU</dd></div>
+                        <div><dt data-oa-key="facts.workLabel">Source control</dt><dd data-oa-key="facts.workValue">Perforce</dd></div>
                         <div><dt data-oa-key="facts.testLabel">Verification</dt><dd data-oa-key="facts.testValue">Win64 build, automation</dd></div>
                     </dl>
                 </div>
@@ -61,8 +60,8 @@
                 <a href="#result" data-oa-key="sectionNav.result">Before &amp; after</a>
                 <a href="#overview" data-oa-key="sectionNav.overview">Overview</a>
                 <a href="#contribution" data-oa-key="sectionNav.contribution">My contribution</a>
-                <a href="#phase-analyzer" data-oa-key="sectionNav.analyzer">Phase Analyzer</a>
                 <a href="#architecture" data-oa-key="sectionNav.architecture">Architecture</a>
+                <a href="#phase-analyzer" data-oa-key="sectionNav.analyzer">Phase Analyzer</a>
                 <a href="#logic" data-oa-key="sectionNav.logic">Core logic</a>
                 <a href="#validation" data-oa-key="sectionNav.validation">Validation</a>
                 <a href="#product" data-oa-key="sectionNav.product">Product</a>
@@ -156,8 +155,8 @@
                         </ul>
                     </article>
 
-                    <article class="overanim-panel">
-                        <p class="overanim-panel-label" data-oa-key="contribution.evidenceLabel">Implementation progression</p>
+                    <details class="overanim-panel overanim-extra">
+                        <summary data-oa-key="contribution.evidenceLabel">Development notes</summary>
                         <ol class="overanim-cl-list">
                             <li><strong data-oa-key="contribution.step1">Analyzer</strong><span data-oa-key="contribution.cl170">Implemented the Motion Phase Analyzer cpp/header on my branch</span></li>
                             <li><strong data-oa-key="contribution.step2">Integration</strong><span data-oa-key="contribution.cl181">Integrated the Motion Phase Analyzer into main</span></li>
@@ -167,17 +166,60 @@
                             <li><strong data-oa-key="contribution.step6">GPU output</strong><span data-oa-key="contribution.cl135">Implemented native GPU deformation passes and deterministic blending</span></li>
                             <li><strong data-oa-key="contribution.step7">Attachments</strong><span data-oa-key="contribution.cl299">Visual attachment following for deformed socket endpoints</span></li>
                         </ol>
-                    </article>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <section class="overanim-section overanim-section--surface" id="architecture">
+            <div class="container">
+                <header class="overanim-section-heading">
+                    <span>03</span>
+                    <div>
+                        <p class="section-kicker" data-oa-key="architecture.kicker">Program architecture</p>
+                        <h2 data-oa-key="architecture.title">From final-pose snapshot to vertex output</h2>
+                        <p data-oa-key="architecture.lede">The Game Thread stores the final pose in a Snapshot and calculates normalized motion signals. Authored Phase Curves and Markers take priority over automatic analysis. Slot arbitration resolves explicit Effect Requests alongside pose-driven responses, then value-copied Work Items pass to ordered RDG passes on the Render Thread.</p>
+                    </div>
+                </header>
+
+                <div class="overanim-architecture-flow" aria-label="Runtime architecture flow" data-oa-key="architecture.flowAria" data-oa-attr="aria-label">
+                    <div><small data-oa-key="architecture.stage1">After animation evaluation</small><strong data-oa-key="architecture.flow1">Final pose snapshot</strong></div>
+                    <i aria-hidden="true">→</i>
+                    <div><small data-oa-key="architecture.stage2">Game Thread</small><strong data-oa-key="architecture.flow2">Normalized Region motion</strong></div>
+                    <i aria-hidden="true">→</i>
+                    <div><small data-oa-key="architecture.stage3">Phase timing</small><strong data-oa-key="architecture.flow3">Curve / marker / automatic</strong></div>
+                    <i aria-hidden="true">→</i>
+                    <div><small data-oa-key="architecture.stage4">Response selection</small><strong data-oa-key="architecture.flow4">Slot / priority / magnitude</strong></div>
+                    <i aria-hidden="true">→</i>
+                    <div><small data-oa-key="architecture.stage5">Render Thread</small><strong data-oa-key="architecture.flow5">Resolved Proxy → RDG passes</strong></div>
+                    <i aria-hidden="true">→</i>
+                    <div><small data-oa-key="architecture.stage6">Output</small><strong data-oa-key="architecture.flow6">Vertex Factory buffers</strong></div>
                 </div>
 
-                <p class="overanim-evidence-note" data-oa-key="contribution.note">I coordinated interfaces and integration order so Analyzer output could pass through the shared Proxy and Vertex Factory, runtime responses, and Editor.</p>
+                <div class="overanim-three-grid">
+                    <article class="overanim-panel">
+                        <p class="overanim-panel-label">01, Runtime</p>
+                        <h3 data-oa-key="architecture.runtimeTitle">Analysis and response</h3>
+                        <p data-oa-key="architecture.runtimeBody">After animation evaluation, stores the required control-point component-space pose, component transform, sample time, serial, and continuity. It derives Region, tip, angular, and chain features, normalizes linear thresholds by Region scale, then resolves phase timing before Response Rules and Module weights.</p>
+                    </article>
+                    <article class="overanim-panel">
+                        <p class="overanim-panel-label">02, Render / GPU</p>
+                        <h3 data-oa-key="architecture.renderTitle">Ordered deformation</h3>
+                        <p data-oa-key="architecture.renderBody">Resolved work moves to the Render Thread and is filtered by Scene and Execution Group. Compute passes execute in order at the MeshDeformer stage.</p>
+                    </article>
+                    <article class="overanim-panel">
+                        <p class="overanim-panel-label">03, Editor</p>
+                        <h3 data-oa-key="architecture.editorTitle">Per-Asset effect settings</h3>
+                        <p data-oa-key="architecture.editorBody">One Asset Editor provides Bone Group, Module Stack, and Response Rule settings alongside Preview Mode and diagnostics.</p>
+                    </article>
+                </div>
             </div>
         </section>
 
         <section class="overanim-section" id="phase-analyzer">
             <div class="container">
                 <header class="overanim-section-heading">
-                    <span>03</span>
+                    <span>04</span>
                     <div>
                         <p class="section-kicker" data-oa-key="analyzer.kicker">Core system, Motion timing</p>
                         <h2 data-oa-key="analyzer.title">Convert final-pose motion into six-stage timing signals</h2>
@@ -194,20 +236,6 @@
                         <img src="Assets/images/overanimation/motion-analyzer-pipeline.png" alt="Motion Analyzer pipeline from motion measurement to phase signal output" loading="eager" data-oa-key="analyzer.pipelineImageAlt" data-oa-attr="alt">
                         <figcaption><strong data-oa-key="analyzer.pipelineImageTitle">Pose analysis and effect selection</strong><span data-oa-key="analyzer.pipelineImageBody">Pose changes determine the Motion Phase, which emits a signal to select the deformation configured for that stage.</span></figcaption>
                     </figure>
-                </div>
-
-                <div class="overanim-analyzer-flow" aria-label="Motion Phase Analyzer runtime flow" data-oa-key="analyzer.flowAria" data-oa-attr="aria-label">
-                    <div><small data-oa-key="analyzer.flow1Label">Pose input</small><strong data-oa-key="analyzer.flow1">Final Pose Snapshot</strong></div>
-                    <i aria-hidden="true">→</i>
-                    <div><small data-oa-key="analyzer.flow2Label">Region sampling</small><strong data-oa-key="analyzer.flow2">Motion signals</strong></div>
-                    <i aria-hidden="true">→</i>
-                    <div><small data-oa-key="analyzer.flow3Label">Time stability</small><strong data-oa-key="analyzer.flow3">Trend, confirmation</strong></div>
-                    <i aria-hidden="true">→</i>
-                    <div><small data-oa-key="analyzer.flow4Label">Cycle decision</small><strong data-oa-key="analyzer.flow4">Region owner, cycle</strong></div>
-                    <i aria-hidden="true">→</i>
-                    <div><small data-oa-key="analyzer.flow5Label">Output data</small><strong>Motion.Region.Phase</strong></div>
-                    <i aria-hidden="true">→</i>
-                    <div><small data-oa-key="analyzer.flow6Label">Effect selection</small><strong data-oa-key="analyzer.flow6">Response Rule, Module</strong></div>
                 </div>
 
                 <div class="overanim-phase-trace" aria-label="Six Motion Phase stages" data-oa-key="analyzer.phaseTraceAria" data-oa-attr="aria-label">
@@ -289,7 +317,8 @@ TestEqual(TEXT("Confirmed Action"),
                     </div>
                 </article>
 
-                <article class="overanim-panel overanim-runtime-trace-panel">
+                <details class="overanim-panel overanim-runtime-trace-panel overanim-extra">
+                    <summary data-oa-key="analyzer.runtimeDisclosure">Runtime trace</summary>
                     <p class="overanim-panel-label" data-oa-key="analyzer.runtimeLabel">Runtime trace, Same Action/Cycle</p>
                     <h3 data-oa-key="analyzer.runtimeTitle">Phase transitions and Module release for one action</h3>
                     <p data-oa-key="analyzer.runtimeBody">This log follows Action 6, Cycle 3 in the LeftArmAction Region of OA_AttackCombo_AutoRegions, from Anticipation through the final Module release.</p>
@@ -301,52 +330,7 @@ TestEqual(TEXT("Confirmed Action"),
                         <article><span>05</span><strong>Settle Pose</strong><p><time>08:49:01.246</time><br><span data-oa-key="analyzer.runtime5">Pose returned</span></p></article>
                         <article><span>06</span><strong>Release</strong><p><time>08:49:02.295</time><br><span data-oa-key="analyzer.runtime6">Modules released</span></p></article>
                     </div>
-                </article>
-            </div>
-        </section>
-
-        <section class="overanim-section overanim-section--surface" id="architecture">
-            <div class="container">
-                <header class="overanim-section-heading">
-                    <span>04</span>
-                    <div>
-                        <p class="section-kicker" data-oa-key="architecture.kicker">Program architecture</p>
-                        <h2 data-oa-key="architecture.title">From final-pose snapshot to vertex output</h2>
-                        <p data-oa-key="architecture.lede">The Game Thread stores the final pose in a Snapshot and calculates normalized motion signals. Authored Phase Curves and Markers take priority over automatic analysis. Slot arbitration resolves explicit Effect Requests alongside pose-driven responses, then value-copied Work Items pass to ordered RDG passes on the Render Thread.</p>
-                    </div>
-                </header>
-
-                <div class="overanim-architecture-flow" aria-label="Runtime architecture flow" data-oa-key="architecture.flowAria" data-oa-attr="aria-label">
-                    <div><small data-oa-key="architecture.stage1">After animation evaluation</small><strong data-oa-key="architecture.flow1">Final pose snapshot</strong></div>
-                    <i aria-hidden="true">→</i>
-                    <div><small data-oa-key="architecture.stage2">Game Thread</small><strong data-oa-key="architecture.flow2">Normalized Region motion</strong></div>
-                    <i aria-hidden="true">→</i>
-                    <div><small data-oa-key="architecture.stage3">Phase timing</small><strong data-oa-key="architecture.flow3">Curve / marker / automatic</strong></div>
-                    <i aria-hidden="true">→</i>
-                    <div><small data-oa-key="architecture.stage4">Response selection</small><strong data-oa-key="architecture.flow4">Slot / priority / magnitude</strong></div>
-                    <i aria-hidden="true">→</i>
-                    <div><small data-oa-key="architecture.stage5">Render Thread</small><strong data-oa-key="architecture.flow5">Resolved Proxy → RDG passes</strong></div>
-                    <i aria-hidden="true">→</i>
-                    <div><small data-oa-key="architecture.stage6">Output</small><strong data-oa-key="architecture.flow6">Vertex Factory buffers</strong></div>
-                </div>
-
-                <div class="overanim-three-grid">
-                    <article class="overanim-panel">
-                        <p class="overanim-panel-label">01, Runtime</p>
-                        <h3 data-oa-key="architecture.runtimeTitle">Analysis and response</h3>
-                        <p data-oa-key="architecture.runtimeBody">After animation evaluation, stores the required control-point component-space pose, component transform, sample time, serial, and continuity. It derives Region, tip, angular, and chain features, normalizes linear thresholds by Region scale, then resolves phase timing before Response Rules and Module weights.</p>
-                    </article>
-                    <article class="overanim-panel">
-                        <p class="overanim-panel-label">02, Render / GPU</p>
-                        <h3 data-oa-key="architecture.renderTitle">Ordered deformation</h3>
-                        <p data-oa-key="architecture.renderBody">Resolved work moves to the Render Thread and is filtered by Scene and Execution Group. Compute passes execute in order at the MeshDeformer stage.</p>
-                    </article>
-                    <article class="overanim-panel">
-                        <p class="overanim-panel-label">03, Editor</p>
-                        <h3 data-oa-key="architecture.editorTitle">Per-Asset effect settings</h3>
-                        <p data-oa-key="architecture.editorBody">One Asset Editor provides Bone Group, Module Stack, and Response Rule settings alongside Preview Mode and diagnostics.</p>
-                    </article>
-                </div>
+                </details>
             </div>
         </section>
 
@@ -620,10 +604,6 @@ if (bSameSource &amp;&amp; bSameRoute &amp;&amp; bNearbyContact &amp;&amp;
                 </header>
 
                 <div class="overanim-product-grid">
-                    <figure class="overanim-product-visual">
-                        <img src="Assets/images/overanimation/dynamic-overanimation-hero.webp" alt="Dynamic OverAnimation artwork used for the Fab release" loading="lazy" data-oa-key="product.imageAlt" data-oa-attr="alt">
-                        <figcaption data-oa-key="product.imageCaption">Artwork used on the Fab product page.</figcaption>
-                    </figure>
                     <div class="overanim-product-copy">
                         <dl class="overanim-spec-list">
                             <div><dt data-oa-key="product.engineLabel">Engine</dt><dd>Unreal Engine 5.8</dd></div>
@@ -631,7 +611,6 @@ if (bSameSource &amp;&amp; bSameRoute &amp;&amp; bNearbyContact &amp;&amp;
                             <div><dt data-oa-key="product.renderLabel">Rendering</dt><dd>SM5 GPU</dd></div>
                             <div><dt data-oa-key="product.apiLabel">Integration</dt><dd>C++, Blueprint</dd></div>
                         </dl>
-                        <p data-oa-key="product.note">My work: Motion Phase Analyzer, runtime responses, GPU deformation, editor tools, and team integration.</p>
                         <div class="overanim-hero-actions">
                             <a class="btn btn--primary overanim-cta" href="https://www.fab.com/listings/8d23f843-b47c-4280-aa0a-d86cb49d77af" target="_blank" rel="noopener noreferrer" data-oa-key="links.fabHref" data-oa-attr="href">
                                 <span data-oa-key="links.fab">View product on Fab</span><span aria-hidden="true">↗</span>
@@ -653,8 +632,8 @@ if (bSameSource &amp;&amp; bSameRoute &amp;&amp; bNearbyContact &amp;&amp;
         </div>
     </footer>
 
-    <script src="locale.js?v=20261017-polish1"></script>
-    <script src="overanimation.ko.js?v=20261017-polish1"></script>
+    <script src="locale.js?v=20261017-edit1"></script>
+    <script src="overanimation.ko.js?v=20261017-edit1"></script>
     <script src="overanimation-localize.js"></script>
     <script src="detail-shell.js"></script>
 </body>
