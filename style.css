@@ -7872,3 +7872,45 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--color-primary);
  #additionalProjectsGrid .project-info { padding: 22px; }
 }
 @media (prefers-reduced-motion: reduce) { #projectsGrid .project-media { transition: none; } }
+
+/* The reference's index and image/text slides guide the reading order. */
+.project-index { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); margin: 12px 0 18px; padding: 22px 0; border-bottom: 1px solid var(--slide-track); }
+.project-index a { display: flex; align-items: flex-start; gap: 12px; min-width: 0; padding: 10px 22px; color: var(--color-text); text-decoration: none; border-right: 1px solid var(--slide-track); }
+.project-index a:first-child { padding-left: 0; }
+.project-index a:last-child { border-right: 0; padding-right: 0; }
+.project-index-number { color: var(--color-primary); font-size: 23px; font-weight: 400; line-height: 1.1; }
+.project-index a > span:nth-child(2) { display: grid; gap: 7px; min-width: 0; }
+.project-index strong { font-size: 15px; font-weight: 600; line-height: 1.4; }
+.project-index small { color: var(--color-text-secondary); font-size: 12px; line-height: 1.5; }
+.project-index-arrow { margin-left: auto; color: var(--color-primary); font-size: 17px; }
+.project-index a:hover strong { color: var(--color-primary); text-decoration: underline; text-underline-offset: 5px; }
+#projectsGrid .project-card { scroll-margin-top: 100px; }
+#projectsGrid { padding-top: 0; }
+#projectsGrid .project-media { background: var(--color-surface); border: 1px solid var(--slide-track); box-shadow: 4px 4px 0 var(--slide-pale); }
+#projectsGrid .project-role { background: transparent; border-left: 2px solid var(--slide-accent); padding: 2px 0 2px 12px; color: var(--color-text); }
+#projectsGrid .project-card:not(:first-child) { padding-top: 46px; }
+#skills .skill-category { background: var(--slide-row); border-top-width: 2px; }
+#skills .skill-project-link { border-top-color: var(--color-card-border); }
+.education-card { border-left: 0; border-right: 0; border-top: 1px solid var(--slide-footer); border-bottom: 1px solid var(--slide-footer); }
+.education-entry + .education-entry { border-left: 0; }
+.education-entry { border-bottom: 1px solid var(--slide-track); }
+.education-entry:last-child { border-bottom: 0; }
+.overanim-section-heading > span { align-self: start; }
+.overanim-section-heading h2, .huntress-section-heading h2, .lab-section-heading h2 { letter-spacing: -.035em; }
+.overanim-section-heading > div > p:last-child, .huntress-section-heading > p { max-width: 75ch; }
+.overanim-split > .overanim-panel + .overanim-panel { padding-left: 26px; border-left: 1px solid var(--slide-track); }
+@media (max-width: 1000px) {
+ .project-index a { padding-inline: 14px; gap: 9px; }
+ .project-index strong { font-size: 13px; }
+ .project-index-number { font-size: 20px; }
+}
+@media (max-width: 700px) {
+ .project-index { grid-template-columns: minmax(0,1fr); padding: 8px 0 16px; margin-top: 0; }
+ .project-index a, .project-index a:first-child, .project-index a:last-child { padding: 13px 0; border-right: 0; border-bottom: 1px solid var(--color-card-border); gap: 14px; }
+ .project-index a:last-child { border-bottom: 0; }
+ .project-index strong { font-size: 14px; }
+ .project-index a > span:nth-child(2) { gap: 3px; }
+ .project-index-number { font-size: 21px; min-width: 26px; }
+ #projectsGrid .project-card:not(:first-child) { padding-top: 28px; }
+ .overanim-split > .overanim-panel + .overanim-panel { padding-left: 0; border-left: 0; }
+}

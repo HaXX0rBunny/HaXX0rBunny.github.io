@@ -970,6 +970,8 @@ function createProjectCard(id, project) {
     const card = document.createElement('article');
     card.className = 'project-card';
     card.dataset.project = id;
+    const sectionAnchor = { '5': 'work-overanimation', '4': 'work-gametechlab', '1': 'work-edgedrive' }[id];
+    if (sectionAnchor) card.id = sectionAnchor;
     const detailUrl = project.detailPage || (project.project_type === 'collection' ? project.links?.overview : null);
     const href = detailUrl || `#project-${id}`;
     const typeText = project.team_label || project.type_label || (project.is_team_project
