@@ -998,7 +998,7 @@ function createProjectCard(id, project) {
             <p class="project-meta-line">${meta}</p>
             <h3><a href="${href}" class="project-action project-detail-btn">${project.title}</a></h3>
             <p class="project-subtitle">${project.subtitle}</p>
-            <p class="project-role">${project.my_role}</p>
+            <p class="project-role"><span class="project-role-label">${getPortfolioText('global.myRole', 'My Role')}</span><span>${project.my_role}</span></p>
             <p class="project-description">${project.description}</p>
             <div class="tech-stack">${project.technologies.map(tech => `<span class="tech-badge">${tech}</span>`).join('')}</div>
             ${highlights}
