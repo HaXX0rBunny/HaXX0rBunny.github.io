@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="An Unreal Engine 5.8 plug-in that adds exaggeration to existing animations through motion analysis, camera-aware GPU mesh deformation, and effect authoring tools." data-oa-key="meta.description" data-oa-attr="content">
     <title data-oa-key="meta.title">Dynamic OverAnimation, Unreal Engine GPU Mesh Deformation</title>
-    <link rel="stylesheet" href="style.css?v=20261017-slides15">
+    <link rel="stylesheet" href="style.css?v=20261017-theme16">
 </head>
 <body class="overanim-page">
     <header class="lab-nav overanim-topbar">
@@ -28,8 +28,8 @@
                     <p class="overanim-hero-lede" data-oa-key="hero.lede">A plug-in that adds exaggerated movement to existing animations. I led the three-person team and implemented motion analysis, stable runtime signals, GPU deformation, and editor tools for the Fab release.</p>
 
                     <div class="overanim-hero-actions">
-                        <a class="btn btn--primary overanim-cta" href="#result" data-oa-key="links.result">See the result</a>
-                        <a class="btn btn--primary overanim-cta" href="https://www.fab.com/listings/8d23f843-b47c-4280-aa0a-d86cb49d77af" target="_blank" rel="noopener noreferrer" data-oa-key="links.fabHref" data-oa-attr="href">
+                        <a class="btn btn--primary overanim-cta overanim-cta--result" href="#result"><span data-oa-key="links.result">See the result</span><span aria-hidden="true">↓</span></a>
+                        <a class="btn btn--secondary overanim-cta" href="https://www.fab.com/listings/8d23f843-b47c-4280-aa0a-d86cb49d77af" target="_blank" rel="noopener noreferrer" data-oa-key="links.fabHref" data-oa-attr="href">
                             <span data-oa-key="links.fab">View product on Fab</span><span aria-hidden="true">↗</span>
                         </a>
                         <a class="btn btn--secondary overanim-cta" href="https://dynamaxgtl3rd.github.io/OverAnimDocs/" target="_blank" rel="noopener noreferrer">
@@ -69,7 +69,7 @@
         </nav>
 
         <section class="overanim-section overanim-section--surface" id="result">
-            <div class="container presentation-sheet" data-sheet="Dynamic OverAnimation / 01">
+            <div class="container presentation-sheet">
                 <div class="overanim-validation-comparison">
                     <header>
                         <p class="overanim-panel-label" data-oa-key="validation.compareLabel">Phase-driven deformation</p>
@@ -91,7 +91,7 @@
         </section>
 
         <section class="overanim-section" id="overview">
-            <div class="container presentation-sheet" data-sheet="Dynamic OverAnimation / 02">
+            <div class="container presentation-sheet">
                 <header class="overanim-section-heading">
                     <span>01</span>
                     <div>
@@ -140,7 +140,7 @@
         </section>
 
         <section class="overanim-section overanim-section--surface" id="contribution">
-            <div class="container presentation-sheet" data-sheet="Dynamic OverAnimation / 03">
+            <div class="container presentation-sheet">
                 <header class="overanim-section-heading">
                     <span>02</span>
                     <div>
@@ -152,7 +152,7 @@
 
                 <div class="overanim-contribution-grid">
                     <article class="overanim-panel overanim-panel--accent">
-                        <p class="overanim-panel-label" data-oa-key="contribution.personalLabel">Personal scope</p>
+
                         <ul class="overanim-responsibility-list">
                             <li><strong data-oa-key="contribution.personal0Title">Product direction and system design</strong><span data-oa-key="contribution.personal0Body">Designed the six-stage Analyzer and Region/Chain scope, separating pose-derived input from authored input to reduce setup work.</span></li>
                             <li><strong data-oa-key="contribution.personal1Title">Motion Phase Analyzer</strong><span data-oa-key="contribution.personal1Body">Six-stage detection, temporal confirmation, cycle history, and Region ownership.</span></li>
@@ -180,7 +180,7 @@
         </section>
 
         <section class="overanim-section overanim-section--surface" id="architecture">
-            <div class="container presentation-sheet" data-sheet="Dynamic OverAnimation / 04">
+            <div class="container presentation-sheet">
                 <header class="overanim-section-heading">
                     <span>03</span>
                     <div>
@@ -225,7 +225,7 @@
         </section>
 
         <section class="overanim-section" id="phase-analyzer">
-            <div class="container presentation-sheet" data-sheet="Dynamic OverAnimation / 05">
+            <div class="container presentation-sheet">
                 <header class="overanim-section-heading">
                     <span>04</span>
                     <div>
@@ -343,7 +343,7 @@ TestEqual(TEXT("Confirmed Action"),
         </section>
 
         <section class="overanim-section" id="logic">
-            <div class="container presentation-sheet" data-sheet="Dynamic OverAnimation / 06">
+            <div class="container presentation-sheet">
                 <header class="overanim-section-heading">
                     <span>05</span>
                     <div>
@@ -549,7 +549,7 @@ if (bSameSource &amp;&amp; bSameRoute &amp;&amp; bNearbyContact &amp;&amp;
         </section>
 
         <section class="overanim-section overanim-section--surface" id="validation">
-            <div class="container presentation-sheet" data-sheet="Dynamic OverAnimation / 07">
+            <div class="container presentation-sheet">
                 <header class="overanim-section-heading">
                     <span>06</span>
                     <div>
@@ -601,7 +601,7 @@ if (bSameSource &amp;&amp; bSameRoute &amp;&amp; bNearbyContact &amp;&amp;
         </section>
 
         <section class="overanim-section" id="product">
-            <div class="container presentation-sheet" data-sheet="Dynamic OverAnimation / 08">
+            <div class="container presentation-sheet">
                 <header class="overanim-section-heading">
                     <span>07</span>
                     <div>
@@ -640,10 +640,10 @@ if (bSameSource &amp;&amp; bSameRoute &amp;&amp; bNearbyContact &amp;&amp;
         </div>
     </footer>
 
-    <script src="locale.js?v=20261017-slides15"></script>
-    <script src="overanimation.ko.js?v=20261017-slides15"></script>
+    <script src="locale.js?v=20261017-theme16"></script>
+    <script src="overanimation.ko.js?v=20261017-theme16"></script>
     <script src="overanimation-localize.js"></script>
     <script src="detail-shell.js"></script>
-    <script src="code-view.js?v=20261017-slides15"></script>
+    <script src="code-view.js?v=20261017-theme16"></script>
 </body>
 </html>

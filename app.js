@@ -1011,10 +1011,6 @@ function createProjectCard(id, project) {
             </div>
         </div>`;
     card.insertAdjacentHTML(id === '4' ? 'beforeend' : 'afterbegin', media);
-    if (sectionAnchor) {
-        const sheetNumber = { '5': '01', '4': '02', '1': '03' }[id];
-        card.insertAdjacentHTML('beforeend', `<div class="project-sheet-footer" aria-hidden="true"><span>${project.title}</span><span>${sheetNumber} / 03</span></div>`);
-    }
     if (!detailUrl) {
         card.querySelectorAll('.project-detail-btn').forEach(link => {
             link.addEventListener('click', event => {
