@@ -971,7 +971,10 @@ function createProjectCard(id, project) {
     card.className = 'project-card';
     card.dataset.project = id;
     const sectionAnchor = { '5': 'work-overanimation', '4': 'work-gametechlab', '1': 'work-edgedrive' }[id];
-    if (sectionAnchor) card.id = sectionAnchor;
+    if (sectionAnchor) {
+        card.id = sectionAnchor;
+        card.classList.add('presentation-sheet');
+    }
     const detailUrl = project.detailPage || (project.project_type === 'collection' ? project.links?.overview : null);
     const href = detailUrl || `#project-${id}`;
     const typeText = project.team_label || project.type_label || (project.is_team_project
@@ -1000,7 +1003,7 @@ function createProjectCard(id, project) {
             <p class="project-subtitle">${project.subtitle}</p>
             <p class="project-role"><span class="project-role-label">${getPortfolioText('global.myRole', 'My Role')}</span><span>${project.my_role}</span></p>
             <p class="project-description">${project.description}</p>
-            <div class="tech-stack">${project.technologies.map(tech => `<span class="tech-badge">${tech}</span>`).join('')}</div>
+            <div class="project-tools"><span class="project-role-label">${getPortfolioText('global.techStack', 'Tech Stack')}</span><div class="tech-stack">${project.technologies.map(tech => `<span class="tech-badge">${tech}</span>`).join('')}</div></div>
             ${highlights}
             <div class="project-actions">
                 <a href="${href}" class="project-action project-detail-btn">${detailLabel} <span aria-hidden="true">↗</span></a>
@@ -1008,6 +1011,10 @@ function createProjectCard(id, project) {
             </div>
         </div>`;
     card.insertAdjacentHTML(id === '4' ? 'beforeend' : 'afterbegin', media);
+    if (sectionAnchor) {
+        const sheetNumber = { '5': '01', '4': '02', '1': '03' }[id];
+        card.insertAdjacentHTML('beforeend', `<div class="project-sheet-footer" aria-hidden="true"><span>${project.title}</span><span>${sheetNumber} / 03</span></div>`);
+    }
     if (!detailUrl) {
         card.querySelectorAll('.project-detail-btn').forEach(link => {
             link.addEventListener('click', event => {

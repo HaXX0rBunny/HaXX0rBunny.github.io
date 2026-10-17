@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" id="pageDescription" content="HaXX0rBunny's C++ rendering and engine development record from KRAFTON Jungle Game Tech Lab 3rd." data-i18n-attr-content="lab.pageDescription">
     <title data-i18n="lab.pageTitle">GameTechLab3rd, C++ Rendering & Engine Development</title>
-    <link rel="stylesheet" href="style.css?v=20261017-review14">
+    <link rel="stylesheet" href="style.css?v=20261017-slides15">
 </head>
 <body class="lab-page">
     <header class="lab-nav">
@@ -58,14 +58,19 @@
             <a class="lab-highlight" href="#week05/evidence">
                 <span>WEEK 05, DirectX 11</span>
                 <h2 data-i18n="lab.impostorTitle">50,000-object rendering comparison</h2>
-                <strong>6.62 → 3.21 ms</strong>
+                <div class="frame-comparison">
+                    <div><span>Full Mesh</span><i aria-hidden="true"></i><b>6.62 ms</b></div>
+                    <div><span>Impostor</span><i aria-hidden="true"></i><b>3.21 ms</b></div>
+                </div>
                 <p data-i18n="lab.impostorSummary">A comparison of Full Mesh and Impostor rendering in the same 50,000-object scene, with test conditions.</p>
                 <span class="highlight-link" data-i18n="lab.resultLink">View comparison and conditions ↗</span>
             </a>
             <a class="lab-highlight" href="#week09/evidence">
                 <span>WEEK 09, C++</span>
                 <h2 data-i18n="lab.standaloneTitle">Run the game outside the editor</h2>
-                <strong>Build → Cook → Stage</strong>
+                <div class="build-stages" aria-label="Build, Cook, Stage">
+                    <span>Build</span><i aria-hidden="true">›</i><span>Cook</span><i aria-hidden="true">›</i><span>Stage</span>
+                </div>
                 <p data-i18n="lab.standaloneSummary">Runtime scenes, viewport and backbuffer initialization, and verification for a standalone build.</p>
                 <span class="highlight-link" data-i18n="lab.buildLink">View runtime captures and implementation ↗</span>
             </a>
@@ -95,7 +100,7 @@
                 <div class="lab-view-panel is-active" id="weeksView" role="tabpanel" aria-labelledby="weeksViewTab">
                     <nav class="lab-week-selector" id="labWeekSelector" aria-label="Select a week" data-i18n-attr-aria-label="lab.weekSelectorAria"></nav>
 
-                    <article class="lab-week-workspace" aria-live="polite">
+                    <article class="lab-week-workspace presentation-sheet" aria-live="polite">
                         <header class="lab-week-header">
                             <div class="lab-week-heading-copy">
                                 <p class="lab-week-eyebrow" id="labWeekEyebrow"></p>
@@ -138,10 +143,10 @@
             <a href="index.html#projects" data-i18n="global.portfolio">Portfolio</a>
         </div>
     </footer>
-    <script src="locale.js?v=20261017-review14"></script>
+    <script src="locale.js?v=20261017-slides15"></script>
     <script src="detail-shell.js"></script>
-    <script src="gametechlab.ko.js?v=20261017-review14"></script>
-    <script src="gametechlab.js?v=20261017-review14"></script>
-    <script src="code-view.js?v=20261017-review14"></script>
+    <script src="gametechlab.ko.js?v=20261017-slides15"></script>
+    <script src="gametechlab.js?v=20261017-slides15"></script>
+    <script src="code-view.js?v=20261017-slides15"></script>
 </body>
 </html>

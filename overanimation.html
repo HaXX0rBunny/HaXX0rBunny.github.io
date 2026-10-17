@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="An Unreal Engine 5.8 plug-in that adds exaggeration to existing animations through motion analysis, camera-aware GPU mesh deformation, and effect authoring tools." data-oa-key="meta.description" data-oa-attr="content">
     <title data-oa-key="meta.title">Dynamic OverAnimation, Unreal Engine GPU Mesh Deformation</title>
-    <link rel="stylesheet" href="style.css?v=20261017-review14">
+    <link rel="stylesheet" href="style.css?v=20261017-slides15">
 </head>
 <body class="overanim-page">
     <header class="lab-nav overanim-topbar">
@@ -69,7 +69,7 @@
         </nav>
 
         <section class="overanim-section overanim-section--surface" id="result">
-            <div class="container">
+            <div class="container presentation-sheet" data-sheet="Dynamic OverAnimation / 01">
                 <div class="overanim-validation-comparison">
                     <header>
                         <p class="overanim-panel-label" data-oa-key="validation.compareLabel">Phase-driven deformation</p>
@@ -91,7 +91,7 @@
         </section>
 
         <section class="overanim-section" id="overview">
-            <div class="container">
+            <div class="container presentation-sheet" data-sheet="Dynamic OverAnimation / 02">
                 <header class="overanim-section-heading">
                     <span>01</span>
                     <div>
@@ -101,6 +101,13 @@
                     </div>
                 </header>
 
+                <div class="overanim-setup-board">
+                    <div class="setup-diamonds" aria-hidden="true">
+                        <div><span><small>01</small>Component</span></div>
+                        <div><span><small>02</small>Asset</span></div>
+                        <div><span><small>03</small>Signal</span></div>
+                        <div><span><small>04</small>GPU</span></div>
+                    </div>
                 <div class="overanim-workflow" aria-label="Setup and runtime flow" data-oa-key="overview.flowAria" data-oa-attr="aria-label">
                     <div><span>01</span><strong data-oa-key="overview.flow1Title">Attach</strong><p data-oa-key="overview.flow1Body">Start with OverAnimComponent and a Deformer Asset.</p></div>
                     <i aria-hidden="true">→</i>
@@ -109,6 +116,7 @@
                     <div><span>03</span><strong data-oa-key="overview.flow3Title">Route</strong><p data-oa-key="overview.flow3Body">Connect automatic motion analysis or AnimNotify and gameplay requests to rules.</p></div>
                     <i aria-hidden="true">→</i>
                     <div><span>04</span><strong data-oa-key="overview.flow4Title">Deform</strong><p data-oa-key="overview.flow4Body">Execute ordered RDG passes and output the deformed mesh.</p></div>
+                </div>
                 </div>
 
                 <div class="overanim-split overanim-overview-split">
@@ -132,7 +140,7 @@
         </section>
 
         <section class="overanim-section overanim-section--surface" id="contribution">
-            <div class="container">
+            <div class="container presentation-sheet" data-sheet="Dynamic OverAnimation / 03">
                 <header class="overanim-section-heading">
                     <span>02</span>
                     <div>
@@ -172,7 +180,7 @@
         </section>
 
         <section class="overanim-section overanim-section--surface" id="architecture">
-            <div class="container">
+            <div class="container presentation-sheet" data-sheet="Dynamic OverAnimation / 04">
                 <header class="overanim-section-heading">
                     <span>03</span>
                     <div>
@@ -217,7 +225,7 @@
         </section>
 
         <section class="overanim-section" id="phase-analyzer">
-            <div class="container">
+            <div class="container presentation-sheet" data-sheet="Dynamic OverAnimation / 05">
                 <header class="overanim-section-heading">
                     <span>04</span>
                     <div>
@@ -335,7 +343,7 @@ TestEqual(TEXT("Confirmed Action"),
         </section>
 
         <section class="overanim-section" id="logic">
-            <div class="container">
+            <div class="container presentation-sheet" data-sheet="Dynamic OverAnimation / 06">
                 <header class="overanim-section-heading">
                     <span>05</span>
                     <div>
@@ -541,7 +549,7 @@ if (bSameSource &amp;&amp; bSameRoute &amp;&amp; bNearbyContact &amp;&amp;
         </section>
 
         <section class="overanim-section overanim-section--surface" id="validation">
-            <div class="container">
+            <div class="container presentation-sheet" data-sheet="Dynamic OverAnimation / 07">
                 <header class="overanim-section-heading">
                     <span>06</span>
                     <div>
@@ -593,7 +601,7 @@ if (bSameSource &amp;&amp; bSameRoute &amp;&amp; bNearbyContact &amp;&amp;
         </section>
 
         <section class="overanim-section" id="product">
-            <div class="container">
+            <div class="container presentation-sheet" data-sheet="Dynamic OverAnimation / 08">
                 <header class="overanim-section-heading">
                     <span>07</span>
                     <div>
@@ -632,10 +640,10 @@ if (bSameSource &amp;&amp; bSameRoute &amp;&amp; bNearbyContact &amp;&amp;
         </div>
     </footer>
 
-    <script src="locale.js?v=20261017-review14"></script>
-    <script src="overanimation.ko.js?v=20261017-review14"></script>
+    <script src="locale.js?v=20261017-slides15"></script>
+    <script src="overanimation.ko.js?v=20261017-slides15"></script>
     <script src="overanimation-localize.js"></script>
     <script src="detail-shell.js"></script>
-    <script src="code-view.js?v=20261017-review14"></script>
+    <script src="code-view.js?v=20261017-slides15"></script>
 </body>
 </html>

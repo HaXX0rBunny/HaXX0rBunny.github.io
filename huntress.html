@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Huntress: C++ menu, store and combat HUD development, input handling, and UI troubleshooting." data-huntress-meta="description">
     <title data-huntress-meta="title">Huntress, C++ UI Systems & Gameplay Integration</title>
-    <link rel="stylesheet" href="style.css?v=20261017-review14">
+    <link rel="stylesheet" href="style.css?v=20261017-slides15">
 </head>
 <body class="lab-page huntress-page">
     <header class="lab-nav">
@@ -83,7 +83,7 @@
         </nav>
 
         <section class="huntress-section" id="overview">
-            <div class="container">
+            <div class="container presentation-sheet" data-sheet="Huntress / 01">
                 <header class="huntress-section-heading" data-section="01">
                     <div>
                         <p class="section-kicker">01, Project Overview</p>
@@ -113,18 +113,28 @@
                 </div>
 
                 <figure class="huntress-feature-figure">
-                    <img src="Assets/images/huntress/ui-tutorial-protractor.png" alt="Huntress combat UI tutorial showing the aiming protractor, power gauge, health bars, and the game field">
+                    <div class="hud-annotated-image">
+                        <img src="Assets/images/huntress/ui-tutorial-protractor.png" alt="Huntress combat UI tutorial showing the aiming protractor, power gauge, health bars, and the game field">
+                        <i class="hud-pin hud-pin--items" aria-hidden="true">01</i>
+                        <i class="hud-pin hud-pin--angle" aria-hidden="true">02</i>
+                        <i class="hud-pin hud-pin--power" aria-hidden="true">03</i>
+                    </div>
                     <figcaption>
                         <span>Combat tutorial</span>
                         <strong>Combat HUD and aiming guide in context</strong>
                         <p>The HUD shows item slots, current and previous angles, movement and power gauges, and both health bars.</p>
+                        <ol class="hud-callouts">
+                            <li data-i18n="global.hudItems">Item slots and selection</li>
+                            <li data-i18n="global.hudAngle">Current and previous aiming angles</li>
+                            <li data-i18n="global.hudGauges">Movement and power gauges</li>
+                        </ol>
                     </figcaption>
                 </figure>
             </div>
         </section>
 
         <section class="huntress-section huntress-section--surface" id="contribution">
-            <div class="container">
+            <div class="container presentation-sheet" data-sheet="Huntress / 02">
                 <header class="huntress-section-heading" data-section="02">
                     <div>
                         <p class="section-kicker">02, Role &amp; Contribution</p>
@@ -170,7 +180,7 @@
         </section>
 
         <section class="huntress-section" id="architecture">
-            <div class="container">
+            <div class="container presentation-sheet" data-sheet="Huntress / 03">
                 <header class="huntress-section-heading" data-section="03">
                     <div>
                         <p class="section-kicker">03, Architecture &amp; Technical Challenges</p>
@@ -228,7 +238,7 @@ SubtitleComp::Update();</code></pre>
         </section>
 
         <section class="huntress-section huntress-section--surface" id="troubleshooting">
-            <div class="container">
+            <div class="container presentation-sheet" data-sheet="Huntress / 04">
                 <header class="huntress-section-heading" data-section="04">
                     <div>
                         <p class="section-kicker">04, Troubleshooting</p>
@@ -398,7 +408,7 @@ for (int i = 0; i &lt; 4; ++i)
         </section>
 
         <section class="huntress-section" id="evidence">
-            <div class="container">
+            <div class="container presentation-sheet" data-sheet="Huntress / 05">
                 <header class="huntress-section-heading" data-section="05">
                     <div>
                         <p class="section-kicker">05, Screenshots &amp; Source</p>
@@ -455,10 +465,10 @@ for (int i = 0; i &lt; 4; ++i)
             <a href="index.html#projects">Portfolio</a>
         </div>
     </footer>
-    <script src="locale.js?v=20261017-review14"></script>
-    <script src="huntress.ko.js?v=20261017-review14"></script>
+    <script src="locale.js?v=20261017-slides15"></script>
+    <script src="huntress.ko.js?v=20261017-slides15"></script>
     <script src="huntress-localize.js"></script>
     <script src="detail-shell.js"></script>
-    <script src="code-view.js?v=20261017-review14"></script>
+    <script src="code-view.js?v=20261017-slides15"></script>
 </body>
 </html>
