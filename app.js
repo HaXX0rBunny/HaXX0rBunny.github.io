@@ -803,7 +803,6 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('hashchange', openLinkedProject);
     openLinkedProject();
     initializeScrollEffects();
-    initializeTypingEffect();
     setTimeout(initializeHeroVideo, 1000);
 });
 
@@ -907,39 +906,6 @@ function updateActiveNavLink() {
             link.classList.add('active');
         }
     });
-}
-
-// Typing Effect for Hero Section
-function initializeTypingEffect() {
-    const typingText = document.getElementById('typingText');
-    const typingCursor = document.getElementById('typingCursor');
-
-    if (!typingText || !typingCursor) return;
-
-    const text = "Cho Sanghyeon";
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        typingText.textContent = text;
-        typingCursor.hidden = true;
-        return;
-    }
-    let i = 0;
-
-    function typeWriter() {
-        if (i < text.length) {
-            typingText.textContent += text.charAt(i);
-            i++;
-            setTimeout(typeWriter, 100);
-        } else {
-            // 타이핑 완료 후 커서 깜빡임 중지
-            setTimeout(() => {
-                typingCursor.style.animation = 'none';
-                typingCursor.style.opacity = '0';
-            }, 2000);
-        }
-    }
-
-    // 1초 후 타이핑 시작
-    setTimeout(typeWriter, 1000);
 }
 
 function initializeHeroVideo() {
