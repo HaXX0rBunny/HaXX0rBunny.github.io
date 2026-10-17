@@ -7949,3 +7949,74 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--color-primary);
 }
 
 #projectsGrid .project-role { border: 0; padding: 0; }
+
+/* Detail pages use the slide's filled labels, quiet table rows and process diagrams. */
+.huntress-section-heading::before, .lab-primary-tab-index { background: var(--slide-accent); color: var(--slide-ink); }
+.huntress-panel-label, .overanim-panel-label, .lab-detail-label {
+ display: table; max-width: 100%; margin-bottom: 14px; padding: 4px 10px;
+ background: var(--slide-pale); color: var(--color-text); font-size: 11px; font-weight: 500; line-height: 1.65;
+}
+.overanim-panel, .huntress-panel, .huntress-summary-card { border-top: 1px solid var(--slide-track); }
+.overanim-panel h3, .huntress-panel h3 { font-weight: 600; font-size: 20px; line-height: 1.5; }
+.overanim-responsibility-list { gap: 0 30px; }
+.overanim-responsibility-list > li { padding: 20px 0; border-top: 1px solid var(--slide-track); }
+.overanim-responsibility-list > li strong { display: block; margin-bottom: 9px; color: var(--color-text); font-size: 15px; font-weight: 600; }
+.overanim-responsibility-list > li span { font-size: 14px; line-height: 1.85; }
+.overanim-workflow { gap: 14px; }
+.overanim-workflow > div { padding: 22px 18px; border: 1px solid var(--slide-track); border-top: 3px solid var(--slide-accent); background: var(--slide-row); }
+.overanim-workflow > div > span { color: var(--color-primary); font-size: 23px; font-weight: 400; }
+.overanim-workflow > div > strong { font-size: 16px; margin-top: 12px; }
+.overanim-workflow > div > p { font-size: 13px; line-height: 1.8; }
+.overanim-phase-trace { gap: 0; border-top: 1px solid var(--slide-frame); border-bottom: 1px solid var(--slide-track); }
+.overanim-phase-trace article { padding: 20px 16px; border: 0; border-right: 1px solid var(--slide-track); background: var(--slide-row); }
+.overanim-phase-trace article:last-child { border-right: 0; }
+.overanim-phase-trace article > span { color: var(--color-primary); font-size: 13px; }
+.overanim-phase-trace article > strong { font-size: 14px; font-weight: 600; }
+.overanim-phase-trace article > p { font-size: 12px; line-height: 1.75; }
+.overanim-case { padding-top: 28px; border-top: 2px solid var(--slide-frame); gap: 28px; }
+.overanim-case-copy h3 { font-size: 22px; font-weight: 600; line-height: 1.5; margin: 0 0 22px; }
+.overanim-case-copy dl { gap: 0; border-top: 1px solid var(--slide-track); border-bottom: 1px solid var(--slide-track); }
+.overanim-case-copy dl > div { display: grid; grid-template-columns: 64px minmax(0,1fr); gap: 16px; padding: 14px 12px; border: 0; }
+.overanim-case-copy dl > div:nth-child(odd) { background: var(--slide-row); }
+.overanim-case-copy dt { color: var(--color-primary); font-size: 12px; font-weight: 600; }
+.overanim-case-copy dd { margin: 0; font-size: 14px; line-height: 1.85; }
+.overanim-code-card { border: 1px solid var(--slide-track); border-radius: 0; align-self: start; }
+.overanim-code-card > div { background: var(--slide-pale); color: var(--color-text); border-bottom: 0; padding: 13px 16px; }
+.overanim-code-card > div span, .overanim-code-card > div span:first-child { color: var(--color-text); }
+.overanim-code-card > div span:last-child { font-family: var(--font-family-base); font-size: 12px; }
+.overanim-code-card pre { border-radius: 0; padding: 20px; }
+.overanim-evidence-gallery figcaption, .overanim-analyzer-visuals figcaption { border-top: 2px solid var(--slide-frame); background: var(--slide-row); padding: 16px 18px; }
+.overanim-evidence-gallery figcaption strong, .overanim-analyzer-visuals figcaption strong { color: var(--color-text); font-size: 15px; font-weight: 600; }
+.overanim-evidence-gallery figcaption span, .overanim-analyzer-visuals figcaption span { color: var(--color-text-secondary); font-size: 13px; line-height: 1.75; }
+.huntress-metric-grid { gap: 0; border-block: 1px solid var(--slide-track); }
+.huntress-metric-grid article { border: 0; border-right: 1px solid var(--slide-track); padding: 24px; background: var(--slide-row); }
+.huntress-metric-grid article:last-child { border-right: 0; }
+.huntress-metric-grid article > strong { color: var(--color-primary); font-size: 21px; }
+.huntress-trouble-card { border: 1px solid var(--slide-track); }
+.huntress-trouble-card > header { border-top: 3px solid var(--slide-accent); background: var(--slide-row); }
+.huntress-case-index { background: var(--slide-accent); color: var(--slide-ink); border-radius: 0; }
+.huntress-case-facts { gap: 0; }
+.huntress-case-facts > div { padding: 18px; border: 0; border-bottom: 1px solid var(--slide-track); }
+.huntress-case-facts > div:nth-child(odd) { background: var(--slide-row); }
+.huntress-case-facts > div > span { display: table; color: var(--color-primary); font-size: 12px; margin-bottom: 8px; }
+.huntress-code-compare > div > span { background: #403b52; color: #f8fffc; }
+.huntress-code-compare > .is-after > span { background: #35565d; color: #f8fffc; }
+.lab-detail-grid > section { padding: 24px; background: var(--slide-row); border-top: 2px solid var(--slide-frame); }
+.lab-primary-tab { border-bottom: 2px solid var(--slide-track); }
+.lab-primary-tab.is-active { border-bottom-color: var(--slide-accent); background: var(--slide-row); }
+.lab-system-flow { background: var(--slide-row); border-left: 3px solid var(--slide-accent); border-radius: 0; }
+.lab-trouble-header { border-top-color: var(--slide-accent); background: var(--slide-row); }
+.lab-trouble-field { border-bottom: 1px solid var(--slide-track); }
+.lab-trouble-field:nth-child(odd) { background: var(--slide-row); }
+@media (max-width: 700px) {
+ .overanim-case-copy h3 { font-size: 20px; }
+ .overanim-case-copy dl > div { grid-template-columns: 46px minmax(0,1fr); gap: 12px; padding: 14px 10px; }
+ .overanim-case-copy dd { font-size: 13px; }
+ .overanim-phase-trace article, .huntress-metric-grid article { border-bottom: 1px solid var(--slide-track); padding: 18px 14px; }
+ .lab-detail-grid > section { padding: 20px; }
+}
+
+.overanim-phase-trace article > span { position: static; display: block; width: auto; height: auto; margin-bottom: 10px; padding: 0; line-height: 1; }
+.overanim-analyzer-authoring h3 { font-size: 24px; font-weight: 600; line-height: 1.5; }
+.huntress-challenge-grid article > span { display: table; padding: 4px 9px; margin-bottom: 12px; background: var(--slide-pale); color: var(--color-text); font-size: 11px; }
+.huntress-architecture-flow > div { border-radius: 0; border-top: 2px solid var(--slide-accent); background: var(--slide-row); }
