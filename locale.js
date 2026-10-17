@@ -316,7 +316,7 @@ const PORTFOLIO_I18N = {
             heroName: '조상현',
             heroFeatured: 'Fab 출시 프로젝트',
             ctaText: '게임 개발자',
-            heroDescription: "캐릭터의 움직임과 이를 뒷받침하는 엔진 기능을 개발합니다. 자체 엔진의 렌더링과 빌드를 개선하고, 3인 팀에서 애니메이션 변형 플러그인을 제작해 Fab에 출시했습니다.",
+            heroDescription: "C++과 Unreal Engine으로 게임플레이와 엔진 기능을 개발합니다. 자체 엔진의 렌더링 최적화와 독립 실행 빌드를 구현했고, 3인 팀에서 애니메이션 변형 플러그인을 제작해 Fab에 출시했습니다.",
             selectedWork: '주요 작업',
             featuredProjects: "대표 프로젝트",
             featuredProjectsLead: "직접 구현한 기능과 문제 해결 과정을 프로젝트별로 정리했습니다.",
