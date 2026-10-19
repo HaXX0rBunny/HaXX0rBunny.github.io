@@ -3162,9 +3162,13 @@ function evidencePanelMarkup(panel, { attached = false, result = false } = {}) {
         ? `<div class="lab-runtime-evidence-facts has-${visibleFacts.length}-items">
                 ${visibleFacts.map(fact => {
                     const factDetail = [fact.label, fact.value, fact.detail].filter(Boolean).join(', ');
+                    const parts = String(fact.value).split('→');
+                    const value = parts.length === 2
+                        ? `<span class="metric-before">${escapeMarkup(parts[0].trim())}</span><span class="metric-arrow">→</span><span class="metric-after">${escapeMarkup(parts[1].trim())}</span>`
+                        : escapeMarkup(fact.value);
                     return `<article title="${escapeMarkup(factDetail)}">
                             <span>${escapeMarkup(fact.label)}</span>
-                            <strong>${escapeMarkup(fact.value)}</strong>
+                            <strong>${value}</strong>
                         </article>`;
                 }).join('')}
            </div>`
