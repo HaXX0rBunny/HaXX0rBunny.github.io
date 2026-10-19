@@ -164,6 +164,22 @@ if (CurCol < 0 || CurCol >= CurrentStageCol)
         ],
         evidenceStatus: 'Implemented systems',
         evidenceNote: 'Implemented the D3D11 renderer foundation, input and editor-camera flow, and SkySphere rendering.',
+        troubleshootingEvidence: [
+            {
+                placement: 'result',
+                title: '3D editor',
+                summary: 'Captured from the team’s Week02 engine.',
+                figures: [
+                    {
+                        stage: 'Primitive selection',
+                        src: 'Assets/images/gametechlab/evidence/week02-editor.png',
+                        alt: 'Team engine showing basic 3D shapes, a selected object with transform gizmos, and the properties panel',
+                        caption: 'Basic shapes are displayed alongside selection gizmos and the selected object’s properties.',
+                        fit: 'wide'
+                    }
+                ]
+            }
+        ],
         sourceUrl: 'https://github.com/DDing-Ho/Jungle3_Week2_Team1/commits/main/?author=HaXX0rBunny',
         sourceLabel: 'Open authored Week02 commits',
         troubleshooting: [
@@ -265,6 +281,22 @@ else
         ],
         evidenceStatus: 'Implemented systems',
         evidenceNote: 'Implemented the atlas, billboard, batch-line, bounds, name/type, gizmo-guide, and meta-object work added during Week03.',
+        troubleshootingEvidence: [
+            {
+                placement: 'result',
+                title: 'Scene inspection',
+                summary: 'Captured from the team’s DinoEngine editor.',
+                figures: [
+                    {
+                        stage: 'Object identifiers and bounds',
+                        src: 'Assets/images/gametechlab/evidence/week03-editor.png',
+                        alt: 'DinoEngine viewport with OBJ models, UUID labels, bounding boxes, and a content browser',
+                        caption: 'UUID labels and bounding boxes identify the OBJ models, with assets listed in the content browser.',
+                        fit: 'wide'
+                    }
+                ]
+            }
+        ],
         sourceUrl: 'https://github.com/HaXX0rBunny/Week3_Team5_DinoEngine/commits/main/?author=HaXX0rBunny',
         sourceLabel: 'Open authored Week03 commits',
         troubleshooting: [
@@ -405,6 +437,22 @@ const float NdcY =
         ],
         evidenceStatus: 'OBJ importer and binary assets',
         evidenceNote: 'Implemented the OBJ/MTL importer, UStaticMesh integration, versioned .dasset cooking, and serialization.',
+        troubleshootingEvidence: [
+            {
+                placement: 'result',
+                title: 'Saved OBJ scene',
+                summary: 'Captured from the team’s Week04 engine.',
+                figures: [
+                    {
+                        stage: 'Scene reload',
+                        src: 'Assets/images/gametechlab/evidence/week04-editor.png',
+                        alt: 'Team engine displaying a reloaded robot scene with imported OBJ geometry and materials',
+                        caption: 'The saved robot scene has been reloaded with its OBJ geometry and materials.',
+                        fit: 'wide'
+                    }
+                ]
+            }
+        ],
         sourceUrl: 'https://github.com/HaXX0rBunny/Week3_Team5_DinoEngine/tree/week04/main',
         sourceLabel: 'Open Week04 source',
         troubleshooting: [
@@ -1233,6 +1281,22 @@ fogIntegral = min(max(fogIntegral, 0.0), 20.0);`
         ],
         evidenceStatus: 'Implemented systems',
         evidenceNote: 'Implemented the Light Component/Proxy boundary, forward-buffer binding, shader hot reload, daylight controls, and light-resource cleanup.',
+        troubleshootingEvidence: [
+            {
+                "placement": "result",
+                "title": "Lighting test",
+                "summary": "Directional and ambient light give the block faces different brightness levels.",
+                "figures": [
+                    {
+                        "stage": "Directional and ambient light",
+                        "src": "Assets/images/gametechlab/evidence/week07-lighting.png",
+                        "alt": "Three colored blocks and a floor lit by directional and ambient light in the team engine",
+                        "caption": "A test scene reconstructed in the Week08 engine.",
+                        "fit": "wide"
+                    }
+                ]
+            }
+        ],
         troubleshooting: [
             {
                 title: 'Shader hot reload missed dependencies and invalidated cached data',
@@ -1335,6 +1399,22 @@ ShaderParameterLayout.clear();`
         ],
         evidenceStatus: 'Implemented systems',
         evidenceNote: 'Implemented directional, spot, and point-light shadow passes with cube maps, PCF/VSM filtering, culling, and cache control.',
+        troubleshootingEvidence: [
+            {
+                "placement": "result",
+                "title": "Directional shadows",
+                "summary": "A block scene reconstructed to inspect directional shadows in the Week08 engine.",
+                "figures": [
+                    {
+                        "stage": "Shadows on the floor",
+                        "src": "Assets/images/gametechlab/evidence/week08-shadow.png",
+                        "alt": "Colored blocks casting directional shadows onto a floor in the team engine",
+                        "caption": "The blocks cast shadows onto the floor.",
+                        "fit": "wide"
+                    }
+                ]
+            }
+        ],
         sourceUrl: 'https://github.com/chodott/KraftonJungle_Week8_Team5/commits/main/?author=HaXX0rBunny',
         sourceLabel: 'Open authored Week08 commits',
         troubleshooting: [
@@ -1667,6 +1747,22 @@ DC->OMSetRenderTargets(1, &Cache.RTV, Cache.DSV);`
         ],
         evidenceStatus: 'Implemented systems',
         evidenceNote: 'Added skeletal import and rendering to the Week09 engine, including bind-pose correction, bone picking, and morph targets.',
+        troubleshootingEvidence: [
+            {
+                placement: 'result',
+                title: 'Skeletal mesh editor',
+                summary: 'Captured from the team’s Week10 engine.',
+                figures: [
+                    {
+                        stage: 'Bone hierarchy and transforms',
+                        src: 'Assets/images/gametechlab/evidence/week10-skeletal.png',
+                        alt: 'Team engine skeletal mesh editor showing an FBX character, its bone hierarchy, Transform values, and pose-saving controls',
+                        caption: 'The FBX skeletal mesh is shown with its bone hierarchy, Transform values, and controls for saving a pose.',
+                        fit: 'wide'
+                    }
+                ]
+            }
+        ],
         sourceUrl: 'https://github.com/HaXX0rBunny/Jungle_Week10_Team5/commits/main/?author=HaXX0rBunny',
         sourceLabel: 'Open authored Week10 commits',
         troubleshooting: [
@@ -1802,6 +1898,22 @@ if (Loaded)
         ],
         evidenceStatus: 'Implemented systems',
         evidenceNote: 'Implemented reference-skeleton processing, animation import and cache validation, plus editor, package, and Lua integration.',
+        troubleshootingEvidence: [
+            {
+                placement: 'result',
+                title: 'Animation editor',
+                summary: 'Sequence information and a timeline in the team engine.',
+                figures: [
+                    {
+                        stage: 'Animation sequence preview',
+                        src: 'Assets/images/gametechlab/evidence/week11-animation.png',
+                        alt: 'Team engine animation editor displaying sequence information, a character preview, and the animation timeline',
+                        caption: 'Captured in the Week13 integrated version.',
+                        fit: 'wide'
+                    }
+                ]
+            }
+        ],
         sourceUrl: 'https://github.com/nacho2407/jungle-gtl-week11/commits/main/?author=HaXX0rBunny',
         sourceLabel: 'Open authored Week11 commits',
         troubleshooting: [
@@ -1934,6 +2046,22 @@ if (!bHasAuthoredScaleCurve)
         ],
         evidenceStatus: 'Implemented systems',
         evidenceNote: 'Implemented the particle runtime and editor architecture, compiled LOD binding, deep-copy and cache ownership, and event dispatch.',
+        troubleshootingEvidence: [
+            {
+                placement: 'result',
+                title: 'Particle editor',
+                summary: 'Preview particles while editing emitter modules and spawn-rate curves.',
+                figures: [
+                    {
+                        stage: 'Emitter modules and curve editing',
+                        src: 'Assets/images/GameTechLab3rd-Engine-Editor.png',
+                        alt: 'Particle editor with a live viewport, mesh and sprite emitters, module lists, Spawn properties, and minimum and maximum rate curves',
+                        caption: 'The viewport, emitter modules, properties, and curve editor are arranged in one workspace.',
+                        fit: 'wide'
+                    }
+                ]
+            }
+        ],
         sourceUrl: 'https://github.com/mathison0/Jungle_Week12_Team3/commits/main/?author=HaXX0rBunny',
         sourceLabel: 'Open authored Week12 commits',
         troubleshooting: [
@@ -2090,6 +2218,20 @@ for (UParticleModule* EventModule : DeferredEventModules)
 [PhysDraw] Bone=Bip001 R Thigh | stored sphyl(R,L)=(0.08,0.21,0.00) | BoneMatScale=(1.0000,1.0000,1.0000) avg=1.0000 | world~=stored*avg=0.08`
                 },
                 method: 'The preview computes body size from the stored Sphyl dimensions and bone-matrix scale.'
+            },
+            {
+                placement: 'result',
+                title: 'Physics asset editor',
+                summary: 'Collision bodies and joints generated from a character mesh.',
+                figures: [
+                    {
+                        stage: 'Body and joint editing',
+                        src: 'Assets/images/gametechlab/evidence/week13-physics.png',
+                        alt: 'Team engine physics asset editor with a character mesh, generated collision bodies, and joint editing panels',
+                        caption: 'Generated collision shapes are overlaid on the mesh, with body and joint settings beside the preview.',
+                        fit: 'wide'
+                    }
+                ]
             }
         ],
         troubleshooting: [

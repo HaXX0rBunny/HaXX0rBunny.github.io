@@ -119,6 +119,19 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
         ],
         evidenceStatus: '구현 내용',
         evidenceNote: 'Week02에서 D3D11 렌더러 기반, 입력과 에디터 카메라 흐름, SkySphere 렌더링 경로를 구현했습니다.',
+        troubleshootingEvidence: [
+            {
+                title: '3D 에디터',
+                summary: '팀에서 개발한 2주차 엔진의 실행 화면입니다.',
+                figures: [
+                    {
+                        stage: '기본 도형 선택',
+                        alt: '기본 3D 도형, 선택한 오브젝트의 Transform Gizmo와 속성 패널이 표시된 팀 엔진 화면',
+                        caption: '기본 도형과 선택 Gizmo, 선택한 오브젝트의 속성을 함께 확인할 수 있습니다.'
+                    }
+                ]
+            }
+        ],
         sourceLabel: 'Week02 작성 커밋 열기',
         troubleshooting: [
             {
@@ -182,6 +195,19 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
         ],
         evidenceStatus: '구현 내용',
         evidenceNote: 'Week03에서 Atlas, Billboard, Batch Line, Bounds, 이름, 타입, Gizmo Guide, MetaObject 기능을 구현했습니다.',
+        troubleshootingEvidence: [
+            {
+                title: 'Scene 오브젝트 확인',
+                summary: '팀에서 개발한 DinoEngine 에디터 화면입니다.',
+                figures: [
+                    {
+                        stage: '오브젝트 식별과 경계상자',
+                        alt: 'OBJ 모델, UUID 글자, 경계상자와 콘텐츠 브라우저가 표시된 DinoEngine 화면',
+                        caption: 'OBJ 모델에 UUID와 경계상자를 표시하고, 콘텐츠 브라우저에 자산 목록을 보여 줍니다.'
+                    }
+                ]
+            }
+        ],
         sourceLabel: 'Week03 작성 커밋 열기',
         troubleshooting: [
             {
@@ -264,6 +290,19 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
         ],
         evidenceStatus: 'OBJ Importer와 Binary Asset',
         evidenceNote: 'OBJ/MTL Importer, UStaticMesh 통합, 버전형 .dasset Cook, 직렬화를 구현했습니다.',
+        troubleshootingEvidence: [
+            {
+                title: '저장한 OBJ 장면',
+                summary: '팀에서 개발한 4주차 엔진의 실행 화면입니다.',
+                figures: [
+                    {
+                        stage: 'Scene 다시 불러오기',
+                        alt: '저장한 로봇 장면을 OBJ 지오메트리와 머티리얼과 함께 다시 불러온 팀 엔진 화면',
+                        caption: '저장한 로봇 장면의 OBJ 지오메트리와 머티리얼을 다시 불러온 상태입니다.'
+                    }
+                ]
+            }
+        ],
         sourceLabel: 'Week04 소스 코드, 변경 이력',
         troubleshooting: [
             {
@@ -695,6 +734,19 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
         ],
         evidenceStatus: '구현 내용',
         evidenceNote: 'Light Component/Proxy 경계, Forward Buffer Binding, Shader Hot Reload, 주광 제어, Light Resource 정리를 구현했습니다.',
+        troubleshootingEvidence: [
+            {
+                "title": "조명 적용",
+                "summary": "방향광과 환경광으로 면의 밝기를 구분한 테스트 장면입니다.",
+                "figures": [
+                    {
+                        "stage": "방향광과 환경광",
+                        "alt": "팀 엔진에서 방향광과 환경광을 적용한 세 블록과 바닥",
+                        "caption": "8주차 엔진에서 재구성한 예시입니다."
+                    }
+                ]
+            }
+        ],
         troubleshooting: [
             {
                 title: 'shader hot reload가 dependency를 누락하고 cached data를 무효화함',
@@ -767,6 +819,19 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
         ],
         evidenceStatus: '구현 내용',
         evidenceNote: '방향광, Spotlight, Point Light Shadow Pass와 Cube Map, PCF/VSM Filtering, Culling, Cache 제어를 구현했습니다.',
+        troubleshootingEvidence: [
+            {
+                "title": "방향광 그림자",
+                "summary": "8주차 엔진에서 방향광 그림자를 확인하기 위해 구성한 테스트 장면입니다.",
+                "figures": [
+                    {
+                        "stage": "바닥에 드리운 그림자",
+                        "alt": "팀 엔진에서 색상별 블록의 방향광 그림자가 바닥에 드리워진 화면",
+                        "caption": "블록의 그림자가 바닥에 드리워집니다."
+                    }
+                ]
+            }
+        ],
         sourceLabel: 'Week08 작성 커밋 열기',
         troubleshooting: [
             {
@@ -973,6 +1038,19 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
         ],
         evidenceStatus: '구현 내용',
         evidenceNote: 'Week09 엔진에 Skeletal Import와 Rendering을 추가하고, Bind Pose 보정, Bone Picking, Morph Target을 구현했습니다.',
+        troubleshootingEvidence: [
+            {
+                title: 'Skeletal Mesh 에디터',
+                summary: '팀에서 개발한 10주차 엔진의 실행 화면입니다.',
+                figures: [
+                    {
+                        stage: 'Bone 계층과 Transform',
+                        alt: 'FBX 캐릭터의 Bone 계층, Transform 값, 포즈 저장 기능을 보여 주는 팀 엔진의 Skeletal Mesh 에디터',
+                        caption: 'FBX Skeletal Mesh의 Bone 계층과 Transform 값을 확인하고 포즈를 저장하는 UI입니다.'
+                    }
+                ]
+            }
+        ],
         sourceLabel: 'Week10 작성 커밋 열기',
         troubleshooting: [
             {
@@ -1055,6 +1133,19 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
         ],
         evidenceStatus: '구현 내용',
         evidenceNote: 'Reference Skeleton 처리, Animation Import와 Cache Validation, Editor, Package, Lua 통합을 구현했습니다.',
+        troubleshootingEvidence: [
+            {
+                title: '애니메이션 에디터',
+                summary: '팀 엔진에서 애니메이션 시퀀스 정보와 타임라인을 확인하는 화면입니다.',
+                figures: [
+                    {
+                        stage: '애니메이션 시퀀스 미리보기',
+                        alt: '시퀀스 정보, 캐릭터 미리보기와 애니메이션 타임라인이 표시된 팀 엔진의 에디터',
+                        caption: '13주차 통합 버전에서 촬영한 화면입니다.'
+                    }
+                ]
+            }
+        ],
         sourceLabel: 'Week11 작성 커밋 열기',
         troubleshooting: [
             {
@@ -1137,6 +1228,19 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
         ],
         evidenceStatus: '구현 내용',
         evidenceNote: 'Particle Runtime, Editor Architecture, Compile된 LOD Binding, Deep Copy와 Cache Ownership, Event Dispatch를 구현했습니다.',
+        troubleshootingEvidence: [
+            {
+                title: '파티클 에디터',
+                summary: '파티클을 미리 보면서 Emitter별 모듈과 방출량 곡선을 편집하는 화면입니다.',
+                figures: [
+                    {
+                        stage: 'Emitter 모듈과 곡선 편집',
+                        alt: '파티클 미리보기, Mesh와 Sprite Emitter, 모듈 목록, Spawn 속성, 최소 및 최대 방출량 곡선이 표시된 에디터',
+                        caption: '미리보기와 모듈 목록, 속성, 곡선 편집기를 한 작업 화면에 배치했습니다.'
+                    }
+                ]
+            }
+        ],
         sourceLabel: 'Week12 작성 커밋 열기',
         troubleshooting: [
             {
@@ -1233,6 +1337,17 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
                 ],
                 trace: { label: 'Physics Preview 출력 로그' },
                 method: '저장된 Sphyl 치수와 Bone Matrix Scale을 적용해 Preview의 Body 크기를 계산합니다.'
+            },
+            {
+                title: 'Physics Asset 에디터',
+                summary: '캐릭터 메시에서 생성한 충돌체와 관절을 편집하는 화면입니다.',
+                figures: [
+                    {
+                        stage: '충돌체와 관절 편집',
+                        alt: '캐릭터 메시, 생성한 충돌체와 관절 편집 패널이 표시된 팀 엔진의 Physics Asset 에디터',
+                        caption: '생성한 충돌체를 메시에 겹쳐 보고, 본별 형상과 연결 관계를 편집합니다.'
+                    }
+                ]
             }
         ],
         troubleshooting: [
