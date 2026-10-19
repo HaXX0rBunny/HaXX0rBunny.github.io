@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="An Unreal Engine 5.8 plug-in that adds exaggeration to existing animations through motion analysis, camera-aware GPU mesh deformation, and effect authoring tools." data-oa-key="meta.description" data-oa-attr="content">
     <title data-oa-key="meta.title">Dynamic OverAnimation, Unreal Engine GPU Mesh Deformation</title>
-    <link rel="stylesheet" href="style.css?v=20261017-theme16">
+    <link rel="stylesheet" href="style.css?v=20261019-design19">
 </head>
 <body class="overanim-page">
     <header class="lab-nav overanim-topbar">
@@ -25,7 +25,7 @@
                 <div class="overanim-hero-copy">
                     <p class="section-kicker" data-oa-key="hero.kicker">KRAFTON Jungle Epic Project, DynaMax</p>
                     <h1>Dynamic<br><span>OverAnimation</span></h1>
-                    <p class="overanim-hero-lede" data-oa-key="hero.lede">A plug-in that adds exaggerated movement to existing animations. I led the three-person team and implemented motion analysis, stable runtime signals, GPU deformation, and editor tools for the Fab release.</p>
+                    <p class="overanim-hero-lede" data-oa-key="hero.lede">An Unreal Engine plug-in that analyzes character motion and adds effects such as squash and stretch. I led the three-person team, built the motion analyzer, runtime signals, GPU deformation and editor tools, and integrated the plug-in for release on Fab.</p>
 
                     <div class="overanim-hero-actions">
                         <a class="btn btn--primary overanim-cta overanim-cta--result" href="#result"><span data-oa-key="links.result">See the result</span><span aria-hidden="true">↓</span></a>
@@ -96,7 +96,7 @@
                     <span>01</span>
                     <div>
                         <p class="section-kicker" data-oa-key="overview.kicker">Project purpose</p>
-                        <h2 data-oa-key="overview.title">Add exaggeration to existing animations</h2>
+                        <h2 data-oa-key="overview.title">Keep the source animation and add exaggeration</h2>
                         <p data-oa-key="overview.lede">We built the plug-in for small teams working with existing animation assets. Users select Regions and Chains and configure Response Rules; motion analysis or gameplay requests then trigger GPU mesh deformation. Effects can be reused without changing the source animation.</p>
                     </div>
                 </header>
@@ -146,7 +146,7 @@
                     <div>
                         <p class="section-kicker" data-oa-key="contribution.kicker">Role and implementation scope</p>
                         <h2 data-oa-key="contribution.title">My work as team lead and programmer</h2>
-                        <p data-oa-key="contribution.lede">As team lead, I set the product and system direction and implemented the Analyzer, Runtime, Render/GPU, and Editor features below. I also coordinated data formats and update timing with the teammate who built the shared Proxy and Vertex Factory foundation.</p>
+                        <p data-oa-key="contribution.lede">I set the product and system direction and built the motion analyzer, runtime responses, GPU deformation and editor tools. With the teammate responsible for Proxy and Vertex Factory, I agreed on the data to pass, when to update it, and how to integrate and test the features.</p>
                     </div>
                 </header>
 
@@ -263,12 +263,12 @@
                     </article>
                     <article class="overanim-panel">
                         <p class="overanim-panel-label" data-oa-key="analyzer.stabilityLabel">02, Temporal stability</p>
-                        <h3 data-oa-key="analyzer.stabilityTitle">Treat threshold crossings as candidates</h3>
+                        <h3 data-oa-key="analyzer.stabilityTitle">Confirm sustained motion before changing phase</h3>
                         <p data-oa-key="analyzer.stabilityBody">Adaptive Trend Smoothing filters the signal. Confirmation windows, minimum Stage duration, and Cycle history then check the transition so a single noisy frame does not trigger peak deformation.</p>
                     </article>
                     <article class="overanim-panel">
                         <p class="overanim-panel-label" data-oa-key="analyzer.outputLabel">03, Analysis output</p>
-                        <h3 data-oa-key="analyzer.outputTitle">Keep detection separate from presentation</h3>
+                        <h3 data-oa-key="analyzer.outputTitle">Adjust effects without changing phase detection</h3>
                         <p data-oa-key="analyzer.outputBody">Response Rules map Phase, strength, direction, Region, and Cycle ID from the Analyzer to the ordered Module Stack. Effects can be adjusted without changing phase detection.</p>
                     </article>
                 </div>
@@ -640,10 +640,10 @@ if (bSameSource &amp;&amp; bSameRoute &amp;&amp; bNearbyContact &amp;&amp;
         </div>
     </footer>
 
-    <script src="locale.js?v=20261017-theme16"></script>
-    <script src="overanimation.ko.js?v=20261017-theme16"></script>
+    <script src="locale.js?v=20261019-design19"></script>
+    <script src="overanimation.ko.js?v=20261019-design19"></script>
     <script src="overanimation-localize.js"></script>
-    <script src="detail-shell.js"></script>
+    <script src="detail-shell.js?v=20261019-design19"></script>
     <script src="code-view.js?v=20261017-theme16"></script>
 </body>
 </html>

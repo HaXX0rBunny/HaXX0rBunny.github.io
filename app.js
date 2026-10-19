@@ -18,7 +18,7 @@ const projectsData = {
             "Unreal Engine 5.4",
             "Blueprint"
         ],
-        "description": "I led the team and built the stages, player character, and time-control gameplay in Blueprint. I used Motion Matching for character movement and adjusted rain-particle scale as the time scale changed.",
+        "description": "I built the stages and player character in Blueprint, using Motion Matching for movement animations. I implemented time control with Time Dilation and adjusted rain-particle scale to match. As team lead, I also coordinated the schedule and task priorities.",
         "videoUrl": "https://www.youtube.com/embed/264Wfi25UOU",
         "links": {
             "github": "https://github.com/Team-Illegal-Design-Club/EdgeDrive",
@@ -139,7 +139,7 @@ const projectsData = {
         "team_size": 4,
         "my_role": "UI Systems & Gameplay Integration Programmer",
         "technologies": ["C++", "Alpha Engine", "FMOD"],
-        "description": "A four-person C++ team project that combines a store-and-upgrade loop with wind- and gravity-driven artillery combat. I built and integrated the menu, store, combat HUD, button/hover interactions, item tooltips, and the UI-to-combat input path.",
+        "description": "A four-person C++ game where players buy upgrades, then aim artillery shots affected by wind and gravity. I built the menu, store, and combat HUD, including buttons, hover behavior, and item tooltips. I also fixed UI clicks that triggered combat input at the same time.",
         "videoUrl": "https://www.youtube.com/embed/I_cFyhu3i0E",
         "detailPage": "huntress.html",
         "links": {
@@ -156,7 +156,7 @@ const projectsData = {
                 "Animation & Effects"
             ],
             "collaboration_tools": ["Git branches", "Visual Studio 2022"],
-            "team_dynamics": "Feature-branch collaboration across a shared Alpha Engine codebase, with personal scope covering UI architecture, gameplay integration, and input routing"
+            "team_dynamics": "We shared an Alpha Engine codebase and developed features on separate Git branches. I built the UI structure, connected it to game state, and handled UI input."
         },
         "technical_challenges": [
             "Separating world, interface, and text rendering order",
@@ -193,7 +193,7 @@ const projectsData = {
             "ImGui",
             "FBX SDK"
         ],
-        "description": "C++ and DirectX 11 engine work from Game Tech Lab. I built an octahedral impostor renderer for a 50,000-object scene and a Build–Cook–Stage pipeline that runs the game outside the editor. Comparison captures, test conditions, and implementation history are available by week.",
+        "description": "I worked on rendering and builds in a custom C++ and DirectX 11 engine. I used octahedral impostors to render a 50,000-object scene and implemented Build, Cook, and Stage so games made in the editor could run as standalone executables. The weekly pages include comparison captures, test conditions, and implementation history.",
         "coverImage": "Assets/images/GameTechLab3rd-Engine-Editor.png",
         "coverAlt": "Custom C++ engine particle editor developed during Game Tech Lab",
         "coverLabel": "Custom C++ Engine",
@@ -332,7 +332,7 @@ const projectsData = {
             "Slate",
             "Perforce"
         ],
-        "description": "An Unreal Engine plug-in that adds exaggerated movement to existing animations. As team lead, I implemented motion analysis, signal stabilization, GPU deformation, and editor tools, then integrated the team’s work for release on Fab.",
+        "description": "An Unreal Engine plug-in that adds exaggerated movement to existing animations. I analyzed character motion and stabilized the signals before passing them to GPU deformation. I also built editor tools and led integration of the team’s work for release on Fab.",
         "coverImage": "Assets/images/overanimation/dynamic-overanimation-hero.webp",
         "coverAlt": "Dynamic OverAnimation product artwork showing a stylized GPU mesh deformation effect",
         "coverLabel": "Dynamic OverAnimation",
@@ -980,7 +980,11 @@ function createProjectCard(id, project) {
     const typeText = project.team_label || project.type_label || (project.is_team_project
         ? `${getPortfolioText('index.team', 'Team')}, ${project.team_size}`
         : getPortfolioText('index.solo', 'Solo'));
-    const coverImage = project.coverImage || (id === '1' ? 'Assets/images/edgedrive-gameplay.jpg' : null);
+    const coverImage = project.coverImage || ({
+        '1': 'Assets/images/edgedrive-gameplay.jpg',
+        '2': 'Assets/images/megarogue-gameplay.jpg',
+        '3': 'Assets/images/huntress-gameplay.jpg'
+    })[id];
     const detailLabel = getPortfolioText('global.viewDetails', 'View Details');
     const media = coverImage
         ? `<a href="${href}" class="project-media project-action project-detail-btn" tabindex="-1" aria-label="${project.title}, ${detailLabel}">

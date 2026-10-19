@@ -55,3 +55,17 @@ function initializeDetailPageChrome() {
 }
 
 initializeDetailPageChrome();
+
+document.addEventListener('click', (event) => {
+    const button = event.target.closest('.video-poster[data-video-id]');
+    if (!button) return;
+    const videoId = button.dataset.videoId;
+    if (!/^[A-Za-z0-9_-]{11}$/.test(videoId)) return;
+    const frame = document.createElement('iframe');
+    frame.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+    frame.title = button.getAttribute('aria-label');
+    frame.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+    frame.allowFullscreen = true;
+    button.replaceWith(frame);
+    frame.focus();
+});

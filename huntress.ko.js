@@ -1,6 +1,11 @@
 // Korean narrative overrides for Huntress are kept separate from the English HTML.
 window.HUNTRESS_KO_TRANSLATIONS = [
     {
+        "selector": ".video-poster",
+        "attribute": "aria-label",
+        "values": ["Huntress 플레이 영상 재생"]
+    },
+    {
         "selector": "html",
         "attribute": "lang",
         "values": [
@@ -53,7 +58,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-hero-lede",
         "values": [
-            "상점, 업그레이드 루프를 바람과 중력 기반 전투에 연결한 2D 턴제 포격 전략 게임입니다. 인터페이스 아키텍처, 메뉴와 상점 흐름, 전투 HUD, 버튼 상호작용, 아이템 툴팁, UI 입력과 전투 상태 사이의 연동을 담당했습니다."
+            "상점에서 아이템을 구매하고 바람과 중력을 고려해 포탄을 쏘는 2D 턴제 전략 게임입니다. 메뉴와 상점, 전투 HUD를 담당했습니다. 버튼과 아이템 툴팁을 구현하고 UI 입력이 전투 상태에 맞게 동작하도록 연결했습니다."
         ]
     },
     {
@@ -66,7 +71,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-hero-actions a:nth-child(1)",
         "values": [
-            "소스 포크"
+            "소스 코드"
         ]
     },
     {
@@ -201,13 +206,13 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": "#overview .huntress-section-heading h2",
         "values": [
-            "두 게임 루프를 연결하는 하나의 인터페이스"
+            "상점에서 고른 아이템을 전투까지"
         ]
     },
     {
         "selector": "#overview .huntress-section-heading > p",
         "values": [
-            "업그레이드를 구매하는 과정과 턴제 투사체 전투가 번갈아 진행됩니다. 인터페이스는 인벤토리, 플레이어 능력치, 전투 상태, 카메라 입력, 렌더 순서와 항상 동기화되어야 합니다."
+            "아이템을 구매한 뒤 전투에 들어가고, 전투가 끝나면 다시 상점으로 돌아옵니다. 인벤토리와 능력치가 바뀌는 시점에 HUD를 갱신하고, 화면에 따라 카메라 입력과 UI 출력 순서를 처리했습니다."
         ]
     },
     {
@@ -292,7 +297,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-overview-grid > article:nth-child(3) p",
         "values": [
-            "UI와 게임플레이가 같은 업데이트 루프에서 실행됩니다. 화면 상태에 따라 입력을 구분하고, 출력 순서와 객체 수명을 관리해야 했습니다."
+            "UI와 게임플레이가 한 업데이트 루프에서 실행됩니다. UI를 누를 때 조준 입력까지 처리되거나, 전투가 끝난 뒤 HUD가 해제된 객체에 접근하지 않도록 입력 범위와 객체 수명을 구분했습니다."
         ]
     },
     {
@@ -317,7 +322,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-feature-figure figcaption p",
         "values": [
-            "아이템 슬롯, 현재, 이전 조준 각도, 이동, 출력 게이지와 양측 체력 바를 배치한 HUD입니다."
+            "아이템 슬롯과 양측 체력을 표시하고, 현재와 이전 조준 각도, 이동량과 발사 출력을 확인할 수 있도록 배치했습니다."
         ]
     },
     {
@@ -503,7 +508,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": "#architecture .huntress-section-heading h2",
         "values": [
-            "상태, 입력, 인터페이스, 렌더링의 책임 분리"
+            "UI 입력을 게임 상태에 반영하는 과정"
         ]
     },
     {
@@ -642,7 +647,7 @@ window.HUNTRESS_KO_TRANSLATIONS = [
     {
         "selector": ".huntress-challenge-grid > article:nth-child(4) h3",
         "values": [
-            "일시적 툴팁의 소유권 관리"
+            "툴팁의 생성과 해제"
         ]
     },
     {

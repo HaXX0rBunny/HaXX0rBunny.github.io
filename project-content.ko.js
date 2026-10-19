@@ -4,7 +4,7 @@ window.PORTFOLIO_PROJECT_KO = {
         "team_label": "최종 3인 팀",
         "scope_label": "게임플레이",
         "my_role": "팀장, 스테이지, 캐릭터, 시간 제어",
-        "description": "팀장을 맡아 스테이지와 플레이어 캐릭터, 시간 제어를 구현했습니다. 이동과 전투는 Blueprint로 구현하고, 이동 애니메이션에 Motion Matching을 적용했습니다. 시간 배율에 맞춰 비 파티클의 크기도 조절했습니다.",
+        "description": "스테이지와 플레이어 캐릭터를 맡아 Blueprint로 이동과 전투를 구현했습니다. 이동 애니메이션에는 Motion Matching을 적용하고, Time Dilation으로 바뀐 시간 배율에 맞춰 비 파티클의 크기를 조절했습니다. 팀장으로 작업 일정과 우선순위도 조율했습니다.",
         "collaboration_details": {
             "team_size": "4명으로 시작, 최종 3명",
             "my_role": "팀장, 스테이지, 캐릭터, 시간 제어",
@@ -18,12 +18,12 @@ window.PORTFOLIO_PROJECT_KO = {
                 "GitHub",
                 "Google Drive"
             ],
-            "team_dynamics": "4명으로 시작한 프로젝트에서 한 명이 빠진 뒤 3명이 작업했습니다. 담당 기능을 구현하면서 작업 우선순위와 진행 상황을 조율했습니다. 프로젝트 파일명 변경으로 패키징이 중단됐을 때는 로그와 참조 경로를 추적해 복구했고, 이후 프로젝트 설정 파일의 Git 관리 규칙을 팀에 제안했습니다."
+            "team_dynamics": "4명으로 시작했으나 한 명이 빠지면서 3명이 프로젝트를 이어갔습니다. 저는 담당 기능을 개발하면서 팀의 작업 우선순위와 진행 상황을 조율했습니다. 프로젝트 파일명 변경으로 패키징이 중단됐을 때는 로그와 참조 경로를 추적해 복구하고, 설정 파일을 Git으로 관리하는 규칙을 제안했습니다."
         },
         "technical_challenges": [
             "스테이지와 플레이어의 이동, 전투를 Blueprint로 구현하고, 이동 애니메이션에 Motion Matching을 적용했습니다.",
-            "TimeManipulater_BP에서 SetGlobalTimeDilation을 이용한 시간 제어를 만들고, Tick에 의존하던 시간 진행 로직을 분리했습니다.",
-            "시간 제어를 Rain_BP의 Rain_Delation과 연결했습니다. VInterpTo로 보간한 값을 Niagara의 Max Scale Factor에 전달해 비 파티클의 스케일을 조절했습니다.",
+            "TimeManipulater_BP의 SetGlobalTimeDilation으로 시간 배율을 바꿨습니다. Tick에 의존하던 시간 진행 로직은 분리했습니다.",
+            "시간 배율을 바꿀 때 Rain_BP의 Rain_Delation도 갱신했습니다. VInterpTo로 값이 서서히 바뀌도록 하고, 이를 Niagara의 Max Scale Factor에 전달해 비 파티클의 크기를 조절했습니다.",
             "패키징 로그와 프로젝트 참조 경로를 추적해 팀 공용 빌드를 복구했습니다."
         ],
         "troubleshooting": {
@@ -52,14 +52,14 @@ window.PORTFOLIO_PROJECT_KO = {
     "2": {
         "team_label": "팀 프로젝트, 2명",
         "scope_label": "게임 프로젝트",
-        "my_role": "게임플레이 & 시스템 프로그래머",
+        "my_role": "게임플레이와 시스템 개발",
         "description": "C와 CProcessing으로 만든 2D 액션 게임입니다. 보스의 공격과 피격, 사망 처리, 충돌 판정, 발사체 풀을 담당했습니다. 소스 저장소는 APETI라는 이름으로 공개되어 있습니다.",
         "collaboration_details": {
             "team_size": 2,
-            "my_role": "게임플레이 & 시스템 프로그래머",
+            "my_role": "게임플레이와 시스템 개발",
             "team_roles": [
-                "게임플레이 & 시스템 프로그래머 (본인)",
-                "게임플레이 & 콘텐츠 프로그래머"
+                "게임플레이와 시스템 개발 (본인)",
+                "게임플레이와 콘텐츠 개발"
             ],
             "collaboration_tools": [
                 "Git",
@@ -69,10 +69,10 @@ window.PORTFOLIO_PROJECT_KO = {
         },
         "technical_challenges": [
             "프레임레이트에 따른 발사체 이동 오차 수정",
-            "고정 용량 투사체 및 함정 풀의 재사용 구조 설계",
-            "메뉴/게임/보스/클리어/게임 오버 상태 동기화",
-            "텍스트 기반 .lvl 레벨 데이터의 직렬화 처리",
-            "각 게임 상태의 초기화, 종료 구간에 맞춘 사운드 핸들 수명 관리"
+            "발사체와 함정을 고정 용량 풀에 보관하고 재사용하도록 구성",
+            "메뉴에서 게임, 보스전, 클리어와 게임 오버로 이어지는 상태 전환 처리",
+            "레벨 데이터를 텍스트 형식의 .lvl 파일로 저장하고 불러오기",
+            "게임 상태가 시작하고 끝나는 시점에 맞춰 사운드 핸들을 생성하고 해제"
         ],
         "troubleshooting": {
             "projectile_timestep": {
@@ -123,29 +123,29 @@ window.PORTFOLIO_PROJECT_KO = {
     "3": {
         "team_label": "팀 프로젝트, 4명",
         "scope_label": "게임 프로젝트",
-        "my_role": "UI 시스템 & 게임플레이 연동 프로그래머",
-        "description": "상점에서 장비를 준비하고 바람과 중력을 고려해 포격하는 4인 팀의 C++ 게임입니다. 메뉴와 상점, 전투 HUD를 구현하고 버튼, 툴팁과 게임 상태를 연결했습니다. UI를 클릭할 때 전투 조작이 함께 실행되는 입력 충돌도 수정했습니다.",
+        "my_role": "UI 개발과 게임 상태 연동",
+        "description": "상점에서 장비를 준비하고 바람과 중력을 고려해 포격하는 4인 팀의 C++ 게임입니다. 메뉴와 상점, 전투 HUD를 맡아 버튼과 툴팁이 게임 상태에 맞게 동작하도록 구현했습니다. UI를 클릭할 때 전투 조작까지 실행되던 입력 충돌도 수정했습니다.",
         "collaboration_details": {
             "team_size": 4,
-            "my_role": "UI 시스템 & 게임플레이 연동 프로그래머",
+            "my_role": "UI 개발과 게임 상태 연동",
             "team_roles": [
-                "UI 시스템 & 게임플레이 연동 (본인)",
-                "전투 & 게임플레이",
-                "레벨 & 콘텐츠",
-                "애니메이션 & 이펙트"
+                "UI 개발과 게임 상태 연동 (본인)",
+                "전투와 게임플레이",
+                "레벨과 콘텐츠",
+                "애니메이션과 이펙트"
             ],
             "collaboration_tools": [
                 "Git 브랜치",
                 "Visual Studio 2022"
             ],
-            "team_dynamics": "공유 Alpha Engine 코드베이스에서 기능 브랜치로 협업하며 UI 아키텍처, 게임플레이 연동, 입력 라우팅을 담당했습니다."
+            "team_dynamics": "Alpha Engine 코드를 함께 사용하고 각자 Git 브랜치에서 기능을 개발했습니다. 저는 UI 구조를 만들고 게임 상태를 화면에 반영하는 부분과 UI 입력 처리를 맡았습니다."
         },
         "technical_challenges": [
-            "월드/인터페이스/텍스트 렌더링 순서 분리",
-            "조준 상태를 바꾸지 않으면서 화면 좌표 기반 UI 입력 전달",
-            "상점, 인벤토리, 전투, HUD 상태 동기화",
-            "툴팁 및 인터페이스 오브젝트 수명 관리",
-            "호버 가시성과 클릭 판정 일관성 유지"
+            "월드, UI, 텍스트가 순서대로 그려지도록 렌더링 단계 분리",
+            "UI를 클릭해도 조준 상태가 바뀌지 않도록 화면 좌표로 입력 처리",
+            "상점 구매와 인벤토리 변경을 전투 상태와 HUD에 반영",
+            "툴팁과 UI 오브젝트의 생성, 해제 시점 관리",
+            "버튼에 마우스를 올렸을 때의 표시 영역과 클릭 영역 일치"
         ],
         "troubleshooting": {},
         "development_timeline": {
@@ -174,13 +174,13 @@ window.PORTFOLIO_PROJECT_KO = {
     "4": {
         "team_label": "팀 프로젝트, 3~4명",
         "scope_label": "렌더링, 독립 실행 빌드",
-        "my_role": "렌더링 & 엔진 프로그래머",
-        "description": "C++과 DirectX 11로 자체 엔진을 개발했습니다. 오브젝트 5만 개 장면에 임포스터 렌더링을 적용하고, 에디터에서 만든 게임을 독립 실행 파일로 만드는 Build, Cook, Stage 과정을 구현했습니다.",
+        "my_role": "렌더링과 엔진 개발",
+        "description": "C++과 DirectX 11로 자체 엔진을 개발하며 렌더링과 빌드 기능을 맡았습니다. 5만 개 오브젝트에 임포스터 렌더링을 적용하고, Build, Cook, Stage 과정을 구현해 에디터에서 만든 게임을 독립 실행 파일로 실행하도록 했습니다.",
         "coverAlt": "Game Tech Lab 과정에서 개발한 커스텀 C++ 엔진 파티클 에디터",
         "coverLabel": "C++ 자체 엔진",
         "collaboration_details": {
             "team_size": "주차별 3~4명",
-            "my_role": "렌더링 & 엔진 프로그래머",
+            "my_role": "렌더링과 엔진 개발",
             "team_roles": [
                 "렌더링/엔진 프로그래밍 (본인)",
                 "매주 바뀌는 그래픽스, 엔진, 게임플레이, 툴 개발 파트"
@@ -194,10 +194,10 @@ window.PORTFOLIO_PROJECT_KO = {
             "team_dynamics": "매주 팀 구성이 바뀌는 환경에서 담당한 렌더링, 엔진 기능을 팀 공용 코드에 통합했습니다."
         },
         "technical_challenges": [
-            "기본 3D 렌더링 기반 엔진을 에디터/런타임 시스템으로 확장",
-            "OBJ/FBX 에셋을 조명, 그림자, 물리, 애니메이션, 파티클 파이프라인과 통합",
-            "옥타헤드럴 임포스터를 활용해 대규모 오브젝트 장면 성능 최적화",
-            "주차별 코드베이스 변경과 외부 SDK 의존성 변화에도 빌드 가능한 구조 유지"
+            "기본 3D 렌더링 엔진에 편집 도구와 게임 실행 기능 추가",
+            "OBJ와 FBX 에셋에 조명과 그림자, 물리, 애니메이션, 파티클 기능 연결",
+            "반복 배치된 오브젝트를 옥타헤드럴 임포스터로 그려 렌더링 비용 절감",
+            "매주 바뀌는 엔진 코드와 외부 SDK에 맞춰 빌드 설정 관리"
         ],
         "troubleshooting": {
             "large_scene_rendering": {
@@ -300,7 +300,7 @@ window.PORTFOLIO_PROJECT_KO = {
         "scope_label": "Fab 출시",
         "my_role": "팀장, 동작 분석, GPU 변형, 편집 도구",
         "subtitle": "애니메이션 과장 변형 플러그인",
-        "description": "기존 애니메이션에 과장된 움직임을 더하는 Unreal Engine 플러그인입니다. 팀장으로 동작 분석, 신호 안정화, GPU 변형, 편집 도구를 구현하고 팀원의 작업을 통합해 Fab에 출시했습니다.",
+        "description": "기존 애니메이션에 과장된 움직임을 더하는 Unreal Engine 플러그인입니다. 캐릭터의 동작을 분석하고 신호를 안정화해 GPU 변형으로 연결했습니다. 편집 도구를 개발하고 팀장으로 작업을 통합해 Fab에 출시했습니다.",
         "coverAlt": "스타일화된 GPU 메시 변형 효과를 보여 주는 Dynamic OverAnimation 제품 이미지",
         "coverLabel": "Dynamic OverAnimation",
         "collaboration_details": {
@@ -316,14 +316,14 @@ window.PORTFOLIO_PROJECT_KO = {
                 "Visual Studio",
                 "Fab"
             ],
-            "team_dynamics": "DynaMax 3인 팀의 팀장으로 분석기와 렌더러 사이에 전달할 데이터, 갱신 시점과 통합 순서를 조율했습니다. Perforce로 변경 사항을 공유하고 자동화 테스트와 에디터 미리보기로 기능을 확인하며 출시를 준비했습니다."
+            "team_dynamics": "DynaMax 3인 팀의 팀장을 맡았습니다. 분석 결과를 렌더러에 어떤 형식으로 언제 넘길지 팀원과 맞추고, 그에 따라 기능을 합치는 순서를 정했습니다. 변경 사항은 Perforce로 공유했고, 자동화 테스트와 에디터 미리보기에서 결과를 확인하며 출시를 준비했습니다."
         },
         "technical_challenges": [
-            "포즈 분석 결과와 AnimNotify, Gameplay Event로 지정한 동작 사이의 우선순위 정의",
-            "Region, Chain별 변형 범위를 지정하고 카메라 방향에 따라 실루엣이 무너지지 않도록 제한",
-            "움직임 노이즈를 보정하고 비슷한 점수의 신체 영역 사이에서 판정이 반복적으로 바뀌는 문제 완화",
-            "Game Thread에서 확정한 변형 상태를 Snapshot에 복사해 Render Thread로 전달",
-            "RDG에서 module pass와 vertex-factory 출력을 합성"
+            "포즈 분석 결과와 AnimNotify, Gameplay Event의 요청이 겹칠 때 적용할 우선순위 지정",
+            "Region과 Chain별로 변형 범위를 정하고 카메라 방향에 따라 실루엣이 무너지지 않도록 제한",
+            "움직임 노이즈를 보정하고 신체 영역의 판정이 작은 점수 차이로 계속 바뀌는 문제 완화",
+            "Game Thread에서 확정한 값을 Snapshot에 복사해 Render Thread가 같은 값으로 변형을 처리하도록 구성",
+            "RDG에서 각 변형 모듈의 계산 결과를 합치고 Vertex Factory 출력에 연결"
         ],
         "troubleshooting": {
             "phase_stability": {

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Huntress: C++ menu, store and combat HUD development, input handling, and UI troubleshooting." data-huntress-meta="description">
     <title data-huntress-meta="title">Huntress, C++ UI Systems & Gameplay Integration</title>
-    <link rel="stylesheet" href="style.css?v=20261017-theme16">
+    <link rel="stylesheet" href="style.css?v=20261019-design19">
 </head>
 <body class="lab-page huntress-page">
     <header class="lab-nav">
@@ -27,11 +27,11 @@
                     <h1>Huntress</h1>
                     <p class="huntress-hero-role">UI Systems &amp; Gameplay Integration Programmer</p>
                     <p class="huntress-hero-lede">
-                        A 2D turn-based artillery strategy game that connects a store-and-upgrade loop to wind- and gravity-driven combat. My work centered on the interface architecture, menu and store flow, combat HUD, button interactions, item tooltips, and the handoff between UI input and combat state.
+                        A 2D turn-based strategy game where players buy upgrades and fire projectiles affected by wind and gravity. I built the menu, store and combat HUD, including buttons and item tooltips, and connected UI input to the current combat state.
                     </p>
 
                     <div class="huntress-hero-actions" aria-label="Project links">
-                        <a class="huntress-action huntress-action--primary" href="https://github.com/HaXX0rBunny/Huntress" target="_blank" rel="noreferrer">Source fork</a>
+                        <a class="huntress-action huntress-action--primary" href="https://github.com/HaXX0rBunny/Huntress" target="_blank" rel="noreferrer">Source code</a>
                         <a class="huntress-action" href="https://github.com/HaXX0rBunny/Huntress/tree/sanghyeon" target="_blank" rel="noreferrer">Personal branch</a>
                         <a class="huntress-action" href="https://github.com/HaXX0rBunny/HaXX0rBunny.github.io/raw/main/Assets/downlaods/Huntress_setup.exe" target="_blank" rel="noreferrer">Windows installer</a>
                     </div>
@@ -58,11 +58,10 @@
 
                 <div class="huntress-hero-media">
                     <div class="huntress-video-frame">
-                        <iframe src="https://www.youtube.com/embed/I_cFyhu3i0E?modestbranding=1&amp;rel=0"
-                                title="Huntress gameplay demo"
-                                loading="eager"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                allowfullscreen></iframe>
+                        <button class="video-poster" type="button" data-video-id="I_cFyhu3i0E" aria-label="Play Huntress gameplay video">
+                            <img src="Assets/images/huntress-gameplay.jpg" alt="" width="1280" height="720" fetchpriority="high">
+                            <span class="video-poster-play" aria-hidden="true">▶</span>
+                        </button>
                     </div>
                     <div class="huntress-media-caption">
                         <img src="Assets/images/huntress/huntress-logo.png" alt="Huntress game logo">
@@ -87,9 +86,9 @@
                 <header class="huntress-section-heading" data-section="01">
                     <div>
                         <p class="section-kicker">01, Project Overview</p>
-                        <h2>One interface across two game loops</h2>
+                        <h2>From choosing items to using them in combat</h2>
                     </div>
-                    <p>The project alternates between purchasing upgrades and resolving turn-based projectile combat. The interface has to stay synchronized with inventory, player statistics, combat state, camera input, and render order.</p>
+                    <p>Players buy upgrades, enter combat and return to the store after the fight. I connected the HUD to inventory and stat changes, and handled camera input and draw order for each screen.</p>
                 </header>
 
                 <div class="huntress-overview-grid">
@@ -108,7 +107,7 @@
                     <article class="huntress-summary-card">
                         <span>Core constraint</span>
                         <h3>Shared real-time loop</h3>
-                        <p>UI and gameplay run inside one update loop, so state gating, input arbitration, render phases, and object lifetime must be explicit.</p>
+                        <p>UI and gameplay share an update loop. I separated their input regions and object lifetimes so clicking the HUD would not also change the aim, and the HUD would not access combat objects after they were released.</p>
                     </article>
                 </div>
 
@@ -184,7 +183,7 @@
                 <header class="huntress-section-heading" data-section="03">
                     <div>
                         <p class="section-kicker">03, Architecture &amp; Technical Challenges</p>
-                        <h2>State, input, interface, and rendering stay separate</h2>
+                        <h2>How UI input reaches the game</h2>
                     </div>
                     <p>Button input updates the game state, and the HUD reads combat data. World graphics, UI and text render in that order.</p>
                 </header>
@@ -219,7 +218,7 @@
                     </article>
                     <article>
                         <span>Lifetime</span>
-                        <h3>Transient tooltip ownership</h3>
+                        <h3>Tooltip creation and cleanup</h3>
                         <p>Combat tooltip objects persist across hover callbacks and are released when the combat UI module closes.</p>
                     </article>
                 </div>
@@ -465,10 +464,10 @@ for (int i = 0; i &lt; 4; ++i)
             <a href="index.html#projects">Portfolio</a>
         </div>
     </footer>
-    <script src="locale.js?v=20261017-theme16"></script>
-    <script src="huntress.ko.js?v=20261017-theme16"></script>
+    <script src="locale.js?v=20261019-design19"></script>
+    <script src="huntress.ko.js?v=20261019-design19"></script>
     <script src="huntress-localize.js"></script>
-    <script src="detail-shell.js"></script>
+    <script src="detail-shell.js?v=20261019-design19"></script>
     <script src="code-view.js?v=20261017-theme16"></script>
 </body>
 </html>

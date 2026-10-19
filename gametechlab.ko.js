@@ -11,9 +11,9 @@
 window.GAME_TECH_LAB_KO_PART_01_07 = {
     '01': {
         title: 'Jungle Brick Break',
-        summary: '첫 번째 게임잼 프로젝트에서 수명 주기와 충돌 문제를 해결하며 벽돌, 스테이지, 입력, 이펙트, 점수, 렌더링의 핵심 시스템을 구축했습니다.',
+        summary: '벽돌 깨기 게임의 스테이지와 충돌 처리를 맡았습니다. 게임패드 입력, 파티클과 점수 저장을 연결하고 게임 재시작 중 발생한 메모리 오류를 수정했습니다.',
         role: '게임플레이 및 시스템 프로그래머',
-        objective: '게임 오브젝트와 스테이지 진행, 입력, 충돌, 피드백, 점수 저장을 연결해 플레이 가능한 게임을 완성하는 것이 목표였습니다.',
+        objective: '오브젝트와 스테이지 진행에 입력, 충돌, 이펙트와 점수 저장을 연결해 플레이 가능한 벽돌 깨기 게임 완성.',
         contributions: [
             '블록을 UGameObject 중심으로 리팩터링하고 사각형 렌더링을 추가했으며, 스테이지, 블록 로직과 충돌 처리를 개선했습니다.',
             'Windows Runtime 게임패드 지원을 추가하고 게임패드, 입력 처리를 캡슐화했습니다.',
@@ -99,9 +99,9 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
     },
     '02': {
         title: '3D 엔진 기반 구축',
-        summary: 'D3D11 렌더링과 CPU 측 MVP 변환을 구현하고, 에디터 UI와 입력, 카메라 제어, SkySphere를 연결했습니다.',
+        summary: 'DirectX 11로 3D 장면을 그리는 렌더러를 만들었습니다. CPU에서 MVP 변환을 처리하고, 에디터의 입력과 카메라 제어, SkySphere를 연결했습니다.',
         role: '렌더링 및 입력 시스템 프로그래머',
-        objective: '1주차 게임 루프에 그래픽 리소스 관리와 카메라 변환, 입력 액션을 추가해 3D 장면을 그릴 수 있는 렌더러와 에디터를 만드는 것이 목표였습니다.',
+        objective: '1주차 게임 루프에 그래픽 리소스 관리, 카메라 변환과 입력 액션을 추가해 3D 렌더러와 에디터 구축.',
         contributions: [
             'D3D11 디바이스와 Flip-discard 스왑 체인, 렌더 타깃, 깊이 뷰를 초기화했습니다. 프레임 Clear/Present, 셰이더, 파이프라인 상수 설정도 구현했습니다.',
             'CPU에서 MVP 변환과 역행렬, 화면 비율을 처리하고, ImGui 콘솔, 속성, 통계 패널을 구현했습니다. 창 크기가 바뀌어도 투영 비율을 유지하도록 했습니다.',
@@ -175,9 +175,9 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
     },
     '03': {
         title: '에디터와 Scene 관리',
-        summary: 'FName과 Outliner를 구현하고, Show Flag, 가시성 제어와 UUID 기반 피킹을 추가했습니다. Scene 직렬화, World, Level 소유권, 카메라 관리 구조도 정리했습니다.',
+        summary: '에디터에서 오브젝트를 선택하고 표시 여부를 바꾸며 Scene을 저장할 수 있도록 했습니다. FName과 UUID로 오브젝트를 식별하고 World, Level과 카메라의 관리 구조를 정리했습니다.',
         role: '엔진 및 에디터 프로그래머',
-        objective: '오브젝트의 이름, 식별자, 소유권을 관리하고, 에디터에서 선택, 표시, 저장할 수 있도록 공통 구조를 마련하는 것이 목표였습니다.',
+        objective: '오브젝트의 이름과 식별자, 소유권을 관리하고 에디터에서 선택, 표시, 저장할 수 있는 구조 마련.',
         contributions: [
             'FName/FNameTable과 Outliner를 구현하고, Show Flag와 Actor, Billboard 표시 제어, 선택, 하이라이트 시 유효성 검사를 추가했습니다.',
             'UUID 관리와 피킹을 수정하고, 픽셀 중심에 맞춘 NDC 보정과 Scene 재로딩 후 Billboard 복원을 처리했습니다.',
@@ -268,9 +268,9 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
     },
     '04': {
         title: 'OBJ Asset 로딩과 Binary Cooking',
-        summary: 'OBJ/MTL 파일을 UStaticMesh Asset으로 가져오고, Registry 조회와 에디터 사용, .dasset Binary 저장, 로딩을 연결했습니다.',
+        summary: 'OBJ/MTL 파일을 엔진에서 사용할 수 있는 UStaticMesh Asset으로 가져왔습니다. Registry와 에디터에 연결하고 .dasset으로 저장해 다시 불러오도록 했습니다.',
         role: 'Asset Pipeline 및 Engine 프로그래머',
-        objective: '외부 OBJ 파일을 엔진 Asset으로 관리하고, 파일이 바뀌지 않았다면 Binary Cache를 재사용해 텍스트를 다시 파싱하지 않도록 하는 것이 목표였습니다.',
+        objective: '외부 OBJ를 엔진 Asset으로 관리하고, 원본이 바뀌지 않았다면 Binary Cache를 재사용해 반복 파싱 방지.',
         contributions: [
             'OBJ/MTL 파싱을 FObjImporter로 분리하고, 가져온 메시 데이터를 FObjInfo, FStaticMeshRenderData, UStaticMesh로 구성했습니다.',
             'TObjectIterator, FObjManager, FAssetManager/FAssetRegistry 연동과 Material Section 구성을 구현하고, 텍스처 경로를 처리했습니다.',
@@ -369,9 +369,9 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
     '05': {
         theme: "2차 게임잼, It's Pie Time",
         title: 'Octahedral Impostor 최적화',
-        summary: '오브젝트 5만 개를 렌더링하는 최적화 과제에서 Octahedral Impostor를 제안하고 팀 엔진에 통합했습니다.',
+        summary: '오브젝트 5만 개를 그리는 과제에서 Octahedral Impostor를 제안했습니다. 방향별 이미지를 만드는 Baker부터 런타임 렌더링까지 구현해 팀 엔진에 통합했습니다.',
         role: '렌더링 최적화 프로그래머',
-        objective: '고밀도 장면에서 동일한 메시를 반복 제출하는 대신, 카메라 방향에 맞는 이미지 프록시를 재구성해 CPU, GPU 렌더링 비용을 줄이는 것이 목표였습니다.',
+        objective: '카메라 방향에 맞는 이미지로 메시를 대체해, 오브젝트가 많은 장면의 CPU와 GPU 렌더링 비용 절감.',
         contributions: [
             '오브젝트 5만 개 비교용 장면의 최적화 전략으로 Octahedral Impostor를 제안했습니다.',
             '임포스터를 적용하기 전에 렌더 상태 캐시, 정렬, 프록시 충돌 피킹, sub-mesh BVH, StructuredBuffer 기반 인스턴싱 경로를 구현했습니다.',
@@ -500,9 +500,9 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
     },
     '06': {
         title: 'Height Fog 및 Decal 렌더링',
-        summary: 'Height, Linear Fog와 깊이 기반 Spotlight 투영을 구현했습니다. RGB를 혼합하면서도 뷰포트 Render Target의 Alpha는 보존하도록 처리했습니다.',
+        summary: 'Height Fog와 Linear Fog, 깊이 기반 Spotlight 투영을 구현했습니다. 안개가 뷰포트를 검게 만드는 문제를 추적해 RGB만 혼합하고 기존 Alpha는 유지하도록 수정했습니다.',
         role: '대기 및 Decal 렌더링 프로그래머',
-        objective: '기존 렌더링 순서와 뷰포트 Alpha를 유지하면서, 조절 가능한 Fog와 투영 조명을 추가하는 것이 목표였습니다.',
+        objective: '기존 렌더링 순서와 뷰포트 Alpha를 유지하면서 조절 가능한 안개와 투영 조명 추가.',
         contributions: [
             'Fog 셰이더와 렌더 상태, 이동 가능한 FogActor를 구현했습니다. 안개 적용 거리와 색상, 카메라 Near/Far 값을 조절하고 Billboard로 위치를 표시하도록 했습니다.',
             'Scene 깊이 생성을 Fog 렌더러에서 분리하고, 역방향 깊이 복원을 사용하는 FScene 수집 과정에 연결했습니다.',
@@ -714,9 +714,9 @@ window.GAME_TECH_LAB_KO_PART_01_07 = {
     },
     '07': {
         title: 'Lighting 파이프라인',
-        summary: 'Light Component와 Scene Proxy를 Forward Renderer의 조명 버퍼에 연결했습니다. 에디터용 Light Actor, Shader Hot Reload, 시간에 따른 주광 변화도 구현했습니다.',
+        summary: '에디터에 배치한 조명이 실제 장면에 반영되도록 Light Component와 Scene Proxy를 Forward Renderer에 연결했습니다. Shader Hot Reload와 시간에 따라 바뀌는 태양광도 구현했습니다.',
         role: '렌더링 프로그래머',
-        objective: '조명, Material, Scene 데이터를 실시간 렌더링에 연결하고, 에디터에서 조명과 Shader를 수정할 수 있도록 하는 것이 목표였습니다.',
+        objective: '조명과 Material, Scene 데이터를 렌더러에 연결하고 에디터에서 조명과 Shader를 수정할 수 있도록 구성.',
         contributions: [
             'LightComponentBase와 LightSceneProxy를 Forward Renderer의 상수 버퍼에 연결했습니다. Light Actor, Billboard, 주변광과 디버그 표시도 구현했습니다.',
             '공유 조명 함수와 Toon 셰이더의 Hot Reload를 추가하고, 렌더 상태와 GPU 리소스 누수를 수정했습니다.',
@@ -799,9 +799,9 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
         week: '08',
         theme: 'Where There Is Light, There Is Also Shadow',
         title: '그림자 렌더링',
-        summary: '방향광, 스포트라이트, 포인트 라이트의 그림자를 구현했습니다. 그림자 깊이 버퍼와 Cube Map, PCF/VSM 필터링을 연결하고, 컬링과 조명 이동에 따른 캐시 갱신을 처리했습니다.',
+        summary: '방향광과 스포트라이트, 포인트 라이트에 실시간 그림자를 추가했습니다. PCF/VSM 필터링을 적용하고 조명이 움직일 때 그림자 캐시를 갱신하도록 했습니다.',
         role: '렌더링 프로그래머',
-        objective: 'Week07 조명 경로를 확장해 장면 지오메트리가 실시간 그림자를 만들고 받을 수 있도록 하는 것이 목표였습니다.',
+        objective: '7주차 조명 시스템을 확장해 장면의 물체가 실시간 그림자를 만들고 받을 수 있도록 구현.',
         contributions: [
             '스포트라이트, 방향광의 그림자 깊이 렌더링을 구현했습니다. D3D11 리소스 상태와 상수 버퍼, Shadow Map 누수를 수정하고 그림자가 물체에서 떨어져 보이는 Peter-panning을 보정했습니다.',
             '포인트 라이트의 Cube Shadow Map과 셰이더, VSM/PCF 필터를 구현했습니다. Cube Map 생성 설정과 샘플링 왜곡도 수정했습니다.',
@@ -894,9 +894,9 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
         week: '09',
         theme: '3rd Game Jam, Light, Camera, Action!',
         title: 'Standalone Shipping 빌드',
-        summary: 'Shipping, Cooking 파이프라인을 구현하고, 게임 프레임워크와 World 직렬화, PIE 렌더링, 카메라 효과, Lua 연동, Gamma 보정을 연결했습니다.',
+        summary: '에디터에서 실행하던 팀 게임을 독립 실행 파일로 만들었습니다. Build, Cook, Stage 과정에 필요한 자산과 Scene을 연결하고 게임 시작부터 StoryScene 진입까지 확인했습니다.',
         role: '빌드, 런타임 통합 프로그래머',
-        objective: '실행에 필요한 Asset을 패키지에 포함하고, 팀 게임이 에디터 밖에서도 시작되도록 만드는 것이 목표였습니다.',
+        objective: '실행에 필요한 Asset을 패키지에 포함하고 에디터 밖에서 팀 게임 실행.',
         contributions: [
             'GameModeBase/GameInstance와 World 바이너리 직렬화, Enhanced Input 전환을 구현했습니다. 프로젝트 생성부터 Shipping 빌드, Cooking까지 연결하고, 에디터 UI 없이 실행하는 파서, 빌더도 만들었습니다.',
             'PIE의 오프스크린 렌더링과 입력을 분리하고 PlayerCameraManager를 구현했습니다. 카메라 흔들림, 효과, Lua 카메라 Modifier와 Actor의 카메라 계산을 연결했습니다.',
@@ -1018,9 +1018,9 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
         week: '10',
         theme: 'More Than Just Weight',
         title: 'Skeletal Mesh, Skinning 파이프라인',
-        summary: 'Skeletal Mesh Component와 Scene Proxy, CPU Skinning을 구현했습니다. FBX Bind Pose를 보정하고 Bone 시각화, 피킹과 Morph Target 갱신을 추가했습니다.',
+        summary: 'FBX 캐릭터를 엔진에서 렌더링하고 본을 선택할 수 있도록 Skeletal Mesh Component와 CPU Skinning을 구현했습니다. Bind Pose를 보정하고 Morph Target 갱신도 추가했습니다.',
         role: 'Skeletal Rendering 프로그래머',
-        objective: '뷰어의 Skeletal 데이터를 엔진 Component로 옮겨 렌더링하고, Bone 선택과 동적 갱신까지 지원하는 것이 목표였습니다.',
+        objective: '뷰어에서 불러온 Skeletal 데이터를 엔진 Component로 옮겨 렌더링하고 Bone 선택과 동적 갱신 지원.',
         contributions: [
             'USkeletalMeshComponent와 Scene Proxy, FSkeletalMesh 래퍼를 만들고 CPU Skinning을 연결했습니다.',
             'Rigid Bind와 비계층 Bone 처리, 동적 메시, 경계 상자 갱신, Show Flag와 경계 상자 피킹을 추가했습니다.',
@@ -1113,9 +1113,9 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
         week: '11',
         theme: "Let's Go, Move!",
         title: 'FBX Animation 파이프라인',
-        summary: 'FBX Animation Sequence를 Asset으로 가져와 에디터와 Lua에서 사용할 수 있도록 했습니다. Reference Skeleton 대응, Binary Cache 검증, Bone Palette 처리를 구현했습니다.',
+        summary: 'FBX 애니메이션을 별도 Asset으로 가져와 에디터와 Lua에서 사용할 수 있도록 했습니다. 대상 Skeleton과의 대응 관계를 확인하고 Binary Cache와 Bone Palette 처리를 구현했습니다.',
         role: 'Animation Pipeline 프로그래머',
-        objective: '애니메이션을 Skeletal Mesh와 별도로 가져오고 대상 Skeleton과의 호환성을 검사해, 에디터와 런타임에서 재사용하는 것이 목표였습니다.',
+        objective: '애니메이션을 Skeletal Mesh와 별도로 가져오고 Skeleton 호환성을 검사해 에디터와 런타임에서 재사용.',
         contributions: [
             '메시의 Bone을 Reference Skeleton으로 분리하고, 변환 유틸리티와 바이너리 직렬화를 포함한 FBX Animation Sequence 로딩을 구현했습니다.',
             '캐시의 원본, Skeleton, 버전을 검사하고 Bone 대응 결과를 기록했습니다. 원본에 작성된 채널의 샘플링과 리소스 해제도 추가했습니다.',
@@ -1208,9 +1208,9 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
         week: '12',
         theme: 'Dance of the Dust',
         title: 'Particle Runtime, Editor 시스템',
-        summary: '파티클의 에디터, 런타임 구조를 설계하고 Emitter API, Asset 편집, LOD 컴파일, Renderer 설정, 이벤트 전달을 구현했습니다.',
+        summary: '파티클을 에디터에서 편집하고 게임에서 재생하는 구조를 만들었습니다. Emitter API와 LOD 컴파일, 렌더링 설정과 이벤트 전달을 담당했습니다.',
         role: 'Particle System, Tool 프로그래머',
-        objective: '파티클을 Asset으로 편집하고 런타임용으로 컴파일해 전용 Pass에서 그리는 구조가 목표였습니다. Emitter 내부 상태는 API를 통해 다루도록 했습니다.',
+        objective: '파티클 Asset을 편집하고 런타임용으로 컴파일해 전용 Pass에서 렌더링. Emitter 내부 상태는 API로 관리.',
         contributions: [
             '파티클 시스템과 Module, Emitter Instance, Event를 구현해 컴포넌트에 연결하고, Module 실행 순서를 문서로 정리했습니다.',
             'Emitter 내부 상태는 런타임 API로 접근하도록 캡슐화했습니다. 자산 저장, 깊은 복사와 소유권 처리, 캐시 관리, Actor 배치도 추가했습니다.',
@@ -1303,9 +1303,9 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
         week: '13',
         theme: 'Understanding Focus and Force in 3D World, Two DOF Techniques',
         title: 'Physics Asset Editor',
-        summary: 'Skeletal Mesh의 Collision Body를 생성하고, 뷰포트에서 선택, 수정하는 Physics Asset 편집 도구를 구현했습니다.',
+        summary: '캐릭터 메시에서 충돌체를 생성하고 뷰포트에서 선택해 수정하는 Physics Asset 편집 도구를 만들었습니다.',
         role: 'Physics Tool 프로그래머',
-        objective: '생성된 Collision Body를 뷰포트와 Gizmo로 편집하고, 노드 관계, 충돌 규칙, Material Profile까지 설정할 수 있도록 만드는 것이 목표였습니다.',
+        objective: 'Collision Body를 뷰포트와 Gizmo로 편집하고 노드 관계, 충돌 규칙과 Material Profile 설정.',
         contributions: [
             'Physics Asset 편집 API와 뷰포트 기반을 만들고, 피킹, Body 생성 제어, 휴머노이드 필터링을 추가했습니다.',
             '뷰포트 Gizmo 편집과 시점 프리셋, 노드 그래프 조회, 충돌 규칙 편집을 구현했습니다.',
@@ -1387,9 +1387,9 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
         week: '14',
         theme: 'Final Game Jam, The Stage Is Set. Let the Game Begin!',
         title: '최종 게임 통합과 제작 도구',
-        summary: 'Unreal에서 제작한 Scene과 Decal을 자체 엔진으로 가져왔습니다. 보스, 점수 UI와 Scene 전환, 로딩, Cutscene, Audio를 연결해 최종 게임을 완성했습니다.',
+        summary: 'Unreal에서 제작한 Scene과 Decal을 자체 엔진으로 가져왔습니다. 보스전과 점수 UI, 로딩과 Cutscene, Audio를 연결해 최종 게임을 완성했습니다.',
         role: 'Game Flow, Integration 프로그래머',
-        objective: '그동안 개발한 엔진과 콘텐츠를 연결해 Scene 로딩과 Countdown에서 전투, 점수 집계, Cutscene, 엔딩까지 이어지는 게임을 완성하는 것이 목표였습니다.',
+        objective: '개발한 엔진과 콘텐츠를 연결해 Scene 로딩과 Countdown부터 전투, 점수 집계, Cutscene과 엔딩까지 완성.',
         contributions: [
             '보스전 UI를 연결하고 Unreal에서 제작한 Tokyo Scene을 가져왔습니다. 자체 엔진용 Decal Export/Import도 구현했습니다.',
             '카운트다운과 점수판, 기록 저장, 콤보 UI, 보스, 일반 적 HP 바, 로딩 화면과 엔딩 크레딧을 연결했습니다.',
