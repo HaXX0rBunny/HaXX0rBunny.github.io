@@ -528,6 +528,7 @@ document.addEventListener('DOMContentLoaded', function () {
     openLinkedProject();
     initializeScrollEffects();
     initializeTypingEffect();
+    initializeHeroVideo();
 });
 
 function initializeElements() {
@@ -646,6 +647,57 @@ function initializeTypingEffect() {
         else setTimeout(() => { cursor.hidden = true; }, 1800);
     };
     setTimeout(type, 350);
+}
+
+function initializeHeroVideo() {
+    const video = document.getElementById('heroBackgroundVideo');
+    const button = document.getElementById('heroVideoToggle');
+    const hero = document.getElementById('hero');
+    if (!video || !button || !hero) return;
+
+    const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let wantsPlay = !motion.matches;
+    const bounds = hero.getBoundingClientRect();
+    let inView = bounds.bottom > 0 && bounds.top < window.innerHeight;
+    video.muted = true;
+
+    const updateButton = () => {
+        button.textContent = video.paused
+            ? getPortfolioText('global.playBackgroundVideo', 'Play background video')
+            : getPortfolioText('global.pauseBackgroundVideo', 'Pause background video');
+    };
+    const syncPlayback = () => {
+        if (wantsPlay && inView && !document.hidden) {
+            if (!video.getAttribute('src')) video.src = video.dataset.src;
+            video.play().catch(error => {
+                if (error.name !== 'AbortError') wantsPlay = false;
+                updateButton();
+            });
+        } else {
+            video.pause();
+        }
+    };
+
+    button.hidden = false;
+    button.addEventListener('click', () => {
+        wantsPlay = video.paused;
+        syncPlayback();
+    });
+    video.addEventListener('play', updateButton);
+    video.addEventListener('pause', updateButton);
+    video.addEventListener('error', () => { button.hidden = true; });
+    document.addEventListener('portfolio-locale-changed', updateButton);
+    document.addEventListener('visibilitychange', syncPlayback);
+    motion.addEventListener('change', () => {
+        wantsPlay = !motion.matches;
+        syncPlayback();
+    });
+    new IntersectionObserver(([entry]) => {
+        inView = entry.isIntersecting;
+        syncPlayback();
+    }).observe(hero);
+    updateButton();
+    syncPlayback();
 }
 
 function initializeProjects() {

@@ -6,7 +6,7 @@
     <meta name="description" content="HaXX0rBunny portfolio: C++ gameplay, real-time rendering, engine architecture, and Unreal Engine development." data-i18n-attr-content="index.pageDescription">
     <title data-i18n="index.pageTitle">Cho Sanghyeon, C++ Game Programmer</title>
     <link rel="stylesheet" href="style.css?v=20261020-hero22">
-    <link rel="stylesheet" href="brand.css?v=20261106-card1">
+    <link rel="stylesheet" href="brand.css?v=20261106-sky2">
     <script defer src="analytics.js"></script>
 </head>
 <body>
@@ -36,15 +36,18 @@
     <main class="main-content">
         <!-- Hero Section -->
         <section class="hero-section" id="hero">
+            <div class="hero-background" aria-hidden="true">
+                <video id="heroBackgroundVideo" class="hero-background-video" muted loop playsinline preload="none" poster="Assets/images/edgedrive-gameplay.jpg" data-src="Assets/videos/edge-drive-background.mp4.mp4"></video>
+            </div>
             <svg class="hero-crystal" viewBox="0 0 600 600" aria-hidden="true" focusable="false">
-                <polygon points="300,20 580,300 512.8,300 300,87.2" fill="#78c8f4"/>
-                <polygon points="580,300 300,580 300,512.8 512.8,300" fill="#d7efff"/>
-                <polygon points="300,580 20,300 87.2,300 300,512.8" fill="#174aab"/>
-                <polygon points="20,300 300,20 300,87.2 87.2,300" fill="#246be0"/>
+                <polygon points="300,20 580,300 512.8,300 300,87.2" class="crystal-sky"/>
+                <polygon points="580,300 300,580 300,512.8 512.8,300" class="crystal-light"/>
+                <polygon points="300,580 20,300 87.2,300 300,512.8" class="crystal-deep"/>
+                <polygon points="20,300 300,20 300,87.2 87.2,300" class="crystal-blue"/>
                 <polygon class="crystal-break" points="165.6,445.6 176.8,456.8 206.37,419.17 197.86,410.66"/>
-                <path d="M300 3 597 300 300 597 3 300Z" fill="none" stroke="#b7d8f8" stroke-width="1"/>
-                <path d="M300 99 501 300 300 501 99 300Z" fill="none" stroke="#5fa6ea" stroke-width="1.4"/>
-                <path d="M252 136 264 148 252 160 240 148Z" fill="#72c4f5"/>
+                <path d="M300 3 597 300 300 597 3 300Z" fill="none" class="crystal-outline" stroke-width="1"/>
+                <path d="M300 99 501 300 300 501 99 300Z" fill="none" class="crystal-inner" stroke-width="1.4"/>
+                <path d="M252 136 264 148 252 160 240 148Z" class="crystal-sky"/>
             </svg>
             <div class="hero-content">
                 <p class="hero-kicker">GAMEPLAY / ENGINE</p>
@@ -65,6 +68,7 @@
                     </a>
                 </div>
             </div>
+            <button class="hero-video-toggle" id="heroVideoToggle" type="button" aria-controls="heroBackgroundVideo" hidden></button>
         </section>
 
         <!-- Projects Section -->
@@ -266,8 +270,8 @@
     <!-- Back to Top Button -->
     <button class="back-to-top" id="backToTop" data-i18n-attr-aria-label="index.contactBackToTop" aria-label="Back to top">↑</button>
 
-    <script src="locale.js?v=20261019-design19"></script>
+    <script src="locale.js?v=20261106-video1"></script>
     <script src="project-content.ko.js?v=20261019-design19"></script>
-    <script src="app.js?v=20261106-card1"></script>
+    <script src="app.js?v=20261106-video1"></script>
 </body>
 </html>

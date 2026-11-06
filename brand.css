@@ -1,70 +1,87 @@
-/* Shared visual identity from the printed business card. */
+/* Sky blue facets and silver outlines shared with the business card. */
 :root, [data-color-scheme="light"] {
     color-scheme: light;
-    --brand-blue: #246be0;
-    --brand-sky: #72c4f5;
-    --color-background: #ffffff;
-    --color-surface: #ffffff;
-    --color-text: #163664;
-    --color-text-secondary: #47618a;
-    --color-primary: #246be0;
-    --color-primary-hover: #174aab;
-    --color-primary-active: #174aab;
-    --color-btn-primary-text: #ffffff;
-    --color-secondary: #edf5ff;
-    --color-secondary-hover: #dcecff;
-    --color-secondary-active: #d3e6ff;
-    --color-border: #a7c9f6;
-    --color-card-border: #d4e3f5;
-    --color-card-border-inner: #e5eef9;
-    --color-background-rgb: 255, 255, 255;
-    --color-surface-rgb: 255, 255, 255;
-    --color-primary-rgb: 36, 107, 224;
-    --color-border-rgb: 167, 201, 246;
-    --color-focus-ring: rgba(36,107,224,.3);
-    --slide-accent: #72c4f5;
-    --slide-ink: #163664;
-    --slide-pale: #e8f5ff;
-    --slide-row: #f5faff;
-    --slide-track: #d4e3f5;
-    --slide-footer: #47618a;
-    --slide-frame: #a7c9f6;
-    --slide-cover-start: #d7efff;
-    --slide-selected: #e0eeff;
-    --slide-value: #163664;
-    --slide-rule: #ccdcef;
+    --brand-blue: #4b8bbb;
+    --brand-deep: #2e6095;
+    --brand-sky: #8cc6e7;
+    --color-background: #eaf1f7;
+    --color-surface: #f5f9fc;
+    --color-text: #233b56;
+    --color-text-secondary: #4c6680;
+    --color-primary: #2d6fa5;
+    --color-primary-hover: #245985;
+    --color-primary-active: #245985;
+    --color-btn-primary-text: #f5f9fc;
+    --color-secondary: #deebf5;
+    --color-secondary-hover: #d2e4f2;
+    --color-secondary-active: #c7ddec;
+    --color-border: #9fbdd4;
+    --color-card-border: #c0d2e2;
+    --color-card-border-inner: #d5e2ed;
+    --color-background-rgb: 234, 241, 247;
+    --color-surface-rgb: 245, 249, 252;
+    --color-primary-rgb: 45, 111, 165;
+    --color-border-rgb: 159, 189, 212;
+    --color-focus-ring: rgba(45,111,165,.3);
+    --slide-accent: #8cc6e7;
+    --slide-ink: #233b56;
+    --slide-pale: #dcecf7;
+    --slide-row: #e6eff7;
+    --slide-track: #c3d6e5;
+    --slide-footer: #4c6680;
+    --slide-frame: #9fbdd4;
+    --slide-cover-start: #c5e5f5;
+    --slide-selected: #d5e8f6;
+    --slide-value: #233b56;
+    --slide-rule: #c0d2e2;
+    --code-background: #e3edf6;
+    --code-text: #25415d;
+    --code-keyword: #3f5e98;
+    --code-string: #35634d;
+    --code-number: #875222;
+    --code-comment: #506980;
 }
 [data-color-scheme="dark"] {
     color-scheme: dark;
-    --color-background: #0d1b30;
-    --color-surface: #132640;
-    --color-text: #eaf3ff;
-    --color-text-secondary: #aec2df;
-    --color-primary: #83beff;
-    --color-primary-hover: #b6dcff;
-    --color-primary-active: #b6dcff;
-    --color-btn-primary-text: #0d1b30;
-    --color-secondary: #1b3454;
-    --color-secondary-hover: #24466d;
-    --color-secondary-active: #2a527e;
-    --color-border: #47678e;
-    --color-card-border: #2c4565;
-    --color-card-border-inner: #243d5e;
-    --color-background-rgb: 13, 27, 48;
-    --color-surface-rgb: 19, 38, 64;
-    --color-primary-rgb: 131, 190, 255;
-    --color-border-rgb: 71, 103, 142;
-    --color-focus-ring: rgba(131,190,255,.4);
-    --slide-ink: #0d1b30;
-    --slide-pale: #1b3657;
-    --slide-row: #11223a;
-    --slide-track: #2c4565;
-    --slide-footer: #aec2df;
-    --slide-frame: #436c9d;
-    --slide-cover-start: #1b3657;
-    --slide-selected: #24466d;
-    --slide-value: #eaf3ff;
-    --slide-rule: #36516f;
+    --brand-blue: #5aa3d1;
+    --brand-deep: #306a9b;
+    --brand-sky: #9ad9f1;
+    --color-background: #172e4b;
+    --color-surface: #203d5c;
+    --color-text: #e1eef9;
+    --color-text-secondary: #c4d8e8;
+    --color-primary: #8dcef0;
+    --color-primary-hover: #b3e1f7;
+    --color-primary-active: #b3e1f7;
+    --color-btn-primary-text: #172e4b;
+    --color-secondary: #2a4b6d;
+    --color-secondary-hover: #335b80;
+    --color-secondary-active: #3a658c;
+    --color-border: #567b9d;
+    --color-card-border: #406180;
+    --color-card-border-inner: #365675;
+    --color-background-rgb: 23, 46, 75;
+    --color-surface-rgb: 32, 61, 92;
+    --color-primary-rgb: 141, 206, 240;
+    --color-border-rgb: 86, 123, 157;
+    --color-focus-ring: rgba(141,206,240,.4);
+    --slide-accent: #9ad9f1;
+    --slide-ink: #172e4b;
+    --slide-pale: #2c5072;
+    --slide-row: #264665;
+    --slide-track: #426788;
+    --slide-footer: #c4d8e8;
+    --slide-frame: #648fae;
+    --slide-cover-start: #3e7297;
+    --slide-selected: #355f84;
+    --slide-value: #e1eef9;
+    --slide-rule: #406180;
+    --code-background: #142b46;
+    --code-text: #d5e8f7;
+    --code-keyword: #a6c7ff;
+    --code-string: #a7d6c7;
+    --code-number: #e2c691;
+    --code-comment: #9dbbd2;
 }
 
 /* The introduction shares its palette with the rest of the page. */
@@ -79,7 +96,7 @@
 }
 .navbar, .navbar.at-hero, [data-color-scheme="dark"] .navbar,
 .lab-nav, .overanim-topbar {
-    background: var(--color-background);
+    background: var(--color-surface);
     border-bottom: 1px solid var(--color-card-border);
     box-shadow: none;
     backdrop-filter: none;
@@ -102,6 +119,24 @@
     background: var(--color-background); border-bottom: 1px solid var(--color-card-border);
 }
 .hero-section::after, .hero-content::before, .hero-content::after { display: none; }
+.hero-background { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+.hero-background-video { width: 100%; height: 100%; object-fit: cover; }
+.hero-background::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(90deg, rgba(234,241,247,.95), rgba(234,241,247,.88) 46%, rgba(234,241,247,.46));
+}
+[data-color-scheme="dark"] .hero-background::after {
+    background: linear-gradient(90deg, rgba(23,46,75,.94), rgba(23,46,75,.83) 46%, rgba(23,46,75,.4));
+}
+.hero-video-toggle {
+    position: absolute; z-index: 2; right: 24px; bottom: 20px;
+    min-height: 40px; padding: 8px 12px; cursor: pointer;
+    font: inherit; font-size: 12px; color: var(--color-text);
+    background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 0;
+}
+.hero-video-toggle:hover { border-color: var(--color-primary); background: var(--color-secondary); }
+.hero-video-toggle:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 4px; }
+.hero-video-toggle[hidden] { display: none; }
 .hero-content {
     position: relative; z-index: 1; width: min(1160px, calc(100% - 96px));
     max-width: none; margin-inline: auto; padding: 0; text-align: left;
@@ -135,6 +170,12 @@
     top: 50%; width: clamp(580px,49vw,760px); height: auto;
     transform: translateY(-46%); pointer-events: none;
 }
+.hero-crystal .crystal-sky { fill: var(--brand-sky); }
+.hero-crystal .crystal-light { fill: var(--slide-cover-start); }
+.hero-crystal .crystal-deep { fill: var(--brand-deep); }
+.hero-crystal .crystal-blue { fill: var(--brand-blue); }
+.hero-crystal .crystal-outline { stroke: var(--color-border); }
+.hero-crystal .crystal-inner { stroke: var(--brand-blue); }
 .hero-crystal .crystal-break { fill: var(--color-background); }
 
 /* Three overlapping diamonds echo the reverse of the card. */
@@ -189,7 +230,7 @@
 .overanim-hero-facts dt, .huntress-hero-facts dt, .lab-hero-meta > div > span { border-left-color: var(--color-primary); }
 .overanim-analyzer-grid > .overanim-panel, .huntress-overview-grid > .huntress-summary-card,
 .lab-detail-grid > section { border-top: 1px solid var(--color-border); }
-.overanim-responsibility-list > li:nth-child(n) { background: transparent; }
+.overanim-responsibility-list > li:nth-child(n) { background: transparent; border-left-color: var(--color-border); }
 .overanim-responsibility-list > li::before { color: var(--color-primary); }
 .overanim-phase-trace > article > span, .overanim-architecture-flow > div::before,
 .huntress-architecture-flow > div > span, .hud-pin { border-color: var(--color-primary); }
@@ -199,13 +240,18 @@
 .lab-week-select.is-active { background: var(--slide-selected); border-color: var(--color-primary); }
 .video-poster { background: #10233f; }
 .video-poster-play { background: rgba(16,35,63,.86); }
-.video-poster:hover .video-poster-play { background: #174aab; }
+.video-poster:hover .video-poster-play { background: var(--brand-deep); }
 .lab-page pre, .huntress-page pre, .overanim-page pre,
 .lab-code-snippet pre, .huntress-architecture-code pre, .overanim-code-card pre,
-.huntress-architecture-code, .overanim-code-card, .huntress-code-compare { background: #10233f; color: #eaf3ff; }
-.lab-page pre, .huntress-page pre, .overanim-page pre { scrollbar-color: #47618a #10233f; }
-.huntress-code-compare > div > span { background: #1b3454; color: #eaf3ff; }
-.huntress-code-compare > .is-after > span { background: #174aab; color: #eaf3ff; }
+.huntress-architecture-code, .overanim-code-card, .huntress-code-compare { background: var(--code-background); color: var(--code-text); }
+.lab-page pre, .huntress-page pre, .overanim-page pre { scrollbar-color: var(--color-border) var(--code-background); }
+.huntress-code-compare > div > span { background: var(--slide-row); color: var(--color-text); }
+.huntress-code-compare > .is-after > span { background: var(--slide-selected); color: var(--color-text); }
+
+.code-keyword { color: var(--code-keyword); }
+.code-string { color: var(--code-string); }
+.code-number { color: var(--code-number); }
+.code-comment { color: var(--code-comment); }
 
 .contact-section { padding-block: 56px; background: var(--slide-row); color: var(--color-text); border-block: 1px solid var(--color-card-border); }
 .contact-section .slide-number { background: var(--color-primary); color: var(--color-btn-primary-text); }
@@ -229,6 +275,8 @@
 @media (max-width: 700px) {
     .navbar .nav-container, .hero-content { width: calc(100% - 40px); }
     .hero-section { min-height: 610px; padding-block: 132px 64px; }
+    .hero-background::after { background: rgba(234,241,247,.88); }
+    [data-color-scheme="dark"] .hero-background::after { background: rgba(23,46,75,.82); }
     .hero-crystal { width: 210px; top: 52px; right: -104px; transform: none; }
     .hero-content > :not(.hero-contact) { max-width: 100%; }
     .hero-kicker { margin-bottom: 28px; font-size: 10px; letter-spacing: .12em; }
