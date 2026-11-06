@@ -146,8 +146,8 @@
                     <span>02</span>
                     <div>
                         <p class="section-kicker" data-oa-key="contribution.kicker">Role and implementation scope</p>
-                        <h2 data-oa-key="contribution.title">My work as team lead and programmer</h2>
-                        <p data-oa-key="contribution.lede">I set the product and system direction and built the motion analyzer, runtime responses, GPU deformation and editor tools. With the teammate responsible for Proxy and Vertex Factory, I agreed on the data to pass, when to update it, and how to integrate and test the features.</p>
+                        <h2 data-oa-key="contribution.title">Team coordination and my implementation work</h2>
+                        <p data-oa-key="contribution.lede">I led the three-person team and coordinated responsibilities and integration order across Runtime, Demo, and Editor. With the teammate responsible for Proxy and Vertex Factory, I agreed on data formats and update timing, then checked the combined features through automated tests and previews. My implementation work covered motion analysis, runtime responses, GPU deformation, and editor tools.</p>
                     </div>
                 </header>
 
@@ -155,10 +155,10 @@
                     <article class="overanim-panel overanim-panel--accent">
 
                         <ul class="overanim-responsibility-list">
-                            <li><strong data-oa-key="contribution.personal0Title">Product direction and system design</strong><span data-oa-key="contribution.personal0Body">Designed the six-stage Analyzer and Region/Chain scope, separating pose-derived input from authored input to reduce setup work.</span></li>
-                            <li><strong data-oa-key="contribution.personal1Title">Motion Phase Analyzer</strong><span data-oa-key="contribution.personal1Body">Six-stage detection, temporal confirmation, cycle history, and Region ownership.</span></li>
+                            <li><strong data-oa-key="contribution.personal0Title">Integration agreements and system design</strong><span data-oa-key="contribution.personal0Body">Agreed on the data and update timing at module boundaries and the behavior to check after integration. Designed the six-stage Analyzer and Region/Chain scope, separating pose-derived input from authored input.</span></li>
+                            <li><strong data-oa-key="contribution.personal1Title">Motion Phase Analyzer</strong><span data-oa-key="contribution.personal1Body">Classified pose changes into six motion phases. Used cycle history, transition conditions, and Region-selection rules to reduce false changes from one-frame noise and similar Region scores.</span></li>
                             <li><strong data-oa-key="contribution.personal2Title">Runtime response system</strong><span data-oa-key="contribution.personal2Body">Implemented Signal Routing, request arbitration, and Module Stack execution, and defined the data passed between systems.</span></li>
-                            <li><strong data-oa-key="contribution.personal3Title">Render and GPU pipeline</strong><span data-oa-key="contribution.personal3Body">Immutable proxy data, Render Thread queues, RDG pass composition, and position/normal/tangent output.</span></li>
+                            <li><strong data-oa-key="contribution.personal3Title">Render and GPU pipeline</strong><span data-oa-key="contribution.personal3Body">Copied resolved deformation work into the Render Thread queue, connected RDG passes, and implemented deformed position, normal, and tangent output.</span></li>
                             <li><strong data-oa-key="contribution.personal4Title">Editor tools and tests</strong><span data-oa-key="contribution.personal4Body">Implemented Asset Editor controls, diagnostics, and automatic-phase controls, and added automation tests.</span></li>
                             <li><strong data-oa-key="contribution.personal5Title">Visual attachment follower</strong><span data-oa-key="contribution.personal5Body">Applied visual-only offsets to follow deformed socket endpoints, with restoration on release and exclusion of physics-driven targets.</span></li>
                         </ul>
@@ -187,7 +187,7 @@
                     <div>
                         <p class="section-kicker" data-oa-key="architecture.kicker">Program architecture</p>
                         <h2 data-oa-key="architecture.title">From final-pose snapshot to vertex output</h2>
-                        <p data-oa-key="architecture.lede">The Game Thread stores the final pose in a Snapshot and calculates normalized motion signals. Authored Phase Curves and Markers take priority over automatic analysis. Slot arbitration resolves explicit Effect Requests alongside pose-driven responses, then value-copied Work Items pass to ordered RDG passes on the Render Thread.</p>
+                        <p data-oa-key="architecture.lede">After animation evaluation, the final pose is stored in an input Snapshot. The Game Thread analyzes pose changes and selects the motion phase and effects. Resolved deformation work is then copied by value to the Render Thread. Pose capture, motion analysis, and GPU submission are separate steps in this flow.</p>
                     </div>
                 </header>
 
@@ -209,12 +209,12 @@
                     <article class="overanim-panel">
                         <p class="overanim-panel-label">01, Runtime</p>
                         <h3 data-oa-key="architecture.runtimeTitle">Analysis and response</h3>
-                        <p data-oa-key="architecture.runtimeBody">After animation evaluation, stores the required control-point component-space pose, component transform, sample time, serial, and continuity. It derives Region, tip, angular, and chain features, normalizes linear thresholds by Region scale, then resolves phase timing before Response Rules and Module weights.</p>
+                        <p data-oa-key="architecture.runtimeBody">The input stores control-point poses, the component transform, sample time, serial, and continuity. The Analyzer compares pose samples to derive Phase, strength, direction, Region, and cycle data; Response Rules then select Modules and their strength. Authored Phase Curves and Markers take priority over automatic analysis, and priority resolves requests sharing a Slot.</p>
                     </article>
                     <article class="overanim-panel">
                         <p class="overanim-panel-label">02, Render / GPU</p>
                         <h3 data-oa-key="architecture.renderTitle">Ordered deformation</h3>
-                        <p data-oa-key="architecture.renderBody">Resolved work moves to the Render Thread and is filtered by Scene and Execution Group. Compute passes execute in order at the MeshDeformer stage.</p>
+                        <p data-oa-key="architecture.renderBody">Each render task uses the values copied at submission, so its inputs stay the same when the Game Thread analyzes the next pose. Work is filtered by Scene and Execution Group, and compute passes execute in order at the MeshDeformer stage.</p>
                     </article>
                     <article class="overanim-panel">
                         <p class="overanim-panel-label">03, Editor</p>

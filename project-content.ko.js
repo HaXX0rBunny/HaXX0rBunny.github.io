@@ -4,7 +4,7 @@ window.PORTFOLIO_PROJECT_KO = {
         "team_label": "최종 3인 팀",
         "scope_label": "게임플레이",
         "my_role": "팀장, 스테이지, 캐릭터, 시간 제어",
-        "description": "스테이지와 플레이어 캐릭터를 맡아 Blueprint로 이동과 전투를 구현했습니다. 이동 애니메이션에는 Motion Matching을 적용하고, Time Dilation으로 바뀐 시간 배율에 맞춰 비 파티클의 크기를 조절했습니다. 팀장으로 작업 일정과 우선순위도 조율했습니다.",
+        "description": "팀장으로 일정과 작업 우선순위를 조율하면서 스테이지와 플레이어 캐릭터 전체를 맡았습니다. 이동과 전투는 Blueprint로 구현하고 이동 애니메이션에는 Motion Matching을 적용했습니다. Time Dilation에 비 파티클의 크기를 연결해 시간 변화가 주변 연출에도 드러나도록 했습니다.",
         "collaboration_details": {
             "team_size": "4명으로 시작, 최종 3명",
             "my_role": "팀장, 스테이지, 캐릭터, 시간 제어",
@@ -175,7 +175,7 @@ window.PORTFOLIO_PROJECT_KO = {
         "team_label": "팀 프로젝트, 3~4명",
         "scope_label": "렌더링, 독립 실행 빌드",
         "my_role": "렌더링과 엔진 개발",
-        "description": "C++과 DirectX 11로 자체 엔진을 개발하며 렌더링과 빌드 기능을 맡았습니다. 5만 개 오브젝트에 임포스터 렌더링을 적용하고, Build, Cook, Stage 과정을 구현해 에디터에서 만든 게임을 독립 실행 파일로 실행하도록 했습니다.",
+        "description": "C++과 DirectX 11 자체 엔진에서 5만 개 오브젝트의 임포스터 렌더링과 Engine Dive의 독립 실행 경로를 구현했습니다. Build, Cook, Stage를 런타임 Scene 로딩에 연결하고, Tick 큐와 충돌 목록에 해제된 객체의 참조가 남는 문제를 수정했습니다.",
         "coverAlt": "Game Tech Lab 과정에서 개발한 커스텀 C++ 엔진 파티클 에디터",
         "coverLabel": "C++ 자체 엔진",
         "collaboration_details": {
@@ -300,7 +300,7 @@ window.PORTFOLIO_PROJECT_KO = {
         "scope_label": "Fab 출시",
         "my_role": "팀장, 동작 분석, GPU 변형, 편집 도구",
         "subtitle": "애니메이션 과장 변형 플러그인",
-        "description": "기존 애니메이션에 과장된 움직임을 더하는 Unreal Engine 플러그인입니다. 캐릭터의 동작을 분석하고 신호를 안정화해 GPU 변형으로 연결했습니다. 편집 도구를 개발하고 팀장으로 작업을 통합해 Fab에 출시했습니다.",
+        "description": "3인 팀의 팀장으로 개발한 Unreal Engine 애니메이션 플러그인입니다. 팀원과 데이터 형식, 갱신 시점과 기능 통합 순서를 정하고, 직접 동작 분석과 GPU 변형, 편집 도구를 구현했습니다. 자동화 테스트와 미리보기로 연결된 기능을 확인한 뒤 Fab에 출시했습니다.",
         "coverAlt": "스타일화된 GPU 메시 변형 효과를 보여 주는 Dynamic OverAnimation 제품 이미지",
         "coverLabel": "Dynamic OverAnimation",
         "collaboration_details": {
@@ -316,13 +316,13 @@ window.PORTFOLIO_PROJECT_KO = {
                 "Visual Studio",
                 "Fab"
             ],
-            "team_dynamics": "DynaMax 3인 팀의 팀장을 맡았습니다. 분석 결과를 렌더러에 어떤 형식으로 언제 넘길지 팀원과 맞추고, 그에 따라 기능을 합치는 순서를 정했습니다. 변경 사항은 Perforce로 공유했고, 자동화 테스트와 에디터 미리보기에서 결과를 확인하며 출시를 준비했습니다."
+            "team_dynamics": "Runtime, Demo, Editor의 담당 기능과 통합 순서를 정했습니다. Proxy와 Vertex Factory를 맡은 팀원과는 Render Thread에 값으로 복사해 전달할 변형 작업의 형식과 갱신 시점을 협의했습니다. Perforce로 변경 이력을 공유하고 자동화 테스트와 에디터 미리보기로 통합 결과를 확인해 Fab 출시까지 진행했습니다."
         },
         "technical_challenges": [
             "포즈 분석 결과와 AnimNotify, Gameplay Event의 요청이 겹칠 때 적용할 우선순위 지정",
             "Region과 Chain별로 변형 범위를 정하고 카메라 방향에 따라 실루엣이 무너지지 않도록 제한",
             "움직임 노이즈를 보정하고 신체 영역의 판정이 작은 점수 차이로 계속 바뀌는 문제 완화",
-            "Game Thread에서 확정한 값을 Snapshot에 복사해 Render Thread가 같은 값으로 변형을 처리하도록 구성",
+            "Game Thread에서 확정한 변형 작업과 파라미터를 값으로 복사해 Render Thread에 전달",
             "RDG에서 각 변형 모듈의 계산 결과를 합치고 Vertex Factory 출력에 연결"
         ],
         "troubleshooting": {
@@ -337,14 +337,14 @@ window.PORTFOLIO_PROJECT_KO = {
                 "title": "비슷한 점수의 Region 사이에서 판정이 반복적으로 바뀌는 문제",
                 "problem": "거의 같은 점수의 두 Region이 인접 프레임마다 owner를 교체할 수 있었습니다.",
                 "root_cause": "현재 최고점만 고르는 방식에는 hysteresis와 challenger 확인 과정이 없었습니다.",
-                "solution": "상대 15% 또는 절대 0.02의 우위를 요구하고 challenger가 안정될 때까지 기존 owner를 유지했습니다.",
+                "solution": "현재 점수의 15%와 0.02 중 큰 값 이상으로 점수 차이가 벌어져야 전환 후보로 두고, 이후 Phase 신호로 후보를 확정했습니다.",
                 "result": "작은 점수 변동만으로는 현재 Region owner가 바뀌지 않습니다."
             },
             "render_handoff": {
                 "title": "게임 상태 변경과 렌더링 시점의 불일치",
                 "problem": "변형 요청 생성 후 상태가 바뀌면 renderer가 다른 값을 읽을 가능성이 있었습니다.",
                 "root_cause": "Analyzer가 소유한 변경 가능한 상태와 비동기 render work의 수명이 달랐습니다.",
-                "solution": "분석 결과를 Snapshot에 복사해 전달하고, 렌더링 코드가 분석기의 가변 상태를 직접 참조하지 않도록 했습니다.",
+                "solution": "확정된 변형 작업과 파라미터를 값으로 복사해 Render Thread에 전달하고, 렌더링 코드가 분석기의 가변 상태를 직접 참조하지 않도록 했습니다.",
                 "result": "분석기가 다음 값을 계산하더라도 각 렌더링 작업은 전달받은 값을 사용합니다."
             },
             "visual_attachments": {

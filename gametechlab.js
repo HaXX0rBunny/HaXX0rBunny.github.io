@@ -1527,14 +1527,14 @@ float3 bitangent = cross(L_norm, tangent);`
     {
         week: '09',
         theme: '3rd Game Jam, Light, Camera, Action!',
-        title: 'Standalone Shipping Build',
-        summary: 'I turned the team game into a standalone application. Build, Cook and Stage collect its assets and scenes, and I checked the flow from startup into StoryScene.',
+        title: 'Engine Dive Standalone Build',
+        summary: 'I connected the team game to a Windows standalone executable. My work covered the Build, Cook, and Stage pipeline, runtime scene and asset paths, and initialization outside the editor. I checked the menu-to-StoryScene flow and fixed stale references during object destruction.',
         role: 'Build & Runtime Integration Programmer',
         objective: 'Package the runtime assets and launch the team game outside the editor.',
         contributions: [
-            'Added GameModeBase/GameInstance, binary world serialization, enhanced-input migration, project generation, shipping builds, cooking, and a headless parser/builder.',
-            'Split offscreen rendering and input for PIE, then implemented PlayerCameraManager, camera shake/effects, Lua camera modifiers, and actor camera calculation.',
-            'Added gamma correction controls and fixed post-process ordering, ABI mismatches, runtime asset roots, crash/dangling references, and packaging scripts.'
+            'Connected Build, Cook, and Stage to convert editor scenes and collect the assets needed by the standalone game. Packaging checks required files and the process exit code.',
+            'Connected runtime asset paths and Viewport/Backbuffer initialization so the executable could launch outside the IDE and move from the main menu to StoryScene.',
+            'Fixed references left in the Tick queue and overlap lists after object destruction. Tick execution rechecks the target and UUID; component teardown removes references held by overlap peers.'
         ],
         implementation: [
             'Shipping target, generated project, cook/stage layout, headless builder, batch packaging, and mirrored assets',
@@ -1548,7 +1548,7 @@ float3 bitangent = cross(L_norm, tangent);`
             'Ran the cooked gameplay level with score, distance, logs, trace, dump, and stability feedback on screen.'
         ],
         evidenceStatus: 'Implemented systems',
-        evidenceNote: 'Implemented the Shipping/Cook/Stage tooling, runtime camera and post-process connections, and the START-to-StoryScene launch path.',
+        evidenceNote: 'The captures show the standalone launch path I integrated. The implementation notes below cover packaging, initialization, camera and post-process work, and object-lifetime fixes.',
         sourceUrl: 'https://github.com/Rocketstein/Jungle_Week9_Team6/commits/main/?author=HaXX0rBunny',
         sourceLabel: 'Open authored Week09 commits',
         troubleshootingEvidence: [

@@ -18,7 +18,7 @@ const projectsData = {
             "Unreal Engine 5.4",
             "Blueprint"
         ],
-        "description": "I built the stages and player character in Blueprint, using Motion Matching for movement animations. I implemented time control with Time Dilation and adjusted rain-particle scale to match. As team lead, I also coordinated the schedule and task priorities.",
+        "description": "As team lead, I coordinated the schedule and task priorities while building the stages, player movement, and combat in Blueprint. I used Motion Matching for movement animations and connected Time Dilation to rain-particle scale so the time change also appeared in the surrounding effects.",
         "videoUrl": "https://www.youtube.com/embed/264Wfi25UOU",
         "links": {
             "github": "https://github.com/Team-Illegal-Design-Club/EdgeDrive",
@@ -193,7 +193,7 @@ const projectsData = {
             "ImGui",
             "FBX SDK"
         ],
-        "description": "I worked on rendering and builds in a custom C++ and DirectX 11 engine. I used octahedral impostors to render a 50,000-object scene and implemented Build, Cook, and Stage so games made in the editor could run as standalone executables. The weekly pages include comparison captures, test conditions, and implementation history.",
+        "description": "In custom C++ and DirectX 11 engines, I implemented octahedral impostors for a 50,000-object scene and the standalone build path for Engine Dive. I connected Build, Cook, and Stage to runtime scene loading, then fixed stale object references in the Tick queue and collision lists.",
         "coverImage": "Assets/images/GameTechLab3rd-Engine-Editor.png",
         "coverAlt": "Custom C++ engine particle editor developed during Game Tech Lab",
         "coverLabel": "Custom C++ Engine",
@@ -332,7 +332,7 @@ const projectsData = {
             "Slate",
             "Perforce"
         ],
-        "description": "An Unreal Engine plug-in that adds exaggerated movement to existing animations. I analyzed character motion and stabilized the signals before passing them to GPU deformation. I also built editor tools and led integration of the team’s work for release on Fab.",
+        "description": "I led the three-person team building this Unreal Engine animation plug-in. I agreed on data formats, update timing, and integration order with teammates, while implementing motion analysis, GPU deformation, and editor tools. We checked the combined features with automated tests and previews and released the plug-in on Fab.",
         "coverImage": "Assets/images/overanimation/dynamic-overanimation-hero.webp",
         "coverAlt": "Dynamic OverAnimation product artwork showing a stylized GPU mesh deformation effect",
         "coverLabel": "Dynamic OverAnimation",
@@ -355,7 +355,7 @@ const projectsData = {
                 "Visual Studio",
                 "Fab"
             ],
-            "team_dynamics": "I led the three-person DynaMax team and agreed on the data passed between the analyzer and renderer, update timing, and integration order. We used Perforce to share changes and checked the combined features with automated tests and editor previews before release."
+            "team_dynamics": "I coordinated responsibilities and integration order across Runtime, Demo, and Editor. With the teammate responsible for Proxy and Vertex Factory, I agreed on the format and update timing of resolved deformation work passed to the Render Thread by value. We tracked changes in Perforce and used automated tests and editor previews to check the combined plug-in before releasing it on Fab."
         },
         "technical_challenges": [
             "Setting priorities between pose analysis, AnimNotify, and Gameplay Event requests",
@@ -376,14 +376,14 @@ const projectsData = {
                 "title": "Similar Region scores produced owner jitter",
                 "problem": "Two candidate Regions with nearly equal scores could exchange ownership across adjacent frames.",
                 "root_cause": "Selecting the current maximum had no hysteresis or pending-challenger confirmation.",
-                "solution": "Required a relative 15% or absolute 0.02 advantage and retained the active owner until the challenger became stable.",
+                "solution": "Required a score advantage of at least the larger of 15% of the active score and 0.02, then used the phase signal to confirm the candidate.",
                 "result": "Minor score changes no longer replace the current Region owner."
             },
             "render_handoff": {
                 "title": "Mutable gameplay state could drift from render consumption",
                 "problem": "The renderer could observe state that changed after a deformation request was created.",
                 "root_cause": "Analyzer-owned mutable state and asynchronous render work have different lifetimes.",
-                "solution": "Copied the analysis result into a Snapshot so rendering code would not read the analyzer’s mutable state directly.",
+                "solution": "Copied resolved deformation work and parameters to the Render Thread so rendering code would not read the analyzer’s mutable state directly.",
                 "result": "Each render task uses the captured values even if the analyzer updates afterward."
             },
             "visual_attachments": {

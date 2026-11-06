@@ -893,14 +893,14 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
         sourceIndex: 8,
         week: '09',
         theme: '3rd Game Jam, Light, Camera, Action!',
-        title: 'Standalone Shipping 빌드',
-        summary: '에디터에서 실행하던 팀 게임을 독립 실행 파일로 만들었습니다. Build, Cook, Stage 과정에 필요한 자산과 Scene을 연결하고 게임 시작부터 StoryScene 진입까지 확인했습니다.',
+        title: 'Engine Dive 독립 실행 빌드',
+        summary: '에디터에서 실행하던 팀 게임을 Windows 독립 실행 파일로 연결했습니다. Build, Cook, Stage와 실행용 Scene, 자산 경로, 에디터 밖의 초기화 과정을 맡았습니다. 메뉴에서 StoryScene으로 진입하는지 확인하고 객체 삭제 후 남는 참조를 수정했습니다.',
         role: '빌드, 런타임 통합 프로그래머',
         objective: '실행에 필요한 Asset을 패키지에 포함하고 에디터 밖에서 팀 게임 실행.',
         contributions: [
-            'GameModeBase/GameInstance와 World 바이너리 직렬화, Enhanced Input 전환을 구현했습니다. 프로젝트 생성부터 Shipping 빌드, Cooking까지 연결하고, 에디터 UI 없이 실행하는 파서, 빌더도 만들었습니다.',
-            'PIE의 오프스크린 렌더링과 입력을 분리하고 PlayerCameraManager를 구현했습니다. 카메라 흔들림, 효과, Lua 카메라 Modifier와 Actor의 카메라 계산을 연결했습니다.',
-            '감마 보정 제어를 추가하고 후처리 순서와 ABI 불일치를 수정했습니다. 런타임 자산 경로, 크래시, 해제된 객체 참조, 패키징 스크립트 문제도 해결했습니다.'
+            'Build, Cook, Stage를 연결해 에디터의 Scene을 실행용 데이터로 변환하고 필요한 자산을 모았습니다. 패키징 과정에서는 필수 파일의 존재 여부와 종료 코드를 검사했습니다.',
+            '런타임 자산 경로와 Viewport, Backbuffer 초기화를 연결했습니다. IDE 밖에서 실행 파일을 시작하고 메인 메뉴의 START에서 StoryScene으로 넘어가는지 확인했습니다.',
+            '객체가 삭제된 뒤 Tick 큐와 충돌 목록에 참조가 남는 문제를 수정했습니다. Tick 실행 직전에 대상의 생존 여부와 UUID를 확인하고, 컴포넌트 해제 시 상대의 충돌 목록에서도 참조를 정리했습니다.'
         ],
         implementation: [
             'Shipping Target, 프로젝트 생성, Cook, Stage, Headless Builder, 배치 패키징, 자산 복사',
@@ -913,7 +913,7 @@ window.GAME_TECH_LAB_KO_PART_08_14 = {
             'Cook된 Gameplay Level에서 Score, Distance, Log, Trace, Dump, Stability UI가 함께 동작했습니다.'
         ],
         evidenceStatus: '구현 내용',
-        evidenceNote: 'Shipping/Cook/Stage 도구, 런타임 Camera, Post Process 연결, START에서 StoryScene으로 이어지는 실행 경로를 구현했습니다.',
+        evidenceNote: '아래 화면은 직접 연결한 독립 실행 경로입니다. 패키징과 초기화, 카메라와 후처리 연결, 객체 수명 문제의 수정 내용은 구현 기록에 정리했습니다.',
         sourceLabel: 'Week09 작성 커밋 열기',
         troubleshootingEvidence: [
             {
