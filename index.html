@@ -6,7 +6,7 @@
     <meta name="description" content="HaXX0rBunny portfolio: C++ gameplay, real-time rendering, engine architecture, and Unreal Engine development." data-i18n-attr-content="index.pageDescription">
     <title data-i18n="index.pageTitle">Cho Sanghyeon, C++ Game Programmer</title>
     <link rel="stylesheet" href="style.css?v=20261020-hero22">
-    <link rel="stylesheet" href="brand.css?v=20261106-sky2">
+    <link rel="stylesheet" href="brand.css?v=20261107-cobalt1">
     <script defer src="analytics.js"></script>
 </head>
 <body>
@@ -40,14 +40,16 @@
                 <video id="heroBackgroundVideo" class="hero-background-video" muted loop playsinline preload="none" poster="Assets/images/edgedrive-gameplay.jpg" data-src="Assets/videos/edge-drive-background.mp4.mp4"></video>
             </div>
             <svg class="hero-crystal" viewBox="0 0 600 600" aria-hidden="true" focusable="false">
-                <polygon points="300,20 580,300 512.8,300 300,87.2" class="crystal-sky"/>
-                <polygon points="580,300 300,580 300,512.8 512.8,300" class="crystal-light"/>
-                <polygon points="300,580 20,300 87.2,300 300,512.8" class="crystal-deep"/>
-                <polygon points="20,300 300,20 300,87.2 87.2,300" class="crystal-blue"/>
-                <polygon class="crystal-break" points="165.6,445.6 176.8,456.8 206.37,419.17 197.86,410.66"/>
-                <path d="M300 3 597 300 300 597 3 300Z" fill="none" class="crystal-outline" stroke-width="1"/>
-                <path d="M300 99 501 300 300 501 99 300Z" fill="none" class="crystal-inner" stroke-width="1.4"/>
-                <path d="M252 136 264 148 252 160 240 148Z" class="crystal-sky"/>
+                <path d="M300 20 580 300 566 300 300 34Z" class="crystal-sky"/>
+                <path d="M580 300 300 580 300 566 566 300Z" class="crystal-light"/>
+                <path d="M300 580 20 300 34 300 300 566Z" class="crystal-deep"/>
+                <path d="M20 300 300 20 300 34 34 300Z" class="crystal-blue"/>
+                <path d="M300 3 597 300 300 597 3 300Z" fill="none" class="crystal-outline"/>
+                <path d="M300 64 536 300 300 536 64 300Z" fill="none" class="crystal-inner"/>
+                <path d="M300 124 476 300 300 476 124 300Z" fill="none" class="crystal-inner"/>
+                <path d="M114 104 140 130 114 156 88 130Z" class="crystal-satellite"/>
+                <path d="M88 116 102 130 88 144 74 130Z" class="crystal-blue"/>
+                <path d="M140 124 146 130 140 136 134 130Z" class="crystal-light"/>
             </svg>
             <div class="hero-content">
                 <p class="hero-kicker">GAMEPLAY / ENGINE</p>
@@ -68,7 +70,14 @@
                     </a>
                 </div>
             </div>
-            <button class="hero-video-toggle" id="heroVideoToggle" type="button" aria-controls="heroBackgroundVideo" hidden></button>
+            <div class="hero-video-controls" id="heroVideoControls" role="group" aria-label="Background video" hidden>
+                <button id="heroVideoPlay" type="button" aria-controls="heroBackgroundVideo" aria-label="Play background video" title="Play background video" aria-pressed="false">
+                    <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M6 3.5 16 10 6 16.5Z"/></svg>
+                </button>
+                <button id="heroVideoStop" type="button" aria-controls="heroBackgroundVideo" aria-label="Stop background video" title="Stop background video" aria-pressed="true">
+                    <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 4h12v12H4Z"/></svg>
+                </button>
+            </div>
         </section>
 
         <!-- Projects Section -->
@@ -270,8 +279,8 @@
     <!-- Back to Top Button -->
     <button class="back-to-top" id="backToTop" data-i18n-attr-aria-label="index.contactBackToTop" aria-label="Back to top">↑</button>
 
-    <script src="locale.js?v=20261106-video1"></script>
+    <script src="locale.js?v=20261107-controls1"></script>
     <script src="project-content.ko.js?v=20261019-design19"></script>
-    <script src="app.js?v=20261106-video1"></script>
+    <script src="app.js?v=20261107-controls1"></script>
 </body>
 </html>

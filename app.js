@@ -651,9 +651,11 @@ function initializeTypingEffect() {
 
 function initializeHeroVideo() {
     const video = document.getElementById('heroBackgroundVideo');
-    const button = document.getElementById('heroVideoToggle');
+    const controls = document.getElementById('heroVideoControls');
+    const play = document.getElementById('heroVideoPlay');
+    const stop = document.getElementById('heroVideoStop');
     const hero = document.getElementById('hero');
-    if (!video || !button || !hero) return;
+    if (!video || !controls || !play || !stop || !hero) return;
 
     const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
     let wantsPlay = !motion.matches;
@@ -661,42 +663,58 @@ function initializeHeroVideo() {
     let inView = bounds.bottom > 0 && bounds.top < window.innerHeight;
     video.muted = true;
 
-    const updateButton = () => {
-        button.textContent = video.paused
-            ? getPortfolioText('global.playBackgroundVideo', 'Play background video')
-            : getPortfolioText('global.pauseBackgroundVideo', 'Pause background video');
+    const updateControls = () => {
+        controls.setAttribute('aria-label', getPortfolioText('global.backgroundVideo', 'Background video'));
+        for (const [button, key, fallback] of [
+            [play, 'global.playBackgroundVideo', 'Play background video'],
+            [stop, 'global.stopBackgroundVideo', 'Stop background video']
+        ]) {
+            const label = getPortfolioText(key, fallback);
+            button.setAttribute('aria-label', label);
+            button.title = label;
+        }
+        play.setAttribute('aria-pressed', String(!video.paused));
+        stop.setAttribute('aria-pressed', String(video.paused));
     };
     const syncPlayback = () => {
         if (wantsPlay && inView && !document.hidden) {
             if (!video.getAttribute('src')) video.src = video.dataset.src;
             video.play().catch(error => {
                 if (error.name !== 'AbortError') wantsPlay = false;
-                updateButton();
+                updateControls();
             });
         } else {
             video.pause();
         }
     };
 
-    button.hidden = false;
-    button.addEventListener('click', () => {
-        wantsPlay = video.paused;
+    controls.hidden = false;
+    play.addEventListener('click', () => {
+        wantsPlay = true;
         syncPlayback();
     });
-    video.addEventListener('play', updateButton);
-    video.addEventListener('pause', updateButton);
-    video.addEventListener('error', () => { button.hidden = true; });
-    document.addEventListener('portfolio-locale-changed', updateButton);
+    stop.addEventListener('click', () => {
+        wantsPlay = false;
+        video.pause();
+        if (video.readyState > 0) video.currentTime = 0;
+        updateControls();
+    });
+    video.addEventListener('play', updateControls);
+    video.addEventListener('pause', updateControls);
+    video.addEventListener('error', () => { controls.hidden = true; });
+    document.addEventListener('portfolio-locale-changed', updateControls);
     document.addEventListener('visibilitychange', syncPlayback);
     motion.addEventListener('change', () => {
-        wantsPlay = !motion.matches;
-        syncPlayback();
+        if (motion.matches) {
+            wantsPlay = false;
+            syncPlayback();
+        }
     });
     new IntersectionObserver(([entry]) => {
         inView = entry.isIntersecting;
         syncPlayback();
     }).observe(hero);
-    updateButton();
+    updateControls();
     syncPlayback();
 }
 
