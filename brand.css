@@ -295,7 +295,20 @@
 .code-number { color: var(--code-number); }
 .code-comment { color: var(--code-comment); }
 
-.contact-section { padding-block: 56px; background: var(--slide-row); color: var(--color-text); border-block: 1px solid var(--color-card-border); }
+.contact-section { padding-block: 64px; overflow: hidden; background: var(--slide-row); color: var(--color-text); border-block: 1px solid var(--color-card-border); }
+.contact-summary { position: relative; padding-right: 212px; }
+.contact-art {
+    position: absolute; right: -100px; top: 50%; width: 280px; height: 280px;
+    transform: translateY(-50%); pointer-events: none;
+}
+.contact-art svg { display: block; width: 100%; height: 100%; }
+.contact-art .facet-sky { fill: var(--brand-sky); }
+.contact-art .facet-light { fill: var(--slide-cover-start); }
+.contact-art .facet-deep { fill: var(--brand-deep); }
+.contact-art .facet-blue { fill: var(--brand-blue); }
+.contact-art .facet-cut { fill: var(--slide-row); }
+.contact-art .facet-outline { stroke: var(--color-border); }
+.contact-art .facet-inner { stroke: var(--brand-blue); }
 .contact-section .slide-number { background: var(--color-primary); color: var(--color-btn-primary-text); }
 .contact-summary h2 { color: var(--color-text); }
 .contact-summary p { color: var(--color-text-secondary); }
@@ -307,6 +320,8 @@
 .site-footer-content a:hover, .overanim-footer a:hover { color: var(--color-primary); }
 
 @media (max-width: 1000px) {
+    .contact-summary { padding-right: 160px; }
+    .contact-art { width: 230px; height: 230px; right: -100px; }
     #projectsGrid .project-card.presentation-sheet { gap: 32px; padding: 40px 0; }
     .overanim-section > .presentation-sheet, .huntress-section > .presentation-sheet { width: calc(100% - 64px); padding: 36px 0; }
     .navbar .nav-container, .hero-content { width: calc(100% - 64px); }
@@ -351,6 +366,10 @@
     .slide-ornament i:nth-child(1) { left: 0; width: 16px; height: 16px; }
     .slide-ornament i:nth-child(2) { left: 18px; width: 22px; height: 22px; }
     .slide-ornament i:nth-child(3) { left: 49px; width: 9px; height: 9px; }
-    .contact-summary .contact-links { margin-left: 0; }
-    .contact-heading { padding-left: 60px; }
+    .contact-section { padding-block: 40px; }
+    .contact-summary { grid-template-columns: minmax(0,1fr) 120px; gap: 24px; padding-right: 0; }
+    .contact-summary .contact-links { grid-column: 1; margin-left: 0; flex-direction: column; align-items: flex-start; gap: 10px; }
+    .contact-heading { grid-column: 1 / -1; padding-left: 60px; }
+    .contact-art { position: relative; grid-column: 2; width: 120px; height: 104px; top: auto; right: auto; transform: none; }
+    .contact-art svg { position: absolute; width: 220px; height: 220px; right: -80px; top: -16px; }
 }
