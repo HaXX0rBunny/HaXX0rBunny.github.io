@@ -121,6 +121,7 @@ const PORTFOLIO_I18N = {
             contactOnlineTitle: 'Find me online',
             contactBackToTop: 'Back to top',
             contactButtonLinkedIn: 'View profile',
+            linkedInUrl: 'https://www.linkedin.com/in/haxxorbunny/?locale=en-US',
             contactButtonGithub: 'View repositories',
             contactSubGithub: 'Source code and project history',
             contactSubLinkedin: 'Career and professional network',
@@ -362,6 +363,7 @@ const PORTFOLIO_I18N = {
             contactOnlineTitle: '온라인 채널',
             contactBackToTop: '맨 위로',
             contactButtonLinkedIn: '프로필 보기',
+            linkedInUrl: 'https://www.linkedin.com/in/haxxorbunny/',
             contactButtonGithub: '저장소 보기',
             contactSubGithub: '소스 코드와 작업 이력',
             contactSubLinkedin: '학력과 개발 경험',
@@ -588,6 +590,14 @@ function applyStaticI18n(root = document) {
         const keyValue = getLocalizedLabel(key);
         if (keyValue && keyValue !== key) {
             element.setAttribute('content', keyValue);
+        }
+    });
+
+    root.querySelectorAll('[data-i18n-attr-href]').forEach((element) => {
+        const key = element.getAttribute('data-i18n-attr-href');
+        const keyValue = getLocalizedLabel(key);
+        if (keyValue && keyValue !== key) {
+            element.setAttribute('href', keyValue);
         }
     });
 }
