@@ -1,0 +1,129 @@
+diff --git a/Source/PROJECT_RECYCLE/Defense/Tests/RecycleAimAssistTest.cpp b/Source/PROJECT_RECYCLE/Defense/Tests/RecycleAimAssistTest.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/PROJECT_RECYCLE/Defense/Tests/RecycleAimAssistTest.cpp
+@@ -0,0 +1,124 @@
++#if WITH_DEV_AUTOMATION_TESTS && WITH_EDITOR
++#include "Defense/RecycleAimAssist.h"
++#include "Defense/RecycleDefensePlayer.h"
++#include "Defense/RecycleDefenseUnit.h"
++#include "Defense/RecycleMenuController.h"
++#include "Defense/UI/RecycleInterfaceSubsystem.h"
++#include "Camera/CameraComponent.h"
++#include "Components/BoxComponent.h"
++#include "Components/SkeletalMeshComponent.h"
++#include "Editor.h"
++#include "Engine/World.h"
++#include "GameFramework/CharacterMovementComponent.h"
++#include "InputKeyEventArgs.h"
++#include "Misc/AutomationTest.h"
++#include "HAL/PlatformTime.h"
++#include "Tests/AutomationCommon.h"
++#include "Tests/AutomationEditorCommon.h"
++
++IMPLEMENT_SIMPLE_AUTOMATION_TEST(FRecycleAimAssistMathTest,"Recycle.Input.AimAssistMath",EAutomationTestFlags::EditorContext|EAutomationTestFlags::EngineFilter)
++bool FRecycleAimAssistMathTest::RunTest(const FString&)
++{
++    using namespace RecycleAimAssist;
++    TestTrue(TEXT("Idle stick cannot rotate"),ApplyAxis(0,4,1,.1,.6,4).Equals(FVector2D(1,0)));
++    TestTrue(TEXT("Outside assist returns original input"),ApplyAxis(.5,4,0,.1,.6,4).Equals(FVector2D(1,0)));
++    TestEqual(TEXT("Countersteer disables rotation correction"),ApplyAxis(-.5,4,1,.1,.6,4).Y,0.);
++    TestTrue(TEXT("Countersteer weakens friction"),ApplyAxis(-.5,4,1,.1,.6,4).X>ApplyAxis(.5,4,1,.1,.6,4).X);
++    TestEqual(TEXT("Drift cannot pull aim"),ApplyAxis(.2,4,1,.1,.6,4).Y,0.);
++    const auto Simulate=[this](int32 FPS)
++    {
++        float Error=4.f;
++        for (int32 Step=0;Step<FPS;++Step)
++        {
++            const FVector2D Result=ApplyAxis(.5,Error,.8,1.f/FPS,.6,4);
++            TestTrue(TEXT("Correction cannot overshoot or exceed rate cap"),FMath::Abs(Result.Y)<=FMath::Min(FMath::Abs(Error),4.f/FPS)+.0001f);
++            Error-=.5f*Result.X*10.f/FPS+Result.Y;
++        }
++        return Error;
++    };
++    TestTrue(TEXT("30 and 120 FPS remain close"),FMath::Abs(Simulate(30)-Simulate(120))<.15f);
++    return true;
++}
++
++class FCheckRecycleAimAssist final : public IAutomationLatentCommand
++{
++public:
++    explicit FCheckRecycleAimAssist(FAutomationTestBase& InTest):Test(InTest),Started(FPlatformTime::Seconds()){}
++    bool Update() override
++    {
++        if(FPlatformTime::Seconds()-Started>40.){Test.AddError(TEXT("Aim assist PIE timed out"));return true;}
++        UWorld* World=GEditor ? GEditor->PlayWorld.Get() : nullptr;
++        auto* PC=World ? Cast<ARecycleMenuController>(World->GetFirstPlayerController()) : nullptr;
++        auto* Player=PC ? PC->GetPawn<ARecycleDefensePlayer>() : nullptr;
++        if(!Player || !PC->GetInterface())return false;
++        if(Stage==0){PC->ActivatePrimaryMenuAction();Stage=1;return false;}
++        if(Stage==1)
++        {
++            if(PC->IsShowingTitle() || Player->IsInFlight() || Player->IsRecoveringFromLanding())return false;
++            Player->GetCharacterMovement()->DisableMovement();
++            Player->SetActorLocation(FVector(0,0,20000));
++            PC->SetControlRotation(FRotator::ZeroRotator);
++            FActorSpawnParameters Params;Params.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
++            auto* Class=LoadClass<ARecycleDefenseUnit>(nullptr,TEXT("/Game/Defense/Blueprint/BP_RecycleEnemy.BP_RecycleEnemy_C"));
++            Enemy=World->SpawnActor<ARecycleDefenseUnit>(Class,Player->Camera->GetComponentLocation()+FVector(1000,25,-70),FRotator::ZeroRotator,Params);
++            if(!Test.TestNotNull(TEXT("Real enemy fixture spawns"),Enemy.Get()))return true;
++            Enemy->Initialize(false);Enemy->SetActorTickEnabled(false);Enemy->GetCharacterMovement()->DisableMovement();
++            PC->GetInterface()->SetUsingGamepad(true);
++            static_cast<APlayerController*>(PC)->InputKey(FInputKeyEventArgs(nullptr,FInputDeviceId::CreateFromInternalId(0),EKeys::Gamepad_LeftTrigger,IE_Pressed,uint64(0)));
++            Stage=2;return false;
++        }
++        if(!Enemy.IsValid())return true;
++        const auto Sample=[Player](){Player->AimAssistFrame=MAX_uint64;return Player->GetGamepadAimAssist(.5f,true);};
++        if(Stage==2)
++        {
++            const FVector AimPoint=Enemy->GetMesh()->GetSocketLocation(TEXT("spine_03"));
++            const FRotator Desired=(AimPoint-Player->Camera->GetComponentLocation()).Rotation();
++            PC->SetControlRotation(Desired-FRotator(0,2,0));
++            Stage=3;return false;
++        }
++        if(Stage==3)
++        {
++            const auto Help=Sample();
++            TestTrue(TEXT("Visible hostile slows controller ADS"),Help.X<1.);
++            TestTrue(TEXT("Intentional stick receives bounded correction"),Help.Y>0 && Help.Y<=4.*World->GetDeltaSeconds());
++            TestTrue(TEXT("Correct enemy is selected"),Player->AimAssistTarget==Enemy);
++            PC->GetInterface()->SetUsingGamepad(false);
++            TestTrue(TEXT("Mouse input remains unchanged"),Sample().Equals(FVector2D(1,0)));
++            PC->GetInterface()->SetUsingGamepad(true);
++            TestTrue(TEXT("Idle stick cannot snap"),Player->GetGamepadAimAssist(0,true).Equals(FVector2D(1,0)));
++            static_cast<APlayerController*>(PC)->InputKey(FInputKeyEventArgs(nullptr,FInputDeviceId::CreateFromInternalId(0),EKeys::Gamepad_LeftTrigger,IE_Released,uint64(0)));
++            TestTrue(TEXT("Releasing LT disables assistance"),Sample().Equals(FVector2D(1,0)));
++            static_cast<APlayerController*>(PC)->InputKey(FInputKeyEventArgs(nullptr,FInputDeviceId::CreateFromInternalId(0),EKeys::Gamepad_LeftTrigger,IE_Pressed,uint64(0)));
++            AActor* Wall=World->SpawnActor<AActor>();
++            auto* Block=NewObject<UBoxComponent>(Wall);Wall->SetRootComponent(Block);
++            Block->InitBoxExtent(FVector(30,400,400));Block->SetCollisionProfileName(TEXT("BlockAll"));Block->RegisterComponent();
++            Wall->SetActorLocation(Player->Camera->GetComponentLocation()+PC->GetControlRotation().Vector()*500);
++            TestTrue(TEXT("A wall removes target assistance"),Sample().Equals(FVector2D(1,0)));
++            Wall->Destroy();
++            Enemy->Initialize(true);
++            TestTrue(TEXT("Allies never receive aim assistance"),Sample().Equals(FVector2D(1,0)));
++            Enemy->Initialize(false);
++            Enemy->ReceiveCombatDamage(10000,FVector::ZeroVector,NAME_None);
++            TestTrue(TEXT("Dead enemies are excluded"),Sample().Equals(FVector2D(1,0)));
++            return true;
++        }
++        return false;
++    }
++private:
++    void TestTrue(const TCHAR* Label,bool bValue){Test.TestTrue(Label,bValue);}
++    FAutomationTestBase& Test;
++    double Started;
++    int32 Stage=0;
++    TWeakObjectPtr<ARecycleDefenseUnit> Enemy;
++};
++
++IMPLEMENT_SIMPLE_AUTOMATION_TEST(FRecycleAimAssistPIETest,"Recycle.Input.AimAssistPIE",EAutomationTestFlags::EditorContext|EAutomationTestFlags::EngineFilter)
++bool FRecycleAimAssistPIETest::RunTest(const FString&)
++{
++    FAutomationEditorCommonUtils::LoadMap(TEXT("/Game/Defense/Lvl_RecycleDefense_PostApo"));
++    ADD_LATENT_AUTOMATION_COMMAND(FStartPIECommand(false));
++    FAutomationTestFramework::Get().EnqueueLatentCommand(MakeShared<FCheckRecycleAimAssist>(*this));
++    ADD_LATENT_AUTOMATION_COMMAND(FEndPlayMapCommand());
++    return true;
++}
++#endif

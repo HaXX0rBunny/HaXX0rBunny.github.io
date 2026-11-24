@@ -3,11 +3,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Recycle, a three-person Unreal Engine game-jam project. My work in combat feedback, the HUD and minimap, menus, gamepad input and English/Korean support." data-i18n-attr-content="recycle.metaDescription">
-    <title data-i18n="recycle.pageTitle">Recycle | Combat feedback, HUD and game UI</title>
+    <meta name="description" content="Recycle, a three-person Unreal Engine game-jam project. Gameplay flow, HUD and menus, gamepad input, combat feedback and selected C++ source." data-i18n-attr-content="recycle.metaDescription">
+    <title data-i18n="recycle.pageTitle">Recycle | Gameplay, HUD and input</title>
     <link rel="stylesheet" href="style.css?v=20261020-hero22">
     <link rel="stylesheet" href="brand.css?v=20261108-diamond1">
-    <link rel="stylesheet" href="recycle.css?v=20261124-2">
+    <link rel="stylesheet" href="recycle.css?v=20261124-3">
     <script defer src="analytics.js"></script>
 </head>
 <body class="lab-page huntress-page recycle-page">
@@ -23,7 +23,7 @@
         <section class="huntress-hero"><div class="container huntress-hero-grid">
             <div class="huntress-hero-copy">
                 <p class="section-kicker">2026 Epic AI MegaJam</p><h1>Recycle</h1>
-                <p class="huntress-hero-role" data-i18n="recycle.role">Combat feedback, HUD, menus and input</p>
+                <p class="huntress-hero-role" data-i18n="recycle.role">Gameplay systems, HUD, menus and input</p>
                 <p class="huntress-hero-lede" data-i18n="recycle.intro">A first-person defense game about escorting a walking fortress and turning fallen enemies into allied reinforcements. Our three-person team submitted a Windows build to the 2026 Epic AI MegaJam.</p>
                 <div class="huntress-hero-actions">
                     <a class="huntress-action huntress-action--primary" href="https://dkael.itch.io/recycle" target="_blank" rel="noopener noreferrer" data-i18n="recycle.build">Play the Windows build</a>
@@ -45,11 +45,13 @@
         </div></section>
         <nav class="rc-nav container" aria-label="Recycle sections" data-i18n-attr-aria-label="recycle.navLabel">
             <a href="#hud" data-i18n="recycle.navHud">HUD and minimap</a>
+            <a href="#flow" data-i18n="recycle.navFlow">Combat and maintenance</a>
             <a href="#menus" data-i18n="recycle.navMenus">Menus and input</a>
             <a href="#combat" data-i18n="recycle.navCombat">Hit reactions</a>
+            <a href="#code" data-i18n="recycle.navCode">Source code</a>
             <a href="#team" data-i18n="recycle.navTeam">Team and release</a>
         </nav>
-        <div class="container rc-scope"><p data-i18n="recycle.scopeIntro">I worked on infantry hit reactions and explosion knockback, the HUD and minimap, menus, gamepad input and English/Korean text. Teammates built fortress locomotion and the core enemy and recovery systems.</p></div>
+        <div class="container rc-scope"><p data-i18n="recycle.scopeIntro">I developed the HUD, menus and gamepad input, and connected combat to the maintenance cycle. My work also included supply rules, aim assist and infantry hit reactions. Teammates built fortress locomotion and the core enemy and recovery systems.</p></div>
         <section class="rc-section container" id="hud">
             <h2 data-i18n="recycle.hudTitle">HUD and minimap</h2><p class="rc-lead" data-i18n="recycle.hudIntro">The player needs to watch their own health, protect the fortress and keep track of several weapons. I grouped the health gauges and route around the minimap, with the equipped weapon and ammunition on the other side of the screen.</p><p class="rc-note" data-i18n="recycle.imageHint">Select a screenshot to view it at full size. These are captures from development.</p>
             <figure class="rc-photo rc-photo--full"><a class="rc-image-link" href="Assets/images/recycle/hud-gamepad.webp" target="_blank" rel="noopener" aria-label="View screenshot at full size" data-i18n-attr-aria-label="recycle.openImage"><img src="Assets/images/recycle/hud-gamepad.webp" width="2560" height="1400" loading="lazy" alt="Recycle gameplay HUD with health and minimap at left and gamepad weapon prompts at right" data-i18n-attr-alt="recycle.hudAlt"></a><figcaption data-i18n="recycle.hudCaption">Gameplay HUD with gamepad prompts. Health and navigation are on the left; the equipped weapon, magazine and weapon slots are on the right.</figcaption></figure>
@@ -68,6 +70,14 @@
         }</code></pre><p class="rc-note" data-i18n="recycle.codeNote">Excerpt from the project source.</p></details></div>
                 <figure class="rc-photo "><a class="rc-image-link" href="Assets/images/recycle/hud-keyboard.webp" target="_blank" rel="noopener" aria-label="View screenshot at full size" data-i18n-attr-aria-label="recycle.openImage"><img src="Assets/images/recycle/hud-keyboard.webp" width="2560" height="1400" loading="lazy" alt="Keyboard HUD showing the convoy route progress and weapon display" data-i18n-attr-alt="recycle.routeAlt"></a><figcaption data-i18n="recycle.routeCaption">Keyboard HUD during a route-progress check. The arc follows the convoy’s actual progress along its path.</figcaption></figure>
             </div>
+            <div class="rc-text-block"><h3 data-i18n="recycle.pickupTitle">Which weapon receives an ammunition pickup</h3><p data-i18n="recycle.pickupBody">A pickup first supplies the equipped finite-ammo weapon if it has room. Otherwise, it chooses the weapon with the fewest reserve rounds relative to magazine size. I preserved capacity limits and prevented duplicate collection. A valid pickup is consumed even when health or ammunition is already full.</p></div>
+        </section>
+        <section class="rc-section container" id="flow">
+            <h2 data-i18n="recycle.flowTitle">Combat, maintenance and the next departure</h2>
+            <div class="rc-grid rc-text-columns">
+                <article><h3 data-i18n="recycle.dayNightTitle">A day/night cycle tied to combat</h3><p data-i18n="recycle.dayNightBody">I connected daytime combat, sunset, night maintenance and sunrise to the encounter state. Combat waits for surviving enemies to be defeated before ending. Maintenance can be finished early through player input, and the sun, moon and exposure change with each phase.</p></article>
+                <article><h3 data-i18n="recycle.deploymentTitle">From the opening to the result screen</h3><p data-i18n="recycle.deploymentBody">I extended the existing redeployment flow for an automatic initial drop, holding fortress departure until the player had recovered control. I also connected the opening and victory/defeat sequences to the menus, with input restored at the end of the sequence.</p></article>
+            </div>
         </section>
         <section class="rc-section container" id="menus">
             <h2 data-i18n="recycle.menuTitle">Menus, gamepad input and language</h2><p class="rc-lead" data-i18n="recycle.menuIntro">I connected the title, pause, settings and result screens to game state. The Widget Blueprints keep the layout editable; C++ handles transitions, focus, settings and input mode.</p>
@@ -82,6 +92,7 @@
                 <figure class="rc-photo "><a class="rc-image-link" href="Assets/images/recycle/cinematic-skip.webp" target="_blank" rel="noopener" aria-label="View screenshot at full size" data-i18n-attr-aria-label="recycle.openImage"><img src="Assets/images/recycle/cinematic-skip.webp" width="2560" height="1400" loading="lazy" alt="Fortress cinematic with a hold-to-skip prompt at the lower right" data-i18n-attr-alt="recycle.cinematicAlt"></a><figcaption data-i18n="recycle.cinematicCaption">Cinematic playback with a hold-to-skip prompt.</figcaption></figure>
                 <div><h3 data-i18n="recycle.cinematicTitle">Input during cinematics</h3><p data-i18n="recycle.cinematicBody">I connected cinematic input capture and a hold-to-skip prompt to the menu flow. Gameplay keys held before the transition are cleared, and control is restored after the sequence. Gamepad landing selection also uses the stick to move the target instead of relying on a mouse ray.</p></div>
             </div>
+            <div class="rc-text-block"><h3 data-i18n="recycle.aimTitle">Aim assist that respects stick input</h3><p data-i18n="recycle.aimBody">I added reduced sensitivity near a target and a limit on corrective rotation. A neutral stick does not turn the camera. Steering away from the target disables rotation correction, so the assist does not keep pulling against the player’s input.</p></div>
         </section>
         <section class="rc-section container" id="combat">
             <h2 data-i18n="recycle.combatTitle">Weapon hit reactions and explosion knockback</h2><p class="rc-lead" data-i18n="recycle.combatIntro">Hit reactions had to fit the existing damage, death and recovery flow. I added a temporary physical response to the hit body region and short weapon-specific staggers, while leaving the living character’s capsule in control of movement.</p>
@@ -96,22 +107,34 @@
     if (Direction.IsNearlyZero()) Direction = FVector::ForwardVector;
     return Direction * FMath::Max(0.f, ExplosionLaunchSpeed) * Falloff
         + FVector::UpVector * FMath::Max(0.f, ExplosionUpSpeed) * Falloff;</code></pre><p class="rc-note" data-i18n="recycle.codeNote">Excerpt from the project source.</p></details></div>
+            <div class="rc-text-block"><h3 data-i18n="recycle.drumTitle">Grenade-launcher rotation and sound</h3><p data-i18n="recycle.drumBody">Each successful shot advances the launcher drum by one chamber, with the motion controlled by a Curve. When several weapon representations are visible, only one plays the rotation sound. Switching weapons or ending play stops the rotation and cleans up its audio.</p></div>
+        </section>
+        <section class="rc-section container" id="code">
+            <h2 data-i18n="recycle.codeTitle">Source code and original changes</h2><p data-i18n="recycle.codeIntro">These four examples include the original source, tests and Diversion patches. They show the files when first added; later changes on main may differ. The original commit references are kept alongside the code.</p>
+            <ul class="rc-source-list"><li><div><h3 data-i18n="recycle.sampleGauge">Health-gauge animation</h3><p data-i18n="recycle.sampleGaugeBody">The health value stays in gameplay code. This helper animates the fill, delayed damage trail and hit flash.</p><p class="rc-note"><code>dv.commit.22</code></p></div><div class="rc-source-links"><a href="https://github.com/HaXX0rBunny/HaXX0rBunny.github.io/blob/main/code/recycle/Source/PROJECT_RECYCLE/Defense/UI/RecycleHealthGaugeAnimation.cpp" target="_blank" rel="noopener noreferrer" data-i18n="recycle.viewSource">Source</a><a href="https://github.com/HaXX0rBunny/HaXX0rBunny.github.io/blob/main/code/recycle/Source/PROJECT_RECYCLE/Defense/Tests/RecycleHealthGaugeAnimationTest.cpp" target="_blank" rel="noopener noreferrer" data-i18n="recycle.viewTests">Tests</a><a href="https://github.com/HaXX0rBunny/HaXX0rBunny.github.io/blob/main/code/recycle/patches/22/UI/RecycleHealthGaugeAnimation.cpp.patch" target="_blank" rel="noopener noreferrer" data-i18n="recycle.viewPatch">Original diff</a></div></li><li><div><h3 data-i18n="recycle.sampleMinimap">Minimap projection</h3><p data-i18n="recycle.sampleMinimapBody">Project world offsets into view-relative map coordinates, clamp markers to the edge and clip route segments to the circular map.</p><p class="rc-note"><code>dv.commit.31</code></p></div><div class="rc-source-links"><a href="https://github.com/HaXX0rBunny/HaXX0rBunny.github.io/blob/main/code/recycle/Source/PROJECT_RECYCLE/Defense/UI/RecycleMinimapProjection.h" target="_blank" rel="noopener noreferrer" data-i18n="recycle.viewSource">Source</a><a href="https://github.com/HaXX0rBunny/HaXX0rBunny.github.io/blob/main/code/recycle/Source/PROJECT_RECYCLE/Defense/Tests/RecycleMinimapTest.cpp" target="_blank" rel="noopener noreferrer" data-i18n="recycle.viewTests">Tests</a><a href="https://github.com/HaXX0rBunny/HaXX0rBunny.github.io/blob/main/code/recycle/patches/31/UI/RecycleMinimapProjection.h.patch" target="_blank" rel="noopener noreferrer" data-i18n="recycle.viewPatch">Original diff</a></div></li><li><div><h3 data-i18n="recycle.sampleInterface">Input device and language changes</h3><p data-i18n="recycle.sampleInterfaceBody">Observe the active input device and notify widgets when prompts, language or vibration preferences change.</p><p class="rc-note"><code>dv.commit.89</code></p></div><div class="rc-source-links"><a href="https://github.com/HaXX0rBunny/HaXX0rBunny.github.io/blob/main/code/recycle/Source/PROJECT_RECYCLE/Defense/UI/RecycleInterfaceSubsystem.cpp" target="_blank" rel="noopener noreferrer" data-i18n="recycle.viewSource">Source</a><a href="https://github.com/HaXX0rBunny/HaXX0rBunny.github.io/blob/main/code/recycle/Source/PROJECT_RECYCLE/Defense/Tests/RecycleInterfaceTest.cpp" target="_blank" rel="noopener noreferrer" data-i18n="recycle.viewTests">Tests</a><a href="https://github.com/HaXX0rBunny/HaXX0rBunny.github.io/blob/main/code/recycle/patches/89/UI/RecycleInterfaceSubsystem.cpp.patch" target="_blank" rel="noopener noreferrer" data-i18n="recycle.viewPatch">Original diff</a></div></li><li><div><h3 data-i18n="recycle.sampleAim">Controller aim-assist calculation</h3><p data-i18n="recycle.sampleAimBody">Calculate sensitivity and bounded correction, with explicit behavior for neutral input and steering away from the target.</p><p class="rc-note"><code>dv.commit.104</code></p></div><div class="rc-source-links"><a href="https://github.com/HaXX0rBunny/HaXX0rBunny.github.io/blob/main/code/recycle/Source/PROJECT_RECYCLE/Defense/RecycleAimAssist.h" target="_blank" rel="noopener noreferrer" data-i18n="recycle.viewSource">Source</a><a href="https://github.com/HaXX0rBunny/HaXX0rBunny.github.io/blob/main/code/recycle/Source/PROJECT_RECYCLE/Defense/Tests/RecycleAimAssistTest.cpp" target="_blank" rel="noopener noreferrer" data-i18n="recycle.viewTests">Tests</a><a href="https://github.com/HaXX0rBunny/HaXX0rBunny.github.io/blob/main/code/recycle/patches/104/RecycleAimAssist.h.patch" target="_blank" rel="noopener noreferrer" data-i18n="recycle.viewPatch">Original diff</a></div></li></ul>
+            <div class="rc-source-actions">
+                <a href="https://github.com/HaXX0rBunny/HaXX0rBunny.github.io/blob/main/code/recycle/README.md" target="_blank" rel="noopener noreferrer" data-i18n="recycle.sourceCollection">Browse all source files</a>
+                <a href="Assets/downloads/Recycle_Code_Extracts.zip" download data-i18n="recycle.downloadCode">Download source and diffs</a>
+            </div>
         </section>
         <section class="rc-section container" id="team">
             <h2 data-i18n="recycle.teamTitle">Integration and release</h2>
-            <div class="rc-grid rc-text-columns"><div><p data-i18n="recycle.teamBody">I used Diversion to work on my branch and resolve source conflicts during integration. The combat changes connect to the team’s enemy and recovery code; the UI reads the existing player, weapon and fortress state. I kept those integration changes separate from teammates’ fortress locomotion and core AI work.</p><p data-i18n="recycle.releaseBody">The team published a Windows build and gameplay video on itch.io for the 2026 Epic AI MegaJam. My contribution covers the combat feedback and interface work shown here.</p></div><div><h3 data-i18n="recycle.checksTitle">Development checks</h3><p data-i18n="recycle.checksBody">During development, PIE checks covered the normal grenade-fire path, relative near/far launch, cancellation of queued attacks, death and corpse recovery. Interface checks in PIE and Standalone covered language persistence, dynamic text and input-device switching. These checks concern the single-player build and infantry behavior described here.</p></div></div>
+            <div class="rc-grid rc-text-columns"><div><p data-i18n="recycle.teamBody">I integrated changes from my Diversion branch and resolved source conflicts. While connecting combat feedback and UI to the team’s enemy, recovery and fortress code, I corrected heavy-enemy approach and recovery behavior, and conflicts between recall and gamepad input. I also tuned wave and maintenance defaults.</p><p data-i18n="recycle.releaseBody">The team published a Windows build and gameplay video on itch.io for the 2026 Epic AI MegaJam. The work shown here covers my gameplay, combat feedback and interface contributions.</p></div><div><h3 data-i18n="recycle.checksTitle">Development checks</h3><p data-i18n="recycle.checksBody">During development, PIE checks covered the normal grenade-fire path, relative near/far launch, cancellation of queued attacks, death and corpse recovery. Interface checks in PIE and Standalone covered language persistence, dynamic text and input-device switching. These checks concern the single-player build and infantry behavior described here.</p></div></div>
             <details class="rc-files"><summary data-i18n="recycle.sourceTitle">Implementation files</summary>
                 <dl>
-                    <div><dt data-i18n="recycle.sourceHud">HUD state and presentation</dt><dd>RecyclePlayerHUDWidget / RecycleMinimapWidget</dd></div>
+                    <div><dt data-i18n="recycle.sourceHud">HUD state and presentation</dt><dd>RecyclePlayerHUDWidget / RecycleMinimapWidget / RecycleHealthGaugeAnimation</dd></div>
                     <div><dt data-i18n="recycle.sourceInput">Menu focus and device/language changes</dt><dd>RecycleMenuController / RecycleMenuWidget / RecycleInterfaceSubsystem</dd></div>
                     <div><dt data-i18n="recycle.sourceCombat">Weapon hit handling and temporary physical reaction</dt><dd>RecycleWeaponComponent / RecycleDefenseUnit</dd></div>
+                    <div><dt data-i18n="recycle.sourceFlow">Day/night and departure flow</dt><dd>RecycleDaylight / RecycleDefenseMode</dd></div>
+                    <div><dt data-i18n="recycle.sourceWeapons">Supply rules and weapon presentation</dt><dd>RecycleSupplyPickup / RecycleWeaponComponent / RecycleWeaponActor</dd></div>
+                    <div><dt data-i18n="recycle.sourceAim">Gamepad aim assist</dt><dd>RecycleAimAssist / RecycleDefensePlayer</dd></div>
                 </dl>
             </details>
             <p class="rc-note rc-disclosure" data-i18n="recycle.ai">The jam entry discloses AI assistance in code, graphics and text. The descriptions above distinguish my assigned work from the team’s other systems.</p>
             <a class="rc-back" href="index.html#work-recycle" data-i18n="recycle.back">Back to selected projects</a>
         </section>
     </main>
-    <script src="locale.js?v=20261124-recycle2"></script>
+    <script src="locale.js?v=20261124-recycle3"></script>
     <script src="detail-shell.js"></script>
 </body>
 </html>

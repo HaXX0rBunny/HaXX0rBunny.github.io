@@ -1,0 +1,60 @@
+diff --git a/Source/PROJECT_RECYCLE/Defense/Tests/RecycleHealthGaugeAnimationTest.cpp b/Source/PROJECT_RECYCLE/Defense/Tests/RecycleHealthGaugeAnimationTest.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/PROJECT_RECYCLE/Defense/Tests/RecycleHealthGaugeAnimationTest.cpp
+@@ -0,0 +1,55 @@
++#if WITH_DEV_AUTOMATION_TESTS
++
++#include "Misc/AutomationTest.h"
++#include "Defense/UI/RecycleHealthGaugeAnimation.h"
++
++IMPLEMENT_SIMPLE_AUTOMATION_TEST(FRecycleHealthGaugeAnimationTest, "Recycle.UI.HealthDamageAnimation",
++    EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
++
++bool FRecycleHealthGaugeAnimationTest::RunTest(const FString& Parameters)
++{
++    FRecycleHealthGaugeAnimationSettings Settings;
++    FRecycleHealthGaugeAnimation Player;
++    FRecycleHealthGaugeAnimation Base;
++    Player.Update(1.f, 0.0, Settings);
++    Base.Update(0.8f, 0.0, Settings);
++    TestEqual(TEXT("Existing damage initializes without an introduction animation"), Base.GetFill(), 0.8f);
++    Player.Update(0.6f, 1.0, Settings);
++    Player.Update(0.6f, 1.06, Settings);
++    TestTrue(TEXT("Liquid moves smoothly toward actual HP"), Player.GetFill() > 0.6f && Player.GetFill() < 1.f);
++    TestEqual(TEXT("Lost HP remains visible during the hold"), Player.GetDamageTrail(), 1.f);
++    TestEqual(TEXT("Player damage leaves HQ unchanged"), Base.GetDamageTrail(), 0.8f);
++    TestFalse(TEXT("Paused game time does not animate"), Player.Update(0.6f, 1.06, Settings));
++    Player.Update(0.6f, 1.15, Settings);
++    TestEqual(TEXT("Liquid reaches current HP before the trail drains"), Player.GetFill(), 0.6f);
++    Player.Update(0.6f, 1.5, Settings);
++    const float InterruptedTrail = Player.GetDamageTrail();
++    TestTrue(TEXT("Trail drains after its delay"), InterruptedTrail > 0.6f && InterruptedTrail < 1.f);
++    Player.Update(0.3f, 1.5, Settings);
++    TestEqual(TEXT("Repeated damage preserves the visible trail"), Player.GetDamageTrail(), InterruptedTrail);
++    TestEqual(TEXT("Repeated damage refreshes the hit flash"), Player.GetHitFlash(), 1.f);
++    Player.Update(0.3f, 3.0, Settings);
++    TestEqual(TEXT("Large frame steps settle without overshoot"), Player.GetFill(), 0.3f);
++    TestEqual(TEXT("Trail settles exactly on HP"), Player.GetDamageTrail(), 0.3f);
++    TestEqual(TEXT("Flash fades completely"), Player.GetHitFlash(), 0.f);
++    Player.Update(1.f, 3.1, Settings);
++    TestEqual(TEXT("Healing clears the damage trail"), Player.GetDamageTrail(), 1.f);
++    Player.Reset();
++    Player.Update(0.7f, 3.2, Settings);
++    TestEqual(TEXT("New pawn initializes immediately"), Player.GetFill(), 0.7f);
++
++    Settings.FillDuration = Settings.DamageHoldDuration = Settings.DamageDrainDuration = Settings.HitFlashDuration = 0.f;
++    Player.Update(0.f, 4.0, Settings);
++    TestEqual(TEXT("Zero-duration liquid snaps safely"), Player.GetFill(), 0.f);
++    TestEqual(TEXT("Zero-duration trail snaps safely"), Player.GetDamageTrail(), 0.f);
++    TestEqual(TEXT("Zero-duration flash is disabled"), Player.GetHitFlash(), 0.f);
++    Settings.DamageHoldDuration = 0.5f;
++    Player.Update(1.f, 5.0, Settings);
++    Player.Update(0.5f, 5.1, Settings);
++    TestEqual(TEXT("Instant drain still respects its hold duration"), Player.GetDamageTrail(), 1.f);
++    Player.Update(0.5f, 5.7, Settings);
++    TestEqual(TEXT("Instant drain clears after the hold"), Player.GetDamageTrail(), 0.5f);
++    return true;
++}
++
++#endif

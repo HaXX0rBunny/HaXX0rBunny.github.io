@@ -1,0 +1,92 @@
+[
+  {
+    "path": "Source/PROJECT_RECYCLE/Defense/UI/RecycleHealthGaugeAnimation.h",
+    "diversion_commit": "dv.commit.22",
+    "author": "Schnee Weiss",
+    "date_utc": "2026-11-13T13:45:22Z",
+    "comparison_base": "dv.commit.1",
+    "lines": 47,
+    "sha256_utf8_lf": "1bf82d956cced5fa8a17a80dd3fa76431fcf7a734a1b4132d8865c2f2b5a8b8e"
+  },
+  {
+    "path": "Source/PROJECT_RECYCLE/Defense/UI/RecycleHealthGaugeAnimation.cpp",
+    "diversion_commit": "dv.commit.22",
+    "author": "Schnee Weiss",
+    "date_utc": "2026-11-13T13:45:22Z",
+    "comparison_base": "dv.commit.1",
+    "lines": 47,
+    "sha256_utf8_lf": "37cecdf03cc76b7ef78201b4d341d5921655448f44905ddfc0b7b1949baf9292"
+  },
+  {
+    "path": "Source/PROJECT_RECYCLE/Defense/Tests/RecycleHealthGaugeAnimationTest.cpp",
+    "diversion_commit": "dv.commit.22",
+    "author": "Schnee Weiss",
+    "date_utc": "2026-11-13T13:45:22Z",
+    "comparison_base": "dv.commit.1",
+    "lines": 55,
+    "sha256_utf8_lf": "fd9f0f6c84ef06f971669ba4a7b861ef3a8886b701fad43e0c29040e6226662c"
+  },
+  {
+    "path": "Source/PROJECT_RECYCLE/Defense/UI/RecycleMinimapProjection.h",
+    "diversion_commit": "dv.commit.31",
+    "author": "Schnee Weiss",
+    "date_utc": "2026-11-14T04:28:41Z",
+    "comparison_base": "dv.commit.1",
+    "lines": 39,
+    "sha256_utf8_lf": "ef1effa9dec45c9096a33d0dc700805469ddaa18bb0d2874978e1043fe8f4b90"
+  },
+  {
+    "path": "Source/PROJECT_RECYCLE/Defense/Tests/RecycleMinimapTest.cpp",
+    "diversion_commit": "dv.commit.31",
+    "author": "Schnee Weiss",
+    "date_utc": "2026-11-14T04:28:41Z",
+    "comparison_base": "dv.commit.1",
+    "lines": 27,
+    "sha256_utf8_lf": "09459dc34d787dd104a178549df526027f1d4a5254ea218e57435fa1992eab44"
+  },
+  {
+    "path": "Source/PROJECT_RECYCLE/Defense/UI/RecycleInterfaceSubsystem.h",
+    "diversion_commit": "dv.commit.89",
+    "author": "Schnee Weiss",
+    "date_utc": "2026-11-15T17:42:44Z",
+    "comparison_base": "dv.commit.1",
+    "lines": 37,
+    "sha256_utf8_lf": "00fcb381eaab49524d55658461b3c6ac744c5a713d3cc74cd475e54b9419428f"
+  },
+  {
+    "path": "Source/PROJECT_RECYCLE/Defense/UI/RecycleInterfaceSubsystem.cpp",
+    "diversion_commit": "dv.commit.89",
+    "author": "Schnee Weiss",
+    "date_utc": "2026-11-15T17:42:44Z",
+    "comparison_base": "dv.commit.1",
+    "lines": 166,
+    "sha256_utf8_lf": "a623d03afc580bcfc01684e8d59a9f70d653d07f332b9ae59b5ba742d4180cc5"
+  },
+  {
+    "path": "Source/PROJECT_RECYCLE/Defense/Tests/RecycleInterfaceTest.cpp",
+    "diversion_commit": "dv.commit.89",
+    "author": "Schnee Weiss",
+    "date_utc": "2026-11-15T17:42:44Z",
+    "comparison_base": "dv.commit.1",
+    "lines": 180,
+    "sha256_utf8_lf": "5169b1ee1c703f104b0d122663981ad5730c961e945bdfb8628a107165ef6d6b"
+  },
+  {
+    "path": "Source/PROJECT_RECYCLE/Defense/RecycleAimAssist.h",
+    "diversion_commit": "dv.commit.104",
+    "author": "Schnee Weiss",
+    "date_utc": "2026-11-15T20:09:04Z",
+    "comparison_base": "dv.commit.1",
+    "lines": 21,
+    "sha256_utf8_lf": "9c027f46f150eac3dd9c6361322fe0eadb7a718155e90cc1c44ece087f5494cc"
+  },
+  {
+    "path": "Source/PROJECT_RECYCLE/Defense/Tests/RecycleAimAssistTest.cpp",
+    "diversion_commit": "dv.commit.104",
+    "author": "Schnee Weiss",
+    "date_utc": "2026-11-15T20:09:04Z",
+    "comparison_base": "dv.commit.1",
+    "lines": 124,
+    "sha256_utf8_lf": "18db4fea40068834cbe8b92149a7920716b4cd596b1aed3c82bc5433d8647862"
+  }
+]

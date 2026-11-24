@@ -1,0 +1,42 @@
+diff --git a/Source/PROJECT_RECYCLE/Defense/UI/RecycleInterfaceSubsystem.h b/Source/PROJECT_RECYCLE/Defense/UI/RecycleInterfaceSubsystem.h
+new file mode 100644
+--- /dev/null
++++ b/Source/PROJECT_RECYCLE/Defense/UI/RecycleInterfaceSubsystem.h
+@@ -0,0 +1,37 @@
++#pragma once
++
++#include "Subsystems/LocalPlayerSubsystem.h"
++#include "RecycleInterfaceSubsystem.generated.h"
++
++class IInputProcessor;
++DECLARE_DYNAMIC_MULTICAST_DELEGATE(FRecycleInterfaceChanged);
++
++UCLASS()
++class URecycleInterfaceSubsystem : public ULocalPlayerSubsystem
++{
++    GENERATED_BODY()
++public:
++    virtual void Initialize(FSubsystemCollectionBase& Collection) override;
++    virtual void Deinitialize() override;
++    void SetUsingGamepad(bool bGamepad);
++    UFUNCTION(BlueprintPure, Category="Recycle|Interface")
++    bool IsUsingGamepad() const { return bUsingGamepad; }
++    UFUNCTION(BlueprintPure, Category="Recycle|Interface")
++    FText GetPrompt(FName Action, const FString& LabelKey) const;
++    UFUNCTION(BlueprintPure, Category="Recycle|Interface")
++    FText GetActionKeyLabel(FName Action) const;
++    UFUNCTION(BlueprintPure, Category="Recycle|Interface")
++    FText GetMenuHint() const;
++    UFUNCTION(BlueprintPure, Category="Recycle|Interface")
++    static FText Text(const FString& Key);
++    UPROPERTY(BlueprintAssignable, Category="Recycle|Interface")
++    FRecycleInterfaceChanged OnChanged;
++
++    bool IsVibrationEnabled() const { return bVibrationEnabled; }
++    void ApplyPreferences(const FString& Culture, bool bVibration);
++private:
++    void CultureChanged();
++    bool bUsingGamepad = false;
++    bool bVibrationEnabled = true;
++    TSharedPtr<IInputProcessor> InputObserver;
++};

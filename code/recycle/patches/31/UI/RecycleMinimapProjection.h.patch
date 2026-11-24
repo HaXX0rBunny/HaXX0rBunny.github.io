@@ -1,0 +1,44 @@
+diff --git a/Source/PROJECT_RECYCLE/Defense/UI/RecycleMinimapProjection.h b/Source/PROJECT_RECYCLE/Defense/UI/RecycleMinimapProjection.h
+new file mode 100644
+--- /dev/null
++++ b/Source/PROJECT_RECYCLE/Defense/UI/RecycleMinimapProjection.h
+@@ -0,0 +1,39 @@
++#pragma once
++#include "CoreMinimal.h"
++
++namespace RecycleMinimap
++{
++    /** Camera forward points up; Unreal world distances are in centimeters. */
++    inline FVector2D Project(const FVector& Offset, float ViewYaw, float Range)
++    {
++        const FRotator Heading(0.f, ViewYaw, 0.f);
++        const FVector Forward = Heading.Vector();
++        const FVector Right(-Forward.Y, Forward.X, 0.f);
++        return FVector2D(FVector::DotProduct(Offset, Right), -FVector::DotProduct(Offset, Forward))
++            / FMath::Max(1.f, Range);
++    }
++
++    inline FVector2D ClampToEdge(const FVector2D& Position)
++    {
++        return Position.SizeSquared() > 1.0 ? Position.GetSafeNormal() : Position;
++    }
++
++    inline bool ClipRouteSegment(FVector2D& Start, FVector2D& End)
++    {
++        const FVector2D Delta = End - Start;
++        const double LengthSquared = Delta.SizeSquared();
++        if (LengthSquared <= UE_DOUBLE_SMALL_NUMBER) return false;
++
++        const double Closest = -FVector2D::DotProduct(Start, Delta) / LengthSquared;
++        const double Margin = 1.0 - (Start + Delta * Closest).SizeSquared();
++        if (Margin <= 0.0) return false;
++
++        const double HalfSpan = FMath::Sqrt(Margin / LengthSquared);
++        const double First = FMath::Max(0.0, Closest - HalfSpan);
++        const double Last = FMath::Min(1.0, Closest + HalfSpan);
++        if (First >= Last) return false;
++        End = Start + Delta * Last;
++        Start += Delta * First;
++        return true;
++    }
++}

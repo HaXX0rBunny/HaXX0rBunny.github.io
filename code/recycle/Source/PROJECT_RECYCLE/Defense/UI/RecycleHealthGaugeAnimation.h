@@ -1,0 +1,47 @@
+#pragma once
+
+#include "CoreMinimal.h"
+#include "RecycleHealthGaugeAnimation.generated.h"
+
+USTRUCT(BlueprintType)
+struct FRecycleHealthGaugeAnimationSettings
+{
+    GENERATED_BODY()
+
+    /** Time for the liquid to reach the damaged health value. */
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Health Animation", meta=(ClampMin="0.0", Units="s"))
+    float FillDuration = 0.12f;
+
+    /** How long the lost-health segment remains before draining. */
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Health Animation", meta=(ClampMin="0.0", Units="s"))
+    float DamageHoldDuration = 0.22f;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Health Animation", meta=(ClampMin="0.0", Units="s"))
+    float DamageDrainDuration = 0.65f;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Health Animation", meta=(ClampMin="0.0", Units="s"))
+    float HitFlashDuration = 0.18f;
+};
+
+/** Presentation only; gameplay remains the owner of the supplied health fraction. */
+class FRecycleHealthGaugeAnimation
+{
+public:
+    void Reset() { bInitialized = false; }
+    bool Update(float HealthFraction, double Now, const FRecycleHealthGaugeAnimationSettings& Settings);
+
+    float GetFill() const { return Fill; }
+    float GetDamageTrail() const { return DamageTrail; }
+    float GetHitFlash() const { return HitFlash; }
+
+private:
+    bool bInitialized = false;
+    bool bAnimating = false;
+    float Target = 1.f;
+    float Fill = 1.f;
+    float DamageTrail = 1.f;
+    float HitFlash = 0.f;
+    float FillStart = 1.f;
+    float TrailStart = 1.f;
+    double DamageTime = 0.0;
+};
