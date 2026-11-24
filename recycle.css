@@ -1,0 +1,103 @@
+.recycle-page .rc-nav {
+    display: flex;
+    gap: 14px 30px;
+    flex-wrap: wrap;
+    padding-block: 24px;
+    border-bottom: 1px solid var(--color-card-border);
+}
+.recycle-page .rc-nav a,
+.recycle-page .rc-back {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+.recycle-page .rc-nav a:hover,
+.recycle-page .rc-back:hover { text-decoration: underline; text-underline-offset: 5px; }
+.recycle-page .rc-scope { padding-block: 24px 0; }
+.recycle-page .rc-scope p { max-width: 900px; margin: 0; }
+.recycle-page .rc-section {
+    padding-block: 52px;
+    border-bottom: 1px solid var(--color-card-border);
+    scroll-margin-top: 88px;
+}
+.recycle-page .rc-section h2 {
+    margin: 0 0 18px;
+    padding-left: 18px;
+    border-left: 3px solid var(--brand-blue);
+    font-size: clamp(25px, 3vw, 34px);
+    letter-spacing: -.035em;
+}
+.recycle-page .rc-section h3 { font-size: 20px; margin: 0 0 12px; }
+.recycle-page .rc-section p,
+.recycle-page .rc-scope p { font-size: 16px; line-height: 1.85; }
+.recycle-page .rc-lead { max-width: 900px; margin-bottom: 22px; }
+.recycle-page .rc-note,
+.recycle-page .rc-photo figcaption {
+    color: var(--color-text-secondary);
+    font-size: 14px;
+    line-height: 1.7;
+}
+.recycle-page .rc-photo { min-width: 0; margin: 0; }
+.recycle-page .rc-image-link {
+    display: block;
+    border: 1px solid var(--color-card-border);
+    background: #151d29;
+    cursor: zoom-in;
+}
+.recycle-page .rc-image-link:hover { border-color: var(--color-primary); }
+.recycle-page .rc-image-link:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 4px; }
+.recycle-page .rc-photo img { display: block; width: 100%; height: auto; }
+.recycle-page .rc-photo figcaption { padding-top: 10px; }
+.recycle-page .rc-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
+.recycle-page .rc-hud-details { margin-top: 36px; }
+.recycle-page .rc-hud-details h3 { margin-top: 22px; }
+.recycle-page .rc-detail {
+    display: block;
+    position: relative;
+    aspect-ratio: 1.35;
+    overflow: hidden;
+}
+.recycle-page .rc-detail img { position: absolute; max-width: none; bottom: -1%; }
+.recycle-page .rc-detail--status { aspect-ratio: 1; }
+.recycle-page .rc-detail--status img { width: 550%; left: -7%; }
+.recycle-page .rc-detail--weapon img { width: 400%; right: 0; }
+.recycle-page .rc-split {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 36px;
+    align-items: start;
+    margin-top: 36px;
+}
+.recycle-page .rc-text-columns { margin-top: 30px; }
+.recycle-page .rc-text-columns p { margin-bottom: 14px; }
+.recycle-page .rc-menu-gallery { row-gap: 28px; }
+.recycle-page .rc-code,
+.recycle-page .rc-files {
+    min-width: 0;
+    padding: 16px 0;
+    border-block: 1px solid var(--color-card-border);
+}
+.recycle-page .rc-code summary,
+.recycle-page .rc-files summary { cursor: pointer; color: var(--color-primary); font-weight: 600; }
+.recycle-page .rc-code-label { overflow-wrap: anywhere; margin: 16px 0 8px; }
+.recycle-page .rc-code pre { max-width: 100%; overflow-x: auto; padding: 18px; font-size: 13px; line-height: 1.65; }
+.recycle-page .rc-code code { font-family: var(--font-family-mono, monospace); font-size: inherit; }
+.recycle-page .rc-files { margin-top: 20px; }
+.recycle-page .rc-files dl { margin-bottom: 0; }
+.recycle-page .rc-files dl > div { padding-block: 12px; }
+.recycle-page .rc-files dt { color: var(--color-text-secondary); margin-bottom: 4px; }
+.recycle-page .rc-files dd { margin-left: 0; overflow-wrap: anywhere; }
+.recycle-page .rc-disclosure { margin-top: 24px; }
+.recycle-page .rc-back { display: inline-block; margin-top: 12px; }
+@media (min-width: 850px) {
+    .recycle-page .rc-hud-details { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .recycle-page .rc-hud-details .rc-photo { max-width: 400px; }
+}
+@media (max-width: 720px) {
+    .recycle-page .rc-nav { gap: 16px 22px; }
+    .recycle-page .rc-section { padding-block: 36px; }
+    .recycle-page .rc-grid,
+    .recycle-page .rc-split { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+    .recycle-page .rc-hud-details .rc-photo { max-width: 400px; }
+    .recycle-page .rc-section h3 { font-size: 19px; }
+}

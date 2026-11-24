@@ -3,13 +3,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Recycle, weapon hit reactions, game UI and gamepad support in a three-person Unreal Engine game-jam project.">
-    <title>Recycle, Combat Feedback and Game UI</title>
+    <meta name="description" content="Recycle, a three-person Unreal Engine game-jam project. My work in combat feedback, the HUD and minimap, menus, gamepad input and English/Korean support." data-i18n-attr-content="recycle.metaDescription">
+    <title data-i18n="recycle.pageTitle">Recycle | Combat feedback, HUD and game UI</title>
     <link rel="stylesheet" href="style.css?v=20261020-hero22">
     <link rel="stylesheet" href="brand.css?v=20261108-diamond1">
+    <link rel="stylesheet" href="recycle.css?v=20261124-2">
     <script defer src="analytics.js"></script>
 </head>
-<body class="lab-page huntress-page">
+<body class="lab-page huntress-page recycle-page">
     <header class="lab-nav"><div class="container lab-nav-content">
         <a class="lab-brand" href="index.html">HaXX0rBunny</a>
         <div class="lab-nav-actions">
@@ -21,12 +22,11 @@
     <main>
         <section class="huntress-hero"><div class="container huntress-hero-grid">
             <div class="huntress-hero-copy">
-                <p class="section-kicker">2026 Epic AI MegaJam</p>
-                <h1>Recycle</h1>
+                <p class="section-kicker">2026 Epic AI MegaJam</p><h1>Recycle</h1>
                 <p class="huntress-hero-role" data-i18n="recycle.role">Combat feedback, HUD, menus and input</p>
-                <p class="huntress-hero-lede" data-i18n="recycle.intro">A first-person defense game about escorting a walking fortress and recycling fallen enemies into allies. Our three-person team submitted a Windows build to the 2026 Epic AI MegaJam.</p>
+                <p class="huntress-hero-lede" data-i18n="recycle.intro">A first-person defense game about escorting a walking fortress and turning fallen enemies into allied reinforcements. Our three-person team submitted a Windows build to the 2026 Epic AI MegaJam.</p>
                 <div class="huntress-hero-actions">
-                    <a class="huntress-action huntress-action--primary" href="https://dkael.itch.io/recycle" target="_blank" rel="noopener noreferrer" data-i18n="recycle.build">Windows build on itch.io</a>
+                    <a class="huntress-action huntress-action--primary" href="https://dkael.itch.io/recycle" target="_blank" rel="noopener noreferrer" data-i18n="recycle.build">Play the Windows build</a>
                     <a class="huntress-action" href="https://itch.io/jam/2026-epic-ai-megajam/rate/5377919" target="_blank" rel="noopener noreferrer" data-i18n="recycle.entry">Jam entry</a>
                 </div>
                 <dl class="huntress-hero-facts">
@@ -38,34 +38,80 @@
             </div>
             <div class="huntress-hero-media"><div class="huntress-video-frame">
                 <button class="video-poster" type="button" data-video-id="MpizpxEJgNk" aria-label="Play Recycle gameplay video" data-i18n-attr-aria-label="recycle.videoLabel">
-                    <img src="Assets/images/recycle/recycle-cover.webp" alt="" width="1440" height="810" fetchpriority="high">
+                    <img src="Assets/images/recycle/hud-keyboard.webp" alt="" width="2560" height="1400" fetchpriority="high">
                     <span class="video-poster-play" aria-hidden="true">▶</span>
                 </button>
-            </div><p class="section-lead" data-i18n="recycle.videoCaption">Team gameplay video from the itch.io release.</p></div>
+            </div><p class="rc-note" data-i18n="recycle.videoCaption">Team gameplay video. The still shows the route and weapon HUD during development.</p></div>
         </div></section>
-        <section class="huntress-section"><div class="container presentation-sheet">
-            <h2 data-i18n="recycle.workTitle">My contribution</h2>
-            <div class="huntress-overview-grid">
-                <article class="huntress-summary-card"><h3 data-i18n="recycle.combatTitle">Weapon hit reactions</h3><p data-i18n="recycle.combat">I added local physical-animation reactions and short staggers for infantry, with different settings per weapon. Grenade explosions push enemies away with distance-based falloff. The reaction also cancels a queued melee hit.</p></article>
-                <article class="huntress-summary-card"><h3 data-i18n="recycle.uiTitle">HUD and menus</h3><p data-i18n="recycle.ui">I built the health and ammunition display, weapon slots, minimap, and title, pause and result menus. I connected volume and language settings to the interface and added English/Korean text resources.</p></article>
-                <article class="huntress-summary-card huntress-summary-card--wide"><h3 data-i18n="recycle.inputTitle">Gamepad input and integration</h3><p data-i18n="recycle.input">I added FPS gamepad mappings and device-specific prompts, and prevented gameplay input from leaking through cinematics. I also resolved source conflicts while integrating my branch with changes from the team.</p></article>
+        <nav class="rc-nav container" aria-label="Recycle sections" data-i18n-attr-aria-label="recycle.navLabel">
+            <a href="#hud" data-i18n="recycle.navHud">HUD and minimap</a>
+            <a href="#menus" data-i18n="recycle.navMenus">Menus and input</a>
+            <a href="#combat" data-i18n="recycle.navCombat">Hit reactions</a>
+            <a href="#team" data-i18n="recycle.navTeam">Team and release</a>
+        </nav>
+        <div class="container rc-scope"><p data-i18n="recycle.scopeIntro">I worked on infantry hit reactions and explosion knockback, the HUD and minimap, menus, gamepad input and English/Korean text. Teammates built fortress locomotion and the core enemy and recovery systems.</p></div>
+        <section class="rc-section container" id="hud">
+            <h2 data-i18n="recycle.hudTitle">HUD and minimap</h2><p class="rc-lead" data-i18n="recycle.hudIntro">The player needs to watch their own health, protect the fortress and keep track of several weapons. I grouped the health gauges and route around the minimap, with the equipped weapon and ammunition on the other side of the screen.</p><p class="rc-note" data-i18n="recycle.imageHint">Select a screenshot to view it at full size. These are captures from development.</p>
+            <figure class="rc-photo rc-photo--full"><a class="rc-image-link" href="Assets/images/recycle/hud-gamepad.webp" target="_blank" rel="noopener" aria-label="View screenshot at full size" data-i18n-attr-aria-label="recycle.openImage"><img src="Assets/images/recycle/hud-gamepad.webp" width="2560" height="1400" loading="lazy" alt="Recycle gameplay HUD with health and minimap at left and gamepad weapon prompts at right" data-i18n-attr-alt="recycle.hudAlt"></a><figcaption data-i18n="recycle.hudCaption">Gameplay HUD with gamepad prompts. Health and navigation are on the left; the equipped weapon, magazine and weapon slots are on the right.</figcaption></figure>
+            <div class="rc-grid rc-hud-details">
+                <div><figure class="rc-photo "><a class="rc-image-link" href="Assets/images/recycle/hud-gamepad.webp" target="_blank" rel="noopener" aria-label="View screenshot at full size" data-i18n-attr-aria-label="recycle.openImage"><span class="rc-detail rc-detail--status"><img src="Assets/images/recycle/hud-gamepad.webp" width="2560" height="1400" loading="lazy" alt="Close view of the health gauges and minimap from the gameplay screenshot" data-i18n-attr-alt="recycle.statusAlt"></span></a><figcaption data-i18n="recycle.statusCaption">Health gauges, fortress route and map markers.</figcaption></figure><h3 data-i18n="recycle.statusTitle">Health and navigation</h3><p data-i18n="recycle.statusBody">Player and fortress health share a circular display. The map rotates with the view and distinguishes enemies, allies and the fortress. A fortress outside the map range stays marked at its edge, while the route distinguishes traveled and remaining sections.</p></div>
+                <div><figure class="rc-photo "><a class="rc-image-link" href="Assets/images/recycle/hud-gamepad.webp" target="_blank" rel="noopener" aria-label="View screenshot at full size" data-i18n-attr-aria-label="recycle.openImage"><span class="rc-detail rc-detail--weapon"><img src="Assets/images/recycle/hud-gamepad.webp" width="2560" height="1400" loading="lazy" alt="Close view of the equipped weapon, magazine and gamepad weapon slots" data-i18n-attr-alt="recycle.weaponAlt"></span></a><figcaption data-i18n="recycle.weaponCaption">Equipped weapon, loaded magazine and reserve magazines.</figcaption></figure><h3 data-i18n="recycle.weaponTitle">Weapon and ammunition display</h3><p data-i18n="recycle.weaponBody">Switching weapons updates the portrait and highlights the active slot. The loaded magazine and reserve magazines are shown separately. Weapon and reload state drive the material parameters used by the ammunition display.</p></div>
             </div>
-        </div></section>
-        <section class="huntress-section"><div class="container presentation-sheet">
-            <h2 data-i18n="recycle.checkTitle">Checking combat behavior</h2>
-            <p class="section-lead" data-i18n="recycle.check">In a PIE test, I fired a grenade through the normal weapon path and checked damage and knockback at different distances. I also checked that hit reactions cancel queued attacks and that death and corpse recovery can still follow the reaction.</p>
-            <div class="huntress-overview-grid">
-                <figure><img src="Assets/images/recycle/hit-reaction.webp" width="1384" height="723" loading="lazy" alt="Infantry hit-reaction test" data-i18n-attr-alt="recycle.hitAlt" style="width:100%;height:auto"><figcaption data-i18n="recycle.hitCaption">Local hit-reaction test during development.</figcaption></figure>
-                <figure><img src="Assets/images/recycle/explosion.webp" width="1384" height="723" loading="lazy" alt="Grenade knockback test" data-i18n-attr-alt="recycle.explosionAlt" style="width:100%;height:auto"><figcaption data-i18n="recycle.explosionCaption">Grenade knockback in an isolated test scene.</figcaption></figure>
+            <div class="rc-split">
+                <div><h3 data-i18n="recycle.hudStateTitle">Keeping the display in step with gameplay</h3><p data-i18n="recycle.hudStateBody">Gameplay objects own health and ammunition. The C++ widget reads those values and passes display parameters to UMG materials. Ammunition text and material parameters are rewritten when the relevant values change. Damaged health leaves a short trail before draining to the new value.</p><details class="rc-code"><summary data-i18n="recycle.hudCodeTitle">Ammunition material update</summary><p class="rc-code-label">RecyclePlayerHUDWidget.cpp</p><pre><code>        if (LoadedRoundsMaterial &amp;&amp; (bWeaponChanged || Loaded != LastLoaded
+            || MagazineSize != LastMagazineSize || bReloading != bWasReloading))
+        {
+            LoadedRoundsMaterial-&gt;SetScalarParameterValue(TEXT(&quot;Weapon&quot;), Weapon);
+            LoadedRoundsMaterial-&gt;SetScalarParameterValue(TEXT(&quot;Loaded&quot;), Loaded);
+            LoadedRoundsMaterial-&gt;SetScalarParameterValue(TEXT(&quot;Capacity&quot;), MagazineSize);
+            LoadedRoundsMaterial-&gt;SetScalarParameterValue(TEXT(&quot;Reloading&quot;), bReloading ? 1.f : 0.f);
+        }</code></pre><p class="rc-note" data-i18n="recycle.codeNote">Excerpt from the project source.</p></details></div>
+                <figure class="rc-photo "><a class="rc-image-link" href="Assets/images/recycle/hud-keyboard.webp" target="_blank" rel="noopener" aria-label="View screenshot at full size" data-i18n-attr-aria-label="recycle.openImage"><img src="Assets/images/recycle/hud-keyboard.webp" width="2560" height="1400" loading="lazy" alt="Keyboard HUD showing the convoy route progress and weapon display" data-i18n-attr-alt="recycle.routeAlt"></a><figcaption data-i18n="recycle.routeCaption">Keyboard HUD during a route-progress check. The arc follows the convoy’s actual progress along its path.</figcaption></figure>
             </div>
-        </div></section>
-        <section class="huntress-section"><div class="container presentation-sheet">
-            <h2 data-i18n="recycle.scopeTitle">Team scope and development tools</h2>
-            <p class="section-lead" data-i18n="recycle.scope">The infantry reactions, interface and input described here were my areas of work. Teammates developed the fortress locomotion and core enemy and recovery systems. The game is a single-player jam build. The combat checks above cover infantry and specific test scenarios.</p>
-            <p class="section-lead" data-i18n="recycle.ai">We used AI assistance during development. The itch.io page declares its use in code, graphics and text. The implementation and checks on this page describe my assigned work within that project.</p>
-        </div></section>
+        </section>
+        <section class="rc-section container" id="menus">
+            <h2 data-i18n="recycle.menuTitle">Menus, gamepad input and language</h2><p class="rc-lead" data-i18n="recycle.menuIntro">I connected the title, pause, settings and result screens to game state. The Widget Blueprints keep the layout editable; C++ handles transitions, focus, settings and input mode.</p>
+            <div class="rc-grid rc-menu-gallery">
+                <figure class="rc-photo "><a class="rc-image-link" href="Assets/images/recycle/menu-title.webp" target="_blank" rel="noopener" aria-label="View screenshot at full size" data-i18n-attr-aria-label="recycle.openImage"><img src="Assets/images/recycle/menu-title.webp" width="2560" height="1400" loading="lazy" alt="Recycle title screen with gamepad confirm and back prompts" data-i18n-attr-alt="recycle.titleAlt"></a><figcaption data-i18n="recycle.titleCaption">Title screen with gamepad navigation, confirm and back prompts.</figcaption></figure>
+                <figure class="rc-photo "><a class="rc-image-link" href="Assets/images/recycle/menu-pause.webp" target="_blank" rel="noopener" aria-label="View screenshot at full size" data-i18n-attr-aria-label="recycle.openImage"><img src="Assets/images/recycle/menu-pause.webp" width="2560" height="1400" loading="lazy" alt="Recycle pause menu over the gameplay screen" data-i18n-attr-alt="recycle.pauseAlt"></a><figcaption data-i18n="recycle.pauseCaption">Pause menu over the current game. Resume and return-to-title are handled by the menu controller.</figcaption></figure>
+                <figure class="rc-photo "><a class="rc-image-link" href="Assets/images/recycle/settings-en.webp" target="_blank" rel="noopener" aria-label="View screenshot at full size" data-i18n-attr-aria-label="recycle.openImage"><img src="Assets/images/recycle/settings-en.webp" width="2560" height="1400" loading="lazy" alt="English options screen with display, language, vibration and audio settings" data-i18n-attr-alt="recycle.settingsEnAlt"></a><figcaption data-i18n="recycle.settingsEnCaption">English options with display, language, controller vibration and audio settings.</figcaption></figure>
+                <figure class="rc-photo "><a class="rc-image-link" href="Assets/images/recycle/settings-ko.webp" target="_blank" rel="noopener" aria-label="View screenshot at full size" data-i18n-attr-aria-label="recycle.openImage"><img src="Assets/images/recycle/settings-ko.webp" width="2560" height="1400" loading="lazy" alt="Korean settings screen during development" data-i18n-attr-alt="recycle.settingsKoAlt"></a><figcaption data-i18n="recycle.settingsKoCaption">Korean settings screen from an earlier development capture.</figcaption></figure>
+            </div>
+            <div class="rc-grid rc-text-columns"><article><h3 data-i18n="recycle.focusTitle">Returning control to the right place</h3><p data-i18n="recycle.focusBody">Opening a menu switches to UI-only input and focuses its initial button. Hovering a button also updates focus. Closing settings returns focus to the menu; resuming restores the appropriate gameplay input mode. This keeps navigation and firing from sharing the same input accidentally.</p></article><article><h3 data-i18n="recycle.languageTitle">Updating prompts when the device or language changes</h3><p data-i18n="recycle.languageBody">A local-player subsystem observes keyboard, mouse and gamepad input. When the active device changes, the HUD and menus refresh their prompts using the current bindings. English and Korean text use a String Table, and language changes notify existing widgets so dynamic prompts update too. The selected language is saved for the next launch.</p></article></div>
+            <div class="rc-split">
+                <figure class="rc-photo "><a class="rc-image-link" href="Assets/images/recycle/cinematic-skip.webp" target="_blank" rel="noopener" aria-label="View screenshot at full size" data-i18n-attr-aria-label="recycle.openImage"><img src="Assets/images/recycle/cinematic-skip.webp" width="2560" height="1400" loading="lazy" alt="Fortress cinematic with a hold-to-skip prompt at the lower right" data-i18n-attr-alt="recycle.cinematicAlt"></a><figcaption data-i18n="recycle.cinematicCaption">Cinematic playback with a hold-to-skip prompt.</figcaption></figure>
+                <div><h3 data-i18n="recycle.cinematicTitle">Input during cinematics</h3><p data-i18n="recycle.cinematicBody">I connected cinematic input capture and a hold-to-skip prompt to the menu flow. Gameplay keys held before the transition are cleared, and control is restored after the sequence. Gamepad landing selection also uses the stick to move the target instead of relying on a mouse ray.</p></div>
+            </div>
+        </section>
+        <section class="rc-section container" id="combat">
+            <h2 data-i18n="recycle.combatTitle">Weapon hit reactions and explosion knockback</h2><p class="rc-lead" data-i18n="recycle.combatIntro">Hit reactions had to fit the existing damage, death and recovery flow. I added a temporary physical response to the hit body region and short weapon-specific staggers, while leaving the living character’s capsule in control of movement.</p>
+            <div class="rc-grid rc-combat-gallery">
+                <figure class="rc-photo "><a class="rc-image-link" href="Assets/images/recycle/hit-reaction.webp" target="_blank" rel="noopener" aria-label="View screenshot at full size" data-i18n-attr-aria-label="recycle.openImage"><img src="Assets/images/recycle/hit-reaction.webp" width="1384" height="723" loading="lazy" alt="Infantry reacting to a local hit in a dedicated development test scene" data-i18n-attr-alt="recycle.hitAlt"></a><figcaption data-i18n="recycle.hitCaption">Local hit-reaction check. The temporary test scene isolates the infantry response.</figcaption></figure>
+                <figure class="rc-photo "><a class="rc-image-link" href="Assets/images/recycle/explosion.webp" target="_blank" rel="noopener" aria-label="View screenshot at full size" data-i18n-attr-aria-label="recycle.openImage"><img src="Assets/images/recycle/explosion.webp" width="1384" height="723" loading="lazy" alt="Infantry launched into the air by an explosion in a development test scene" data-i18n-attr-alt="recycle.explosionAlt"></a><figcaption data-i18n="recycle.explosionCaption">Explosion knockback check. Nearby and distant infantry were compared in the same test.</figcaption></figure>
+            </div>
+            <div class="rc-grid rc-text-columns"><article><h3 data-i18n="recycle.reactionTitle">A hit body that recovers to animation</h3><p data-i18n="recycle.reactionBody">The hit resolves to a valid physics body. If a capsule hit does not identify a usable body, a safe fallback is selected. Only that branch is simulated, the physics weight fades out, and the previous collision and animation-tick settings are restored. Death and corpse collection end the temporary reaction before continuing their own flow.</p></article><article><h3 data-i18n="recycle.cancelTitle">Canceling the attack already in flight</h3><p data-i18n="recycle.cancelBody">Stopping an animation alone would leave a scheduled melee impact able to fire. On stagger, I clear the impact timer and pending attack flags, stop the montage and interrupt movement. The escort controller also respects stagger while following and attacking.</p></article></div>
+            <div class="rc-split"><div><h3 data-i18n="recycle.blastTitle">Tuning the launch distance</h3><p data-i18n="recycle.blastBody">Explosion launch velocity falls off with distance from the impact. Living infantry use a character launch, while a dead body receives the velocity through its physics body. After feedback that enemies flew too far, I reduced horizontal and upward speeds and checked the near/far relationship again. Damage is passed separately from the knockback calculation.</p></div><details class="rc-code"><summary data-i18n="recycle.blastCodeTitle">Distance-based launch calculation</summary><p class="rc-code-label">RecycleWeaponComponent.cpp</p><pre><code>    const float InnerRadius = FMath::Clamp(ExplosionInnerRadius, 0.f, Radius - 1.f);
+    const float Falloff = 1.f - FMath::Clamp((Distance - InnerRadius) / (Radius - InnerRadius), 0.f, 1.f);
+    FVector Direction = Offset.GetSafeNormal2D();
+    if (Direction.IsNearlyZero()) Direction = FVector::ForwardVector;
+    return Direction * FMath::Max(0.f, ExplosionLaunchSpeed) * Falloff
+        + FVector::UpVector * FMath::Max(0.f, ExplosionUpSpeed) * Falloff;</code></pre><p class="rc-note" data-i18n="recycle.codeNote">Excerpt from the project source.</p></details></div>
+        </section>
+        <section class="rc-section container" id="team">
+            <h2 data-i18n="recycle.teamTitle">Integration and release</h2>
+            <div class="rc-grid rc-text-columns"><div><p data-i18n="recycle.teamBody">I used Diversion to work on my branch and resolve source conflicts during integration. The combat changes connect to the team’s enemy and recovery code; the UI reads the existing player, weapon and fortress state. I kept those integration changes separate from teammates’ fortress locomotion and core AI work.</p><p data-i18n="recycle.releaseBody">The team published a Windows build and gameplay video on itch.io for the 2026 Epic AI MegaJam. My contribution covers the combat feedback and interface work shown here.</p></div><div><h3 data-i18n="recycle.checksTitle">Development checks</h3><p data-i18n="recycle.checksBody">During development, PIE checks covered the normal grenade-fire path, relative near/far launch, cancellation of queued attacks, death and corpse recovery. Interface checks in PIE and Standalone covered language persistence, dynamic text and input-device switching. These checks concern the single-player build and infantry behavior described here.</p></div></div>
+            <details class="rc-files"><summary data-i18n="recycle.sourceTitle">Implementation files</summary>
+                <dl>
+                    <div><dt data-i18n="recycle.sourceHud">HUD state and presentation</dt><dd>RecyclePlayerHUDWidget / RecycleMinimapWidget</dd></div>
+                    <div><dt data-i18n="recycle.sourceInput">Menu focus and device/language changes</dt><dd>RecycleMenuController / RecycleMenuWidget / RecycleInterfaceSubsystem</dd></div>
+                    <div><dt data-i18n="recycle.sourceCombat">Weapon hit handling and temporary physical reaction</dt><dd>RecycleWeaponComponent / RecycleDefenseUnit</dd></div>
+                </dl>
+            </details>
+            <p class="rc-note rc-disclosure" data-i18n="recycle.ai">The jam entry discloses AI assistance in code, graphics and text. The descriptions above distinguish my assigned work from the team’s other systems.</p>
+            <a class="rc-back" href="index.html#work-recycle" data-i18n="recycle.back">Back to selected projects</a>
+        </section>
     </main>
-    <script src="locale.js?v=20261124-recycle1"></script>
+    <script src="locale.js?v=20261124-recycle2"></script>
     <script src="detail-shell.js"></script>
 </body>
 </html>
