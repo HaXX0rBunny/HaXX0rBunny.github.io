@@ -4,12 +4,12 @@ window.PORTFOLIO_PROJECT_KO = {
         "team_label": "최종 3인 팀",
         "scope_label": "게임플레이",
         "my_role": "팀장, 스테이지, 캐릭터, 시간 제어",
-        "description": "팀장으로 일정과 작업 우선순위를 조율하면서 스테이지와 플레이어 캐릭터 전체를 맡았습니다. 이동과 전투는 Blueprint로 구현하고 이동 애니메이션에는 Motion Matching을 적용했습니다. Time Dilation에 비 파티클의 크기를 연결해 시간 변화가 주변 연출에도 드러나도록 했습니다.",
+        "description": "2024년 12월부터 2025년 2월까지 팀장으로 스테이지와 플레이어 캐릭터를 맡았습니다. 입력 연결과 이동, 회피 방향 선택, 시점 조작은 C++ 컴포넌트로 구현했습니다. 애니메이션에는 Motion Matching을 적용하고, Blueprint 시간 제어를 Niagara 비 파라미터와 연결했습니다.",
         "collaboration_details": {
             "team_size": "4명으로 시작, 최종 3명",
             "my_role": "팀장, 스테이지, 캐릭터, 시간 제어",
             "team_roles": [
-                "본인: 팀장, 스테이지, 플레이어 캐릭터 전체, Time Dilation과 비 파티클 조절",
+                "본인: 팀장, 스테이지, C++ 캐릭터 조작, 애니메이션 연결, Blueprint 시간 제어와 비 파티클 조절",
                 "팀원: VFX, SFX, UI",
                 "팀원: Enemy AI"
             ],
@@ -21,7 +21,7 @@ window.PORTFOLIO_PROJECT_KO = {
             "team_dynamics": "4명으로 시작했으나 한 명이 빠지면서 3명이 프로젝트를 이어갔습니다. 저는 담당 기능을 개발하면서 팀의 작업 우선순위와 진행 상황을 조율했습니다. 프로젝트 파일명 변경으로 패키징이 중단됐을 때는 로그와 참조 경로를 추적해 복구하고, 설정 파일을 Git으로 관리하는 규칙을 제안했습니다."
         },
         "technical_challenges": [
-            "스테이지와 플레이어의 이동, 전투를 Blueprint로 구현하고, 이동 애니메이션에 Motion Matching을 적용했습니다.",
+            "캐릭터 입력과 이동, 회피 방향 선택, 시점 조작을 C++ 컴포넌트로 구현하고 Blueprint에서 애니메이션과 콘텐츠를 연결했습니다.",
             "TimeManipulater_BP의 SetGlobalTimeDilation으로 시간 배율을 바꿨습니다. Tick에 의존하던 시간 진행 로직은 분리했습니다.",
             "시간 배율을 바꿀 때 Rain_BP의 Rain_Delation도 갱신했습니다. VInterpTo로 값이 서서히 바뀌도록 하고, 이를 Niagara의 Max Scale Factor에 전달해 비 파티클의 크기를 조절했습니다.",
             "패키징 로그와 프로젝트 참조 경로를 추적해 팀 공용 빌드를 복구했습니다."
@@ -37,8 +37,12 @@ window.PORTFOLIO_PROJECT_KO = {
         },
         "development_timeline": null,
         "subtitle": "3D 액션 게임, 캐릭터 이동과 시간 제어",
-        "source_note": "공개 저장소에는 일부 에셋만 포함됩니다. 시간 제어와 비 파티클 소스는 미공개이며, 동작은 영상과 배포 빌드에서 볼 수 있습니다.",
+        "source_note": "공개 저장소에서 캐릭터 조작 C++ 컴포넌트와 일부 에셋을 볼 수 있습니다. 시간 제어와 비 파티클 Blueprint의 동작은 영상과 배포 빌드에 담았습니다.",
         "highlights": [
+            {
+                "label": "C++ 캐릭터 조작",
+                "href": "https://github.com/Team-Illegal-Design-Club/EdgeDrive/blob/Sanghyeon/Source/EdgeDrive/EDMovementComponent.cpp"
+            },
             {
                 "label": "시간 제어와 비 연출 구현",
             "href": "https://github.com/HaXX0rBunny/HaXX0rBunny.github.io/blob/main/docs/edgedrive-blueprint.md"
@@ -175,7 +179,7 @@ window.PORTFOLIO_PROJECT_KO = {
         "team_label": "팀 프로젝트, 3~4명",
         "scope_label": "렌더링, 독립 실행 빌드",
         "my_role": "렌더링과 엔진 개발",
-        "description": "C++과 DirectX 11 자체 엔진에서 5만 개 오브젝트의 임포스터 렌더링과 Engine Dive의 독립 실행 경로를 구현했습니다. Build, Cook, Stage를 런타임 Scene 로딩에 연결하고, Tick 큐와 충돌 목록에 해제된 객체의 참조가 남는 문제를 수정했습니다.",
+        "description": "주차별 C++과 DirectX 11 팀 프로젝트에서 렌더링과 도구, 실행 기능을 개발했습니다. 동일 메시 5만 개 장면에 Octahedral Impostor를 적용했고, 후반에는 Windows 독립 실행 빌드와 Tick 큐의 해제된 객체 참조 문제를 다뤘습니다.",
         "coverAlt": "Game Tech Lab 과정에서 개발한 커스텀 C++ 엔진 파티클 에디터",
         "coverLabel": "C++ 자체 엔진",
         "collaboration_details": {
@@ -380,5 +384,14 @@ window.PORTFOLIO_PROJECT_KO = {
                 }
             ]
         }
+    },
+    "6": {
+        "subtitle": "1인칭 액션 디펜스, 2026 Epic AI MegaJam",
+        "team_label": "3인 팀, 2026년 11월",
+        "scope_label": "itch.io Windows 빌드 공개",
+        "my_role": "전투 피드백, HUD와 메뉴, 입력",
+        "description": "걸어가는 요새를 호위하며 쓰러진 적을 아군으로 재활용하는 1인칭 디펜스 게임입니다. 무기별 피격 반응과 폭발 넉백, HUD와 메뉴, 게임패드와 한영 전환을 맡았습니다. 팀이 완성한 Windows 빌드를 2026 Epic AI MegaJam에 출품했습니다.",
+        "coverAlt": "사막의 보행 요새와 Recycle 게임플레이",
+        "downloadLabel": "itch.io Windows 빌드"
     }
 };

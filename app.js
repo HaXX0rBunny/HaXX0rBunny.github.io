@@ -16,9 +16,10 @@ const projectsData = {
         "my_role": "Team Lead, Stages, Character & Time Control",
         "technologies": [
             "Unreal Engine 5.4",
+            "C++",
             "Blueprint"
         ],
-        "description": "As team lead, I coordinated the schedule and task priorities while building the stages, player movement, and combat in Blueprint. I used Motion Matching for movement animations and connected Time Dilation to rain-particle scale so the time change also appeared in the surrounding effects.",
+        "description": "From December 2024 to February 2025, I led the team and worked on the stages and player character. I implemented input binding, movement, dodge selection and camera look in C++ components. I used Motion Matching for animation and connected Blueprint time controls to Niagara rain parameters.",
         "videoUrl": "https://www.youtube.com/embed/264Wfi25UOU",
         "links": {
             "github": "https://github.com/Team-Illegal-Design-Club/EdgeDrive",
@@ -28,7 +29,7 @@ const projectsData = {
             "team_size": "Started with 4; completed with 3",
             "my_role": "Team Lead, Stages, Character & Time Control",
             "team_roles": [
-                "Me: team lead, stages, player character, Time Dilation, and rain-particle adjustments",
+                "Me: team lead, stages, C++ character controls, animation integration, and Blueprint time and rain controls",
                 "Teammate: VFX, SFX, and UI",
                 "Teammate: enemy AI"
             ],
@@ -40,7 +41,7 @@ const projectsData = {
             "team_dynamics": "The project began with four members and continued with three after one member left. I coordinated task priorities and progress alongside my implementation work. After resolving a packaging failure caused by a renamed project file, I proposed shared Git rules for project configuration changes."
         },
         "technical_challenges": [
-            "Built the stages, player movement, and combat in Blueprint, with Motion Matching for movement animations.",
+            "Implemented character input, movement, dodge selection and camera look in C++ components, with animation and content connected through Blueprint.",
             "Implemented time controls in TimeManipulater_BP using SetGlobalTimeDilation and separated time progression from Tick-dependent updates.",
             "Connected time controls to Rain_Delation in Rain_BP, interpolating the Niagara Max Scale Factor parameter with VInterpTo.",
             "Traced packaging logs and project references to restore the shared build."
@@ -58,8 +59,12 @@ const projectsData = {
         "downloadLink": "https://drive.google.com/file/d/1XqZQiWAvwnG1kajS_e9Vc4t5MeMhALR_/view?usp=sharing",
         "team_label": "3-person team at completion",
         "scope_label": "Gameplay",
-        "source_note": "The public repository contains selected assets. The time-control and rain Blueprints are not public; their behavior is shown in the video and downloadable build.",
+        "source_note": "The public repository includes the C++ character components and selected assets. Time-control and rain Blueprint behavior is shown in the video and downloadable build.",
         "highlights": [
+            {
+                "label": "C++ character controls",
+                "href": "https://github.com/Team-Illegal-Design-Club/EdgeDrive/blob/Sanghyeon/Source/EdgeDrive/EDMovementComponent.cpp"
+            },
             {
                 "label": "Time control and rain effects",
             "href": "https://github.com/HaXX0rBunny/HaXX0rBunny.github.io/blob/main/docs/edgedrive-blueprint.md"
@@ -193,7 +198,7 @@ const projectsData = {
             "ImGui",
             "FBX SDK"
         ],
-        "description": "In custom C++ and DirectX 11 engines, I implemented octahedral impostors for a 50,000-object scene and the standalone build path for Engine Dive. I connected Build, Cook, and Stage to runtime scene loading, then fixed stale object references in the Tick queue and collision lists.",
+        "description": "In weekly C++ and DirectX 11 team projects, I worked on rendering, tools and runtime features. I implemented octahedral impostors for a scene with 50,000 instances of one mesh, and later worked on standalone Windows builds and stale object references in the Tick queue.",
         "coverImage": "Assets/images/GameTechLab3rd-Engine-Editor.png",
         "coverAlt": "Custom C++ engine particle editor developed during Game Tech Lab",
         "coverLabel": "Custom C++ Engine",
@@ -346,7 +351,7 @@ const projectsData = {
             "team_size": "DynaMax, 3-person team",
             "my_role": "Team Lead, Motion Phase, Runtime Systems & GPU Deformation Programmer",
             "team_roles": [
-                "Product direction, system design, motion phase analysis, runtime response, GPU deformation pipeline, and editor authoring tools (Team Lead, Me)",
+                "Team coordination, motion analysis, runtime response, GPU deformation and Slate tools (Me)",
                 "Teammates: Proxy and Vertex Factory foundation, related runtime and editor modules, and demo content"
             ],
             "collaboration_tools": [
@@ -418,6 +423,32 @@ const projectsData = {
                     "focus": "Deformed socket followers and demo asset integration"
                 }
             ]
+        }
+    },
+    "6": {
+        "title": "Recycle",
+        "subtitle": "First-person Action Defense, 2026 Epic AI MegaJam",
+        "project_type": "team",
+        "is_team_project": true,
+        "team_size": 3,
+        "team_label": "3-person team, November 2026",
+        "scope_label": "Windows build on itch.io",
+        "my_role": "Combat feedback, HUD, menus and input",
+        "technologies": [
+            "Unreal Engine 5.8",
+            "C++",
+            "UMG",
+            "Diversion"
+        ],
+        "description": "A first-person defense game about escorting a walking fortress and recycling fallen enemies into allies. I worked on weapon hit reactions, explosion knockback, the HUD and menus, and gamepad and English/Korean support. The team submitted a Windows build to the 2026 Epic AI MegaJam.",
+        "coverImage": "Assets/images/recycle/recycle-cover.webp",
+        "coverAlt": "Recycle gameplay with the walking fortress in a desert",
+        "detailPage": "recycle.html",
+        "downloadLink": "https://dkael.itch.io/recycle",
+        "downloadLabel": "Windows build on itch.io",
+        "links": {
+            "itch.io": "https://dkael.itch.io/recycle",
+            "youtube": "https://youtu.be/MpizpxEJgNk"
         }
     }
 };
@@ -725,8 +756,8 @@ function initializeProjects() {
     const additionalGrid = document.getElementById('additionalProjectsGrid');
     projectsGrid.replaceChildren();
     additionalGrid?.replaceChildren();
-    ['5', '4', '1'].forEach(id => projectsGrid.appendChild(createProjectCard(id, projectsData[id])));
-    ['2', '3'].forEach(id => (additionalGrid || projectsGrid).appendChild(createProjectCard(id, projectsData[id])));
+    ['5', '4', '6'].forEach(id => projectsGrid.appendChild(createProjectCard(id, projectsData[id])));
+    ['1', '2', '3'].forEach(id => (additionalGrid || projectsGrid).appendChild(createProjectCard(id, projectsData[id])));
 }
 
 function createProjectCard(id, project) {
@@ -734,7 +765,7 @@ function createProjectCard(id, project) {
     const card = document.createElement('article');
     card.className = 'project-card';
     card.dataset.project = id;
-    const sectionAnchor = { '5': 'work-overanimation', '4': 'work-gametechlab', '1': 'work-edgedrive' }[id];
+    const sectionAnchor = { '5': 'work-overanimation', '4': 'work-gametechlab', '1': 'work-edgedrive', '6': 'work-recycle' }[id];
     if (sectionAnchor) {
         card.id = sectionAnchor;
         card.classList.add('presentation-sheet');

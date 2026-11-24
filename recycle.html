@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en" data-color-scheme="light">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Recycle, weapon hit reactions, game UI and gamepad support in a three-person Unreal Engine game-jam project.">
+    <title>Recycle, Combat Feedback and Game UI</title>
+    <link rel="stylesheet" href="style.css?v=20261020-hero22">
+    <link rel="stylesheet" href="brand.css?v=20261108-diamond1">
+    <script defer src="analytics.js"></script>
+</head>
+<body class="lab-page huntress-page">
+    <header class="lab-nav"><div class="container lab-nav-content">
+        <a class="lab-brand" href="index.html">HaXX0rBunny</a>
+        <div class="lab-nav-actions">
+            <a class="lab-back-link" href="index.html#work-recycle" data-i18n="global.backToPortfolio">Back to portfolio</a>
+            <button class="theme-toggle" id="themeToggle" type="button">Dark</button>
+            <button class="theme-toggle lang-toggle" id="languageToggle" type="button">한국어</button>
+        </div>
+    </div></header>
+    <main>
+        <section class="huntress-hero"><div class="container huntress-hero-grid">
+            <div class="huntress-hero-copy">
+                <p class="section-kicker">2026 Epic AI MegaJam</p>
+                <h1>Recycle</h1>
+                <p class="huntress-hero-role" data-i18n="recycle.role">Combat feedback, HUD, menus and input</p>
+                <p class="huntress-hero-lede" data-i18n="recycle.intro">A first-person defense game about escorting a walking fortress and recycling fallen enemies into allies. Our three-person team submitted a Windows build to the 2026 Epic AI MegaJam.</p>
+                <div class="huntress-hero-actions">
+                    <a class="huntress-action huntress-action--primary" href="https://dkael.itch.io/recycle" target="_blank" rel="noopener noreferrer" data-i18n="recycle.build">Windows build on itch.io</a>
+                    <a class="huntress-action" href="https://itch.io/jam/2026-epic-ai-megajam/rate/5377919" target="_blank" rel="noopener noreferrer" data-i18n="recycle.entry">Jam entry</a>
+                </div>
+                <dl class="huntress-hero-facts">
+                    <div><dt data-i18n="global.teamSize">Team size</dt><dd data-i18n="recycle.team">3 people</dd></div>
+                    <div><dt data-i18n="recycle.periodLabel">Period</dt><dd data-i18n="recycle.period">November 2026</dd></div>
+                    <div><dt data-i18n="global.techStack">Tech Stack</dt><dd>C++, Unreal Engine 5.8, UMG</dd></div>
+                    <div><dt data-i18n="global.collaborationTools">Collaboration Tools</dt><dd>Diversion</dd></div>
+                </dl>
+            </div>
+            <div class="huntress-hero-media"><div class="huntress-video-frame">
+                <button class="video-poster" type="button" data-video-id="MpizpxEJgNk" aria-label="Play Recycle gameplay video" data-i18n-attr-aria-label="recycle.videoLabel">
+                    <img src="Assets/images/recycle/recycle-cover.webp" alt="" width="1440" height="810" fetchpriority="high">
+                    <span class="video-poster-play" aria-hidden="true">▶</span>
+                </button>
+            </div><p class="section-lead" data-i18n="recycle.videoCaption">Team gameplay video from the itch.io release.</p></div>
+        </div></section>
+        <section class="huntress-section"><div class="container presentation-sheet">
+            <h2 data-i18n="recycle.workTitle">My contribution</h2>
+            <div class="huntress-overview-grid">
+                <article class="huntress-summary-card"><h3 data-i18n="recycle.combatTitle">Weapon hit reactions</h3><p data-i18n="recycle.combat">I added local physical-animation reactions and short staggers for infantry, with different settings per weapon. Grenade explosions push enemies away with distance-based falloff. The reaction also cancels a queued melee hit.</p></article>
+                <article class="huntress-summary-card"><h3 data-i18n="recycle.uiTitle">HUD and menus</h3><p data-i18n="recycle.ui">I built the health and ammunition display, weapon slots, minimap, and title, pause and result menus. I connected volume and language settings to the interface and added English/Korean text resources.</p></article>
+                <article class="huntress-summary-card huntress-summary-card--wide"><h3 data-i18n="recycle.inputTitle">Gamepad input and integration</h3><p data-i18n="recycle.input">I added FPS gamepad mappings and device-specific prompts, and prevented gameplay input from leaking through cinematics. I also resolved source conflicts while integrating my branch with changes from the team.</p></article>
+            </div>
+        </div></section>
+        <section class="huntress-section"><div class="container presentation-sheet">
+            <h2 data-i18n="recycle.checkTitle">Checking combat behavior</h2>
+            <p class="section-lead" data-i18n="recycle.check">In a PIE test, I fired a grenade through the normal weapon path and checked damage and knockback at different distances. I also checked that hit reactions cancel queued attacks and that death and corpse recovery can still follow the reaction.</p>
+            <div class="huntress-overview-grid">
+                <figure><img src="Assets/images/recycle/hit-reaction.webp" width="1384" height="723" loading="lazy" alt="Infantry hit-reaction test" data-i18n-attr-alt="recycle.hitAlt" style="width:100%;height:auto"><figcaption data-i18n="recycle.hitCaption">Local hit-reaction test during development.</figcaption></figure>
+                <figure><img src="Assets/images/recycle/explosion.webp" width="1384" height="723" loading="lazy" alt="Grenade knockback test" data-i18n-attr-alt="recycle.explosionAlt" style="width:100%;height:auto"><figcaption data-i18n="recycle.explosionCaption">Grenade knockback in an isolated test scene.</figcaption></figure>
+            </div>
+        </div></section>
+        <section class="huntress-section"><div class="container presentation-sheet">
+            <h2 data-i18n="recycle.scopeTitle">Team scope and development tools</h2>
+            <p class="section-lead" data-i18n="recycle.scope">The infantry reactions, interface and input described here were my areas of work. Teammates developed the fortress locomotion and core enemy and recovery systems. The game is a single-player jam build. The combat checks above cover infantry and specific test scenarios.</p>
+            <p class="section-lead" data-i18n="recycle.ai">We used AI assistance during development. The itch.io page declares its use in code, graphics and text. The implementation and checks on this page describe my assigned work within that project.</p>
+        </div></section>
+    </main>
+    <script src="locale.js?v=20261124-recycle1"></script>
+    <script src="detail-shell.js"></script>
+</body>
+</html>
